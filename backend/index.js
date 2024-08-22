@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const keys = require("./config/keys");
 const socket = require("./socket");
 const setupDB = require("./utils/db");
-
+const routes = require("./routes/router");
 const { port } = keys;
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(cors());
 
 setupDB();
 require("./config/passport")(app);
-// app.use(routes);
+app.use(routes);
 
 const server = app.listen(port, () => {
   console.log(

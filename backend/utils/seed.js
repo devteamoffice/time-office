@@ -2,7 +2,7 @@ require("dotenv").config();
 const chalk = require("chalk");
 const bcrypt = require("bcryptjs");
 const { Sequelize } = require("sequelize");
-const User = require("../models/user"); // Assuming you have a User model defined with Sequelize
+const User = require("../models/user");
 const { ROLES } = require("../constants");
 
 const args = process.argv.slice(2);
