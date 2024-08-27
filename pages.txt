@@ -1,0 +1,17 @@
+home
+about
+team - grid, details
+testimonials  
+pricing
+download
+faq
+404 error
+500 error
+coming soon
+services
+shop
+products with sidebar
+cart
+checkout
+news/blogs
+contact
