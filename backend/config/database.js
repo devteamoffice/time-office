@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 
 // Create a Sequelize instance
-const sequelize = new Sequelize("database_name", "username", "password", {
+const sequelize = new Sequelize("timeoffice", "root", "dv@09112002", {
   host: "localhost", // Replace with your MySQL host, e.g., '127.0.0.1'
   dialect: "mysql", // Choose the database dialect (MySQL in this case)
   port: 3306, // Default MySQL port is 3306

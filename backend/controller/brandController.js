@@ -195,7 +195,7 @@ exports.deleteBrand = async (req, res) => {
   }
 };
 
-const deactivateMerchant = async (brandId) => {
+exports.deactivateMerchant = async (brandId) => {
   const brandDoc = await Brand.findOne({ _id: brandId }).populate(
     "merchant",
     "_id"

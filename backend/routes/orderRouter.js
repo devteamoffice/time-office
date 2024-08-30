@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const auth = require("../../middleware/auth");
-const mailgun = require("../../services/mailgun");
-const store = require("../../utils/store");
+const auth = require("../middleware/auth");
+const mailgun = require("../services/mailgun");
+const store = require("../utils/store");
 const orderController = require("../controller/orderController");
 
 router.post("/add", auth, orderController.addOrder);

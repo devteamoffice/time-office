@@ -6,7 +6,7 @@ const Brand = require("../models/brand");
 const Category = require("../models/category");
 
 const checkAuth = require("../utils/auth");
-const { s3Upload } = require("../utils/storage");
+// const { s3Upload } = require("../utils/storage");
 const {
   getStoreProductsQuery,
   getStoreProductsWishListQuery,
@@ -203,7 +203,7 @@ exports.addProduct = async (req, res) => {
       return res.status(400).json({ error: "This sku is already in use." });
     }
 
-    const { imageUrl, imageKey } = await s3Upload(image);
+    // const { imageUrl, imageKey } = await s3Upload(image);
 
     const product = new Product({
       sku,

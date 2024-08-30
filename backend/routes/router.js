@@ -1,9 +1,15 @@
-const router = require("express");
+const router = require("express").Router();
 const apiRoutes = require("./indexRouter");
 const keys = require("../config/keys");
-const api = `/${apiRoutes}`;
+
 const { apiURL } = keys.app;
-router.use(api, apiURL);
-router.use(api, (req, res) => res.status(404).json("No API route found."));
+
+// Use the apiRoutes middleware under the API URL path
+router.use(apiURL, apiRoutes);
+
+// 404 Handler for API routes
+router.use(apiURL, (req, res) =>
+  res.status(404).json({ error: "No API route found." })
+);
 
 module.exports = router;

@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database"); // Assuming you have a database configuration file
-const Brand = require("./brand"); // Assuming the Brand model is defined in the same directory
 const { MERCHANT_STATUS } = require("../constants");
 
 // Merchant Model
@@ -76,11 +75,5 @@ const Merchant = sequelize.define(
     timestamps: false, // Disable automatic timestamp fields (createdAt, updatedAt)
   }
 );
-
-// Define the association between Merchant and Brand
-Merchant.belongsTo(Brand, {
-  foreignKey: "brandId",
-  as: "brand",
-});
 
 module.exports = Merchant;

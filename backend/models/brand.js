@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database"); // Assuming you have a database configuration file
 const slugify = require("slugify");
-const Merchant = require("./merchant"); // Assuming the Merchant model is defined in the same directory
+const Merchant = require("./merchant"); // Import Merchant after its definition
 
 // Brand Model
 const Brand = sequelize.define(
@@ -31,11 +31,11 @@ const Brand = sequelize.define(
       },
     },
     image: {
-      type: DataTypes.BLOB("long"), // Use BLOB for storing binary image data
+      type: DataTypes.BLOB("long"),
       allowNull: true,
     },
     imageContentType: {
-      type: DataTypes.STRING, // Store content type (e.g., 'image/jpeg', 'image/png')
+      type: DataTypes.STRING,
       allowNull: true,
     },
     description: {
@@ -48,7 +48,7 @@ const Brand = sequelize.define(
       defaultValue: true,
     },
     merchantId: {
-      type: DataTypes.INTEGER, // Assuming Merchant ID is an integer
+      type: DataTypes.INTEGER,
       references: {
         model: "Merchants", // Name of the Merchant table
         key: "id",

@@ -3,7 +3,7 @@ const router = express.Router();
 
 const auth = require("../middleware/auth");
 const role = require("../middleware/role");
-
+const multer = require("multer");
 const { ROLES } = require("../constants");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });

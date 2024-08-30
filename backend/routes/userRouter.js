@@ -9,3 +9,5 @@ router.get("/search", auth, role.check(ROLES.Admin), userController.searchUser);
 router.get("/", auth, userController.fetchUsers);
 router.get("/me", auth, userController.getProfile);
 router.put("/", auth, userController.updateProfile);
+
+module.exports = router;
