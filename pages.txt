@@ -3,7 +3,6 @@ about
 team - grid, details
 testimonials  
 pricing
-download
 faq
 404 error
 500 error
@@ -15,6 +14,3 @@ cart
 checkout
 news/blogs
 contact
-carrers
-carrers details
-resume upload/application upload
