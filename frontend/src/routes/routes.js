@@ -1,11 +1,12 @@
-import ComingPage from "../component/Extras/ComingPage";
-import Error404New from "../component/Extras/Error404New";
-import Error505 from "../component/Extras/Error505";
-
+import ContactPage from "../pages/Contact";
+import ComingSoon from "../pages/ComingSoon";
+import Error404Page from "../pages/Error404Page";
+import Error505Page from "../pages/Error505Page";
 export const publicRoutes = [
-  { path: "/500", element: Error505 },
-  { path: "/400", element: Error404New },
-  { path: "comingsoon", element: ComingPage },
+  { path: "/500", element: Error505Page },
+  { path: "/404", element: Error404Page },
+  { path: "comingsoon", element: ComingSoon },
+  { path: "contact", element: ContactPage },
 ];
 
 // export const adminRoutes = [

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { publicRoutes, adminRoutes } from "./routes";
-import ScrollToTop from "../utils/scrollToTop";
-import { AuthContext } from "../context/AuthContext";
+
+// import { AuthContext } from "../context/AuthContext";
 
 const Router = () => {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
 
-  console.log("User in Router:", user);
+  // console.log("User in Router:", user);
 
   const renderRoutes = (routes) => {
     return routes.map(({ path, element: Element }, index) => (
@@ -16,11 +16,11 @@ const Router = () => {
   };
 
   return (
-    <>
-      <ScrollToTop />
+    <BrowserRouter>
+      {/* <ScrollToTop /> */}
       <Routes>
         {renderRoutes(publicRoutes)}
-        {renderRoutes(adminRoutes)}
+
         {/* {user && user.role === "admin" && renderRoutes(adminRoutes)}
 
         {user && user.role !== "admin" && (
@@ -29,7 +29,7 @@ const Router = () => {
 
         {!user && <Route path="/admin/*" element={<Navigate to="/login" />} />} */}
       </Routes>
-    </>
+    </BrowserRouter>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/error404.css";
+import "../../styles/error404.css";
 const Error404New = () => {
   return (
     <div className="main404page">
