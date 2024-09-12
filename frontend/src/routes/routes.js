@@ -2,11 +2,14 @@ import ContactPage from "../pages/Contact";
 import ComingSoon from "../pages/ComingSoon";
 import Error404Page from "../pages/Error404Page";
 import Error505Page from "../pages/Error505Page";
+import AboutUs from "../component/AboutUs/AboutUs";
+import About from "../component/AboutUs/About";
 export const publicRoutes = [
   { path: "/500", element: Error505Page },
   { path: "/404", element: Error404Page },
   { path: "comingsoon", element: ComingSoon },
   { path: "contact", element: ContactPage },
+  { path: "aboutus", element: About },
 ];
 
 // export const adminRoutes = [

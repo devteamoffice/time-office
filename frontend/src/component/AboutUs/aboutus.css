@@ -1,0 +1,45 @@
+.about-wrapper {
+  /* about us */
+
+  position: relative;
+  width: 1440px;
+  height: 4023px;
+
+  background: #ffffff;
+}
+.about-wrapper .about-hero {
+  /* Group 161 */
+  /* Group 161 */
+
+  position: absolute;
+  width: 1440px;
+  height: 380px;
+  left: 0px;
+  top: 166px;
+}
+
+.about-hero h2 {
+  /* ABOUT US */
+
+  position: absolute;
+  width: 256px;
+  height: 56px;
+  left: calc(50% - 256px / 2);
+  top: 328px;
+
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+
+  color: #ffffff;
+}
+
+.about-company about-img {
+  background: url("../../assets/images/business_young_caucasian_woman_modern_office_with_team.jpeg")
+    50% / cover no-repeat;
+  margin-top: 9px;
+  width: 724px;
+  height: 476px;
+}

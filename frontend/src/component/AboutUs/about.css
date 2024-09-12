@@ -1,0 +1,525 @@
+.about-us .container {
+  margin-bottom: 190px;
+  display: flex;
+  flex-direction: row;
+  width: 1028px;
+  box-sizing: border-box;
+}
+.about-us {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 82px 0 192px 0;
+  width: 1440px;
+  box-sizing: border-box;
+}
+
+.about-us .products {
+  margin: 13px 0;
+  display: flex;
+  box-sizing: border-box;
+}
+.about-us .about-us-1 {
+  margin: 13px 0;
+  display: flex;
+  box-sizing: border-box;
+}
+.about-us .contact-us {
+  margin: 13px 0;
+  display: flex;
+  box-sizing: border-box;
+}
+.about-us .component-9 {
+  border-radius: 4px;
+  background: #4d0186;
+  position: relative;
+  margin-right: 15px;
+  display: flex;
+  padding: 13px 0.4px 13px 0;
+  width: 92px;
+  box-sizing: border-box;
+}
+.about-us .component-22 {
+  border-radius: 4px;
+  background: #f61e1e;
+  position: relative;
+  display: flex;
+  padding: 13px 0 13px 2px;
+  width: 148px;
+  box-sizing: border-box;
+}
+.about-us .about-company {
+  margin-bottom: 53px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 48px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.about-us .business-young-caucasian-woman-modern-office-with-team {
+  background: url("../../assets/images/business_young_caucasian_woman_modern_office_with_team.jpeg")
+    50% / cover no-repeat;
+  margin-top: 9px;
+  width: 724px;
+  height: 476px;
+}
+.about-us .about-hero {
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 48px;
+  color: #ffffff;
+}
+.about-us .about-company-text {
+  margin-left: 6px;
+  text-align: justify;
+  overflow-wrap: break-word;
+  font-family: "Roboto Flex";
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.about-us .we-provide {
+  margin: 0 0 49px 15.6px;
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 48px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.we-provide {
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.333;
+  color: #4d0186;
+}
+.about-us .we-provide-text {
+  margin: 0 106.2px 81px 80px;
+  display: inline-block;
+  text-align: justify;
+  overflow-wrap: break-word;
+  font-family: "Roboto Flex";
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.about-us .why-choose-us {
+  margin: 0 0 76px 20.7px;
+  display: inline-block;
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 48px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.about-us .image {
+  margin-bottom: 124px;
+  display: flex;
+  width: 405px;
+  height: 405px;
+  box-sizing: border-box;
+}
+.about-us .drender-clock-with-books-minimal-style-illustration {
+  margin-bottom: 124px;
+  display: flex;
+  width: 405px;
+  height: 405px;
+  box-sizing: border-box;
+}
+.about-us
+  .closeup-joyful-attractive-asian-woman-brunette-having-fun-spend-time-playing-smartphone-game-laughin {
+  margin-bottom: 110px;
+  display: flex;
+  width: 405px;
+  height: 405px;
+  box-sizing: border-box;
+}
+.about-us .image-1 {
+  margin-bottom: 110px;
+  display: flex;
+  width: 405px;
+  height: 405px;
+  box-sizing: border-box;
+}
+.about-us .reliable {
+  margin-left: 8.2px;
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 36px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.about-us .time-saver {
+  margin-left: 13.3px;
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 36px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.about-us .user-friendly {
+  margin-left: 15.4px;
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 36px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.about-us .improved-security {
+  margin: 0 10.9px 0 32px;
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 36px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.about-us .group-149 {
+  margin-right: 218px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 405px;
+  box-sizing: border-box;
+}
+.about-us .group-150 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 405px;
+  box-sizing: border-box;
+}
+.about-us .group-151 {
+  margin-right: 219px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 405px;
+  box-sizing: border-box;
+}
+.about-us .group-152 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+.about-us .component-30 {
+  position: relative;
+  display: flex;
+  width: 315px;
+  height: 296px;
+  box-sizing: border-box;
+}
+.about-us .component-31 {
+  position: relative;
+  display: flex;
+  width: 315px;
+  height: 296px;
+  box-sizing: border-box;
+}
+.about-us .component-32 {
+  background: #4d0186;
+  position: relative;
+  display: flex;
+  width: 315px;
+  height: 296px;
+  box-sizing: border-box;
+}
+.about-us .component-33 {
+  position: relative;
+  display: flex;
+  width: 315px;
+  height: 296px;
+  box-sizing: border-box;
+}
+.about-us .component-34 {
+  position: relative;
+  display: flex;
+  width: 315px;
+  height: 296px;
+  box-sizing: border-box;
+}
+.about-us .component-35 {
+  position: relative;
+  display: flex;
+  width: 315px;
+  height: 296px;
+  box-sizing: border-box;
+}
+.about-us .frame-38 {
+  margin: 0 0 42px 1px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 53px;
+  width: 1051px;
+  box-sizing: border-box;
+}
+.about-us .frame-39 {
+  margin: 0 0 45px 1px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 53px;
+  width: 1051px;
+  box-sizing: border-box;
+}
+.about-us .about-banner {
+  background: url("../../assets/images/abstract_arrangement_networking_concept_still_life.jpeg")
+    50% / cover no-repeat;
+  position: relative;
+  margin-bottom: 108px;
+  display: flex;
+  padding: 162px 0 162px 9.5px;
+  width: 1440px;
+  box-sizing: border-box;
+}
+.about-us .component-29 {
+  border-radius: 4px;
+  background: #390264;
+  position: relative;
+  margin: 0 0 138px 897px;
+  display: flex;
+  padding: 15px 0 14px 1px;
+  width: 155px;
+  box-sizing: border-box;
+}
+.about-us .frame-40 {
+  display: flex;
+  flex-direction: row;
+  width: 255px;
+  box-sizing: border-box;
+}
+.about-us .frame-41 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 856px;
+  height: fit-content;
+  box-sizing: border-box;
+}
+.about-us .home {
+  margin: 13px 0;
+  display: flex;
+  box-sizing: border-box;
+}
+.about-us .about-company-section {
+  margin: 0 72px 141px 69px;
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.about-us .container-2 {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+  position: relative;
+  margin-bottom: 21px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 4px 80px 10px 81px;
+  width: 1440px;
+  box-sizing: border-box;
+}
+.about-us .container-3 {
+  margin: 0 75.9px 31px 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.about-us .container-4 {
+  margin-left: 1px;
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.about-us .products-1 {
+  overflow-wrap: break-word;
+  font-family: "Roboto Flex";
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.7);
+}
+.about-us .about-us-3 {
+  overflow-wrap: break-word;
+  font-family: "Roboto Flex";
+  font-weight: 500;
+  font-size: 20px;
+  color: #ec1111;
+}
+.about-us .contact-us-1 {
+  overflow-wrap: break-word;
+  font-family: "Roboto Flex";
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.7);
+}
+.about-us .login {
+  overflow-wrap: break-word;
+  font-family: "Roboto Flex";
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+}
+.about-us .call-now {
+  overflow-wrap: break-word;
+  font-family: "Roboto Flex";
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+}
+.about-us .image-2 {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 202.5px;
+  background: url("../../assets/images/image.png") 50% / cover no-repeat;
+  width: 405px;
+  height: 405px;
+}
+.about-us .drender-clock-with-books-minimal-style-illustration-1 {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 202.5px;
+  background: url("../../assets/images/drender_clock_with_books_minimal_style_illustration.jpeg")
+    50% / cover no-repeat;
+  width: 405px;
+  height: 405px;
+}
+.about-us
+  .closeup-joyful-attractive-asian-woman-brunette-having-fun-spend-time-playing-smartphone-game-laughin-1 {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 202.5px;
+  background: url("../../assets/images/closeup_joyful_attractive_asian_woman_brunette_having_fun_spend_time_playing_smartphone_game_laughin.jpeg");
+  width: 405px;
+  height: 405px;
+}
+.about-us .image-3 {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 202.5px;
+  background: url("../../assets/images/image_14.png") 50% / cover no-repeat;
+  width: 405px;
+  height: 405px;
+}
+.about-us .rectangle-78 {
+  box-shadow: 3px 4px 20px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  position: relative;
+  width: 315px;
+  height: 296px;
+}
+.about-us .s-1099800001-entrasysplusaufputz-woblique-011 {
+  background: url("../../assets/images/s_1099800001_entrasysplusaufputz_woblique_011.png");
+  position: absolute;
+  left: 64px;
+  top: 15px;
+  width: 174px;
+  height: 254px;
+}
+.about-us .removebg-preview-removebg-preview-1 {
+  background: url("../../assets/images/removebg_preview_1.png");
+  width: 200px;
+  height: 200px;
+}
+.about-us .group-153 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  display: flex;
+  width: 200px;
+  height: 200px;
+  box-sizing: border-box;
+}
+.about-us .rectangle-79 {
+  box-shadow: 3px 4px 20px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  position: relative;
+  width: 315px;
+  height: 296px;
+}
+.about-us .electro-magnetic-lock-1 {
+  background: url("../../assets/images/electro_magnetic_lock_1.png");
+  width: 281.7px;
+  height: 142.4px;
+}
+.about-us .group-155 {
+  position: absolute;
+  top: 50%;
+  right: 16.3px;
+  translate: 0 -50%;
+  display: flex;
+  width: 281.7px;
+  height: 142.4px;
+  box-sizing: border-box;
+}
+.about-us .rectangle-80 {
+  box-shadow: 3px 4px 20px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  position: relative;
+  width: 315px;
+  height: 296px;
+}
+.about-us .rectangle-75 {
+  box-shadow: 3px 4px 20px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  position: relative;
+  width: 315px;
+  height: 296px;
+}
+.about-us .proximity-rfid-iso-thin-card-1000-x-1000-removebg-preview-1 {
+  background: url("../../assets/images/proximity_rfid_iso_thin_card_1000_x_1000_removebg_preview_2.png");
+  position: absolute;
+  top: 50%;
+  right: 19px;
+  translate: 0 -50%;
+  width: 277px;
+  height: 178px;
+}
+.about-us .rectangle-76 {
+  box-shadow: 3px 4px 20px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  position: relative;
+  width: 315px;
+  height: 296px;
+}
+.about-us .access-control-accessories-1 {
+  background: url("../../assets/images/access_control_accessories_2.png") 50% /
+    cover no-repeat;
+  position: absolute;
+  left: 50%;
+  bottom: 39px;
+  translate: -50% 0;
+  width: 200px;
+  height: 200px;
+}
+.about-us .rectangle-77 {
+  box-shadow: 3px 4px 20px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  position: relative;
+  width: 315px;
+  height: 296px;
+}
+.about-us .team-office-z-100-nbiometric-device-500-x-500-removebg-preview-1 {
+  background: url("../../assets/images/team_office_z_100_nbiometric_device_500_x_500_removebg_preview_2.png");
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 268px;
+  height: 208px;
+}
+.about-us .view-more {
+  overflow-wrap: break-word;
+  font-family: "Roboto Serif";
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+}
+.about-us .home-1 {
+  overflow-wrap: break-word;
+  font-family: "Roboto Flex";
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.8);
+}
