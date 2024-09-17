@@ -1,0 +1,1024 @@
+                  <div className="col-md-6 col-xl-4">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-2.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Olive Green Leather Bag
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.1{" "}
+                              <span className="text-muted fs-13">
+                                (143 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $150
+                          </span>
+                          $136 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-angle-bold-duotone"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-4">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-3.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Women Golden Dress
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.4{" "}
+                              <span className="text-muted fs-13">
+                                (174 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $250
+                          </span>
+                          $219 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-broken"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-4">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-4.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Gray Cap For Men
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.2{" "}
+                              <span className="text-muted fs-13">
+                                (23 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $100
+                          </span>
+                          $76 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-broken"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-4">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-5.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Dark Green Cargo Pent
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.4{" "}
+                              <span className="text-muted fs-13">
+                                (109 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $130
+                          </span>
+                          $110 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-broken"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-3">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-6.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Orange Headphone
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.2{" "}
+                              <span className="text-muted fs-13">
+                                (200 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $250
+                          </span>
+                          $231 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-broken"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-3">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-7.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Kid's Yellow Shoes
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.5{" "}
+                              <span className="text-muted fs-13">
+                                (321 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $100
+                          </span>
+                          $89 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-angle-bold-duotone"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-3">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-8.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Men Dark Brown Wallet
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.1{" "}
+                              <span className="text-muted fs-13">
+                                (190 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $150
+                          </span>
+                          $132 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-broken"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-3">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-9.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Sky Blue Mat Sunglass
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              3.5{" "}
+                              <span className="text-muted fs-13">
+                                (298 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $100
+                          </span>
+                          $77 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-angle-bold-duotone"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-3">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-10.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Kid's Yellow T-shirt
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.1{" "}
+                              <span className="text-muted fs-13">
+                                (156 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $140
+                          </span>
+                          $110 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-broken"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-3">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-11.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          White Rubber Smart Watch
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              3.4{" "}
+                              <span className="text-muted fs-13">
+                                (201 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $110
+                          </span>
+                          $77 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-broken"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xl-3">
+                    <div className="card">
+                      <img
+                        src="assets/images/product/p-12.png"
+                        alt=""
+                        className="img-fluid "
+                      />
+                      <div className="card-body bg-light-subtle rounded-bottom">
+                        <a
+                          href="product-details.html"
+                          className="text-dark fw-medium fs-16"
+                        >
+                          Men Brown Leather Shoes
+                        </a>
+                        <div className="my-1">
+                          <div className="d-flex gap-2 align-items-center">
+                            <ul className="d-flex text-warning m-0 fs-18  list-unstyled">
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star"></i>
+                              </li>
+                              <li>
+                                <i className="bx bxs-star-half"></i>
+                              </li>
+                            </ul>
+                            <p className="mb-0 fw-medium fs-15 text-dark">
+                              4.1{" "}
+                              <span className="text-muted fs-13">
+                                (370 Review)
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                          <span className="text-muted text-decoration-line-through">
+                            $250
+                          </span>
+                          $222 <small className="text-muted"> (30% Off)</small>
+                        </h4>
+                        <div className="mt-3">
+                          <div className="d-flex gap-2">
+                            <div className="dropdown">
+                              <a
+                                href="#"
+                                className="btn btn-soft-primary border border-primary-subtle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-horizontal-rounded"></i>
+                              </a>
+                              <div className="dropdown-menu">
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Edit
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Overview
+                                </a>
+                                {/* item*/}
+                                <a href="#!" className="dropdown-item">
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            <a
+                              href="order-cart.html"
+                              className="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
+                            >
+                              <i className="bx bx-cart align-middle"></i> Add To
+                              Cart
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="position-absolute top-0 end-0 p-3">
+                        <button
+                          type="button"
+                          className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                        >
+                          <iconify-icon icon="solar:heart-angle-bold-duotone"></iconify-icon>
+                        </button>
+                      </span>
+                    </div>
+                  </div>

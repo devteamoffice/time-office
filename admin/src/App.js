@@ -5,6 +5,7 @@ import MainNav from "./components/Common/MainNav";
 import Footer from "./components/Common/Footer";
 import StatsRow from "./components/Statistics/StatsRow";
 import "./assets/css/app.min.css";
+import Router from "./router/Router";
 function App() {
   return (
     <div className="wrapper">
@@ -12,7 +13,7 @@ function App() {
       <MainNav />
 
       <div className="page-content">
-        <StatsRow />
+        <Router />
         <Footer />
       </div>
     </div>

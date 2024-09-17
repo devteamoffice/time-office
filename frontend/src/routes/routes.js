@@ -4,12 +4,22 @@ import Error404Page from "../pages/Error404Page";
 import Error505Page from "../pages/Error505Page";
 import AboutUs from "../component/AboutUs/AboutUs";
 import About from "../component/AboutUs/About";
+import SignIn from "../pages/SignIn";
+import ResetPassword from "../pages/ResetPassword";
+import SignUp from "../pages/SignUp";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
+import Faqs from "../pages/Faqs";
 export const publicRoutes = [
   { path: "/500", element: Error505Page },
   { path: "/404", element: Error404Page },
-  { path: "comingsoon", element: ComingSoon },
-  { path: "contact", element: ContactPage },
-  { path: "aboutus", element: About },
+  { path: "/comingsoon", element: ComingSoon },
+  { path: "/contact", element: ContactPage },
+  { path: "/aboutus", element: About },
+  { path: "/signin", element: SignIn },
+  { path: "/reset-password", element: ResetPassword },
+  { path: "/signup", element: SignUp },
+  { path: "/privacy-policy", element: PrivacyPolicy },
+  { path: "/faqs", element: Faqs },
 ];
 
 // export const adminRoutes = [

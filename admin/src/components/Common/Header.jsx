@@ -6,6 +6,7 @@ import { MdCircleNotifications } from "react-icons/md";
 import { MdModeComment } from "react-icons/md";
 import { MdSettings } from "react-icons/md";
 import { MdSearch } from "react-icons/md";
+import avatar from "../../assets/images/users/avatar-1.jpg";
 const Header = () => {
   return (
     <header className="topbar">
@@ -79,7 +80,7 @@ const Header = () => {
                     <div className="d-flex">
                       <div className="flex-shrink-0">
                         <img
-                          src="assets/images/users/avatar-1.jpg"
+                          src={avatar}
                           className="img-fluid me-2 avatar-sm rounded-circle"
                           alt="avatar-1"
                         />
@@ -221,7 +222,7 @@ const Header = () => {
                   <img
                     className="rounded-circle"
                     width="32"
-                    src="assets/images/users/avatar-1.jpg"
+                    src={avatar}
                     alt="avatar-3"
                   />
                 </span>
