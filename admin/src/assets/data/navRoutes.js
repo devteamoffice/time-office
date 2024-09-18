@@ -37,7 +37,7 @@ const navRoutes = [
     submenu: [
       { text: "List", link: "/product/list" },
       { text: "Create", link: "/product/add" },
-      { text: "Warehouse", link: "/products/warehouse" },
+      { text: "Warehouse", link: "/product/warehouse" },
     ],
   },
   {

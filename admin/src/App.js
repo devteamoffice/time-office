@@ -6,6 +6,7 @@ import Footer from "./components/Common/Footer";
 import StatsRow from "./components/Statistics/StatsRow";
 import "./assets/css/app.min.css";
 import Router from "./router/Router";
+import { FutureProvider } from "./Context";
 function App() {
   return (
     <div className="wrapper">

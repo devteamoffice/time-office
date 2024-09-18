@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { publicRoutes, adminRoutes } from "./Routes";
+import { FutureProvider } from "../Context";
 
 // import { AuthContext } from "../context/AuthContext";
 
@@ -22,6 +23,7 @@ const Router = () => {
   };
 
   return (
+    <FutureProvider>
     <BrowserRouter>
       {/* <ScrollToTop /> */}
       <Routes>
@@ -36,6 +38,7 @@ const Router = () => {
         {!user && <Route path="/admin/*" element={<Navigate to="/login" />} />} */}
       </Routes>
     </BrowserRouter>
+    </FutureProvider>
   );
 };
 

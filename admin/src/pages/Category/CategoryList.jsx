@@ -1,6 +1,6 @@
 import React from "react";
-import Navigation from "../components/Common/Navigation";
-import Actions from "../components/Common/Actions";
+import Navigation from "../../components/Common/Navigation";
+import Actions from "../../components/Common/Actions";
 
 const CategoryList = () => {
   return (

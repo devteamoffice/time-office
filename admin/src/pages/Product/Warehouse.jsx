@@ -1,10 +1,10 @@
 import React from "react";
-import Navigation from "../components/Common/Navigation";
+import Navigation from "../../components/Common/Navigation";
 import { BsBoxSeamFill } from "react-icons/bs";
 import { TbReorder } from "react-icons/tb";
 import { BsFillBagXFill } from "react-icons/bs";
 import { TbUsersGroup } from "react-icons/tb";
-import Actions from "../components/Common/Actions";
+import Actions from "../../components/Common/Actions";
 const Warehouse = () => {
   return (
     <div class="container-xxl">

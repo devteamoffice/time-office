@@ -7,12 +7,12 @@ const MainNav = () => {
   return (
     <div className="main-nav">
       <div className="logo-box">
-        <a href="index.html" className="logo-dark">
+        <a href="/" className="logo-dark">
           <img src={logo} className="logo-sm" alt="logo sm" />
           <img src={logo} className="logo-lg" alt="logo dark" />
         </a>
 
-        <a href="index.html" className="logo-light">
+        <a href="/" className="logo-light">
           <img src={logo} className="logo-sm" alt="logo sm" />
           <img src={logo} className="logo-lg" alt="logo light" />
         </a>
