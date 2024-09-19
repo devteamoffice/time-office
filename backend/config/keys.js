@@ -1,15 +1,15 @@
 module.exports = {
   app: {
     name: "Mern Ecommerce",
-    apiURL: process.env.BASE_API_URL, // Ensure default values are provided
-    clientURL: process.env.CLIENT_URL,
+    apiURL: `${process.env.BASE_API_URL}`,
+    clientURL: process.env.CLIENT_URL || "http://localhost:3000",
   },
   port: process.env.PORT || 4000,
   database: {
     url: process.env.MONGO_URI,
   },
   jwt: {
-    secret: process.env.JWT_SECRET,
+    secret: process.env.JWT_SECRET || "default_jwt_secret", // Provide a fallback secret
     tokenLife: "7d",
   },
   mailchimp: {
