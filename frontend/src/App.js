@@ -7,8 +7,10 @@ import Error404New from "./component/Error404New";
 import Error505 from "./component/Error505";
 import Slider_exa from "./component/Slider_exa";
 import Home from "./component/Home";
-import Navbar from "./component/Navbar";
 import Product from "./component/Product/Product";
+import ProductDetails from "./component/Product/ProductDetails";
+import "iconify-icon";
+import Navbar from "./component/Navbar/Navbar";
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
           <Route path="/error505" element={<Error505 />} />
           <Route path="/commingpage" element={<ComingPage />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/product/details" element={<ProductDetails />} />
         </Routes>
       </BrowserRouter>
 

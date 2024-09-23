@@ -1,0 +1,13 @@
+.card_inner {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+
+.card_inner p {
+    font-size: 17px;
+    color: black;
+    font-weight: 600;
+}

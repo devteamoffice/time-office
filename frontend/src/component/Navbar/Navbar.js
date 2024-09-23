@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../assets/Image/Logo.png";
+import "./navbar.css";
 
 const Navbar = () => {
   return (
     <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
           <a class="navbar-brand" href="#">
-            Web-Page
+            <img src={logo} alt="" />
           </a>
           <button
             class="navbar-toggler"
@@ -28,52 +30,30 @@ const Navbar = () => {
                 </Link>
               </li>
               <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/about">
-                  About
-                </Link>
-              </li>
-
-              <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/contact">
-                  Contact
-                </Link>
-              </li>
-              <li class="nav-item">
                 <Link
                   class="nav-link active"
                   aria-current="page"
                   to={"/product"}
                 >
-                  Product
+                  Products
                 </Link>
               </li>
               <li class="nav-item">
-                <Link
-                  class="nav-link active"
-                  aria-current="page"
-                  to="/error404"
-                >
-                  Error404
+                <Link class="nav-link active" aria-current="page" to="/about">
+                  About us
                 </Link>
               </li>
+
               <li class="nav-item">
-                <Link
-                  class="nav-link active"
-                  aria-current="page"
-                  to="/error505"
-                >
-                  Error505
+                <Link class="nav-link active" aria-current="page" to="/contact">
+                  Contact us
                 </Link>
               </li>
             </ul>
-            <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-            </form>
+            <div class="d-flex">
+              <button className="btn btn1">Login</button>
+              <button className="btn btn2 ms-2">Call Now</button>
+            </div>
           </div>
         </div>
       </nav>
