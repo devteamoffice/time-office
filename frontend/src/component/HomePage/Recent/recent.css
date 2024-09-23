@@ -1,0 +1,64 @@
+.recent-card {
+    display: flex;
+    justify-content: space-around;
+    width: 89%;
+    margin: 0 auto;
+
+}
+.recent-container img {
+    height: 300px;
+        
+}
+.recent-container {
+    margin-top: 8%;
+    
+}
+.recent_inner_card {
+    position: relative;
+}
+
+.recent_card-left-text {
+    background-color: white;
+    box-shadow: 0px 12px 20px -6px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    position: absolute;
+    bottom: -65px;
+    left: 16px;
+}
+
+.recent-head {
+    display: flex;
+    justify-content: left;
+    padding-left: 60px;
+    font-family: 'Roboto Flex';
+font-style: normal;
+font-weight: 700;
+font-size: 25px;
+line-height: 56px;
+color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+.card-para {
+    line-height: 0.9;
+}
+
+.recent_card-left-text h5 {
+        font-size: 14px;
+}
+
+
+/* Media Query  */
+
+
+@media(max-width:768px){	
+    
+
+}
+
+

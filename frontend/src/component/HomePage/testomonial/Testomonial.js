@@ -38,6 +38,7 @@ const Testomonial = () => {
   };
   return (
     <div className=" container slider-container">
+      <h1 className="text-center my-4">Testomonial</h1>
       <Slider {...settings}>
         <div>
           <h3>1</h3>

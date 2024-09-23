@@ -5,6 +5,9 @@ import SliderBrand from "./HomePage/SliderBrand";
 import Slider2 from "./HomePage/Slider2";
 import Whatnew from "./HomePage/Whatsnew/Whatnew";
 import Testomonial from "./HomePage/testomonial/Testomonial";
+import OurClinets from "./HomePage/OurClients/OurClinets";
+import Insights from "./HomePage/Insight/Insights";
+import Recent from "./HomePage/Recent/Recent";
 
 const Home = () => {
   return (
@@ -15,6 +18,12 @@ const Home = () => {
       <Slider2 />
       <Whatnew />
       <Testomonial />
+      <br />
+      <br />
+      <br />
+      <OurClinets />
+      <Insights />
+      <Recent />
     </>
   );
 };
