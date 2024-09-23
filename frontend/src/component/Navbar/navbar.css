@@ -25,3 +25,8 @@ letter-spacing: 1px;
     border-radius: 5px;
     color: white;
 }
+
+.btn-group button {
+    padding: 9px 22px;
+    border: none;
+}

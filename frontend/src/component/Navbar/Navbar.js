@@ -50,9 +50,9 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            <div class="d-flex">
-              <button className="btn btn1">Login</button>
-              <button className="btn btn2 ms-2">Call Now</button>
+            <div class="d-flex btn-group">
+              <button className=" btn1">Login</button>
+              <button className=" btn2 ms-2">Call Now</button>
             </div>
           </div>
         </div>

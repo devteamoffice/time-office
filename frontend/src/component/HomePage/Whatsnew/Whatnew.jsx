@@ -1,6 +1,10 @@
 import React from "react";
 import "./whatsnew.css";
 import image1 from "../../../assets/Image/whatsnew/image1.png";
+import image2 from "../../../assets/Image/whatsnew/image2.png";
+import image3 from "../../../assets/Image/whatsnew/image3.png";
+import image4 from "../../../assets/Image/whatsnew/image4.png";
+import { Link } from "react-router-dom";
 
 const Whatnew = () => {
   return (
@@ -18,40 +22,37 @@ const Whatnew = () => {
             <div className="card_inner">
               <img src={image1} alt="" className="img img-fluid" />
               <p>Pad lock </p>
+              <Link className="link">Pad lock </Link>
             </div>
           </div>
           <div className="col-lg-3 col-md-4">
             <div className="card_inner">
-              <img
-                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=1200&s=1"
-                alt=""
-                className="img img-fluid"
-              />
+              <img src={image2} alt="" className="img img-fluid" />
               <p>Push button </p>
+              <Link className="link">Push button </Link>
             </div>
           </div>
           <div className="col-lg-3 col-md-4">
             <div className="card_inner">
-              <img
-                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=1200&s=1"
-                alt=""
-                className="img img-fluid"
-              />
+              <img src={image3} alt="" className="img img-fluid" />
               <p>Smart Cards</p>
+              <Link className="link">Smart Cards</Link>
             </div>
           </div>
           <div className="col-lg-3 col-md-4">
             <div className="card_inner">
-              <img
-                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=1200&s=1"
-                alt=""
-                className="img img-fluid"
-              />
-              <p>Power supply</p>
+              <img src={image4} alt="" className="img img-fluid" />
+              <p>Power Supply</p>
+              <Link className="link">Power Supply</Link>
             </div>
           </div>
+
           {/* card2 */}
         </div>
+      </div>
+
+      <div className="btnView">
+        <button>View More</button>
       </div>
     </section>
   );
