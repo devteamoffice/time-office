@@ -24,20 +24,20 @@ const Router = () => {
 
   return (
     <FutureProvider>
-    <BrowserRouter>
-      {/* <ScrollToTop /> */}
-      <Routes>
-        {renderRoutes(publicRoutes)}
+      <BrowserRouter>
+        {/* <ScrollToTop /> */}
+        <Routes>
+          {renderRoutes(publicRoutes)}
 
-        {/* {user && user.role === "admin" && renderRoutes(adminRoutes)}
+          {/* {user && user.role === "admin" && renderRoutes(adminRoutes)}
 
         {user && user.role !== "admin" && (
           <Route path="/admin/*" element={<Navigate to="/" />} />
         )}
 
         {!user && <Route path="/admin/*" element={<Navigate to="/login" />} />} */}
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
     </FutureProvider>
   );
 };

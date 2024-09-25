@@ -5,7 +5,7 @@ const sequelize = new Sequelize("timeoffice", "root", "dv@09112002", {
   host: "localhost", // Replace with your MySQL host, e.g., '127.0.0.1'
   dialect: "mysql", // Choose the database dialect (MySQL in this case)
   port: 3306, // Default MySQL port is 3306
-
+  logging: console.log,
   // Pool configuration used to manage connections
   pool: {
     max: 5, // Maximum number of connection in pool
@@ -15,7 +15,7 @@ const sequelize = new Sequelize("timeoffice", "root", "dv@09112002", {
   },
 
   // Optional logging configuration (can be a function or boolean)
-  logging: false, // Set to 'console.log' to see SQL queries
+  // Set to 'console.log' to see SQL queries
 });
 
 // Test the connection

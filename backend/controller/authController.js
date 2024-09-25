@@ -79,65 +79,54 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const { email, firstName, lastName, password, isSubscribed } = req.body;
+    const { email, firstName, lastName, password } = req.body;
 
+    // Validate email
     if (!email) {
       return res
         .status(400)
         .json({ error: "You must enter an email address." });
     }
 
+    // Validate name
     if (!firstName || !lastName) {
-      return res.status(400).json({
-        error: "You must enter your full name.",
-      });
+      return res.status(400).json({ error: "You must enter your full name." });
     }
 
+    // Validate password
     if (!password) {
-      return res.status(400).json({
-        error: "You must enter a password.",
-      });
+      return res.status(400).json({ error: "You must enter a password." });
     }
 
-    const existingUser = await User.findOne({ email });
+    // Check if user already exists
+    const existingUser = await User.findOne({
+      where: { email },
+    });
 
     if (existingUser) {
       return res
-        .stattus(400)
+        .status(400)
         .json({ error: "That email address is already in use." });
     }
 
-    let subscribed = false;
-    if (isSubscribed) {
-      const result = await mailchimp.subscribeToNewsletter(email);
-
-      if (result.status === "subscribed") {
-        subscribed = true;
-      }
-    }
-
+    // Create new user
     const user = new User({ email, password, firstName, lastName });
 
+    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(user.password, salt);
     user.password = hash;
+
+    // Save user to database
     const registeredUser = await user.save();
 
-    const payload = {
-      id: registeredUser.id,
-    };
-    await mailgun.sendEmail(
-      registeredUser.email,
-      "signup",
-      null,
-      registeredUser
-    );
-
+    // Create JWT token
+    const payload = { id: registeredUser.id };
     const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
 
+    // Respond with success
     res.status(200).json({
       success: true,
-      subscribed,
       token: `Bearer ${token}`,
       user: {
         id: registeredUser.id,
@@ -151,6 +140,7 @@ exports.register = async (req, res) => {
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
+    console.log(error);
   }
 };
 

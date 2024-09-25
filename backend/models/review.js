@@ -68,12 +68,12 @@ const Review = sequelize.define(
 // Define associations
 Review.belongsTo(Product, {
   foreignKey: "productId",
-  as: "product",
+  as: "products",
 });
 
 Review.belongsTo(User, {
   foreignKey: "userId",
-  as: "user",
+  as: "users",
 });
 
 module.exports = Review;

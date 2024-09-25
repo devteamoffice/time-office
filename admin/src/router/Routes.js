@@ -1,6 +1,7 @@
 import ProductAdd from "../components/Products/ProductAdd";
 import Attributes from "../pages/Attributes/Attributes";
 import AttributesAdd from "../pages/Attributes/AttributesAdd";
+import Login from "../pages/Auth/Login";
 import CategoryAdd from "../pages/Category/CategoryAdd";
 import CategoryList from "../pages/Category/CategoryList";
 import Coupons from "../pages/Coupons/Coupons";
@@ -34,6 +35,7 @@ export const publicRoutes = [
   { path: "/role/add", element: RolesAdd },
   { path: "/customer/list", element: Customers },
   { path: "/customer/:id", element: CustomerDetails },
+  { path: "/login", element: Login },
 ];
 
 export const extraRoutes = [

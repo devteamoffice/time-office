@@ -9,6 +9,7 @@ import SignUp from "../pages/SignUp";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Faqs from "../pages/Faqs";
 import Product from "../pages/Product";
+import Home from "../component/Home";
 export const publicRoutes = [
   { path: "/500", element: Error505Page },
   { path: "/404", element: Error404Page },
@@ -21,6 +22,7 @@ export const publicRoutes = [
   { path: "/privacy-policy", element: PrivacyPolicy },
   { path: "/faqs", element: Faqs },
   { path: "/products", element: Product },
+  { path: "/", element: Home },
 ];
 
 // export const adminRoutes = [

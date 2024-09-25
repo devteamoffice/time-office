@@ -61,7 +61,7 @@ const Address = sequelize.define(
 // Define the association between Address and User
 Address.belongsTo(User, {
   foreignKey: "userId",
-  as: "user",
+  as: "users",
 });
 
 module.exports = Address;

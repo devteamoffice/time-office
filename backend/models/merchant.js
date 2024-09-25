@@ -43,7 +43,7 @@ const Merchant = sequelize.define(
     brandId: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Brands", // Name of the Brand table
+        model: "brands", // Name of the Brand table
         key: "id",
       },
       allowNull: true,

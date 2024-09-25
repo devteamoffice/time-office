@@ -73,7 +73,7 @@ const Brand = sequelize.define(
 // Define the association between Brand and Merchant
 Brand.belongsTo(Merchant, {
   foreignKey: "merchantId",
-  as: "merchant",
+  as: "merchants",
 });
 
 module.exports = Brand;

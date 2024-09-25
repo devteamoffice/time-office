@@ -1,7 +1,7 @@
 import React from "react";
-import "../../assets/Product Page/css/vendor.min.css";
-import "../../assets/Product Page/css/icons.min.css";
-import "../../assets/Product Page/css/app.min.css";
+// import "../../assets/Product Page/css/vendor.min.css";
+// import "../../assets/Product Page/css/icons.min.css";
+// import "../../assets/Product Page/css/app.min.css";
 
 import p1 from "../../assets/Product Page/images/product/p-1.png";
 const Product = () => {

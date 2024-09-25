@@ -1,13 +1,10 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { publicRoutes, adminRoutes } from "./routes";
-
 // import { AuthContext } from "../context/AuthContext";
 
 const Router = () => {
   // const { user } = useContext(AuthContext);
-
-  // console.log("User in Router:", user);
 
   const renderRoutes = (routes) => {
     return routes.map(({ path, element: Element }, index) => (
@@ -17,7 +14,6 @@ const Router = () => {
 
   return (
     <BrowserRouter>
-      {/* <ScrollToTop /> */}
       <Routes>
         {renderRoutes(publicRoutes)}
 

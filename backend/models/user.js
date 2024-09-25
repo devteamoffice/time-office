@@ -7,15 +7,13 @@ const User = sequelize.define(
   {
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isEmail: true,
-      },
+      allowNull: false, // Not null for email registration
+      validate: { isEmail: true },
       set(value) {
-        if (this.provider === "email") {
-          this.setDataValue("email", value);
+        if (this.provider === EMAIL_PROVIDER.Email) {
+          this.setDataValue("email", value); // Set email only if provider is 'email'
         } else {
-          this.setDataValue("email", null);
+          this.setDataValue("email", null); // Null for other providers
         }
       },
     },
@@ -39,7 +37,7 @@ const User = sequelize.define(
       type: DataTypes.INTEGER, // Assuming your Merchant ID is an integer
       allowNull: true,
       references: {
-        model: "Merchants", // Name of the Merchant table
+        model: "merchants", // Name of the Merchant table
         key: "id",
       },
     },
