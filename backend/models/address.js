@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-const User = require("./user");
+const sequelize = require("../config/database"); // Sequelize instance
+const User = require("./user"); // Importing User model
+const Contact = require("./contact"); // Importing Contact model
 
 // Address Model
 const Address = sequelize.define(
@@ -12,9 +13,9 @@ const Address = sequelize.define(
       primaryKey: true,
     },
     userId: {
-      type: DataTypes.INTEGER, // Assuming User ID is an integer
+      type: DataTypes.INTEGER,
       references: {
-        model: "Users", // Name of the User table
+        model: User, // Referencing User model, not the table name
         key: "id",
       },
       allowNull: false,
@@ -54,14 +55,20 @@ const Address = sequelize.define(
   },
   {
     tableName: "addresses",
-    timestamps: false, // Disable automatic timestamp fields (createdAt, updatedAt)
+    timestamps: false, // Disable automatic timestamps (createdAt, updatedAt)
   }
 );
 
 // Define the association between Address and User
 Address.belongsTo(User, {
   foreignKey: "userId",
-  as: "users",
+  as: "user", // Adjusted alias to "user" (singular for belongsTo association)
+});
+
+// Define the association between Address and Contact
+Address.hasMany(Contact, {
+  foreignKey: "id",
+  as: "contact", // Keep as plural for hasMany association
 });
 
 module.exports = Address;

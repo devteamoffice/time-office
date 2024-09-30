@@ -50,12 +50,12 @@ const Wishlist = sequelize.define(
 // Define associations
 Wishlist.belongsTo(Product, {
   foreignKey: "productId",
-  as: "products",
+  as: "product",
 });
 
 Wishlist.belongsTo(User, {
   foreignKey: "userId",
-  as: "users",
+  as: "user",
 });
 
 module.exports = Wishlist;

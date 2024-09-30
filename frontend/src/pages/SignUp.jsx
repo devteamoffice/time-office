@@ -1,118 +1,194 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signupChange,
+  signUp,
+  subscribeChange,
+} from "../containers/Signup/actions";
+import logo from "../assets/images/team_office_logo_13.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
-  return (
-    <div class="d-flex flex-column h-100 p-3">
-      <div class="d-flex flex-column flex-grow-1">
-        <div class="row h-100">
-          <div class="col-xxl-7">
-            <div class="row justify-content-center h-100">
-              <div class="col-lg-6 py-lg-5">
-                <div class="d-flex flex-column h-100 justify-content-center">
-                  <div class="auth-logo mb-4">
-                    <a href="index.html" class="logo-dark">
-                      <img
-                        src="assets/images/logo-dark.png"
-                        height="24"
-                        alt="logo dark"
-                      />
-                    </a>
+  const dispatch = useDispatch();
+  const signupFormData = useSelector((state) => state.signup.signupFormData); // Access form data from Redux
+  const isSubmitting = useSelector((state) => state.signup.isSubmitting); // Access loading state from Redux
+  const formErrors = useSelector((state) => state.signup.formErrors); // Access form errors if any
 
-                    <a href="index.html" class="logo-light">
-                      <img
-                        src="assets/images/logo-light.png"
-                        height="24"
-                        alt="logo light"
-                      />
+  // Form field change handler
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(signupChange(name, value)); // Dispatch signupChange action
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(signUp()); // Dispatch signUp action to handle form submission
+  };
+
+  return (
+    <div className="d-flex flex-column h-100 p-3">
+      <div className="d-flex flex-column flex-grow-1">
+        <div className="row h-100">
+          <div className="col-xxl-7">
+            <div className="row justify-content-center h-100">
+              <div className="col-lg-6 py-lg-5">
+                <div className="d-flex flex-column h-100 justify-content-center">
+                  <div className="auth-logo mb-4">
+                    <a href="index.html" className="logo-dark">
+                      <img src={logo} height="24" alt="logo dark" />
+                    </a>
+                    <a href="index.html" className="logo-light">
+                      <img src={logo} height="24" alt="logo light" />
                     </a>
                   </div>
 
-                  <h2 class="fw-bold fs-24">Sign Up</h2>
+                  <h2 className="fw-bold fs-24">Sign Up</h2>
 
-                  <p class="text-muted mt-1 mb-4">
+                  <p className="text-muted mt-1 mb-4">
                     New to our platform? Sign up now! It only takes a minute
                   </p>
 
                   <div>
                     <form
-                      action="https://techzaa.getappui.com/larkon/admin/index.html"
-                      class="authentication-form"
+                      className="authentication-form"
+                      onSubmit={handleSubmit}
                     >
-                      <div class="mb-3">
-                        <label class="form-label" for="example-name">
-                          Name
-                        </label>
-                        <input
-                          type="name"
-                          id="example-name"
-                          name="example-name"
-                          class="form-control"
-                          placeholder="Enter your name"
-                        />
+                      <div className="mb-3">
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label className="form-label" htmlFor="firstName">
+                              First Name
+                            </label>
+                            <input
+                              type="text"
+                              id="firstName"
+                              name="firstName"
+                              className="form-control"
+                              placeholder="Enter your first name"
+                              value={signupFormData.firstName || ""}
+                              onChange={handleInputChange}
+                            />
+                            {formErrors.firstName && (
+                              <p className="text-danger">
+                                {formErrors.firstName}
+                              </p>
+                            )}
+                          </div>
+                          <div className="col-md-6">
+                            <label className="form-label" htmlFor="lastName">
+                              Last Name
+                            </label>
+                            <input
+                              type="text"
+                              id="lastName"
+                              name="lastName"
+                              className="form-control"
+                              placeholder="Enter your last name"
+                              value={signupFormData.lastName || ""}
+                              onChange={handleInputChange}
+                            />
+                            {formErrors.lastName && (
+                              <p className="text-danger">
+                                {formErrors.lastName}
+                              </p>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="example-email">
+
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="email">
                           Email
                         </label>
                         <input
                           type="email"
-                          id="example-email"
-                          name="example-email"
-                          class="form-control bg-"
+                          id="email"
+                          name="email"
+                          className="form-control"
                           placeholder="Enter your email"
+                          value={signupFormData.email || ""}
+                          onChange={handleInputChange}
                         />
+                        {formErrors.email && (
+                          <p className="text-danger">{formErrors.email}</p>
+                        )}
                       </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="example-password">
+
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="password">
                           Password
                         </label>
                         <input
-                          type="text"
-                          id="example-password"
-                          class="form-control"
+                          type="password"
+                          id="password"
+                          name="password"
+                          className="form-control"
                           placeholder="Enter your password"
+                          value={signupFormData.password || ""}
+                          onChange={handleInputChange}
                         />
+                        {formErrors.password && (
+                          <p className="text-danger">{formErrors.password}</p>
+                        )}
                       </div>
-                      <div class="mb-3">
-                        <div class="form-check">
+
+                      <div className="mb-3">
+                        <div className="form-check">
                           <input
                             type="checkbox"
-                            class="form-check-input"
-                            id="checkbox-signin"
+                            className="form-check-input"
+                            id="subscribe"
+                            checked={signupFormData.subscribe || false}
+                            onChange={() => dispatch(subscribeChange())}
                           />
-                          <label class="form-check-label" for="checkbox-signin">
-                            I accept Terms and Condition
+                          <label
+                            className="form-check-label"
+                            htmlFor="subscribe"
+                          >
+                            I accept Terms and Conditions
                           </label>
                         </div>
                       </div>
 
-                      <div class="mb-1 text-center d-grid">
-                        <button class="btn btn-soft-primary" type="submit">
-                          Sign Up
+                      <div className="mb-1 text-center d-grid">
+                        <button
+                          className="btn btn-soft-primary"
+                          type="submit"
+                          disabled={isSubmitting}
+                        >
+                          {isSubmitting ? "Signing Up..." : "Sign Up"}
                         </button>
                       </div>
                     </form>
 
-                    <p class="mt-3 fw-semibold no-span">OR sign with</p>
+                    <p className="mt-3 fw-semibold no-span">OR sign with</p>
 
-                    <div class="d-grid gap-2">
-                      <a href="javascript:void(0);" class="btn btn-soft-dark">
-                        <i class="bx bxl-google fs-20 me-1"></i> Sign Up with
-                        Google
+                    <div className="d-grid gap-2">
+                      <a
+                        href="javascript:void(0);"
+                        className="btn btn-soft-dark"
+                      >
+                        <i className="bx bxl-google fs-20 me-1"></i> Sign Up
+                        with Google
                       </a>
                       <a
                         href="javascript:void(0);"
-                        class="btn btn-soft-primary"
+                        className="btn btn-soft-primary"
                       >
-                        <i class="bx bxl-facebook fs-20 me-1"></i> Sign Up with
-                        Facebook
+                        <i className="bx bxl-facebook fs-20 me-1"></i> Sign Up
+                        with Facebook
                       </a>
                     </div>
                   </div>
 
-                  <p class="mt-auto text-danger text-center">
+                  <p className="mt-auto text-danger text-center">
                     I already have an account{" "}
-                    <a href="auth-signin.html" class="text-dark fw-bold ms-1">
+                    <a
+                      href="auth-signin.html"
+                      className="text-dark fw-bold ms-1"
+                    >
                       Sign In
                     </a>
                   </p>
@@ -121,13 +197,13 @@ const SignUp = () => {
             </div>
           </div>
 
-          <div class="col-xxl-5 d-none d-xxl-flex">
-            <div class="card h-100 mb-0 overflow-hidden">
-              <div class="d-flex flex-column h-100">
+          <div className="col-xxl-5 d-none d-xxl-flex">
+            <div className="card h-100 mb-0 overflow-hidden">
+              <div className="d-flex flex-column h-100">
                 <img
                   src="assets/images/small/img-10.jpg"
                   alt=""
-                  class="w-100 h-100"
+                  className="w-100 h-100"
                 />
               </div>
             </div>

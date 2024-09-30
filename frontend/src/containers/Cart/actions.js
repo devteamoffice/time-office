@@ -5,7 +5,7 @@
  */
 
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -135,14 +135,14 @@ export const handleCheckout = () => {
     });
 
     dispatch(toggleCart());
-    useHistory().push("/login");
+    useNavigate().push("/login");
   };
 };
 
 // Continue shopping use case
 export const handleShopping = () => {
   return (dispatch, getState) => {
-    useHistory().push("/shop");
+    useNavigate().push("/shop");
     dispatch(toggleCart());
   };
 };

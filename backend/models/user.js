@@ -1,21 +1,20 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database"); // Assuming you have a database configuration file
+const { DataTypes, Sequelize } = require("sequelize");
+const sequelize = require("../config/database"); // Adjust the path to your actual database configuration
 const { ROLES, EMAIL_PROVIDER } = require("../constants");
 
 const User = sequelize.define(
   "User",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     email: {
       type: DataTypes.STRING,
-      allowNull: false, // Not null for email registration
+      allowNull: false,
+      unique: true, // Ensure email is unique
       validate: { isEmail: true },
-      set(value) {
-        if (this.provider === EMAIL_PROVIDER.Email) {
-          this.setDataValue("email", value); // Set email only if provider is 'email'
-        } else {
-          this.setDataValue("email", null); // Null for other providers
-        }
-      },
     },
     phoneNumber: {
       type: DataTypes.STRING,
@@ -32,14 +31,6 @@ const User = sequelize.define(
     password: {
       type: DataTypes.STRING,
       allowNull: true,
-    },
-    merchant: {
-      type: DataTypes.INTEGER, // Assuming your Merchant ID is an integer
-      allowNull: true,
-      references: {
-        model: "merchants", // Name of the Merchant table
-        key: "id",
-      },
     },
     provider: {
       type: DataTypes.STRING,
@@ -63,6 +54,14 @@ const User = sequelize.define(
       allowNull: false,
       defaultValue: ROLES.Member,
     },
+    merchantId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "merchants", // Assumes your merchant table is named 'merchants'
+        key: "id",
+      },
+    },
     resetPasswordToken: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -71,19 +70,19 @@ const User = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
-    updated: {
-      type: DataTypes.DATE,
+    updatedAt: {
+      type: Sequelize.DATE,
       allowNull: true,
     },
-    created: {
-      type: DataTypes.DATE,
+    createdAt: {
+      type: Sequelize.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      defaultValue: Sequelize.NOW,
     },
   },
   {
     tableName: "users",
-    timestamps: false, // Disable automatic timestamp fields (createdAt, updatedAt)
+    timestamps: true, // Automatic createdAt, updatedAt fields
   }
 );
 

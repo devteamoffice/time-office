@@ -50,12 +50,12 @@ const Order = sequelize.define(
 // Define associations
 Order.belongsTo(Cart, {
   foreignKey: "cartId",
-  as: "carts",
+  as: "cart",
 });
 
 Order.belongsTo(User, {
   foreignKey: "userId",
-  as: "users",
+  as: "user",
 });
 
 module.exports = Order;

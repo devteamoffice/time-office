@@ -1,13 +1,13 @@
 import { createStore, compose, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-
 import createReducer from "./reducers";
-
+import { thunk } from "redux-thunk";
+// Middlewares (only thunk for handling async actions)
 const middlewares = [thunk];
 
+// Enhancers (for middleware and Redux DevTools extension)
 const enhancers = [applyMiddleware(...middlewares)];
 
-// If Redux DevTools Extension is installed, use it; otherwise, use Redux compose
+// If Redux DevTools Extension is installed use it, otherwise use Redux compose
 const composeEnhancers =
   process.env.NODE_ENV !== "production" &&
   typeof window === "object" &&
@@ -15,16 +15,17 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
+// Create store with reducers and enhancers
 const store = createStore(
-  createReducer(), // No need for history, just pass the reducers directly
-  composeEnhancers(...enhancers)
+  createReducer(), // No history needed for the reducers
+  composeEnhancers(...enhancers) // Apply enhancers
 );
 
+// Enable hot module replacement for reducers in development mode
 if (module.hot) {
-  // Enable Webpack hot module replacement for reducers
   module.hot.accept("./reducers", () => {
     const nextRootReducer = require("./reducers").default; // eslint-disable-line global-require
-    store.replaceReducer(nextRootReducer());
+    store.replaceReducer(nextRootReducer()); // Replace with the new reducer
   });
 }
 

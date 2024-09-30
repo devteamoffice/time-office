@@ -33,7 +33,7 @@ const Navbar = () => {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/product"
+                  to="/products"
                 >
                   Products
                 </Link>
@@ -42,12 +42,11 @@ const Navbar = () => {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/about"
+                  to="/aboutus"
                 >
                   About us
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link
                   className="nav-link active"
@@ -59,8 +58,10 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="d-flex btn-group">
-              <button className=" btn1">Login</button>
-              <button className=" btn2 ms-2">Call Now</button>
+              <button className="btn1">
+                <Link to="/signup">Login</Link>
+              </button>
+              <button className="btn2 ms-2">Call Now</button>
             </div>
           </div>
         </div>

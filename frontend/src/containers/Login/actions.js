@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   LOGIN_CHANGE,
@@ -86,7 +86,7 @@ export const signOut = () => {
 
     dispatch(clearAuth());
     dispatch(clearAccount());
-    useHistory().push("/login");
+    useNavigate().push("/login");
 
     localStorage.removeItem("token");
 
