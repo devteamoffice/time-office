@@ -8,7 +8,7 @@ const Product = () => {
   return (
     <>
       {/* START Wrapper */}
-      <div className="wrapper mt-4">
+      <div className="wrapper mt-4 ">
         {/* ========== Topbar Start ========== */}
 
         {/* Activity Timeline */}
@@ -460,7 +460,7 @@ const Product = () => {
         {/* ==================================================== */}
         {/* Start right Content here */}
         {/* ==================================================== */}
-        <div className="page-content">
+        <div className="page-content mt-4" >
           {/* Start Container Fluid */}
           <div className="container-xxl">
             <div className="row">

@@ -11,6 +11,7 @@ import Product from "./component/Product/Product";
 import ProductDetails from "./component/Product/ProductDetails";
 import "iconify-icon";
 import Navbar from "./component/Navbar/Navbar";
+import Footer from "./component/Footer/Footer";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/product/details" element={<ProductDetails />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
 
       {/* <Slidernew /> */}

@@ -579,8 +579,8 @@ const ProductDetails = () => {
                             type="button"
                             class="btn btn-soft-danger d-inline-flex align-items-center justify-content-center fs-20 rounded w-100"
                           >
-                            {/* <iconify-icon icon="solar:heart-broken"></iconify-icon> */}
-                            <FaRegHeart />
+                            <iconify-icon icon="solar:heart-broken"></iconify-icon>
+                            {/* <FaRegHeart /> */}
                           </button>
                         </div>
                       </div>

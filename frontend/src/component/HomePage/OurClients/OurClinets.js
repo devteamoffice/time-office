@@ -10,11 +10,11 @@ import c6 from "../../../assets/Image/Our Clients/image 6.png";
 
 const OurClinets = () => {
   var settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     initialSlide: 0,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -53,23 +53,27 @@ const OurClinets = () => {
   };
   return (
     <div className="container clinet-slider slider-container">
+      <h2>
+        Our <span>Clients</span>
+      </h2>
+
       <Slider {...settings}>
-        <div>
+        <div className="clinet-div">
           <img src={c1} alt="" />
         </div>
-        <div>
+        <div className="clinet-div">
           <img src={c2} alt="" />
         </div>
-        <div>
+        <div className="clinet-div">
           <img src={c3} alt="" />
         </div>
-        <div>
+        <div className="clinet-div">
           <img src={c4} alt="" />
         </div>
-        <div>
+        <div className="clinet-div">
           <img src={c5} alt="" />
         </div>
-        <div>
+        <div className="clinet-div">
           <img src={c6} alt="" />
         </div>
       </Slider>

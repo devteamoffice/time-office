@@ -69,3 +69,16 @@
   transition: 1s
 }
 
+
+
+
+
+
+/* For mobile screens */
+@media (max-width: 768px) {
+  .card_inner:hover {
+    transform: scale(1);
+    margin-bottom: 26px ;
+    
+}
+}

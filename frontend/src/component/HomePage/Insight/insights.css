@@ -96,5 +96,8 @@ color: rgba(0, 0, 0, 0.8);
         margin-bottom: 50px;
     
     }
+    .card-right{
+        margin-top: 35px;
+    }
 
 }

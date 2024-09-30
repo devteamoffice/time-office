@@ -1,20 +1,24 @@
 import React from "react";
 import Slider from "react-slick";
+import "./testomonial.css";
+import testo from "../../../assets/Image/testimonial.png";
 
 const Testomonial = () => {
   var settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 2,
     initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 1000,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 1,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
@@ -22,9 +26,9 @@ const Testomonial = () => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 0,
         },
       },
       {
@@ -37,32 +41,243 @@ const Testomonial = () => {
     ],
   };
   return (
-    <div className=" container slider-container">
-      <h1 className="text-center my-4">Testomonial</h1>
+    <div className="container main-slider-testo slider-container">
+      <h2>
+        What Our <span>Customer</span> Says
+      </h2>
       <Slider {...settings}>
         <div>
-          <h3>1</h3>
+          <div className="outer-testo">
+            <div className="inner-testo">
+              <div className="col1">
+                <div className="box-testo"> </div>
+              </div>
+              <div className="col2">
+                <hr />
+                <p>
+                  {" "}
+                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                  deleniti veniam nihil consectetur. Animi error commodi id
+                  dolorem asperiores. Repellendus quae delectus suscipit, modi
+                  laudantium culpa totam nisi at laborum. "
+                </p>
+              </div>
+            </div>
+            <div className="img_testomonial">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
+                alt=""
+              />
+              <h3>Yashika Mishra</h3>
+              <p>HR</p>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star-half"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* This is our 4th and main component */}
+
+        <div>
+          <div className="outer-testo">
+            <div className="inner-testo">
+              <div className="col1">
+                <div className="box-testo"> </div>
+              </div>
+              <div className="col2">
+                <hr />
+                <p>
+                  {" "}
+                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                  deleniti veniam nihil consectetur. Animi error commodi id
+                  dolorem asperiores. Repellendus quae delectus suscipit, modi
+                  laudantium culpa totam nisi at laborum. "
+                </p>
+              </div>
+            </div>
+            <div className="img_testomonial">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
+                alt=""
+              />
+              <h3>Yashika Mishra</h3>
+              <p>HR</p>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star-half"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
         <div>
-          <h3>2</h3>
+          <div className="outer-testo">
+            <div className="inner-testo">
+              <div className="col1">
+                <div className="box-testo"> </div>
+              </div>
+              <div className="col2">
+                <hr />
+                <p>
+                  {" "}
+                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                  deleniti veniam nihil consectetur. Animi error commodi id
+                  dolorem asperiores. Repellendus quae delectus suscipit, modi
+                  laudantium culpa totam nisi at laborum. "
+                </p>
+              </div>
+            </div>
+            <div className="img_testomonial">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
+                alt=""
+              />
+              <h3>Yashika Mishra</h3>
+              <p>HR</p>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star-half"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
         <div>
-          <h3>3</h3>
+          <div className="outer-testo">
+            <div className="inner-testo">
+              <div className="col1">
+                <div className="box-testo"> </div>
+              </div>
+              <div className="col2">
+                <hr />
+                <p>
+                  {" "}
+                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                  deleniti veniam nihil consectetur. Animi error commodi id
+                  dolorem asperiores. Repellendus quae delectus suscipit, modi
+                  laudantium culpa totam nisi at laborum. "
+                </p>
+              </div>
+            </div>
+            <div className="img_testomonial">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
+                alt=""
+              />
+              <h3>Yashika Mishra</h3>
+              <p>HR</p>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star-half"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
         <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
-        <div>
-          <h3>7</h3>
-        </div>
-        <div>
-          <h3>8</h3>
+          <div className="outer-testo">
+            <div className="inner-testo">
+              <div className="col1">
+                <div className="box-testo"> </div>
+              </div>
+              <div className="col2">
+                <hr />
+                <p>
+                  {" "}
+                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                  deleniti veniam nihil consectetur. Animi error commodi id
+                  dolorem asperiores. Repellendus quae delectus suscipit, modi
+                  laudantium culpa totam nisi at laborum. "
+                </p>
+              </div>
+            </div>
+            <div className="img_testomonial">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
+                alt=""
+              />
+              <h3>Yashika Mishra</h3>
+              <p>HR</p>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star"></i>
+                  </li>
+                  <li>
+                    <i class="bx bxs-star-half"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </Slider>
     </div>
