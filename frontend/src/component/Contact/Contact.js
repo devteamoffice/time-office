@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../styles/contactus.css";
+import { useDispatch, useSelector } from "react-redux";
+import { contactFormChange, contactUs } from "../../containers/Contact/actions"; // Update with the correct path
+import { toast } from "react-toastify";
 
 const Contact = () => {
+  const dispatch = useDispatch();
+  const { contactFormData, errors } = useSelector((state) => state.contact); // Ensure you have this in your Redux store
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(contactFormChange(name, value));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(contactUs());
+  };
+
+  useEffect(() => {
+    if (errors) {
+      errors.forEach((error) => toast.error(error)); // Display errors as toast notifications
+    }
+  }, [errors]);
+
   return (
     <>
       <div className="container-fluid">
@@ -17,20 +39,20 @@ const Contact = () => {
       </div>
 
       {/* Contact */}
-      <div className="contact-section my-4 py-4    ">
-        <div className="container   py-4">
-          <div className="row contact-left  py-4">
+      <div className="contact-section my-4 py-4">
+        <div className="container py-4">
+          <div className="row contact-left py-4">
             {/* Get in touch */}
             <div className="col-md-6">
               <h2>Get In Touch</h2>
               <p>
                 "We’re here to make things easier for you. Reach out to us by
                 filling out the form, and we’ll respond as quickly as possible
-                or you can call us at given number.
+                or you can call us at given number."
               </p>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i class="fa-solid fa-location-dot"></i>
+                  <i className="fa-solid fa-location-dot"></i>
                 </div>
                 <div className="address-section-inner">
                   <h3>Address</h3>
@@ -42,22 +64,20 @@ const Contact = () => {
               </div>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i class="fa-solid fa-phone"></i>
+                  <i className="fa-solid fa-phone"></i>
                 </div>
-
-                <div className="address-section-inner ">
+                <div className="address-section-inner">
                   <h3>Phone Number</h3>
-                  <p> 080-6901 0000</p>
+                  <p>080-6901 0000</p>
                 </div>
               </div>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i class="fa-solid fa-envelope"></i>
+                  <i className="fa-solid fa-envelope"></i>
                 </div>
-
                 <div className="address-section-inner">
                   <h3>Email Address</h3>
-                  <p> info@chiptronics.co.in</p>
+                  <p>info@chiptronics.co.in</p>
                 </div>
               </div>
               <hr />
@@ -67,7 +87,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        class="fa-brands fa-facebook-f"
+                        className="fa-brands fa-facebook-f"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -75,7 +95,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        class="fa-brands fa-twitter"
+                        className="fa-brands fa-twitter"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -83,7 +103,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        class="fa-brands fa-instagram"
+                        className="fa-brands fa-instagram"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -91,7 +111,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        class="fa-brands fa-youtube"
+                        className="fa-brands fa-youtube"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -102,12 +122,30 @@ const Contact = () => {
             {/* Handling Form */}
             <div className="col-md-6">
               <div className="outer-form">
-                <form action="" className="inner-form">
+                <form onSubmit={handleSubmit} className="inner-form">
                   <h1 className="my-2">Send a Message</h1>
-                  <input type="text" placeholder="Name" />
-                  <input type="email" placeholder="E-mail Address" />
-                  <input type="text" placeholder="Message" />
-                  <button>Submit</button>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={contactFormData.name || ""}
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="E-mail Address"
+                    value={contactFormData.email || ""}
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="text"
+                    name="message"
+                    placeholder="Message"
+                    value={contactFormData.message || ""}
+                    onChange={handleChange}
+                  />
+                  <button type="submit">Submit</button>
                 </form>
               </div>
             </div>

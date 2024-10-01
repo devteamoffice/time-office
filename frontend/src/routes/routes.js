@@ -10,6 +10,8 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Faqs from "../pages/Faqs";
 import Product from "../pages/Product";
 import Home from "../component/Home";
+import Cart from "../pages/Cart";
+import Invoice from "../pages/Invoice";
 export const publicRoutes = [
   { path: "/500", element: Error505Page },
   { path: "/404", element: Error404Page },
@@ -23,6 +25,8 @@ export const publicRoutes = [
   { path: "/faqs", element: Faqs },
   { path: "/products", element: Product },
   { path: "/", element: Home },
+  { path: "/cart", element: Cart },
+  { path: "/invoice", element: Invoice },
 ];
 
 // export const adminRoutes = [

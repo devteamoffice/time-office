@@ -64,8 +64,8 @@ exports.login = async (req, res) => {
       token: `Bearer ${token}`,
       user: {
         id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        name: user.name,
+        username: user.username,
         email: user.email,
         role: user.role,
       },
@@ -79,7 +79,7 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const { email, firstName, lastName, password } = req.body;
+    const { email, name, username, password } = req.body;
 
     // Validate email
     if (!email) {
@@ -89,7 +89,7 @@ exports.register = async (req, res) => {
     }
 
     // Validate name
-    if (!firstName || !lastName) {
+    if (!name || !username) {
       return res.status(400).json({ error: "You must enter your full name." });
     }
 
@@ -110,7 +110,7 @@ exports.register = async (req, res) => {
     }
 
     // Create new user
-    const user = new User({ email, password, firstName, lastName });
+    const user = new User({ email, password, name, username });
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
@@ -130,8 +130,8 @@ exports.register = async (req, res) => {
       token: `Bearer ${token}`,
       user: {
         id: registeredUser.id,
-        firstName: registeredUser.firstName,
-        lastName: registeredUser.lastName,
+        name: registeredUser.name,
+        username: registeredUser.username,
         email: registeredUser.email,
         role: registeredUser.role,
       },

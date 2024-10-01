@@ -1,112 +1,118 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginChange, login } from "../containers/Login/actions";
+import logo from "../assets/images/team_office_logo_13.png";
+import img from "../assets/images/access-control-solution.jpg";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { loginFormData, isSubmitting, formErrors } = useSelector(
+    (state) => state.login
+  );
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(loginChange(name, value)); // Update the login form state
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(login());
+    // Optionally navigate to another page on successful login
+    navigate("/");
+  };
+
   return (
-    <div class="d-flex flex-column h-100 p-3">
-      <div class="d-flex flex-column flex-grow-1">
-        <div class="row h-100">
-          <div class="col-xxl-7">
-            <div class="row justify-content-center h-100">
-              <div class="col-lg-6 py-lg-5">
-                <div class="d-flex flex-column h-100 justify-content-center">
-                  <div class="auth-logo mb-4">
-                    <a href="index.html" class="logo-dark">
-                      <img
-                        src="assets/images/logo-dark.png"
-                        height="24"
-                        alt="logo dark"
-                      />
-                    </a>
+    <div className="d-flex flex-column h-100 p-3">
+      <div className="d-flex flex-column flex-grow-1">
+        <div className="row h-100">
+          <div className="col-xxl-7">
+            <div className="row justify-content-center h-100">
+              <div className="col-lg-6 py-lg-5">
+                <div className="d-flex flex-column h-100 justify-content-center">
+                  <h2 className="fw-bold fs-24">Sign In</h2>
 
-                    <a href="index.html" class="logo-light">
-                      <img
-                        src="assets/images/logo-light.png"
-                        height="24"
-                        alt="logo light"
-                      />
-                    </a>
-                  </div>
-
-                  <h2 class="fw-bold fs-24">Sign In</h2>
-
-                  <p class="text-muted mt-1 mb-4">
+                  <p className="text-muted mt-1 mb-4">
                     Enter your email address and password to access admin panel.
                   </p>
 
-                  <div class="mb-5">
+                  <div className="mb-5">
                     <form
-                      action="https://techzaa.getappui.com/larkon/admin/index.html"
-                      class="authentication-form"
+                      onSubmit={handleSubmit}
+                      className="authentication-form"
                     >
-                      <div class="mb-3">
-                        <label class="form-label" for="example-email">
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="email">
                           Email
                         </label>
                         <input
                           type="email"
-                          id="example-email"
-                          name="example-email"
-                          class="form-control bg-"
+                          id="email"
+                          name="email"
+                          className="form-control"
                           placeholder="Enter your email"
+                          value={loginFormData.email || ""}
+                          onChange={handleInputChange}
                         />
+                        {formErrors.email && (
+                          <small className="text-danger">
+                            {formErrors.email}
+                          </small>
+                        )}
                       </div>
-                      <div class="mb-3">
-                        <a
-                          href="/reset-password"
-                          class="float-end text-muted text-unline-dashed ms-1"
-                        >
-                          Reset password
-                        </a>
-                        <label class="form-label" for="example-password">
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="password">
                           Password
                         </label>
                         <input
-                          type="text"
-                          id="example-password"
-                          class="form-control"
+                          type="password"
+                          id="password"
+                          name="password"
+                          className="form-control"
                           placeholder="Enter your password"
+                          value={loginFormData.password || ""}
+                          onChange={handleInputChange}
                         />
+                        {formErrors.password && (
+                          <small className="text-danger">
+                            {formErrors.password}
+                          </small>
+                        )}
                       </div>
-                      <div class="mb-3">
-                        <div class="form-check">
+                      <div className="mb-3">
+                        <div className="form-check">
                           <input
                             type="checkbox"
-                            class="form-check-input"
+                            className="form-check-input"
                             id="checkbox-signin"
                           />
-                          <label class="form-check-label" for="checkbox-signin">
+                          <label
+                            className="form-check-label"
+                            htmlFor="checkbox-signin"
+                          >
                             Remember me
                           </label>
                         </div>
                       </div>
 
-                      <div class="mb-1 text-center d-grid">
-                        <button class="btn btn-soft-primary" type="submit">
-                          Sign In
+                      <div className="mb-1 text-center d-grid">
+                        <button
+                          className="btn btn-soft-primary"
+                          type="submit"
+                          disabled={isSubmitting}
+                        >
+                          {isSubmitting ? "Signing In..." : "Sign In"}
                         </button>
                       </div>
                     </form>
-
-                    <p class="mt-3 fw-semibold no-span">OR sign with</p>
-
-                    <div class="d-grid gap-2">
-                      <a href="javascript:void(0);" class="btn btn-soft-dark">
-                        <i class="bx bxl-google fs-20 me-1"></i> Sign in with
-                        Google
-                      </a>
-                      <a
-                        href="javascript:void(0);"
-                        class="btn btn-soft-primary"
-                      >
-                        <i class="bx bxl-facebook fs-20 me-1"></i> Sign in with
-                        Facebook
-                      </a>
-                    </div>
                   </div>
 
-                  <p class="text-danger text-center">
+                  <p className="text-danger text-center">
                     Don't have an account?{" "}
-                    <a href="auth-signup.html" class="text-dark fw-bold ms-1">
+                    <a href="/signup" className="text-dark fw-bold ms-1">
                       Sign Up
                     </a>
                   </p>
@@ -115,14 +121,10 @@ const SignIn = () => {
             </div>
           </div>
 
-          <div class="col-xxl-5 d-none d-xxl-flex">
-            <div class="card h-100 mb-0 overflow-hidden">
-              <div class="d-flex flex-column h-100">
-                <img
-                  src="assets/images/small/img-10.jpg"
-                  alt=""
-                  class="w-100 h-100"
-                />
+          <div className="col-xxl-5 d-none d-xxl-flex">
+            <div className="card h-100 mb-0 overflow-hidden">
+              <div className="d-flex flex-column h-100">
+                <img src={img} alt="Access Control" className="w-100 h-100" />
               </div>
             </div>
           </div>

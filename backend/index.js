@@ -20,6 +20,8 @@ const merchantRoutes = require("./routes/merchantRouter");
 const cartRoutes = require("./routes/cartRouter");
 const orderRoutes = require("./routes/orderRouter");
 const reviewRoutes = require("./routes/reviewRouter");
+const couponRoutes = require("./routes/couponRouter");
+const discountRoutes = require("./routes/discountRouter");
 const wishlistRoutes = require("./routes/wishlistRouter");
 const { port } = keys;
 const app = express();
@@ -41,13 +43,13 @@ app.use("/api/auth", authRoutes);
 
 // user routes
 app.use("/api/user", userRoutes);
-
+app.use("/api/discount", discountRoutes);
 // address routes
 app.use("/api/address", addressRoutes);
 
 // newsletter routes
 app.use("/api/newsletter", newsletterRoutes);
-
+app.use("/api/coupons", couponRoutes);
 // product routes
 app.use("/api/product", productRoutes);
 

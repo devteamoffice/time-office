@@ -12,7 +12,7 @@
               "id": "prod001",
               "name": "Z901 Mini",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "Face, Card, Password and Combinations",
               "Face Capacity": "1500 User",
@@ -39,7 +39,7 @@
               "id": "prod002",
               "name": "Z901",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "Face, Card, Password and Combinations",
               "Face Capacity": "1500 User",
@@ -66,7 +66,7 @@
               "id": "prod003",
               "name": "Z902N",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
@@ -93,7 +93,7 @@
               "id": "prod004",
               "name": "Z904",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
@@ -126,7 +126,7 @@
               "id": "prod005",
               "name": "Z203",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
@@ -155,7 +155,7 @@
               "id": "prod006",
               "name": "Z500V2",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
@@ -184,7 +184,7 @@
               "id": "prod007",
               "name": "Z619",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
@@ -219,7 +219,7 @@
               "id": "prod008",
               "name": "Z900",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
@@ -251,7 +251,7 @@
               "id": "prod009",
               "name": "Z100AC / Z199",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
@@ -273,7 +273,7 @@
               "id": "prod010",
               "name": "Z300AC (Cloud Supported)",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
@@ -301,7 +301,7 @@
               "id": "prod011",
               "name": "Z100N",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
@@ -327,7 +327,7 @@
               "id": "prod012",
               "name": "Z12",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
@@ -345,7 +345,7 @@
               "id": "prod013",
               "name": "Z101N",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
@@ -363,7 +363,7 @@
               "id": "prod014",
               "name": "Z33",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
@@ -393,7 +393,7 @@
               "id": "prod015",
               "name": "Z70R",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "userCapacity": "200",
               "verificationMode": "1:N",
@@ -414,7 +414,7 @@
               "name": "1 Door Controller",
               "id": "prod016",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "users": "0",
               "eventStorage": "0",
@@ -432,7 +432,7 @@
               "name": "2 Door Controller",
               "id": "prod017",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "users": "0",
               "eventStorage": "0",
@@ -450,7 +450,7 @@
               "name": "4 Door Controller",
               "id": "prod018",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "users": "0",
               "eventStorage": "0",
@@ -474,21 +474,21 @@
               "name": "Z86",
               "id": "prod019",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "Z6N",
               "id": "prod020",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "Z4",
               "id": "prod021",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             }
           ]
@@ -507,7 +507,7 @@
               "name": "BS20W / CQH20G",
               "id": "prod022",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "scanBarcodeCategory": "0",
               "codeReadingDensity": "0",
@@ -534,7 +534,7 @@
               "name": "BS20 / CQH20",
               "id": "prod023",
               "price": "0",
-              "image": "0",
+
               "description": "0",
               "scanBarcodeCategory": "0",
               "codeReadingDensity": "0",
@@ -564,70 +564,70 @@
               "name": "EM Lock 120LBS",
               "id": "prod024",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "EM Lock 300 LBS",
               "id": "prod025",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "EM Lock 600 LBS",
               "id": "prod026",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "EM Lock 1200 LBS Double Leaf",
               "id": "prod027",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "EM Lock 1200 LBS Single Leaf",
               "id": "prod028",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "RIM Lock",
               "id": "prod029",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "Drop Bolt Lock for Fully Glass Door",
               "id": "prod030",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "Surface Mount Drop Bolt Lock",
               "id": "prod031",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "Strike Lock Fail Secure/Fail Safe",
               "id": "prod032",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "Drop Bolt Lock",
               "id": "prod033",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             }
           ]
@@ -640,21 +640,21 @@
               "name": "L Brackets",
               "id": "prod034",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "U Brackets",
               "id": "prod035",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "ZL Brackets",
               "id": "prod036",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             }
           ]
@@ -667,35 +667,35 @@
               "name": "Proximity Cards",
               "id": "prod037",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "RFID Key Fobs",
               "id": "prod038",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "1K Smart Cards",
               "id": "prod039",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "UHF Cards and Tags",
               "id": "prod040",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "USB Card Reader Z11",
               "id": "prod041",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             }
           ]
@@ -714,84 +714,84 @@
               "name": "TOP-173R (NO/NC/COM) Inbuilt Receiver",
               "id": "prod042",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-173 (NO/NC/COM)",
               "id": "prod043",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-042 (NO/COM) TOP-043 (NO/NC/COM)",
               "id": "prod044",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-73 (NO/NC/COM)",
               "id": "prod045",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-72 (NO/COM)",
               "id": "prod046",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-25 (NO/NC/COM)",
               "id": "prod047",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-023LB (NO/NC/COM)",
               "id": "prod048",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-032 (NO/COM)",
               "id": "prod049",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-033 (NO/NC/COM)",
               "id": "prod050",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "Remote Kit",
               "id": "prod051",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOFP-203 (NO/NC/COM)",
               "id": "prod052",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             },
             {
               "name": "TOP-12 Mobile App (NO/NC/COM)",
               "id": "prod053",
               "price": "0",
-              "image": "0",
+
               "description": "0"
             }
           ]

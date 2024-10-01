@@ -5,7 +5,7 @@ const handleError = (err, dispatch, title = "") => {
   // Generic options for error notifications
   const showToast = (message, autoClose = 3000) => {
     toast.error(`${title ? title + ": " : ""}${message}`, {
-      position: toast.POSITION.TOP_RIGHT,
+      position: "top-right", // Use string format instead of toast.POSITION.TOP_RIGHT
       autoClose,
     });
   };

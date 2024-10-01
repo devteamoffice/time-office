@@ -8,7 +8,7 @@ const Navbar = () => {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             <img src={logo} alt="" />
           </a>
           <button
@@ -59,7 +59,7 @@ const Navbar = () => {
             </ul>
             <div className="d-flex btn-group">
               <button className="btn1">
-                <Link to="/signup">Login</Link>
+                <Link to="/signin">Login</Link>
               </button>
               <button className="btn2 ms-2">Call Now</button>
             </div>

@@ -53,3 +53,48 @@ exports.addQueries = async (req, res) => {
     });
   }
 };
+exports.queryById = async (req, res) => {
+  try {
+    const { id } = req.params; // Extract the ID from request parameters
+    const contact = await Contact.findById(id); // Find the contact by ID
+
+    if (!contact) {
+      return res.status(404).json({ error: "Contact not found." });
+    }
+
+    res.status(200).json({ success: true, contact });
+  } catch (error) {
+    return res.status(400).json({
+      error: "Error retrieving contact. Please try again.",
+    });
+  }
+};
+exports.allQueries = async (req, res) => {
+  try {
+    const contacts = await Contact.find(); // Retrieve all contacts
+    res.status(200).json({ success: true, contacts });
+  } catch (error) {
+    return res.status(400).json({
+      error: "Error retrieving contacts. Please try again.",
+    });
+  }
+};
+exports.deleteQuery = async (req, res) => {
+  try {
+    const { id } = req.params; // Extract the ID from request parameters
+    const contact = await Contact.findByIdAndDelete(id); // Delete the contact by ID
+
+    if (!contact) {
+      return res.status(404).json({ error: "Contact not found." });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Contact query deleted successfully.",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      error: "Error deleting contact. Please try again.",
+    });
+  }
+};
