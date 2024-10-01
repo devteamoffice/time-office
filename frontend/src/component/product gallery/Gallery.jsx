@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./gallery.css";
 import img1 from "../../assets/Image/galleryImg/door.png";
 import img2 from "../../assets/Image/galleryImg/attendance.png";
@@ -6,9 +6,20 @@ import img3 from "../../assets/Image/galleryImg/barcode.png";
 import img4 from "../../assets/Image/galleryImg/4.png";
 import img5 from "../../assets/Image/galleryImg/5.png";
 import img6 from "../../assets/Image/galleryImg/6.png";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-import about from "../../assets/Image/about.png";
+// import about from "../../assets/Image/about.png";
 const Gallery = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Duration of animations
+      once: true,
+      // mirror: false,
+      duration: 1000,
+    });
+  }, []);
+
   return (
     <>
       {/* <div className="container">
@@ -28,7 +39,7 @@ const Gallery = () => {
         </div>
         <div class="container">
           <div class="row">
-            <div class="col-12 col-xl-5 mb-4 mb-xl-0">
+            <div class="col-12 col-xl-5 mb-4 mb-xl-0" data-aos="zoom-in">
               <div class="CardWrapFirst">
                 <img src={img1} width="486" height="890" />
                 <div class="py-4 py-xl-5 CardText">
@@ -38,7 +49,7 @@ const Gallery = () => {
             </div>
             <div class="col-12 col-xl-7">
               <div class="row">
-                <div class="col-md-6 col-xl-7 mb-4">
+                <div class="col-md-6 col-xl-7 mb-4" data-aos="zoom-in">
                   <div class="CardWrap">
                     <img src={img2} width="496" height="322" />
                     <div class="py-4 CardText">
@@ -48,7 +59,7 @@ const Gallery = () => {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 col-xl-5 mb-4">
+                <div class="col-md-6 col-xl-5 mb-4" data-aos="zoom-in">
                   <div class="CardWrap">
                     <img src={img3} width="307" height="322" />
                     <div class="py-sm-4 pb-md-4 pt-md-5 py-lg-4 CardText">
@@ -56,7 +67,7 @@ const Gallery = () => {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 col-lg-5 mb-4">
+                <div class="col-md-6 col-lg-5 mb-4" data-aos="zoom-in">
                   <div class="CardWrap">
                     <img src={img4} width="308" height="323" />
                     <div class="py-4 CardText">
@@ -64,7 +75,7 @@ const Gallery = () => {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 col-lg-7 mb-4">
+                <div class="col-md-6 col-lg-7 mb-4" data-aos="zoom-in">
                   <div class="CardWrap">
                     <img src={img5} width="494" height="323" />
                     <div class="py-4 CardText">
@@ -72,7 +83,7 @@ const Gallery = () => {
                     </div>
                   </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12" data-aos="zoom-in">
                   <div class="d-flex CardWrap">
                     <div
                       style={{

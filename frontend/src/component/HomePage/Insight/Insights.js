@@ -31,7 +31,7 @@ const Insights = () => {
 
         <div className="main_card my-4">
           <div className="inner_card">
-            <div className="card-left">
+            <div className="card-left" data-aos="fade-right">
               <img src={insights1} alt="" />
               <div className="card-left-text">
                 <p className="date pt-2 text-center">July 01, 2024</p>
@@ -45,7 +45,7 @@ const Insights = () => {
                 <div className="card-btn text-center">Read More...</div>
               </div>
             </div>
-            <div className="card-right">
+            <div className="card-right" data-aos="fade-left">
               <img src={insights2} alt="" />
               <div className="card-right-text">
                 <p className="date pt-2 text-center">July 01, 2024</p>

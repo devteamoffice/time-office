@@ -10,7 +10,7 @@ const Slider2 = () => {
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src={Offer1} class="d-block w-100" alt="..." />
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption d-md-block">
               <h2>Save 50%</h2>
               <p>Shop Our Year End Sale - Upto 50% Off </p>
               <button className="offer-btn">Shop Now </button>

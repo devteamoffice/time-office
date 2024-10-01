@@ -12,7 +12,7 @@ const Testomonial = () => {
     slidesToScroll: 2,
     initialSlide: 0,
     autoplay: true,
-    autoplaySpeed: 1000,
+    autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 1024,

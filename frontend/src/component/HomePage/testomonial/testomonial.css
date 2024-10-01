@@ -82,3 +82,30 @@
 color: #9747FF;
 
 }
+
+
+
+
+@media (max-width: 510px) {
+    .img_testomonial{
+        padding: 2px 7px;
+        width: 200px;
+          top: 23px;
+
+    }
+
+    
+.col2 p {
+    padding: 2px 20px;
+    font-size: 14px;
+}
+
+
+.box-testo {
+    width: 150px;
+height: 300px;
+
+margin-left: 29px;
+
+}
+}

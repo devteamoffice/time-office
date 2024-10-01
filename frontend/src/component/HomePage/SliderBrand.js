@@ -53,7 +53,7 @@ const SliderBrand = () => {
       </div>
       <div className="row">
         <div className="col-md-12">
-          <div className="slider-container">
+          <div className="slider-container productScroll">
             <Slider {...settings}>
               <div className="mr-2">
                 <div className="slider-inner">

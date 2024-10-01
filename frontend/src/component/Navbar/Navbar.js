@@ -29,13 +29,64 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-              <li class="nav-item">
+              {/* <li class="nav-item">
                 <Link
                   class="nav-link active"
                   aria-current="page"
                   to={"/product"}
                 >
                   Products
+                </Link>
+              </li> */}
+
+              <li class="nav-item dropdown">
+                <Link
+                  to={"/product"}
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Product
+                </Link>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <Link class="dropdown-item" href="#">
+                      Attendance and Access Control Systems
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" href="#">
+                      Door Locks and Controllers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" href="#">
+                      Barcode Scanners
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" href="#">
+                      Accessories
+                    </Link>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Switches for Access Control
+                    </a>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" href="#">
+                      Readers
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link active" aria-current="page" to="/product">
+                  Our Store
                 </Link>
               </li>
               <li class="nav-item">
@@ -50,7 +101,15 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            <div class="d-flex btn-group">
+            {/* <div class="d-flex btn-group ">
+              <Link>
+                <i
+                  className="bx bxs-cart"
+                  style={{ fontSize: "24px", color: "#000" }}
+                ></i>
+              </Link>
+            </div> */}
+            <div class="d-flex btn-group ms-2">
               <button className=" btn1">Login</button>
               <button className=" btn2 ms-2">Call Now</button>
             </div>
