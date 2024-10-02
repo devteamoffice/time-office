@@ -26,33 +26,30 @@ const Contact = () => {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="row ">
-          <div className="col-md-12 contact-top">
-            <h1>Contact Us</h1>
-            <p>
-              "We’re here to assist you. Fill out the form below, and our team
-              will get back to you as soon as possible."
-            </p>
-          </div>
-        </div>
+      {/* <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-12 aboutBg-image">Contact us</div>
+      </div>
+    </div> */}
+      <div className="col-md-12 contact-top">
+        <h1>CONTACT US</h1>
       </div>
 
       {/* Contact */}
-      <div className="contact-section my-4 py-4">
-        <div className="container py-4">
-          <div className="row contact-left py-4">
+      <div className="contact-section   ">
+        <div className="container   py-4">
+          <div className="row contact-left  py-4">
             {/* Get in touch */}
             <div className="col-md-6">
               <h2>Get In Touch</h2>
               <p>
                 "We’re here to make things easier for you. Reach out to us by
                 filling out the form, and we’ll respond as quickly as possible
-                or you can call us at given number."
+                or you can call us at given number.
               </p>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i className="fa-solid fa-location-dot"></i>
+                  <i class="fa-solid fa-location-dot"></i>
                 </div>
                 <div className="address-section-inner">
                   <h3>Address</h3>
@@ -64,20 +61,22 @@ const Contact = () => {
               </div>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i className="fa-solid fa-phone"></i>
+                  <i class="fa-solid fa-phone"></i>
                 </div>
-                <div className="address-section-inner">
+
+                <div className="address-section-inner ">
                   <h3>Phone Number</h3>
-                  <p>080-6901 0000</p>
+                  <p> 080-6901 0000</p>
                 </div>
               </div>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i className="fa-solid fa-envelope"></i>
+                  <i class="fa-solid fa-envelope"></i>
                 </div>
+
                 <div className="address-section-inner">
                   <h3>Email Address</h3>
-                  <p>info@chiptronics.co.in</p>
+                  <p> info@chiptronics.co.in</p>
                 </div>
               </div>
               <hr />
@@ -87,7 +86,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        className="fa-brands fa-facebook-f"
+                        class="fa-brands fa-facebook-f"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -95,7 +94,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        className="fa-brands fa-twitter"
+                        class="fa-brands fa-twitter"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -103,7 +102,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        className="fa-brands fa-instagram"
+                        class="fa-brands fa-instagram"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -111,7 +110,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        className="fa-brands fa-youtube"
+                        class="fa-brands fa-youtube"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -122,35 +121,61 @@ const Contact = () => {
             {/* Handling Form */}
             <div className="col-md-6">
               <div className="outer-form">
-                <form onSubmit={handleSubmit} className="inner-form">
+                <form action="" className="inner-form">
                   <h1 className="my-2">Send a Message</h1>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={contactFormData.name || ""}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="E-mail Address"
-                    value={contactFormData.email || ""}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    name="message"
-                    placeholder="Message"
-                    value={contactFormData.message || ""}
-                    onChange={handleChange}
-                  />
-                  <button type="submit">Submit</button>
+                  <input type="text" placeholder="Name" />
+                  <input type="email" placeholder="E-mail Address" />
+                  <input type="text" placeholder="Message" />
+                  <button>Submit</button>
                 </form>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* MAP */}
+      <div
+        className="col-md-12 contact-map mt-4"
+        style={{ position: "relative" }}
+      >
+        {/* Company Info Overlay */}
+        <div
+          style={{
+            position: "absolute",
+            top: "10px",
+            left: "10px",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            padding: "10px 20px",
+            zIndex: 10,
+            borderRadius: "5px",
+            boxShadow: "0px 0px 5px rgba(0,0,0,0.1)",
+          }}
+        >
+          <h5 style={{ margin: "0" }}>E-Timeoffice Softech Pvt. Ltd.</h5>
+          <p style={{ margin: "5px 0" }}>
+            B205, Anannya Complex, <br />
+            Near Akshar Chowk O.P. Road, <br />
+            Vadodara-390020
+          </p>
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=B205,%20Anannya%20Complex,%20Near%20Akshar%20Chowk%20O.P.%20Road,%20Vadodara-390020"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#007bff", textDecoration: "none" }}
+          >
+            Get Directions
+          </a>
+        </div>
+
+        {/* Google Map */}
+        <iframe
+          src="https://maps.google.com/maps?q=B205,%20Anannya%20Complex,%20Near%20Akshar%20Chowk%20O.P.%20Road,%20Vadodara-390020&amp;t=&amp;z=19&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+          frameBorder="0"
+          scrolling="no"
+          style={{ width: "100%", height: "300px" }}
+          title="Company Location"
+        ></iframe>
       </div>
     </>
   );

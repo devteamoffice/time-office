@@ -1,0 +1,112 @@
+/* slider.css */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+.slider1_head {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.8);
+  margin: 32px 0;
+}
+
+.slider-inner {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  margin: 0 20px;
+}
+
+.slider-container img {
+  max-width: 100%;
+  /* Ensure the images fit within the slider */
+  height: auto;
+}
+
+.slider-inner img {
+  height: 200px;
+  /* Set a fixed height */
+  /* object-fit: cover; */
+  width: 100%;
+  /* Ensure the image spans the entire width of its container */
+}
+
+/*  */
+
+/* Offer carousel-item */
+
+.slider2_main {
+  margin-top: 80px;
+}
+.carousel-item {
+  height: 60vh;
+}
+
+.carousel-caption {
+  bottom: 4.7rem;
+  color: #ffffff;
+}
+
+.carousel-caption h2 {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 70px;
+  color: #ffffff;
+}
+
+.carousel-caption p {
+  font-family: "Roboto Serif";
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 14px;
+}
+
+.offer-btn {
+  color: red;
+  background: #ffffff;
+  border: none;
+  padding: 8px 25px;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  bottom: 178px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 34px;
+  height: 33px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #9e9ba0;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}

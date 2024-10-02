@@ -13,7 +13,6 @@
               "name": "Z901 Mini",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "Face, Card, Password and Combinations",
               "Face Capacity": "1500 User",
               "Card Capacity": "1500 Card Templates",
@@ -40,7 +39,6 @@
               "name": "Z901",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "Face, Card, Password and Combinations",
               "Face Capacity": "1500 User",
               "Card Capacity": "1500 Card Templates",
@@ -67,7 +65,6 @@
               "name": "Z902N",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
               "Card Capacity": "0",
@@ -94,7 +91,6 @@
               "name": "Z904",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
               "Card Capacity": "0",
@@ -127,7 +123,6 @@
               "name": "Z203",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
               "Fingerprint/Card Capacity": "0",
@@ -156,7 +151,6 @@
               "name": "Z500V2",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
               "Fingerprint/Card Capacity": "0",
@@ -185,7 +179,6 @@
               "name": "Z619",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
               "Fingerprint/Card Capacity": "0",
@@ -220,7 +213,6 @@
               "name": "Z900",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "Face Capacity": "0",
               "Fingerprint/Card Capacity": "0",
@@ -252,7 +244,6 @@
               "name": "Z100AC / Z199",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
               "Transaction Capacity": "0",
@@ -274,7 +265,6 @@
               "name": "Z300AC (Cloud Supported)",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
               "Transaction Capacity": "0",
@@ -302,7 +292,6 @@
               "name": "Z100N",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
               "Transaction Capacity": "0",
@@ -328,7 +317,6 @@
               "name": "Z12",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
               "Color": "0",
@@ -346,7 +334,6 @@
               "name": "Z101N",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
               "Color": "0",
@@ -364,7 +351,6 @@
               "name": "Z33",
               "price": "0",
 
-              "description": "0",
               "Authentication Method": "0",
               "User Capacity": "0",
               "Color": "0",
@@ -394,7 +380,6 @@
               "name": "Z70R",
               "price": "0",
 
-              "description": "0",
               "userCapacity": "200",
               "verificationMode": "1:N",
               "details": "Voice Indication, Doorbell and Display Highly Performance Fingerprint Sensor",
@@ -415,7 +400,6 @@
               "id": "prod016",
               "price": "0",
 
-              "description": "0",
               "users": "0",
               "eventStorage": "0",
               "numberOfReadersSupported": "0",
@@ -433,7 +417,6 @@
               "id": "prod017",
               "price": "0",
 
-              "description": "0",
               "users": "0",
               "eventStorage": "0",
               "numberOfReadersSupported": "0",
@@ -451,7 +434,6 @@
               "id": "prod018",
               "price": "0",
 
-              "description": "0",
               "users": "0",
               "eventStorage": "0",
               "numberOfReadersSupported": "0",
@@ -508,7 +490,6 @@
               "id": "prod022",
               "price": "0",
 
-              "description": "0",
               "scanBarcodeCategory": "0",
               "codeReadingDensity": "0",
               "operatingTemperature": "0",
@@ -535,7 +516,6 @@
               "id": "prod023",
               "price": "0",
 
-              "description": "0",
               "scanBarcodeCategory": "0",
               "codeReadingDensity": "0",
               "operatingTemperature": "0",

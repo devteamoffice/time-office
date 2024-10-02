@@ -1,0 +1,129 @@
+/* General CSS */
+
+body {
+  margin: 0;
+  font-family: Poppins, sans-serif;
+}
+
+.slider {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider .list .item {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+
+  transform: scale(1.09);
+}
+
+.slider .list .item.active {
+  opacity: 1;
+  transform: scale(1); /* Smooth transition */
+}
+
+.slider .list .item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider .list .item .content {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* When the slide is active, make the content visible */
+.slider .list .item.active .content {
+  opacity: 1;
+  transform: translateY(0); /* Bring the content up smoothly */
+}
+
+.slider .list .item .content .title {
+  margin-top: 50px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.slider .list .item .content .description {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+/* Thumbnail styles */
+.thumbnail {
+  position: absolute;
+  bottom: 50px;
+  left: 85%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.thumbnail .item {
+  width: 100px;
+  height: 150px;
+  cursor: pointer;
+  transition: transform 0.3s ease, border 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.thumbnail .item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.thumbnail .item.active {
+  transform: scale(1.2); /* Highlight the active thumbnail */
+  /* border: 2px solid #14ff72cb;  */
+}
+
+/* Next/Prev arrows */
+.nextPrevArrows {
+  position: absolute;
+  top: 90%;
+  transform: translate(30%, -50%);
+  display: flex;
+  gap: 10px;
+}
+
+.nextPrevArrows button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #14ff72cb;
+  border: none;
+  color: #fff;
+  font-family: monospace;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.nextPrevArrows button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.slider .list .item .button button {
+  background-color: #4d0186;
+  color: white;
+}
+
+.slider .list .item .type {
+  /* color: #14ff72cb; */
+  color: #14ff72cb;
+}

@@ -2,13 +2,14 @@ import React from "react";
 // import "../../assets/Product Page/css/vendor.min.css";
 // import "../../assets/Product Page/css/icons.min.css";
 // import "../../assets/Product Page/css/app.min.css";
+import "./ProductDetails.css";
 
 import p1 from "../../assets/Product Page/images/product/p-1.png";
 const Product = () => {
   return (
     <>
       {/* START Wrapper */}
-      <div className="wrapper mt-4">
+      <div className="wrapper  " style={{ marginTop: "6rem" }}>
         {/* ========== Topbar Start ========== */}
 
         {/* Activity Timeline */}
@@ -460,7 +461,7 @@ const Product = () => {
         {/* ==================================================== */}
         {/* Start right Content here */}
         {/* ==================================================== */}
-        <div className="page-content">
+        <div className="page-content mt-4">
           {/* Start Container Fluid */}
           <div className="container-xxl">
             <div className="row">

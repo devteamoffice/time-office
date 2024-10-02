@@ -9,9 +9,12 @@ import SignUp from "../pages/SignUp";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Faqs from "../pages/Faqs";
 import Product from "../pages/Product";
-import Home from "../component/Home";
+import Home from "../pages/Home";
 import Cart from "../pages/Cart";
 import Invoice from "../pages/Invoice";
+import TermCondition from "../pages/TermCondition";
+import CancellationRefundPolicy from "../pages/CancelationRefund";
+import ShippingDelivery from "../pages/ShippingDelivery";
 export const publicRoutes = [
   { path: "/500", element: Error505Page },
   { path: "/404", element: Error404Page },
@@ -22,6 +25,9 @@ export const publicRoutes = [
   { path: "/reset-password", element: ResetPassword },
   { path: "/signup", element: SignUp },
   { path: "/privacy-policy", element: PrivacyPolicy },
+  { path: "/terms-and-conditions", element: TermCondition },
+  { path: "/refund-policy", element: CancellationRefundPolicy },
+  { path: "/shipping-policy", element: ShippingDelivery },
   { path: "/faqs", element: Faqs },
   { path: "/products", element: Product },
   { path: "/", element: Home },
