@@ -1,3 +1,8 @@
+.carousel {
+ 
+  height: 60vh;
+}
+
 .slider1_head{
 font-family: 'Roboto Serif';
 font-style: normal;
@@ -83,7 +88,7 @@ margin: 32px 0;
 }
 
 .carousel-control-prev, .carousel-control-next {
-  bottom: 178px;
+  bottom: 34px;
   
 }
 
@@ -97,13 +102,35 @@ margin: 32px 0;
 
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
+
+  .carousel-caption h2 {
+
+    font-size: 40px;
+
+}
+
+.carousel-caption p {
+  font-size: 14px;
+}
+.offer-btn {
+  border: none;
+  padding: 5px 15px;
+  font-size: 13px;
+}
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {}
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
+@media only screen and (max-width: 768px) {
+  .w-100 {
+    /* width: 100% !important; */
+    height: 300px;
+}
+
+}
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {}

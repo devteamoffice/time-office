@@ -8,7 +8,6 @@ import Testomonial from "./HomePage/testomonial/Testomonial";
 import OurClinets from "./HomePage/OurClients/OurClinets";
 import Insights from "./HomePage/Insight/Insights";
 import Recent from "./HomePage/Recent/Recent";
-import Hero from "./HomePage/Hero Section/Hero";
 import HeroSlider from "./HomePage/HeroSection2/HeroNew";
 
 const Home = () => {

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../../assets/Image/Logo.png";
 import "./footer.css";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <section className="footer-section">
       <footer>
@@ -56,25 +60,37 @@ const Footer = () => {
                   <h2>Information</h2>
                   <ul>
                     <li>
-                      <Link to={"/contact"}> About </Link>
+                      <Link to={"/contact"} onClick={scrollToTop}>
+                        {" "}
+                        About{" "}
+                      </Link>
                     </li>
                     <li>
-                      <Link to={"/contact"}>More Search</Link>
+                      <Link to={"/contact"} onClick={scrollToTop}>
+                        More Search
+                      </Link>
                     </li>
                     <li>
-                      <Link to="/contact">Testimonials</Link>
+                      <Link to="/contact" onClick={scrollToTop}>
+                        Testimonials
+                      </Link>
                     </li>
                     <li>
-                      <Link to="/contact">Blog </Link>
+                      <Link to="/contact" onClick={scrollToTop}>
+                        Blog{" "}
+                      </Link>
                     </li>
                     <li>
-                      <Link href="/contact">Events </Link>
+                      <Link href="/contact" onClick={scrollToTop}>
+                        Events{" "}
+                      </Link>
                     </li>
                   </ul>
                   <p>
                     Timeoffice Softech Pvt. Ltd. B205, Anannya Complex, Near
-                    Akshar Chowk O.P. Road, Vadodara-390020 Contact Us On :-
-                    (080-6901 0000) E-mail :- info@chiptronics.co.in
+                    Akshar Chowk O.P. Road, Vadodara-390020
+                    {/* Contact Us On :-
+                    (080-6901 0000) E-mail :- info@chiptronics.co.in */}
                   </p>
                 </div>
                 <div className="footer-3">
@@ -87,18 +103,22 @@ const Footer = () => {
                       <a href="">Supports</a>
                     </li>
                     <li>
-                      <Link to="/policy/termcondition">Terms & Condition</Link>
+                      <Link to="/policy/termcondition" onClick={scrollToTop}>
+                        Terms & Condition
+                      </Link>
                     </li>
                     <li>
-                      <Link to="/policy/privacypolicy">Privacy Policy </Link>
+                      <Link to="/policy/privacypolicy" onClick={scrollToTop}>
+                        Privacy Policy{" "}
+                      </Link>
                     </li>
                     <li>
-                      <Link to="/policy/cancelRefund">
+                      <Link to="/policy/cancelRefund" onClick={scrollToTop}>
                         Cancellation & Refund Policy{" "}
                       </Link>
                     </li>
                     <li>
-                      <Link to="/policy/shippingdelivery">
+                      <Link to="/policy/shippingdelivery" onClick={scrollToTop}>
                         Shipping & Delivery Policy
                       </Link>
                     </li>
