@@ -90,15 +90,15 @@ const Footer = () => {
                       <Link to="/terms-and-conditions">Terms & Condition</Link>
                     </li>
                     <li>
-                      <Link to="/policy/privacypolicy">Privacy Policy </Link>
+                      <Link to="/privacy-policy">Privacy Policy </Link>
                     </li>
                     <li>
-                      <Link to="/policy/cancelRefund">
+                      <Link to="/refund-policy">
                         Cancellation & Refund Policy{" "}
                       </Link>
                     </li>
                     <li>
-                      <Link to="/policy/shippingdelivery">
+                      <Link to="/shipping-policy">
                         Shipping & Delivery Policy
                       </Link>
                     </li>
