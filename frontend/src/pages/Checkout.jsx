@@ -1,398 +1,528 @@
 import React from "react";
 
-const Cart = () => {
+const Checkout = () => {
   return (
     <div class="page-content">
       <div class="container-xxl">
         <div class="row">
           <div class="col-lg-8">
-            <div class="d-flex mb-4 bg-primary p-3 rounded">
-              <p class="fw-medium fs-15 text-white m-0">
-                There are 4 product in your cart
-              </p>
-              <a
-                href="#!"
-                class="ms-auto text-white fs-14 text-decoration-underline"
-              >
-                Clear cart
-              </a>
-            </div>
-            <div class="card cart-detail">
+            <div class="card">
               <div class="card-body">
-                <div class="row gy-3">
-                  <div class="col-sm-auto">
-                    <div class="rounded bg-light avatar-lg d-flex align-items-center justify-content-center">
-                      <img
-                        src="assets/images/product/p-1.png"
-                        alt=""
-                        class="avatar-lg"
-                      />
+                <div class="row">
+                  <div class="col-lg-3">
+                    <h4 class="card-title">Personal Details</h4>
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <form>
+                          <div class="mb-3">
+                            <label for="first-name" class="form-label">
+                              First Name
+                            </label>
+                            <input
+                              type="text"
+                              id="first-name"
+                              class="form-control"
+                              placeholder="First name"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col-lg-6">
+                        <form>
+                          <div class="mb-3">
+                            <label for="last-name" class="form-label">
+                              Last Name
+                            </label>
+                            <input
+                              type="text"
+                              id="last-name"
+                              class="form-control"
+                              placeholder="Last name"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col-lg-6">
+                        <form>
+                          <div class="mb-3">
+                            <label for="your-email" class="form-label">
+                              Your Email
+                            </label>
+                            <input
+                              type="email"
+                              id="your-email"
+                              class="form-control"
+                              placeholder="Email"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col-lg-6">
+                        <form>
+                          <div class="mb-3">
+                            <label for="your-number" class="form-label">
+                              Phone number
+                            </label>
+                            <input
+                              type="number"
+                              id="your-number"
+                              name="your-number"
+                              class="form-control"
+                              placeholder="Number"
+                            />
+                          </div>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm">
-                    <div class="ms-lg-3">
-                      <a href="#!" class="fw-medium text-dark fs-18">
-                        Men Black Slim Fit T-shirt
-                      </a>
-                      <div class="d-flex align-items-center gap-3 mt-2">
-                        <p class="text-dark fw-medium">
-                          Color : <span class="text-muted"> Dark </span>
-                        </p>
-                        <p class="text-dark fw-medium">
-                          Size : <span class="text-muted"> M </span>
-                        </p>
+                </div>
+                <div class="mt-3">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <h4 class="card-title">Shipping Details</h4>
+                    </div>
+                    <div class="col-lg-9">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <h5 class="mb-4">Shipping Address :</h5>
+                          <form>
+                            <div class="mb-3">
+                              <label for="your-address" class="form-label">
+                                Full Address
+                              </label>
+                              <textarea
+                                class="form-control"
+                                id="your-address"
+                                rows="3"
+                                placeholder="Enter address"
+                              ></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col-lg-4">
+                          <form>
+                            <div class="mb-3">
+                              <label for="your-zipcode" class="form-label">
+                                Zip-Code
+                              </label>
+                              <input
+                                type="number"
+                                id="your-zipcode"
+                                class="form-control"
+                                placeholder="zip-code"
+                              />
+                            </div>
+                          </form>
+                        </div>
+
+                        <div class="col-lg-4">
+                          <form>
+                            <label for="choices-city" class="form-label">
+                              City
+                            </label>
+                            <select
+                              class="form-control"
+                              id="choices-city"
+                              data-choices
+                              data-choices-groups
+                              data-placeholder="Select City"
+                              name="choices-city"
+                            >
+                              <option value="">Choose a city</option>
+                              <optgroup label="UK">
+                                <option value="London">London</option>
+                                <option value="Manchester">Manchester</option>
+                                <option value="Liverpool">Liverpool</option>
+                              </optgroup>
+                              <optgroup label="FR">
+                                <option value="Paris">Paris</option>
+                                <option value="Lyon">Lyon</option>
+                                <option value="Marseille">Marseille</option>
+                              </optgroup>
+                              <optgroup label="DE" disabled>
+                                <option value="Hamburg">Hamburg</option>
+                                <option value="Munich">Munich</option>
+                                <option value="Berlin">Berlin</option>
+                              </optgroup>
+                              <optgroup label="US">
+                                <option value="New York">New York</option>
+                                <option value="Washington" disabled>
+                                  Washington
+                                </option>
+                                <option value="Michigan">Michigan</option>
+                              </optgroup>
+                              <optgroup label="SP">
+                                <option value="Madrid">Madrid</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Malaga">Malaga</option>
+                              </optgroup>
+                              <optgroup label="CA">
+                                <option value="Montreal">Montreal</option>
+                                <option value="Toronto">Toronto</option>
+                                <option value="Vancouver">Vancouver</option>
+                              </optgroup>
+                            </select>
+                          </form>
+                        </div>
+                        <div class="col-lg-4">
+                          <form>
+                            <label for="choices-country" class="form-label">
+                              Country
+                            </label>
+                            <select
+                              class="form-control"
+                              id="choices-country"
+                              data-choices
+                              data-choices-groups
+                              data-placeholder="Select Country"
+                              name="choices-country"
+                            >
+                              <option value="">Choose a country</option>
+                              <optgroup label="">
+                                <option value="">United Kingdom</option>
+                                <option value="Fran">France</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="U.S.A">U.S.A</option>
+                                <option value="Denmark">Denmark</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Australia">Australia</option>
+                                <option value="India">India</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Arab Emirates">
+                                  United Arab Emirates
+                                </option>
+                              </optgroup>
+                            </select>
+                          </form>
+                        </div>
                       </div>
-                      <div class="quantity mt-2">
-                        <div class="input-step border bg-body-secondary p-1 rounded d-inline-flex overflow-visible">
-                          <button
-                            type="button"
-                            class="minus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            class="text-dark text-center border-0 bg-body-secondary rounded h-100"
-                            value="1"
-                            min="0"
-                            max="100"
-                            readonly=""
-                          />
-                          <button
-                            type="button"
-                            class="plus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100"
-                          >
-                            +
-                          </button>
+                      <div class="mt-2">
+                        <a href="#!" class="link-primary fw-medium">
+                          + Add New Billing Address
+                        </a>
+                      </div>
+
+                      <h5 class="my-4">Shipping Method :</h5>
+                      <div class="row gy-2">
+                        <div class="col-lg-6">
+                          <div class="form-check form-checkbox-primary ps-0">
+                            <label for="shipping-1" class="w-100 mb-2">
+                              <div class="d-flex align-items-center p-2 rounded gap-2 border">
+                                <div class="d-flex align-items-center gap-2">
+                                  <div class="rounded-3 bg-light avatar-md d-flex align-items-center justify-content-center">
+                                    <img
+                                      src="assets/images/brands/dhl.png"
+                                      alt=""
+                                      class="avatar rounded"
+                                    />
+                                  </div>
+                                  <div>
+                                    <h5 class="text-dark fw-medium">
+                                      DHL Fast Services
+                                    </h5>
+                                    <p class="mb-0 text-dark">
+                                      Delivery -
+                                      <span class="text-muted fw-normal">
+                                        Today
+                                      </span>
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="ms-auto">
+                                  <p class="mb-2">$10.00</p>
+                                  <input
+                                    class="form-check-input float-end"
+                                    type="radio"
+                                    name="shipping"
+                                    id="shipping-1"
+                                  />
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <div class="form-check form-checkbox-primary ps-0">
+                            <label for="shipping-2" class="w-100">
+                              <div class="d-flex align-items-center p-2 rounded gap-2 border">
+                                <div class="d-flex align-items-center gap-2">
+                                  <div class="rounded-3 bg-light avatar-md d-flex align-items-center justify-content-center">
+                                    <img
+                                      src="assets/images/brands/fedex.png"
+                                      alt=""
+                                      class="avatar rounded"
+                                    />
+                                  </div>
+                                  <div>
+                                    <h5 class="text-dark fw-medium">
+                                      FedEx Services
+                                    </h5>
+                                    <p class="mb-0 text-dark">
+                                      Delivery -
+                                      <span class="text-muted fw-normal">
+                                        Today
+                                      </span>
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="ms-auto">
+                                  <p class="mb-2">$10.00</p>
+                                  <input
+                                    class="form-check-input float-end"
+                                    type="radio"
+                                    name="shipping"
+                                    id="shipping-2"
+                                  />
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <div class="form-check form-checkbox-primary ps-0">
+                            <label for="shipping-3" class="w-100">
+                              <div class="d-flex align-items-center p-2 rounded gap-2 border">
+                                <div class="d-flex align-items-center gap-2">
+                                  <div class="rounded-3 bg-light avatar-md d-flex align-items-center justify-content-center">
+                                    <img
+                                      src="assets/images/brands/ups.png"
+                                      alt=""
+                                      class="avatar rounded"
+                                    />
+                                  </div>
+                                  <div>
+                                    <h5 class="text-dark fw-medium">
+                                      UPS Services
+                                    </h5>
+                                    <p class="mb-0 text-dark">
+                                      Delivery -
+                                      <span class="text-muted fw-normal">
+                                        Tomorrow
+                                      </span>
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="ms-auto">
+                                  <p class="mb-2">$8.00</p>
+                                  <input
+                                    class="form-check-input float-end"
+                                    type="radio"
+                                    name="shipping"
+                                    id="shipping-3"
+                                  />
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <div class="form-check form-checkbox-primary ps-0">
+                            <label for="shipping-4" class="w-100">
+                              <div class="d-flex align-items-center p-2 rounded gap-2 border">
+                                <div class="d-flex align-items-center gap-2">
+                                  <div class="rounded-3 bg-light avatar-md d-flex align-items-center justify-content-center">
+                                    <iconify-icon
+                                      icon="solar:box-bold-duotone"
+                                      class="fs-36 text-warning"
+                                    ></iconify-icon>
+                                  </div>
+                                  <div>
+                                    <h5 class="text-dark fw-medium">
+                                      Our Courier Services
+                                    </h5>
+                                    <p class="mb-0 text-dark">
+                                      Delivery -
+                                      <span class="text-muted fw-normal">
+                                        25 Apr 2024
+                                      </span>
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="ms-auto">
+                                  <p class="mb-2">$0.00</p>
+                                  <input
+                                    class="form-check-input float-end"
+                                    type="radio"
+                                    name="shipping"
+                                    id="shipping-4"
+                                    checked
+                                  />
+                                </div>
+                              </div>
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-auto">
-                    <div class="text-lg-end">
-                      <p class="fw-medium mb-0">Items Price</p>
-                      <p class="mt-2 mb-0 fw-semibold fs-17">
-                        $80.00 <span class="fw-normal fs-14">/ $3.00 Tex</span>
-                      </p>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <div class="card-footer bg-light-subtle">
-                <div class="row g-3">
-                  <div class="col-sm">
-                    <div class="d-flex gap-3">
-                      <a
-                        href="#!"
-                        class="text-dark fs-14 d-flex align-items-center gap-1"
-                      >
-                        <iconify-icon
-                          icon="solar:trash-bin-minimalistic-bold-duotone"
-                          class="fs-18"
-                        ></iconify-icon>{" "}
-                        Remove
-                      </a>
-                      <a
-                        href="#!"
-                        class="text-dark fs-14 d-flex align-items-center gap-1 ms-3"
-                      >
-                        <iconify-icon
-                          icon="solar:heart-bold-duotone"
-                          class="fs-18"
-                        ></iconify-icon>
-                        Add Wishlist
-                      </a>
+                <div class="mt-5">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <h4 class="card-title">Payment Method</h4>
                     </div>
-                  </div>
-                  <div class="col-sm-auto">
-                    <p class="text-dark fw-medium mb-0">
-                      Total : <span class="text-muted">$83.00</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card cart-detail">
-              <div class="card-body">
-                <div class="row gy-3">
-                  <div class="col-sm-auto">
-                    <div class="rounded bg-light avatar-lg d-flex align-items-center justify-content-center">
-                      <img
-                        src="assets/images/product/p-5.png"
-                        alt=""
-                        class="avatar-lg"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                    <div class="ms-lg-3">
-                      <a href="#!" class="fw-medium text-dark fs-18">
-                        Dark Green Cargo Pent
-                      </a>
-                      <div class="d-flex align-items-center gap-3 mt-2">
-                        <p class="text-dark fw-medium">
-                          Color : <span class="text-muted"> Dark Green</span>
-                        </p>
-                        <p class="text-dark fw-medium">
-                          Size : <span class="text-muted"> M </span>
-                        </p>
-                      </div>
-                      <div class="quantity mt-2">
-                        <div class="input-step border bg-body-secondary p-1 rounded d-inline-flex overflow-visible">
-                          <button
-                            type="button"
-                            class="minus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            class="text-dark text-center border-0 bg-body-secondary rounded h-100"
-                            value="3"
-                            min="0"
-                            max="100"
-                            readonly=""
-                          />
-                          <button
-                            type="button"
-                            class="plus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100"
-                          >
-                            +
-                          </button>
+                    <div class="col-lg-9">
+                      <div class="card border-0">
+                        <div class="accordion" id="accordionExample">
+                          <div class="card">
+                            <div class="card-header p-0" id="pay-pal">
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-light w-100 collapsed rounded-0 border-bottom rounded-top-1"
+                                  type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target="#collapseTwo"
+                                  aria-expanded="false"
+                                  aria-controls="collapseTwo"
+                                >
+                                  <div class="d-flex align-items-center justify-content-between">
+                                    <span class="fs-5">Paypal</span>
+                                    <img
+                                      src="assets/images/card/paypal.svg"
+                                      alt=""
+                                      class="avatar-sm"
+                                    />
+                                  </div>
+                                </button>
+                              </h2>
+                              <p class="p-3 mb-0">
+                                Safe Payment Online Credit card needed. PayPal
+                                account is not necessary
+                              </p>
+                            </div>
+                            <div
+                              id="collapseTwo"
+                              class="collapse"
+                              aria-labelledby="pay-pal"
+                              data-bs-parent="#accordionExample"
+                            >
+                              <div class="card-body">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Paypal email"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card mb-0">
+                            <div class="card-header p-0">
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-light w-100 collapsed rounded-0 border-bottom rounded-top-1"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target="#collapseOne"
+                                  aria-expanded="true"
+                                  aria-controls="collapseOne"
+                                >
+                                  <div class="d-flex align-items-center justify-content-between">
+                                    <span class="fs-5">Credit card</span>
+                                    <div class="icons text-end">
+                                      <img
+                                        src="assets/images/card/mastercard.svg"
+                                        alt=""
+                                        class="avatar-sm"
+                                      />
+                                      <img
+                                        src="assets/images/card/stripe.svg"
+                                        alt=""
+                                        class="avatar-sm"
+                                      />
+                                      <img
+                                        src="assets/images/card/visa.svg"
+                                        alt=""
+                                        class="avatar-sm"
+                                      />
+                                    </div>
+                                  </div>
+                                </button>
+                              </h2>
+                              <p class="p-3 mb-0">
+                                Safe Money Transfer using your bank account.
+                                Visa , Master Card ,Discover , American Express
+                              </p>
+                            </div>
+                            <div
+                              id="collapseOne"
+                              class="collapse show"
+                              aria-labelledby="headingOne"
+                              data-bs-parent="#accordionExample"
+                            >
+                              <div class="p-3">
+                                <form>
+                                  <div class="mb-3">
+                                    <label for="card-number" class="form-label">
+                                      Card Number
+                                    </label>
+                                    <input
+                                      type="number"
+                                      id="card-number"
+                                      name="card-number"
+                                      class="form-control"
+                                      placeholder="0000 0000 0000 0000"
+                                      max="16"
+                                      maxlength="16"
+                                      required
+                                    />
+                                  </div>
+                                </form>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="mb-3">
+                                      <label for="ex-date" class="form-label">
+                                        Expiry Date
+                                      </label>
+                                      <input
+                                        type="text"
+                                        id="ex-date"
+                                        class="form-control flatpickr-input"
+                                        placeholder="dd-mm-yyyy"
+                                        required
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="mb-3">
+                                      <label for="card-cvv" class="form-label">
+                                        CVC/CVV
+                                      </label>
+                                      <input
+                                        type="number"
+                                        id="card-cvv"
+                                        name="card-cvv"
+                                        class="form-control"
+                                        placeholder="000"
+                                        min="0"
+                                        max="3"
+                                        maxlength="3"
+                                        required
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="alert alert-success mb-0 d-flex align-items-center gap-2"
+                                  role="alert"
+                                >
+                                  <iconify-icon
+                                    icon="solar:shield-check-bold"
+                                    class="fs-28 align-middle"
+                                  ></iconify-icon>
+                                  We adhere entirely to the data security
+                                  standards of the payment card industry.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-sm-auto">
-                    <div class="text-lg-end">
-                      <p class="fw-medium mb-0">Items Price</p>
-                      <p class="mt-2 mb-0 fw-semibold fs-17">
-                        $330.00 <span class="fw-normal fs-14">/ $4.00 Tex</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer bg-light-subtle">
-                <div class="row g-3">
-                  <div class="col-sm">
-                    <div class="d-flex gap-3">
-                      <a
-                        href="#!"
-                        class="text-dark fs-14 d-flex align-items-center gap-1"
-                      >
-                        <iconify-icon
-                          icon="solar:trash-bin-minimalistic-bold-duotone"
-                          class="fs-18"
-                        ></iconify-icon>{" "}
-                        Remove
-                      </a>
-                      <a
-                        href="#!"
-                        class="text-dark fs-14 d-flex align-items-center gap-1 ms-3"
-                      >
-                        <iconify-icon
-                          icon="solar:heart-bold-duotone"
-                          class="fs-18"
-                        ></iconify-icon>
-                        Add Wishlist
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-sm-auto">
-                    <p class="text-dark fw-medium mb-0">
-                      Total : <span class="text-muted">$334.00</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card cart-detail">
-              <div class="card-body">
-                <div class="row gy-3">
-                  <div class="col-sm-auto">
-                    <div class="rounded bg-light avatar-lg d-flex align-items-center justify-content-center">
-                      <img
-                        src="assets/images/product/p-8.png"
-                        alt=""
-                        class="avatar-lg"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                    <div class="ms-lg-3">
-                      <a href="#!" class="fw-medium text-dark fs-18">
-                        Men Dark Brown Wallet
-                      </a>
-                      <div class="d-flex align-items-center gap-3 mt-2">
-                        <p class="text-dark fw-medium">
-                          Color : <span class="text-muted"> Brown</span>
-                        </p>
-                        <p class="text-dark fw-medium">
-                          Size : <span class="text-muted"> S </span>
-                        </p>
-                      </div>
-                      <div class="quantity mt-2">
-                        <div class="input-step border bg-body-secondary p-1 rounded d-inline-flex overflow-visible">
-                          <button
-                            type="button"
-                            class="minus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            class="text-dark text-center border-0 bg-body-secondary rounded h-100"
-                            value="1"
-                            min="0"
-                            max="100"
-                            readonly=""
-                          />
-                          <button
-                            type="button"
-                            class="plus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-auto">
-                    <div class="text-lg-end">
-                      <p class="fw-medium mb-0">Items Price</p>
-                      <p class="mt-2 mb-0 fw-semibold fs-17">
-                        $132.00 <span class="fw-normal fs-14">/ $5.00 Tex</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer bg-light-subtle">
-                <div class="row g-3">
-                  <div class="col-sm">
-                    <div class="d-flex gap-3">
-                      <a
-                        href="#!"
-                        class="text-dark fs-14 d-flex align-items-center gap-1"
-                      >
-                        <iconify-icon
-                          icon="solar:trash-bin-minimalistic-bold-duotone"
-                          class="fs-18"
-                        ></iconify-icon>{" "}
-                        Remove
-                      </a>
-                      <a
-                        href="#!"
-                        class="text-dark fs-14 d-flex align-items-center gap-1 ms-3"
-                      >
-                        <iconify-icon
-                          icon="solar:heart-bold-duotone"
-                          class="fs-18"
-                        ></iconify-icon>
-                        Add Wishlist
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-sm-auto">
-                    <p class="text-dark fw-medium mb-0">
-                      Total : <span class="text-muted">$137.00</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card cart-detail">
-              <div class="card-body">
-                <div class="row gy-3">
-                  <div class="col-sm-auto">
-                    <div class="rounded bg-light avatar-lg d-flex align-items-center justify-content-center">
-                      <img
-                        src="assets/images/product/p-10.png"
-                        alt=""
-                        class="avatar-lg"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                    <div class="ms-lg-3">
-                      <a href="#!" class="fw-medium text-dark fs-18">
-                        Kid's Yellow T-shirt
-                      </a>
-                      <div class="d-flex align-items-center gap-3 mt-2">
-                        <p class="text-dark fw-medium">
-                          Color : <span class="text-muted"> Yellow </span>
-                        </p>
-                        <p class="text-dark fw-medium">
-                          Size : <span class="text-muted"> S </span>
-                        </p>
-                      </div>
-                      <div class="quantity mt-2">
-                        <div class="input-step border bg-body-secondary p-1 rounded d-inline-flex overflow-visible">
-                          <button
-                            type="button"
-                            class="minus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            class="text-dark text-center border-0 bg-body-secondary rounded h-100"
-                            value="2"
-                            min="0"
-                            max="100"
-                            readonly=""
-                          />
-                          <button
-                            type="button"
-                            class="plus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-auto">
-                    <div class="text-lg-end">
-                      <p class="fw-medium mb-0">Items Price</p>
-                      <p class="mt-2 mb-0 fw-semibold fs-17">
-                        $220.00 <span class="fw-normal fs-14">/ $3.00 Tex</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer bg-light-subtle">
-                <div class="row g-3">
-                  <div class="col-sm">
-                    <div class="d-flex gap-3">
-                      <a
-                        href="#!"
-                        class="text-dark fs-14 d-flex align-items-center gap-1"
-                      >
-                        <iconify-icon
-                          icon="solar:trash-bin-minimalistic-bold-duotone"
-                          class="fs-18"
-                        ></iconify-icon>{" "}
-                        Remove
-                      </a>
-                      <a
-                        href="#!"
-                        class="text-dark fs-14 d-flex align-items-center gap-1 ms-3"
-                      >
-                        <iconify-icon
-                          icon="solar:heart-bold-duotone"
-                          class="fs-18"
-                        ></iconify-icon>
-                        Add Wishlist
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-sm-auto">
-                    <p class="text-dark fw-medium mb-0">
-                      Total : <span class="text-muted">$223.00</span>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -605,6 +735,90 @@ const Cart = () => {
               </div>
               <div class="card-body">
                 <div class="table-responsive">
+                  <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
+                      <img
+                        src="assets/images/product/p-1.png"
+                        alt=""
+                        class="avatar"
+                      />
+                    </div>
+                    <div>
+                      <a href="#!" class="text-dark fw-medium fs-15">
+                        Men Black Slim Fit T-shirt
+                      </a>
+                      <p class="text-muted mb-0 mt-1 fs-13">
+                        <span>Size : </span>M
+                      </p>
+                    </div>
+                    <div class="ms-auto text-end">
+                      <p class="text-dark fw-medium mb-1">$83.00</p>
+                      <p class="mb-0">Q. 01</p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
+                      <img
+                        src="assets/images/product/p-5.png"
+                        alt=""
+                        class="avatar"
+                      />
+                    </div>
+                    <div>
+                      <a href="#!" class="text-dark fw-medium fs-15">
+                        Dark Green Cargo Pent
+                      </a>
+                      <p class="text-muted mb-0 mt-1 fs-13">
+                        <span>Size : </span>M
+                      </p>
+                    </div>
+                    <div class="ms-auto text-end">
+                      <p class="text-dark fw-medium mb-1">$334.00</p>
+                      <p class="mb-0">Q. 03</p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
+                      <img
+                        src="assets/images/product/p-8.png"
+                        alt=""
+                        class="avatar"
+                      />
+                    </div>
+                    <div>
+                      <a href="#!" class="text-dark fw-medium fs-15">
+                        Men Dark Brown Wallet
+                      </a>
+                      <p class="text-muted mb-0 mt-1 fs-13">
+                        <span>Size : </span>S
+                      </p>
+                    </div>
+                    <div class="ms-auto text-end">
+                      <p class="text-dark fw-medium mb-1">$137.00</p>
+                      <p class="mb-0">Q. 01</p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
+                      <img
+                        src="assets/images/product/p-10.png"
+                        alt=""
+                        class="avatar"
+                      />
+                    </div>
+                    <div>
+                      <a href="#!" class="text-dark fw-medium fs-15">
+                        Kid's Yellow T-shirt
+                      </a>
+                      <p class="text-muted mb-0 mt-1 fs-13">
+                        <span>Size : </span>S
+                      </p>
+                    </div>
+                    <div class="ms-auto text-end">
+                      <p class="text-dark fw-medium mb-1">$223.00</p>
+                      <p class="mb-0">Q. 02</p>
+                    </div>
+                  </div>
                   <table class="table mb-0">
                     <tbody>
                       <tr>
@@ -664,7 +878,7 @@ const Cart = () => {
                   </table>
                 </div>
               </div>
-              <div class="card-footer bg-light-subtle border-top">
+              <div class="card-footer bg-light-subtle">
                 <div class="d-flex align-items-center justify-content-between">
                   <div>
                     <p class="fw-medium text-dark mb-0">Total Amount</p>
@@ -693,12 +907,177 @@ const Cart = () => {
             </div>
 
             <div class="main-btn my-4 text-end">
-              <a href="product-grid.html" class="btn btn-primary">
-                Continue Shopping
+              <a href="order-cart.html" class="btn btn-danger">
+                Back To Cart
               </a>
-              <a href="order-checkout.html" class="btn btn-success">
-                Buy Now
+              <a
+                href="#!"
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#checkoutModal"
+              >
+                Checkout Order
               </a>
+            </div>
+            <div data-bs-theme="dark">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex gap-3">
+                    <div class="rounded-3 bg-light flex-shrink-0 avatar d-flex align-items-center justify-content-center">
+                      <iconify-icon
+                        icon="solar:box-bold-duotone"
+                        class="fs-36 text-warning"
+                      ></iconify-icon>
+                    </div>
+                    <div>
+                      <h5 class="text-white fw-medium mb-1">
+                        Streaming box shipping information
+                      </h5>
+                      <p class="text-white-50 mb-0">
+                        Below your selected items, enter your zip code to
+                        calculate the shipping charge. We like to make shipping
+                        simple and affordable!
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3 mt-4">
+                    <div class="rounded-3 bg-light flex-shrink-0 avatar d-flex align-items-center justify-content-center">
+                      <iconify-icon
+                        icon="solar:wallet-money-bold-duotone"
+                        class="fs-36 text-success"
+                      ></iconify-icon>
+                    </div>
+                    <div>
+                      <h5 class="text-white fw-medium mb-1">
+                        30 Day money back guarantee
+                      </h5>
+                      <p class="text-white-50 mb-0">
+                        Money Return In 30 day In Your Bank Account
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="checkoutModal"
+          tabindex="-1"
+          aria-labelledby="checkoutModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="card border-0 mb-0">
+                  <div class="card-body">
+                    <form class="">
+                      <div class="row align-items-center">
+                        <div class="col-lg-12">
+                          <div class="check-icon text-center">
+                            <img
+                              src="assets/images/party.png"
+                              alt=""
+                              class="img-fluid"
+                            />
+                            <h4 class="fw-semibold mt-3">Thank You !</h4>
+                            <p class="mb-1">Your Transaction Was Successful</p>
+                            <p>
+                              <span class="text-dark fw-medium">Order Id</span>{" "}
+                              : #0758267/90
+                            </p>
+                          </div>
+                          <hr />
+                          <div class="row justify-content-between">
+                            <div class="col-lg-4 col-6">
+                              <span class="fw-semibold text-muted fs-14">
+                                Date
+                              </span>
+                              <p class="text-dark fw-medium mt-1">
+                                23 April, 2024
+                              </p>
+                            </div>
+                            <div class="col-lg-4 col-6 text-end">
+                              <span class="fw-semibold text-muted fs-14">
+                                Time
+                              </span>
+                              <p class="text-dark fw-medium">11:28 AM</p>
+                            </div>
+                          </div>
+                          <div class="row justify-content-between mt-3 align-items-center">
+                            <div class="col-lg-6 col-6">
+                              <span class="fw-semibold text-muted fs-14">
+                                To
+                              </span>
+                              <p class="text-dark fw-medium mb-0 mt-1">
+                                Gaston Lapierre
+                              </p>
+                              <p class="mb-0">hello@dundermuffilin.com</p>
+                            </div>
+                            <div class="col-lg-4 col-6 text-end">
+                              <img
+                                src="assets/images/users/avatar-1.jpg"
+                                alt=""
+                                class="avatar rounded-circle"
+                              />
+                            </div>
+                          </div>
+                          <div class="row justify-content-between mt-3 align-items-center">
+                            <div class="col-lg-6 col-6">
+                              <span class="fw-semibold text-muted fs-14">
+                                Amount
+                              </span>
+                              <h5 class="fw-medium mt-1">$737.00</h5>
+                            </div>
+                            <div class="col-lg-4 col-6 text-end">
+                              <span class="text-success fw-semibold">
+                                Completed{" "}
+                                <i class="bx bx-check-circle align-middle"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div data-bs-theme="dark">
+                    <div class="card-footer d-flex align-items-center border-0 bg-body gap-3 rounded">
+                      <div class="rounded-3 avatar bg-light d-flex align-items-center justify-content-center">
+                        <img
+                          src="assets/images/card/mastercard.svg"
+                          alt=""
+                          class="avatar-sm"
+                        />
+                      </div>
+                      <div class="d-block">
+                        <p class="text-white fw-semibold mb-0">
+                          Credit/Debit Card
+                        </p>
+                        <p class="mb-0 text-white-50">
+                          <span>Master Card ending **** 7812</span>
+                        </p>
+                      </div>
+                      <div class="ms-auto">
+                        <a
+                          href="#!"
+                          class="text-primary fs-30"
+                          data-bs-toggle="tooltip"
+                          data-bs-title="Download Invoice"
+                          data-bs-placement="bottom"
+                        >
+                          <iconify-icon
+                            icon="solar:download-square-bold"
+                            class="align-middle"
+                          ></iconify-icon>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -707,4 +1086,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Checkout;

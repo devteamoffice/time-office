@@ -72,9 +72,8 @@ const Footer = () => {
                     </li>
                   </ul>
                   <p>
-                    Timeoffice Softech Pvt. Ltd. B205, Anannya Complex, Near
-                    Akshar Chowk O.P. Road, Vadodara-390020 Contact Us On :-
-                    (080-6901 0000) E-mail :- info@chiptronics.co.in
+                    Address: Anannya Complex, Near Akshar Chowk O.P. Road,
+                    Vadodara-390020
                   </p>
                 </div>
                 <div className="footer-3">
@@ -127,7 +126,10 @@ const Footer = () => {
             <div className="copy-footer">
               <div className="copyFooter-left">
                 <p>
-                  All Rights Reserved. Designed and Developed By Picky Vibe LLP.
+                  All Rights Reserved. Designed and Developed By
+                  <a href="https://pickyvibe.com">
+                    <b> Picky Vibe LLP.</b>
+                  </a>
                 </p>
               </div>
               <div className="copyFooter-right">

@@ -26,8 +26,9 @@ exports.login = async (req, res) => {
     }
 
     const user = await User.findOne({
-      email,
+      where: { email }, // Corrected 'where' condition
     });
+
     if (!user) {
       return res
         .status(400)

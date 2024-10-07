@@ -15,6 +15,14 @@ import Invoice from "../pages/Invoice";
 import TermCondition from "../pages/TermCondition";
 import CancellationRefundPolicy from "../pages/CancelationRefund";
 import ShippingDelivery from "../pages/ShippingDelivery";
+import MyAccount from "../component/Account/MyAccount";
+import Orders from "../component/Account/Orders";
+import Address from "../component/Account/Address";
+import Wishlist from "../component/Account/Wishlist";
+import OrderDetails from "../component/Account/OrderDetails";
+import ProductDetails from "../component/Product/ProductDetails";
+import BlogList from "../pages/BlogList";
+import Checkout from "../pages/Checkout";
 export const publicRoutes = [
   { path: "/500", element: Error505Page },
   { path: "/404", element: Error404Page },
@@ -30,22 +38,15 @@ export const publicRoutes = [
   { path: "/shipping-policy", element: ShippingDelivery },
   { path: "/faqs", element: Faqs },
   { path: "/products", element: Product },
+  { path: "/products/:id", element: ProductDetails },
   { path: "/", element: Home },
   { path: "/cart", element: Cart },
-  { path: "/invoice", element: Invoice },
+  { path: "/u/:id", element: MyAccount },
+  { path: "/u/:id/orders", element: Orders },
+  { path: "/u/:id/address", element: Address },
+  { path: "/u/:id/wishlist", element: Wishlist },
+  { path: "/u/:id/orders/:orderId", element: OrderDetails },
+  { path: "/blogs", element: BlogList },
+  { path: "/orders/:id/checkout", element: Checkout },
+  { path: "/orders/:id/invoice", element: Invoice },
 ];
-
-// export const adminRoutes = [
-//   { path: "/admin", element: AdminWrapper },
-//   { path: "/admin/tours", element: TourList },
-//   { path: "/admin/comments-reviews", element: ReviewsCard },
-//   { path: "/admin/tours/create", element: AddTourPackage },
-//   { path: "/admin/tours/update", element: UpdateTour },
-//   { path: "/admin/bookings", element: Bookings },
-//   { path: "/admin/queries", element: Queries },
-//   { path: "/admin/blogs", element: BlogPage },
-//   { path: "/admin/blog/create", element: BlogCreate },
-//   { path: "/admin/reviews", element: CommentsReviews },
-//   { path: "/admin/users", element: UsersTable },
-//   { path: "/admin/extras", element: CategoriesTags },
-// ];

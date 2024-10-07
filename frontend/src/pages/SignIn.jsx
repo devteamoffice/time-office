@@ -1,28 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginChange, login } from "../containers/Login/actions";
 import logo from "../assets/images/team_office_logo_13.png";
 import img from "../assets/images/access-control-solution.jpg";
+import LoadingIndicator from "../component/Extras/LoadingIndicator";
+import { Alert } from "react-bootstrap";
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loginFormData, isSubmitting, formErrors } = useSelector(
-    (state) => state.login
-  );
+  const { loginFormData, isSubmitting, formErrors, loginSuccess, loginError } =
+    useSelector((state) => state.login);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     dispatch(loginChange(name, value)); // Update the login form state
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await dispatch(login());
-    // Optionally navigate to another page on successful login
-    navigate("/");
+    dispatch(login()).then((res) => {
+      if (res?.success) {
+        navigate("/dashboard"); // Redirect to dashboard on successful login
+      }
+    });
   };
 
   return (
@@ -36,8 +39,21 @@ const SignIn = () => {
                   <h2 className="fw-bold fs-24">Sign In</h2>
 
                   <p className="text-muted mt-1 mb-4">
-                    Enter your email address and password to access admin panel.
+                    Enter your email address and password to access the admin
+                    panel.
                   </p>
+
+                  {loginError && (
+                    <Alert variant="danger" className="text-center">
+                      {loginError}
+                    </Alert>
+                  )}
+
+                  {loginSuccess && (
+                    <Alert variant="success" className="text-center">
+                      Successfully signed in!
+                    </Alert>
+                  )}
 
                   <div className="mb-5">
                     <form
@@ -56,6 +72,7 @@ const SignIn = () => {
                           placeholder="Enter your email"
                           value={loginFormData.email || ""}
                           onChange={handleInputChange}
+                          disabled={isSubmitting}
                         />
                         {formErrors.email && (
                           <small className="text-danger">
@@ -75,6 +92,7 @@ const SignIn = () => {
                           placeholder="Enter your password"
                           value={loginFormData.password || ""}
                           onChange={handleInputChange}
+                          disabled={isSubmitting}
                         />
                         {formErrors.password && (
                           <small className="text-danger">
@@ -104,7 +122,7 @@ const SignIn = () => {
                           type="submit"
                           disabled={isSubmitting}
                         >
-                          {isSubmitting ? "Signing In..." : "Sign In"}
+                          {isSubmitting ? <LoadingIndicator /> : "Sign In"}
                         </button>
                       </div>
                     </form>

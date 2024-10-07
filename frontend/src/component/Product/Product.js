@@ -5,6 +5,7 @@ import React from "react";
 import "./ProductDetails.css";
 
 import p1 from "../../assets/Product Page/images/product/p-1.png";
+import Pagination from "../Extras/Pagination";
 const Product = () => {
   return (
     <>
@@ -1203,37 +1204,7 @@ const Product = () => {
                   {/* ************************************************ */}
                 </div>
 
-                <div className="py-3 border-top">
-                  <nav aria-label="Page navigation example">
-                    <ul className="pagination justify-content-end mb-0">
-                      <li className="page-item">
-                        <a className="page-link" href="javascript:void(0);">
-                          Previous
-                        </a>
-                      </li>
-                      <li className="page-item active">
-                        <a className="page-link" href="javascript:void(0);">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="javascript:void(0);">
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="javascript:void(0);">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="javascript:void(0);">
-                          Next
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+                <Pagination />
               </div>
             </div>
           </div>
