@@ -29,6 +29,7 @@ function App() {
       duration: 1000,
     });
   }, []);
+
   return (
     <>
       <BrowserRouter>

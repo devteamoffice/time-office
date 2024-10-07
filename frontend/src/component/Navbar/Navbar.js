@@ -4,6 +4,10 @@ import logo from "../../assets/Image/Logo.png";
 import "./navbar.css";
 
 const Navbar = () => {
+  const scrolltop = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -25,7 +29,12 @@ const Navbar = () => {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav m-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/">
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  to="/"
+                  onClick={scrolltop}
+                >
                   Home
                 </Link>
               </li>
@@ -48,6 +57,7 @@ const Navbar = () => {
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  onClick={scrolltop}
                 >
                   Product
                 </Link>
@@ -85,18 +95,33 @@ const Navbar = () => {
                 </ul>
               </li>
               <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/product">
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  to="/product"
+                  onClick={scrolltop}
+                >
                   Our Store
                 </Link>
               </li>
               <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/about">
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  to="/about"
+                  onClick={scrolltop}
+                >
                   About us
                 </Link>
               </li>
 
               <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/contact">
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  to="/contact"
+                  onClick={scrolltop}
+                >
                   Contact us
                 </Link>
               </li>

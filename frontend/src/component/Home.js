@@ -9,6 +9,7 @@ import OurClinets from "./HomePage/OurClients/OurClinets";
 import Insights from "./HomePage/Insight/Insights";
 import Recent from "./HomePage/Recent/Recent";
 import HeroSlider from "./HomePage/HeroSection2/HeroNew";
+import WhyChoose from "./HomePage/WhyChooseus/WhyChoose";
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
       <br />
       <br />
       <OurClinets />
+      <WhyChoose />
       <Insights />
       <Recent />
     </>

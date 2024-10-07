@@ -7,6 +7,7 @@ import card3 from "../assets/Image/about/card3.png";
 import card4 from "../assets/Image/about/card4.png";
 import card5 from "../assets/Image/about/card5.png";
 import card6 from "../assets/Image/about/card6.png";
+import WhyChoose from "./HomePage/WhyChooseus/WhyChoose";
 
 const About = () => {
   return (
@@ -113,10 +114,11 @@ const About = () => {
         </div>
       </section>
 
-      <section className="haedtext">
+      {/* <section className="haedtext">
         <h4>Why Choose Us</h4>
-      </section>
+      </section> */}
 
+      <WhyChoose />
       {/* Card Round */}
 
       <br />
