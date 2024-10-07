@@ -1,5 +1,5 @@
 import React from "react";
-import Error404New from "../component/Extras/Error404New";
+import Error404New from "../../component/Extras/Error404New";
 const Error404Page = () => {
   return (
     <div>

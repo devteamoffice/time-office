@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginChange, login } from "../containers/Login/actions";
-import logo from "../assets/images/team_office_logo_13.png";
-import img from "../assets/images/access-control-solution.jpg";
-import LoadingIndicator from "../component/Extras/LoadingIndicator";
+import { loginChange, login } from "../../containers/Login/actions";
+import logo from "../../assets/images/team_office_logo_13.png";
+import img from "../../assets/images/access-control-solution.jpg";
+import LoadingIndicator from "../../component/Extras/LoadingIndicator";
 import { Alert } from "react-bootstrap";
 
 const SignIn = () => {

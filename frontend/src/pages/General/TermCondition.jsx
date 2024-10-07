@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/policyPage.css";
+import "../../styles/policyPage.css";
 
 const TermCondition = () => {
   return (

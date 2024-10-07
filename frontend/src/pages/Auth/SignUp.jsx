@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signupChange, signUp } from "../containers/Signup/actions";
-import logo from "../assets/images/team_office_logo_13.png";
-import img from "../assets/images/access-control-solution.jpg";
-import TermsAndConditionsModal from "../component/Modals/Terms&Condition"; // Import the modal component
+import { signupChange, signUp } from "../../containers/Signup/actions";
+import logo from "../../assets/images/team_office_logo_13.png";
+import img from "../../assets/images/access-control-solution.jpg";
+import TermsAndConditionsModal from "../../component/Modals/Terms&Condition"; // Import the modal component
 import { toast } from "react-toastify"; // For showing success/error messages
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
