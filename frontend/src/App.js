@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import About from "./component/About";
@@ -28,10 +29,39 @@ function App() {
       // mirror: false,
       duration: 1000,
     });
+=======
+import "./App.css";
+import Router from "./routes/Router";
+import Footer from "./component/Extras/Footer";
+import { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Navbar from "./component/Extras/Navbar";
+
+function App() {
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    // Initialize AOS for animations
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+
+    // Use setTimeout to trigger an event after 3 seconds
+    const timer = setTimeout(() => {
+      setShowContent(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 1000);
+
+    // Cleanup the timeout to prevent memory leaks
+    return () => clearTimeout(timer);
+>>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
   }, []);
 
   return (
     <>
+<<<<<<< HEAD
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -59,6 +89,11 @@ function App() {
       </BrowserRouter>
 
       {/* <Slidernew /> */}
+=======
+      <Navbar />
+      {showContent && <Router />}
+      <Footer />
+>>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
     </>
   );
 }

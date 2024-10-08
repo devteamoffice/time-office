@@ -1,0 +1,12 @@
+1. admin dashboard contains stats of whole orders and everything related in the ecommerce
+2. products contained in website - with whole list and can add also if required
+3. category - products category as referred earlier with creating new getting whole list into one page
+4. invetory contains products listed and not listed in the website 
+5. orders - total list of orders from customers in website and also who requested for return after completion of order [order tracking to be kept as a seperate option or to be integrated in list option will be discussed.]
+6. attributes are those small details which will be mentioned in the details[conflicted if its to be added directly into the details section of admin/product/add or to be kept a seperate page to be reusable after]
+7. invoices - invoices will be section where orders whose payment is completed and now client can dispatch the order and make things further
+8. roles - this section is optional only for technical use because developers and client will be having seperate roles and after completion of project only one role will be left of client ours will be deleted
+9. customers - total users on the website total stats of them 
+10. coupons - coupons which will be using in the website will be generated here can edit delete and others things total list of them also
+11. reviews which are posted on products will be posted here admin can reply on those and delete if want
+12. user profile - person who is accessing admin panel's profile

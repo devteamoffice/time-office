@@ -1,8 +1,8 @@
-export const API_URL = process.env.API_URL;
+export const API_URL = process.env.API_URL || "http://localhost:4000/api";
 
 export const SOCKET_URL =
   window.location.host.indexOf("localhost") >= 0
-    ? "http://127.0.0.1:3000"
+    ? "http://localhost:3000"
     : window.location.host;
 
 export const ROLES = {

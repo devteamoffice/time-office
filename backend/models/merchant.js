@@ -1,8 +1,7 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database"); // Assuming you have a database configuration file
+const { DataTypes, Sequelize } = require("sequelize");
+const sequelize = require("../config/database"); // Adjust the path to your actual database configuration
 const { MERCHANT_STATUS } = require("../constants");
 
-// Merchant Model
 const Merchant = sequelize.define(
   "Merchant",
   {
@@ -11,21 +10,14 @@ const Merchant = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
-      type: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      trim: true,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isEmail: true, // Validates that the input is a valid email
+      references: {
+        model: "users", // Assuming users table
+        key: "id",
       },
-    },
-    phoneNumber: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      onDelete: "CASCADE", // Delete merchant if associated user is deleted
     },
     brandName: {
       type: DataTypes.STRING,
@@ -34,19 +26,10 @@ const Merchant = sequelize.define(
     business: {
       type: DataTypes.STRING,
       allowNull: true,
-      trim: true,
     },
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-    },
-    brandId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "Brands", // Name of the Brand table
-        key: "id",
-      },
-      allowNull: true,
     },
     status: {
       type: DataTypes.STRING,
@@ -65,14 +48,15 @@ const Merchant = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
-    created: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
+    createdAt: {
+      type: Sequelize.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.NOW,
     },
   },
   {
     tableName: "merchants",
-    timestamps: false, // Disable automatic timestamp fields (createdAt, updatedAt)
+    timestamps: true, // Automatic createdAt, updatedAt fields
   }
 );
 

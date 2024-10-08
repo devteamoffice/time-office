@@ -1,0 +1,8 @@
+<svg width="126" height="116" viewBox="0 0 126 116" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<mask id="mask_0_300_748" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="33.106568" y="24.741489" width="30.32408" height="30.32408">
+<rect  x="93.103" y="85.39" width="60" height="60" transform="rotate(-358.755 93.103 85.39)" fill="url(#pattern_0_300_748)"/>
+</mask>
+<g mask="url(#mask_0_300_748)">
+<rect  x="123.988" y="114.526" width="124.8" height="112.8" transform="rotate(-358.755 123.988 114.526)" fill="#FFFFFF"/>
+</g>
+</svg>

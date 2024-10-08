@@ -4,6 +4,7 @@ const authRoutes = require("./authRouter");
 const userRoutes = require("./userRouter");
 const addressRoutes = require("./addressRouter");
 const newsletterRoutes = require("./newsletterRouter");
+
 const productRoutes = require("./productRouter");
 const categoryRoutes = require("./categoryRouter");
 const brandRoutes = require("./brandRouter");

@@ -1,0 +1,88 @@
+name: Deploy to Hostinger and Render
+
+on:
+  push:
+    branches:
+      - main  # Deploys on push to the main branch
+
+jobs:
+  deploy-admin:
+    name: Deploy Admin to Hostinger
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Use the appropriate Node.js version
+
+      - name: Install dependencies for Admin
+        run: |
+          cd admin
+          npm install
+
+      - name: Build Admin
+        run: |
+          cd admin
+          npm run build
+
+      - name: Deploy Admin to Hostinger
+        run: |
+          scp -P 65002 -r ./admin/build/* u690099781@193.203.186.206:/home/u690099781/admin
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }}
+
+  deploy-frontend:
+    name: Deploy Frontend to Hostinger
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies for Frontend
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Deploy Frontend to Hostinger
+        run: |
+          scp -P 65002 -r ./frontend/build/* u690099781@193.203.186.206:/home/u690099781/frontend
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }}
+
+  deploy-backend:
+    name: Deploy Backend to Render
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies for Backend
+        run: |
+          cd backend
+          npm install
+
+      - name: Deploy Backend to Render
+        run: |
+          git remote add render https://<YOUR_RENDER_REPOSITORY_URL>
+          git push render main

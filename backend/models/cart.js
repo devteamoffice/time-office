@@ -36,7 +36,7 @@ Cart.hasMany(CartItem, {
 
 CartItem.belongsTo(Cart, {
   foreignKey: "cartId",
-  as: "cart",
+  as: "cart_items",
 });
 
 module.exports = Cart;

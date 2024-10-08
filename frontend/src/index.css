@@ -1,5 +1,10 @@
 :root {
+<<<<<<< HEAD
   --pcolor: #4D0186;
   --red :#F61E1E;
+=======
+  --pcolor: #4d0186;
+  --red: #f61e1e;
+>>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
   --white: #ffffff;
 }

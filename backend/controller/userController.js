@@ -1,4 +1,3 @@
-// Bring in Models & Helpers
 const User = require("../models/user");
 
 exports.searchUser = async (req, res) => {
@@ -19,6 +18,7 @@ exports.searchUser = async (req, res) => {
 
     res.status(200).json({ users });
   } catch (error) {
+    console.error("Error searching user:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
