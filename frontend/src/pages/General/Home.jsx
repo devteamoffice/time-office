@@ -9,7 +9,7 @@ import Insights from "../../component/HomePage/Insight/Insights";
 import Recent from "../../component/HomePage/Recent/Recent";
 import Hero from "../../component/HomePage/Hero Section/Hero";
 import HeroSlider from "../../component/HomePage/HeroSection2/HeroNew";
-
+import reviews from "../../assets/testimonials";
 const Home = () => {
   return (
     <>
@@ -18,7 +18,7 @@ const Home = () => {
       <SliderBrand />
       <Slider2 />
       <Whatnew />
-      <Testomonial />
+      <Testomonial reviews={reviews} />
 
       <OurClinets />
       <Insights />

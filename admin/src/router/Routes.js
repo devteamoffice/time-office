@@ -37,11 +37,3 @@ export const publicRoutes = [
   { path: "/customer/:id", element: CustomerDetails },
   { path: "/login", element: Login },
 ];
-
-export const extraRoutes = [
-  { path: "/reviews" },
-  { path: "/u/:id" },
-  { path: "/settings" },
-  { path: "/blogs/list" },
-  { path: "/blogs/add" },
-];

@@ -2,7 +2,7 @@ import React from "react";
 import navRoutes from "../../assets/data/navRoutes";
 import { MdDoubleArrow } from "react-icons/md";
 import logo from "../../assets/images/logo-light.png";
-
+import { Link } from "react-router-dom";
 const MainNav = () => {
   return (
     <div className="main-nav">
@@ -55,9 +55,9 @@ const MainNav = () => {
                     <ul className="nav sub-navbar-nav">
                       {section.submenu.map((subitem, idx) => (
                         <li className="sub-nav-item" key={idx}>
-                          <a className="sub-nav-link" href={subitem.link}>
+                          <Link className="sub-nav-link" to={subitem.link}>
                             {subitem.text}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
