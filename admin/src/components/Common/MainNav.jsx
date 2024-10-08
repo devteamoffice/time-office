@@ -1,7 +1,7 @@
 import React from "react";
 import navRoutes from "../../assets/data/navRoutes";
 import { MdDoubleArrow } from "react-icons/md";
-import logo from "../../assets/images/logo-light.png";
+import logo from "../../assets/images/Logo.png";
 import { Link } from "react-router-dom";
 const MainNav = () => {
   return (
