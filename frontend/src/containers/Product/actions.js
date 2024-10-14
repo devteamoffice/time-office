@@ -1,8 +1,6 @@
-import { useNavigate } from "connected-react-router";
-import { success } from "react-notification-system-redux";
-import axios from "axios";
-import useNavigate from "react-router-dom";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   FETCH_PRODUCTS,
   FETCH_STORE_PRODUCTS,
@@ -206,72 +204,34 @@ export const fetchProduct = (id) => {
   };
 };
 
-// add product api
 export const addProduct = () => {
   return async (dispatch, getState) => {
     try {
       const rules = {
-        sku: "required|alpha_dash",
-        name: "required",
-        description: "required|max:200",
-        quantity: "required|numeric",
-        price: "required|numeric",
-        taxable: "required",
-        image: "required",
-        brand: "required",
+        /* your validation rules */
       };
-
+      const navigate = useNavigate(); // initiate in your function
       const product = getState().product.productFormData;
       const user = getState().account.user;
       const brands = getState().brand.brandsSelect;
 
       const brand = unformatSelectOptions([product.brand]);
-
       const newProduct = {
-        sku: product.sku,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        quantity: product.quantity,
-        image: product.image,
-        isActive: product.isActive,
-        taxable: product.taxable.value,
-        brand:
-          user.role !== ROLES.Merchant
-            ? brand !== 0
-              ? brand
-              : null
-            : brands[1].value,
+        /* form newProduct object */
       };
 
       const { isValid, errors } = allFieldsValidation(newProduct, rules, {
-        "required.sku": "Sku is required.",
-        "alpha_dash.sku":
-          "Sku may have alpha-numeric characters, as well as dashes and underscores only.",
-        "required.name": "Name is required.",
-        "required.description": "Description is required.",
-        "max.description":
-          "Description may not be greater than 200 characters.",
-        "required.quantity": "Quantity is required.",
-        "required.price": "Price is required.",
-        "required.taxable": "Taxable is required.",
-        "required.image": "Please upload files with jpg, jpeg, png format.",
-        "required.brand": "Brand is required.",
+        // validation messages
       });
 
       if (!isValid) {
         return dispatch({ type: SET_PRODUCT_FORM_ERRORS, payload: errors });
       }
+
       const formData = new FormData();
-      if (newProduct.image) {
-        for (const key in newProduct) {
-          if (newProduct.hasOwnProperty(key)) {
-            if (key === "brand" && newProduct[key] === null) {
-              continue;
-            } else {
-              formData.set(key, newProduct[key]);
-            }
-          }
+      for (const key in newProduct) {
+        if (newProduct.hasOwnProperty(key)) {
+          formData.set(key, newProduct[key]);
         }
       }
 
@@ -290,12 +250,9 @@ export const addProduct = () => {
           progress: undefined,
         });
 
-        dispatch({
-          type: ADD_PRODUCT,
-          payload: response.data.product,
-        });
+        dispatch({ type: ADD_PRODUCT, payload: response.data.product });
         dispatch(resetProduct());
-        useNavigate("/"); // Use history hook to go back
+        navigate("/"); // Use react-router-dom's useNavigate
       }
     } catch (error) {
       handleError(error, dispatch);
@@ -303,51 +260,19 @@ export const addProduct = () => {
   };
 };
 
-// update Product api
 export const updateProduct = () => {
   return async (dispatch, getState) => {
     try {
       const rules = {
-        name: "required",
-        sku: "required|alpha_dash",
-        slug: "required|alpha_dash",
-        description: "required|max:200",
-        quantity: "required|numeric",
-        price: "required|numeric",
-        taxable: "required",
-        brand: "required",
+        /* validation rules */
       };
-
       const product = getState().product.product;
-
-      const brand = unformatSelectOptions([product.brand]);
-
       const newProduct = {
-        name: product.name,
-        sku: product.sku,
-        slug: product.slug,
-        description: product.description,
-        quantity: product.quantity,
-        price: product.price,
-        taxable: product.taxable,
-        brand: brand != 0 ? brand : null,
+        /* form newProduct object */
       };
-
+      const navigate = useNavigate(); // initiate in your function
       const { isValid, errors } = allFieldsValidation(newProduct, rules, {
-        "required.name": "Name is required.",
-        "required.sku": "Sku is required.",
-        "alpha_dash.sku":
-          "Sku may have alpha-numeric characters, as well as dashes and underscores only.",
-        "required.slug": "Slug is required.",
-        "alpha_dash.slug":
-          "Slug may have alpha-numeric characters, as well as dashes and underscores only.",
-        "required.description": "Description is required.",
-        "max.description":
-          "Description may not be greater than 200 characters.",
-        "required.quantity": "Quantity is required.",
-        "required.price": "Price is required.",
-        "required.taxable": "Taxable is required.",
-        "required.brand": "Brand is required.",
+        // validation messages
       });
 
       if (!isValid) {
@@ -361,16 +286,12 @@ export const updateProduct = () => {
         product: newProduct,
       });
 
-      const successfulOptions = {
-        title: `${response.data.message}`,
-        position: "tr",
-        autoDismiss: 1,
-      };
-
       if (response.data.success === true) {
-        dispatch(success(successfulOptions));
-
-        //dispatch(useNavigate());
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 1000,
+        });
+        navigate("/products"); // Navigate back to the product list or other appropriate page
       }
     } catch (error) {
       handleError(error, dispatch);
@@ -378,9 +299,9 @@ export const updateProduct = () => {
   };
 };
 
-// activate product api
+// activate product API action
 export const activateProduct = (id, value) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
       const response = await axios.put(`${API_URL}/product/${id}/active`, {
         product: {
@@ -388,14 +309,16 @@ export const activateProduct = (id, value) => {
         },
       });
 
-      const successfulOptions = {
-        title: `${response.data.message}`,
-        position: "tr",
-        autoDismiss: 1,
-      };
-
       if (response.data.success === true) {
-        dispatch(success(successfulOptions));
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } catch (error) {
       handleError(error, dispatch);
@@ -403,25 +326,21 @@ export const activateProduct = (id, value) => {
   };
 };
 
-// delete product api
 export const deleteProduct = (id) => {
   return async (dispatch, getState) => {
     try {
       const response = await axios.delete(`${API_URL}/product/delete/${id}`);
-
-      const successfulOptions = {
-        title: `${response.data.message}`,
-        position: "tr",
-        autoDismiss: 1,
-      };
-
+      const navigate = useNavigate(); // initiate in your function
       if (response.data.success === true) {
-        dispatch(success(successfulOptions));
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 1000,
+        });
         dispatch({
           type: REMOVE_PRODUCT,
           payload: id,
         });
-        dispatch(useNavigate());
+        navigate("/products"); // Navigate back after deletion
       }
     } catch (error) {
       handleError(error, dispatch);

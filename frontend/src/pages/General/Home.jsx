@@ -10,6 +10,7 @@ import Recent from "../../component/HomePage/Recent/Recent";
 import Hero from "../../component/HomePage/Hero Section/Hero";
 import HeroSlider from "../../component/HomePage/HeroSection2/HeroNew";
 import reviews from "../../assets/testimonials";
+import Services from "../../component/Services";
 const Home = () => {
   return (
     <>

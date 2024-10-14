@@ -23,6 +23,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(login()).then((res) => {
       if (res?.success) {
+        console.log("success");
         navigate("/dashboard"); // Redirect to dashboard on successful login
       }
     });

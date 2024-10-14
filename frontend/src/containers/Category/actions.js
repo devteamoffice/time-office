@@ -9,6 +9,7 @@ import { toast } from "react-toastify"; // Updated import for notifications
 import axios from "axios";
 
 import {
+  CATEGORY_SELECT,
   FETCH_CATEGORIES,
   FETCH_STORE_CATEGORIES,
   FETCH_CATEGORY,
