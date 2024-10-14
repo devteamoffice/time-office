@@ -9,7 +9,7 @@ module.exports = {
     url: process.env.MONGO_URI,
   },
   jwt: {
-    secret: process.env.JWT_SECRET || "default_jwt_secret", // Provide a fallback secret
+    secret: process.env.JWT_SECRET || "vhvvhjvj34fefwefwefwfwf", // Provide a fallback secret
     tokenLife: "7d",
   },
   mailchimp: {
