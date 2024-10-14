@@ -1,91 +1,119 @@
-const firebase = require("firebase/app");
-require("firebase/storage");
-const mysql = require("mysql");
 const fs = require("fs");
 const path = require("path");
+const { bucket } = require("./firebaseConfig");
+const Product = require("../models/product"); // Import the Product model
+const sequelize = require("../config/database"); // Sequelize instance for syncing
 
-// Firebase configuration (replace with your own config)
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+// Function to check if a file exists in Firebase Storage
+const doesFileExistInFirebase = async (filePath) => {
+  try {
+    const file = bucket.file(filePath); // Ensure bucket is correctly initialized
+    const [exists] = await file.exists(); // This checks if the file exists
+    return exists;
+  } catch (error) {
+    console.error(`Error checking file ${filePath} in Firebase:`, error);
+    return false;
+  }
 };
 
-firebase.initializeApp(firebaseConfig);
-const storage = firebase.storage().ref();
+// Upload Product Images to Firebase and save to MySQL via Sequelize
+const uploadProductImages = async (productFolderPath) => {
+  const files = fs.readdirSync(productFolderPath); // Get all folders/files in the directory
 
-// MySQL connection (replace with your own credentials)
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "your_password",
-  database: "your_database",
-});
+  for (const file of files) {
+    const filePath = path.join(productFolderPath, file);
 
-// Function to upload images from folder
-async function uploadImagesFromFolder(folderPath, productId) {
-  const files = fs.readdirSync(folderPath);
-  const imageUrls = [];
+    if (fs.statSync(filePath).isDirectory()) {
+      const productName = path.basename(filePath); // Extract product name from folder name
+      console.log(`Processing folder: ${productName}`);
 
-  for (let i = 0; i < files.length; i++) {
-    const filePath = path.join(folderPath, files[i]);
-    const fileName = `${productId}_${i + 1}`; // Naming the file uniquely with product ID
-    const fileRef = storage.child(`products/${productId}/${fileName}`);
+      const images = fs.readdirSync(filePath);
+      const imageUrls = [];
 
-    const uploadSnapshot = await fileRef.put(fs.readFileSync(filePath));
-    const downloadURL = await uploadSnapshot.ref.getDownloadURL();
+      for (const image of images) {
+        const fileName = path.basename(image);
+        const fileUploadPath = `${productName}/${fileName}`;
 
-    imageUrls.push(downloadURL);
-    console.log(`Uploaded ${files[i]} for Product ID: ${productId}`);
-  }
+        // Check if the file already exists in Firebase Storage
+        const fileExists = await doesFileExistInFirebase(fileUploadPath);
 
-  return imageUrls;
-}
+        if (fileExists) {
+          console.log(
+            `File ${fileUploadPath} already exists. Skipping upload.`
+          );
+          const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${
+            bucket.name
+          }/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
+          imageUrls.push(downloadUrl); // Use existing URL if already uploaded
+        } else {
+          const fileStream = fs.createReadStream(path.join(filePath, image));
+          await fileStream
+            .pipe(
+              bucket.file(fileUploadPath).createWriteStream({
+                metadata: {
+                  contentType: "image/jpeg", // Adjust content type if necessary
+                },
+              })
+            )
+            .on("finish", () => {
+              console.log(`File ${fileUploadPath} uploaded successfully.`);
+              imageUrls.push(downloadUrl);
+            });
 
-// Function to insert product into MySQL with image URLs
-function insertProductWithImages(productData, imageUrls) {
-  const query =
-    "INSERT INTO products (product_id, category, images) VALUES (?, ?, ?)";
-  connection.query(
-    query,
-    [productData.id, productData.category, JSON.stringify(imageUrls)],
-    (err, result) => {
-      if (err) throw err;
-      console.log(`Product inserted with ID: ${productData.id}`);
+          const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${
+            bucket.name
+          }/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
+          imageUrls.push(downloadUrl);
+          console.log(`File ${fileUploadPath} uploaded successfully.`);
+        }
+      }
+
+      // Save the image URLs to MySQL and associate them with a product
+      await saveToMySQL(productName, imageUrls);
     }
-  );
-}
-
-// Main function to upload folders
-async function processProductFolders(baseFolder) {
-  const folders = fs.readdirSync(baseFolder);
-
-  for (const folder of folders) {
-    const productFolderPath = path.join(baseFolder, folder);
-    const [productId, productName] = folder.split(" ");
-
-    console.log(`Processing folder: ${folder}`);
-
-    // Simulating product data (normally you would retrieve this from JSON or other sources)
-    const productData = {
-      id: productId,
-      name: productName,
-      category: "SomeCategory", // Adjust according to your data
-    };
-
-    // Upload images from folder and get the URLs
-    const imageUrls = await uploadImagesFromFolder(
-      productFolderPath,
-      productId
-    );
-
-    // Insert product data with image URLs into MySQL
-    insertProductWithImages(productData, imageUrls);
   }
-}
+  console.log("All folders processed.");
+};
 
-// Start processing
-processProductFolders("./product_images_folder").catch(console.error);
+// Save product and image URLs to MySQL using Sequelize
+const saveToMySQL = async (productName, imageUrls) => {
+  try {
+    const [product, created] = await Product.upsert({
+      name: productName,
+      images: imageUrls,
+    });
+    if (created) {
+      console.log(`Product ${productName} saved successfully.`);
+    } else {
+      console.log(`Product ${productName} updated successfully.`);
+    }
+  } catch (error) {
+    console.error(`Error saving product ${productName} to MySQL:`, error);
+  }
+};
+
+// Path to your product folders (each folder contains images)
+const productFolderPath = path.resolve(__dirname, "../images");
+
+// Check if the folder exists, if not, handle the error or create it
+if (!fs.existsSync(productFolderPath)) {
+  console.error(`Directory ${productFolderPath} does not exist.`);
+  // Optionally, you can create the directory if needed:
+  // fs.mkdirSync(productFolderPath, { recursive: true });
+} else {
+  // Continue with the image processing logic
+  console.log(`Directory ${productFolderPath} exists. Proceeding with upload.`);
+  // Your existing logic to process images goes here
+}
+// Export the function for server start
+const processImagesOnStartup = async () => {
+  try {
+    await uploadProductImages(productFolderPath);
+  } catch (error) {
+    console.error("Error during image upload process:", error);
+  }
+};
+
+module.exports = {
+  processImagesOnStartup,
+};
