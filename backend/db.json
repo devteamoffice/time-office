@@ -1,0 +1,495 @@
+{
+  "categories": [
+    {
+      "id": "cat001",
+      "name": "Attendance and Access Control Systems",
+      "subcategories": [
+        {
+          "id": "subcat001",
+          "name": "Dynamic Face Recognition Attendance Cum Access Control System",
+          "products": [
+            {
+              "id": "prod001",
+              "name": "Z901 Mini",
+              "price": 0,
+
+              "description": "Authentication Method: Face, Card, Password and Combinations,   Face Capacity: 1500 User, Card Capacity: 1500 Card Templates, Transaction Capacity: 1,50,000 Transactions, Display: 3.5 Touch Display,   Camera: 2 MP HD Camera ,    Communication:USB, TCP/IP, Wi-Fi,     Data Push: Yes,       Voice Indication: Yes,      Operating Voltage: DC 9V-12V (Under 1.5A),     Access Control: Yes, Professional,        Identification Time: <1 Sec, Face Technology: Dynamic Face Recognition Technology recognize up to3 persons Simultaneously,   Working Mode: Day and Night,  Battery Backup: Yes Inbuilt(Upto 150 Minutes),     Face Identification Range: Upto 1.5 Mtr,      Humidity: 20% ~ 80% ,      Temperature: -10 C ~ 60 C,  User Validity: Yes, Configurable,  Dimensions: 110 x 110 x 70 mm"
+            },
+            {
+              "id": "prod002",
+              "name": "Z901",
+              "price": 0,
+
+              "description": "Authentication Method: Face, Card, Password and Combinations, Face Capacity: 1500 User, Card Capacity: 1500 Card Templates, Transaction Capacity: 1,50,000 Transactions,  Display: 3.5 Touch Display, Camera: 2 MP HD Camera , Voice Indication: Yes,   Operating Voltage: DC 9V-12V (Under 1.5A), Data Push: Yes, Access Control: Yes, Professional,  Identification Time: <1 Sec, Face Technology: Dynamic Face Recognition Technology recognize up to3 persons Simultaneously,  Working Mode: Day and Night,  Communication: USB, TCP/IP, Wi-Fi,   Battery Backup: No,   Face Identification Range: 0,   Humidity: 0,   Temperature: 0,   User Validity: 0,   Dimensions: 0"
+            },
+            {
+              "id": "prod003",
+              "name": "Z902N",
+              "price": 0,
+
+              "description": "Authentication Method: 0, Face Capacity: 0,    Card Capacity: 0,    Transaction Capacity: 0,    Display: 0,    Camera: 0,   Voice Indication: 0,   Operating Voltage: 0,   Data Push: 0,  Access Control: 0,       Identification Time: 0,    Face Technology: 0,    Working Mode: 0,    Communication: 0,    Battery Backup: 0,  Face Identification Range: 0,   Humidity: 0, Temperature: 0, User Validity: 0,  Dimensions: 0"
+            },
+            {
+              "id": "prod004",
+              "name": "Z904",
+              "price": 0,
+
+              "description": "Authentication Method: 0,   Face Capacity: 0, Card Capacity: 0,  Transaction Capacity: 0,  Display: 0,  Camera: 0,  Voice Indication: 0,  Operating Voltage: 0, Data Push: 0,     Access Control: 0,     Identification Time: 0,     Face Technology: 0,     Working Mode: 0,     Communication: 0,     Battery Backup: 0,    Face Identification Range: 0,   Humidity: 0,   Temperature: 0,  User Validity: 0,  Dimensions: 0"
+            }
+          ]
+        },
+        {
+          "id": "subcat002",
+          "name": "Face with Fingerprint Time Attendance & Professional Access Control",
+          "products": [
+            {
+              "id": "prod005",
+              "name": "Z203",
+              "price": 0,
+
+              "description": "Authentication Method: 0, Face Capacity: 0,        Fingerprint/Card Capacity: 0,       Transaction Capacity: 0,  Display: 0,  Camera: 0,  Fingerprint Sensor: 0,  Communication: 0,  CPU: 0,   Voice Indication: 0,  Operating Voltage: 0,   Access Control: 0, Fingerprint Angle: 0,   Data Push: 0,   Connection Interface: 0,  Battery Backup: 0,   Identification Time: 0,     Humidity: 0,   Working Mode: 0,       Body Case Size: 0,      LED: 0,    Time Zone: 0"
+            },
+            {
+              "id": "prod006",
+              "name": "Z500V2",
+              "price": 0,
+
+              "description": "Authentication Method: 0, Face Capacity: 0, Fingerprint/Card Capacity: 0, Transaction Capacity: 0, Display: 0, Camera: 0, Fingerprint Sensor: 0, Communication: 0, CPU: 0, Voice Indication: 0, Operating Voltage: 0, Access Control: 0, Fingerprint Angle: 0, Data Push: 0, Connection Interface: 0, Battery Backup: 0, Identification Time: 0, Humidity: 0, Working Mode: 0, Body Case Size: 0, LED: 0, Time Zone: 0"
+            },
+            {
+              "id": "prod007",
+              "name": "Z619",
+              "price": 0,
+
+              "description": "Authentication Method: 0, Face Capacity: 0, Fingerprint/Card Capacity: 0, Transaction Capacity: 0, Display: 0, Camera: 0, Fingerprint Sensor: 0, Communication: 0, CPU: 0, Voice Indication: 0, Operating Voltage: 0, Access Control: 0, Fingerprint Angle: 0, Data Push: 0, Connection Interface: 0, Battery Backup: 0, Identification Time: 0, Humidity: 0, Working Mode: 0, Body Case Size: 0, LED: 0, Time Zone: 0"
+            }
+          ]
+        },
+        {
+          "id": "subcat003",
+          "name": "Face with Fingerprint Time Attendance & Basic Access Control",
+          "products": [
+            {
+              "id": "prod008",
+              "name": "Z900",
+              "price": 0,
+
+              "description": "Authentication Method: 0, Face Capacity: 0, Fingerprint/Card Capacity: 0, Transaction Capacity: 0, Display: 0, Camera: 0, Fingerprint Sensor: 0, Communication: 0, Battery Backup: 0, Voice Indication: 0, Access Control: 0, Fingerprint Angle: 0, Data Push: 0, Connection Interface: 0, Humidity: 0, Working Mode: 0, Temperature: 0, Keyboard: 0, Identification Time: 0"
+            }
+          ]
+        },
+        {
+          "id": "subcat004",
+          "name": "Fingerprint Time Attendance & Access Control",
+          "products": [
+            {
+              "id": "prod009",
+              "name": "Z100AC / Z199",
+              "price": 0,
+
+              "description": "Authentication Method: 0,    User Capacity: 0,    Transaction Capacity: 0,   Color: 0,    Display: 0,    Fingerprint Sensor: 0,   Communication: 0,   FAR & FRR: 0,      Voice Indication: 0,     Operating Voltage: 0,       Access Control: 0,  Fingerprint Angle: 0,         Data Push: 0,   Connection Interface: 0, LED Indication: 0"
+            },
+            {
+              "id": "prod010",
+              "name": "Z300AC (Cloud Supported)",
+              "price": 0,
+
+              "description": "Authentication Method: 0, User Capacity: 0, Transaction Capacity: 0, Color: 0, Display: 0, Fingerprint Sensor: 0, Communication: 0, FAR & FRR: 0, Voice Indication: 0, Operating Voltage: 0, Access Control: 0, Fingerprint Angle: 0, Data Push: 0, Connection Interface: 0, LED Indication: 0"
+            }
+          ]
+        },
+        {
+          "id": "subcat005",
+          "name": "Fingerprint and Card Based Attendance System",
+          "products": [
+            {
+              "id": "prod011",
+              "name": "Z100N",
+              "price": 0,
+
+              "description": "Authentication Method: 0, User Capacity: 0, Transaction Capacity: 0, Color: 0, Display: 0, Fingerprint Sensor: 0, Language: 0, Communication: 0, FRR: 0, FAR: 0, Identification Time: 0, Operating Voltage: 0, LED & Voice Indication: 0"
+            }
+          ]
+        },
+        {
+          "id": "subcat006",
+          "name": "Standalone Access Control Device ",
+          "products": [
+            {
+              "id": "prod012",
+              "name": "Z12",
+              "price": 0,
+
+              "description": "Authentication Method: 0, User Capacity: 0, Color: 0, Card Type: 0, Input/Output Ports: 0, Fingerprint Sensor: 0, Door Opening Time: 0, LED: 0, Operating Voltage: 0, Card Reading Range: 0, Short-Circuit Protection Time: 0"
+            },
+            {
+              "id": "prod013",
+              "name": "Z101N",
+              "price": 0,
+
+              "description": "Authentication Method: 0, User Capacity: 0, Color: 0, Card Type: 0, Input/Output Ports: 0, Fingerprint Sensor: 0, Door Opening Time: 0, LED: 0, Operating Voltage: 0, Card Reading Range: 0, Short-Circuit Protection Time: 0"
+            },
+            {
+              "id": "prod014",
+              "name": "Z33",
+              "price": 0,
+
+              "description": "Authentication Method: 0, User Capacity: 0, Color: 0, Card Type: 0, Input/Output Ports: 0, Fingerprint Sensor: 0, Door Opening Time: 0, LED: 0, Operating Voltage: 0, Card Reading Range: 0, Short-Circuit Protection Time: 0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat002",
+      "name": "Door Locks and Controllers",
+      "subcategories": [
+        {
+          "id": "subcat007",
+          "name": "Clutch Hook Glass Door Lock",
+          "products": [
+            {
+              "id": "prod015",
+              "name": "Z70R",
+              "price": 0,
+
+              "description": "User Capacity: 200, Verification Mode: 1, Voice Indication: Doorbell and Display Highly Performance Fingerprint Sensor, USB Emergency Power Interface (5-6V) 4 x 1.5V alkaline Batteries Suitable for glass door thickness 8-12 mm, Door Gap Required: 0.8 - 1 cm, Low Voltage Alarm: < 4.2V, Working Temperature: -20°C ~ +60°C, Working Humidity: < 93%"
+            }
+          ]
+        },
+        {
+          "id": "subcat008",
+          "name": "Multi-Door Controller",
+          "products": [
+            {
+              "name": "1 Door Controller",
+              "id": "prod016",
+              "price": 0,
+
+              "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0"
+            },
+            {
+              "name": "2 Door Controller",
+              "id": "prod017",
+              "price": 0,
+
+              "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0"
+            },
+            {
+              "name": "4 Door Controller",
+              "id": "prod018",
+              "price": 0,
+
+              "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0"
+            }
+          ]
+        },
+        {
+          "id": "subcat009",
+          "name": "Exit Reader",
+          "products": [
+            {
+              "name": "Z86",
+              "id": "prod019",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "Z6N",
+              "id": "prod020",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "Z4",
+              "id": "prod021",
+              "price": 0,
+
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat003",
+      "name": "Barcode Scanners ",
+      "subcategories": [
+        {
+          "id": "subcat010",
+          "name": "Wireless Handheld Barcode Scanner ",
+          "products": [
+            {
+              "name": "BS20W / CQH20G",
+              "id": "prod022",
+              "price": 0,
+
+              "description": "scanBarcodeCategory: 0, codeReadingDensity: 0, operatingTemperature: 0, typeOfDecoding: 0, storage: 0, scanMode: 0, operatingHumidity: 0, seismicResistance: 0, promptMode: 0, Communication: 0, operatingModes: 0, drivers: 0, batteryCapacity: 0, batteryType: 0"
+            }
+          ]
+        },
+        {
+          "id": "subcat011",
+          "name": "Handheld Barcode Scanner ",
+          "products": [
+            {
+              "name": "BS20 / CQH20",
+              "id": "prod023",
+              "price": 0,
+
+              "description": "scanBarcodeCategory: 0, codeReadingDensity: 0, operatingTemperature: 0, typeOfDecoding: 0, storage: 0, scanMode: 0, operatingHumidity: 0, seismicResistance: 0, promptMode: 0, Communication: 0, operatingModes: 0, drivers: 0, batteryCapacity: 0, batteryType: 0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat004",
+      "name": "Accessories",
+      "subcategories": [
+        {
+          "id": "subcat012",
+          "name": "Locks",
+          "products": [
+            {
+              "name": "EM Lock 120LBS",
+              "id": "prod024",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "EM Lock 300 LBS",
+              "id": "prod025",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "EM Lock 600 LBS",
+              "id": "prod026",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "EM Lock 1200 LBS Double Leaf",
+              "id": "prod027",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "EM Lock 1200 LBS Single Leaf",
+              "id": "prod028",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "RIM Lock",
+              "id": "prod029",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "Drop Bolt Lock for Fully Glass Door",
+              "id": "prod030",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "Surface Mount Drop Bolt Lock",
+              "id": "prod031",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "Strike Lock Fail Secure/Fail Safe",
+              "id": "prod032",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "Drop Bolt Lock",
+              "id": "prod033",
+              "price": 0,
+
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "subcat013",
+          "name": "Brackets",
+          "products": [
+            {
+              "name": "L Brackets",
+              "id": "prod034",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "U Brackets",
+              "id": "prod035",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "ZL Brackets",
+              "id": "prod036",
+              "price": 0,
+
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "subcat014",
+          "name": "Cards and Tags",
+          "products": [
+            {
+              "name": "Proximity Cards",
+              "id": "prod037",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "RFID Key Fobs",
+              "id": "prod038",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "1K Smart Cards",
+              "id": "prod039",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "UHF Cards and Tags",
+              "id": "prod040",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "USB Card Reader Z11",
+              "id": "prod041",
+              "price": 0,
+
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat005",
+      "name": "Switches for Access Control",
+      "subcategories": [
+        {
+          "id": "subcat015",
+          "name": "Switches for Access Control",
+          "products": [
+            {
+              "name": "TOP-173R (NO/NC/COM) Inbuilt Receiver",
+              "id": "prod042",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-173 (NO/NC/COM)",
+              "id": "prod043",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-042 (NO/COM) TOP-043 (NO/NC/COM)",
+              "id": "prod044",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-73 (NO/NC/COM)",
+              "id": "prod045",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-72 (NO/COM)",
+              "id": "prod046",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-25 (NO/NC/COM)",
+              "id": "prod047",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-023LB (NO/NC/COM)",
+              "id": "prod048",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-032 (NO/COM)",
+              "id": "prod049",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-033 (NO/NC/COM)",
+              "id": "prod050",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "Remote Kit",
+              "id": "prod051",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOFP-203 (NO/NC/COM)",
+              "id": "prod052",
+              "price": 0,
+
+              "description": ""
+            },
+            {
+              "name": "TOP-12 Mobile App (NO/NC/COM)",
+              "id": "prod053",
+              "price": 0,
+
+              "description": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,19 @@
 import React from "react";
 
-const ResetPassword = () => {
+const ResetPassword = (props) => {
+  const {
+    resetFormData,
+    formErrors,
+    isToken,
+    resetPasswordChange,
+    resetPassword,
+  } = props;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    resetPassword();
+  };
+
   return (
     <div class="d-flex flex-column h-100 p-3">
       <div class="d-flex flex-column flex-grow-1">
@@ -35,10 +48,7 @@ const ResetPassword = () => {
                   </p>
 
                   <div>
-                    <form
-                      action="https://techzaa.getappui.com/larkon/admin/index.html"
-                      class="authentication-form"
-                    >
+                    <form class="authentication-form">
                       <div class="mb-3">
                         <label class="form-label" for="example-email">
                           Email
