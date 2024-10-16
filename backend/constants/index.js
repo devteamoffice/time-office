@@ -2,6 +2,7 @@ exports.ROLES = {
   Admin: "ROLE ADMIN",
   Member: "ROLE MEMBER",
   Merchant: "ROLE MERCHANT",
+  Developer: "ROLE_DEVELOPER",
 };
 
 exports.MERCHANT_STATUS = {

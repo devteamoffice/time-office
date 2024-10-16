@@ -14,12 +14,15 @@ const cartRoutes = require("./cartRouter");
 const orderRoutes = require("./orderRouter");
 const reviewRoutes = require("./reviewRouter");
 const wishlistRoutes = require("./wishlistRouter");
-
+const adminRoutes = require("./adminRouter");
 // auth routes
 router.use("/auth", authRoutes);
 
 // user routes
 router.use("/user", userRoutes);
+
+// admin routes
+router.use("/admin", adminRoutes);
 
 // address routes
 router.use("/address", addressRoutes);

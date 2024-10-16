@@ -37,7 +37,7 @@ const Product = sequelize.define(
       allowNull: true,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT, // Changed to TEXT to allow longer paragraphs
       allowNull: true,
       trim: true,
     },

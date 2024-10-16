@@ -1,5 +1,5 @@
 const { DataTypes, Sequelize } = require("sequelize");
-const sequelize = require("../config/database"); // Adjust the path to your actual database configuration
+const sequelize = require("../config/database");
 const { ROLES, EMAIL_PROVIDER } = require("../constants");
 
 const User = sequelize.define(
@@ -13,7 +13,7 @@ const User = sequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true, // Ensure email is unique
+      unique: true,
       validate: { isEmail: true },
     },
     phoneNumber: {
@@ -50,7 +50,12 @@ const User = sequelize.define(
       allowNull: true,
     },
     role: {
-      type: DataTypes.ENUM(ROLES.Admin, ROLES.Member, ROLES.Merchant),
+      type: DataTypes.ENUM(
+        ROLES.Admin,
+        ROLES.Member,
+        ROLES.Merchant,
+        ROLES.Developer
+      ),
       allowNull: false,
       defaultValue: ROLES.Member,
     },
@@ -58,7 +63,7 @@ const User = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: "merchants", // Assumes your merchant table is named 'merchants'
+        model: "merchants",
         key: "id",
       },
     },
@@ -82,7 +87,7 @@ const User = sequelize.define(
   },
   {
     tableName: "users",
-    timestamps: true, // Automatic createdAt, updatedAt fields
+    timestamps: true,
   }
 );
 
