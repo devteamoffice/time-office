@@ -62,12 +62,12 @@ const server = app.listen(port, async () => {
   console.log(`✓ Listening on port ${port}. Visit http://localhost:${port}/`);
 
   // Run image upload script on server startup
-  try {
-    await processImagesOnStartup();
-    console.log("Images upload check completed.");
-  } catch (error) {
-    console.error("Error during image upload process:", error);
-  }
+  // try {
+  //   await processImagesOnStartup();
+  //   console.log("Images upload check completed.");
+  // } catch (error) {
+  //   console.error("Error during image upload process:", error);
+  // }
 });
 
 // Initialize Socket
