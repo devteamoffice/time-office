@@ -11,28 +11,28 @@
             {
               "id": "001",
               "name": "Z901 Mini",
-              "price": "24,999",
+              "price": "Rs 24,999",
 
               "description": "Authentication Method: Face, Card, Password and Combinations, Face Capacity: 1500 User, Card Capacity: 1500 Card Templates, Transaction Capacity: 1,50,000 Transactions, Display: 3.5 Touch Display, Camera: 2 MP HD Camera , Communication:USB, TCP/IP, Wi-Fi, Data Push: Yes, Voice Indication: Yes, Operating Voltage: DC 9V-12V (Under 1.5A), Access Control: Yes, Professional, Identification Time: <1 Sec, Face Technology: Dynamic Face Recognition Technology recognize up to3 persons Simultaneously, Working Mode: Day and Night, Battery Backup: Yes Inbuilt(Upto 150 Minutes), Face Identification Range: Upto 1.5 Mtr, Humidity: 20% ~ 80% , Temperature: -10 C ~ 60 C, User Validity: Yes, Configurable, Dimensions: 110 x 110 x 70 mm"
             },
             {
               "id": "002",
               "name": "Z901",
-              "price": "21,999",
+              "price": "Rs 21,999",
 
               "description": "Authentication Method: Face, Card, Password and Combinations, Face Capacity: 1500 User, Card Capacity: 1500 Card Templates, Transaction Capacity: 1,50,000 Transactions,  Display: 3.5 Touch Display, Camera: 2 MP HD Camera , Voice Indication: Yes,   Operating Voltage: DC 9V-12V (Under 1.5A), Data Push: Yes, Access Control: Yes, Professional,  Identification Time: <1 Sec, Face Technology: Dynamic Face Recognition Technology recognize up to3 persons Simultaneously,  Working Mode: Day and Night,  Communication: USB, TCP/IP, Wi-Fi,   Battery Backup: No,   Face Identification Range: 0,   Humidity: 0,   Temperature: 0,   User Validity: 0,   Dimensions: 0"
             },
             {
               "id": "003",
               "name": "Z902N",
-              "price": "33,550",
+              "price": "Rs 33,550",
 
               "description": "Authentication Method: 0, Face Capacity: 0,    Card Capacity: 0,    Transaction Capacity: 0,    Display: 0,    Camera: 0,   Voice Indication: 0,   Operating Voltage: 0,   Data Push: 0,  Access Control: 0,       Identification Time: 0,    Face Technology: 0,    Working Mode: 0,    Communication: 0,    Battery Backup: 0,  Face Identification Range: 0,   Humidity: 0, Temperature: 0, User Validity: 0,  Dimensions: 0"
             },
             {
               "id": "004",
               "name": "Z904",
-              "price": "",
+              "price": 0,
 
               "description": "Authentication Method: 0,   Face Capacity: 0, Card Capacity: 0,  Transaction Capacity: 0,  Display: 0,  Camera: 0,  Voice Indication: 0,  Operating Voltage: 0, Data Push: 0,     Access Control: 0,     Identification Time: 0,     Face Technology: 0,     Working Mode: 0,     Communication: 0,     Battery Backup: 0,    Face Identification Range: 0,   Humidity: 0,   Temperature: 0,  User Validity: 0,  Dimensions: 0"
             },
@@ -40,13 +40,13 @@
             {
               "id": "006",
               "name": "Z906 Dynamic Face Recognition Attendance With Access Control System(Face + Card)",
-              "price": "36,999",
+              "price": "Rs 36,999",
               "description": ""
             },
             {
               "id": "007",
               "name": "Z999 Dynamic Face Recognition Attendance With Access Control System(Face + Card)",
-              "price": "43,999",
+              "price": "Rs 43,999",
               "description": ""
             }
           ]
@@ -58,13 +58,13 @@
             {
               "id": "008",
               "name": "Z900 Face With Fingerprint Time Attendance And Professional Access Control",
-              "price": "13,550",
+              "price": "Rs 13,550",
               "description": ""
             },
             {
               "id": "009",
               "name": "Z619 Face Based Attendance Cum Access Control",
-              "price": "12,000",
+              "price": "Rs 12,000",
               "description": ""
             }
           ]
@@ -76,7 +76,7 @@
             {
               "id": "010",
               "name": "Z500V2 Face Recognition Attendance System With Payroll Software",
-              "price": "15,000",
+              "price": "Rs 15,000",
               "description": ""
             }
           ]
@@ -88,21 +88,21 @@
             {
               "id": "011",
               "name": "Z100AC / Z199",
-              "price": "8,000",
+              "price": "Rs 8,000",
 
               "description": "Authentication Method: 0,    User Capacity: 0,    Transaction Capacity: 0,   Color: 0,    Display: 0,    Fingerprint Sensor: 0,   Communication: 0,   FAR & FRR: 0,      Voice Indication: 0,     Operating Voltage: 0,       Access Control: 0,  Fingerprint Angle: 0,         Data Push: 0,   Connection Interface: 0, LED Indication: 0"
             },
             {
               "id": "012",
               "name": "Z300AC (Cloud Supported)",
-              "price": "",
+              "price": 0,
 
               "description": "Authentication Method: 0, User Capacity: 0, Transaction Capacity: 0, Color: 0, Display: 0, Fingerprint Sensor: 0, Communication: 0, FAR & FRR: 0, Voice Indication: 0, Operating Voltage: 0, Access Control: 0, Fingerprint Angle: 0, Data Push: 0, Connection Interface: 0, LED Indication: 0"
             },
             {
               "id": "013",
               "name": "Z200BW Fingerprint Attendance Cum Access Control Device",
-              "price": "9,000",
+              "price": "Rs 9,000",
               "description": ""
             }
           ]
@@ -114,14 +114,14 @@
             {
               "id": "014",
               "name": "Z100N",
-              "price": "7,500",
+              "price": "Rs 7,500",
 
               "description": "Authentication Method: 0, User Capacity: 0, Transaction Capacity: 0, Color: 0, Display: 0, Fingerprint Sensor: 0, Language: 0, Communication: 0, FRR: 0, FAR: 0, Identification Time: 0, Operating Voltage: 0, LED & Voice Indication: 0"
             },
             {
               "id": "015",
               "name": "Z305CB Fingerprint Attendance Device",
-              "price": "8,000",
+              "price": "Rs 8,000",
               "description": ""
             }
           ]
@@ -133,21 +133,21 @@
             {
               "id": "016",
               "name": "Z12",
-              "price": "3,999",
+              "price": "Rs 3,999",
 
               "description": "Authentication Method: 0, User Capacity: 0, Color: 0, Card Type: 0, Input/Output Ports: 0, Fingerprint Sensor: 0, Door Opening Time: 0, LED: 0, Operating Voltage: 0, Card Reading Range: 0, Short-Circuit Protection Time: 0"
             },
             {
               "id": "017",
               "name": "Z101N",
-              "price": "4,300",
+              "price": "Rs 4,300",
 
               "description": "Authentication Method: 0, User Capacity: 0, Color: 0, Card Type: 0, Input/Output Ports: 0, Fingerprint Sensor: 0, Door Opening Time: 0, LED: 0, Operating Voltage: 0, Card Reading Range: 0, Short-Circuit Protection Time: 0"
             },
             {
               "id": "018",
               "name": "Z33",
-              "price": "3,399",
+              "price": "Rs 3,399",
 
               "description": "Authentication Method: 0, User Capacity: 0, Color: 0, Card Type: 0, Input/Output Ports: 0, Fingerprint Sensor: 0, Door Opening Time: 0, LED: 0, Operating Voltage: 0, Card Reading Range: 0, Short-Circuit Protection Time: 0"
             }
@@ -166,20 +166,20 @@
             {
               "id": "019",
               "name": "Z70R",
-              "price": "20,999",
+              "price": "Rs 20,999",
 
               "description": "User Capacity: 200, Verification Mode: 1, Voice Indication: Doorbell and Display Highly Performance Fingerprint Sensor, USB Emergency Power Interface (5-6V) 4 x 1.5V alkaline Batteries Suitable for glass door thickness 8-12 mm, Door Gap Required: 0.8 - 1 cm, Low Voltage Alarm: < 4.2V, Working Temperature: -20°C ~ +60°C, Working Humidity: < 93%"
             },
             {
               "id": "020",
               "name": "Z20R V2 Glass Door Lock",
-              "price": "16,000",
+              "price": "Rs 16,000",
               "description": ""
             },
             {
               "id": "021",
               "name": "L25 Padlock",
-              "price": "2,199",
+              "price": "Rs 2,199",
               "description": ""
             }
           ]
@@ -191,21 +191,21 @@
             {
               "name": "1 Door Controller",
               "id": "022",
-              "price": "12,000",
+              "price": "Rs 12,000",
 
               "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0"
             },
             {
               "name": "2 Door Controller",
               "id": "023",
-              "price": "16,000",
+              "price": "Rs 16,000",
 
               "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0"
             },
             {
               "name": "4 Door Controller",
               "id": "024",
-              "price": "20,000",
+              "price": "Rs 20,000",
 
               "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0"
             }
@@ -218,7 +218,7 @@
             {
               "name": "Z86",
               "id": "025",
-              "price": "8,500",
+              "price": "Rs 8,500",
 
               "description": ""
             },
@@ -226,7 +226,7 @@
             {
               "name": "Z4",
               "id": "026",
-              "price": "",
+              "price": 0,
 
               "description": ""
             }
@@ -245,7 +245,7 @@
             {
               "name": "BS20W / CQH20G",
               "id": "027",
-              "price": "4,000",
+              "price": "Rs 4,000",
 
               "description": "scanBarcodeCategory: 0, codeReadingDensity: 0, operatingTemperature: 0, typeOfDecoding: 0, storage: 0, scanMode: 0, operatingHumidity: 0, seismicResistance: 0, promptMode: 0, Communication: 0, operatingModes: 0, drivers: 0, batteryCapacity: 0, batteryType: 0"
             }
@@ -258,7 +258,7 @@
             {
               "name": "BS20 / CQH20",
               "id": "028",
-              "price": "1,999",
+              "price": "Rs 1,999",
 
               "description": "scanBarcodeCategory: 0, codeReadingDensity: 0, operatingTemperature: 0, typeOfDecoding: 0, storage: 0, scanMode: 0, operatingHumidity: 0, seismicResistance: 0, promptMode: 0, Communication: 0, operatingModes: 0, drivers: 0, batteryCapacity: 0, batteryType: 0"
             }
@@ -277,62 +277,62 @@
             {
               "name": "EM Lock 120LBS",
               "id": "029",
-              "price": "1,500",
+              "price": "Rs 1,500",
 
               "description": ""
             },
             {
               "name": "EM Lock 300 LBS",
               "id": "030",
-              "price": "2,300",
+              "price": "Rs 2,300",
 
               "description": ""
             },
             {
               "name": "EM Lock 600 LBS",
               "id": "031",
-              "price": "550",
+              "price": "Rs 550",
 
               "description": ""
             },
             {
               "name": "EM Lock 1200 LBS Double Leaf",
               "id": "032",
-              "price": "4,500",
+              "price": "Rs 4,500",
 
               "description": ""
             },
             {
               "name": "EM Lock 1200 LBS Single Leaf",
               "id": "033",
-              "price": "4,500",
+              "price": "Rs 4,500",
 
               "description": ""
             },
             {
               "name": "RIM Lock",
               "id": "034",
-              "price": "2,070",
+              "price": "Rs 2,070",
 
               "description": ""
             },
             {
               "id": "035",
               "name": "Drop Bolt Lock with Feedback and Timer",
-              "price": "1,500",
+              "price": "Rs 1,500",
               "description": ""
             },
             {
               "name": "Drop Bolt Lock for Fully Glass Door",
               "id": "036",
-              "price": "3,500",
+              "price": "Rs 3,500",
 
               "description": ""
             },
             {
               "name": "Surface Mount Drop Bolt Lock",
               "id": "037",
-              "price": "2,500",
+              "price": "Rs 2,500",
 
               "description": ""
             }
@@ -345,26 +345,26 @@
             {
               "name": "L Brackets",
               "id": "040",
-              "price": "350",
+              "price": "Rs 350",
 
               "description": ""
             },
             {
               "id": "041",
               "name": "U Bracket For EM Lock (600lbs)",
-              "price": "550",
+              "price": "Rs 550",
               "description": ""
             },
             {
               "id": "042",
               "name": "U Bracket For Drop Bolt Lock",
-              "price": "650",
+              "price": "Rs 650",
               "description": ""
             },
             {
               "id": "043",
               "name": "ZL Bracket for EM Lock (600lbs)",
-              "price": "1,000",
+              "price": "Rs 1,000",
               "description": ""
             }
           ]
@@ -376,13 +376,13 @@
             {
               "id": "045",
               "name": "ERD PS-30D(12V DC-3A) Power Adapter",
-              "price": "550",
+              "price": "Rs 550",
               "description": ""
             },
             {
               "id": "046",
               "name": "ERD PS-11 12V-4CH SINGLE OUTPUT SMPS",
-              "price": "550",
+              "price": "Rs 550",
               "description": ""
             },
             {
@@ -424,35 +424,35 @@
             {
               "name": "Proximity Cards",
               "id": "046",
-              "price": "22",
+              "price": "Rs 22",
 
               "description": ""
             },
             {
               "name": "RFID Key Fobs",
               "id": "047",
-              "price": "25",
+              "price": "Rs 25",
 
               "description": ""
             },
             {
               "name": "1K Smart Cards",
               "id": "048",
-              "price": "20",
+              "price": "Rs 20",
 
               "description": ""
             },
             {
               "name": "UHF Cards and Tags",
               "id": "049",
-              "price": "50",
+              "price": "Rs 50",
 
               "description": ""
             },
             {
               "name": "USB Card Reader Z11",
               "id": "050",
-              "price": "1,000",
+              "price": "Rs 1,000",
 
               "description": ""
             }
@@ -478,7 +478,7 @@
             {
               "name": "TOP-173 (NO/NC/COM)",
               "id": "052",
-              "price": "977",
+              "price": "Rs 977",
 
               "description": ""
             },
@@ -491,70 +491,70 @@
             {
               "name": "TOP-73 (NO/NC/COM)",
               "id": "053",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "name": "TOP-72 (NO/COM)",
               "id": "054",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "name": "TOP-25 (NO/NC/COM)",
               "id": "055",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "name": "TOP-023LB (NO/NC/COM)",
               "id": "056",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "name": "TOP-032 (NO/COM)",
               "id": "057",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "name": "TOP-033 (NO/NC/COM)",
               "id": "058",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "name": "Remote Kit",
               "id": "059",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "name": "TOFP-203 (NO/NC/COM)",
               "id": "060",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "name": "TOP-12 Mobile App (NO/NC/COM)",
               "id": "061",
-              "price": "",
+              "price": 0,
 
               "description": ""
             },
             {
               "id": "062",
               "name": "TOP-43 Exit Push Switch Metal",
-              "price": "500",
+              "price": "Rs 500",
               "description": ""
             }
           ]
@@ -572,7 +572,7 @@
             {
               "id": "062",
               "name": "Z201 UHF Reader 12mtr",
-              "price": "35,000",
+              "price": "Rs 35,000",
               "description": ""
             }
           ]
@@ -590,7 +590,7 @@
             {
               "id": "063",
               "name": "Facial Recognition Elevator ControlSystem",
-              "price": "59,999",
+              "price": "Rs 59,999",
               "description": ""
             }
           ]

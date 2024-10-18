@@ -2,13 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const { bucket } = require("./firebaseConfig");
 const Product = require("../models/product"); // Import the Product model
-const sequelize = require("../config/database"); // Sequelize instance for syncing
 
-// Function to check if a file exists in Firebase Storage
+// Check if a file exists in Firebase Storage
 const doesFileExistInFirebase = async (filePath) => {
   try {
-    const file = bucket.file(filePath); // Ensure bucket is correctly initialized
-    const [exists] = await file.exists(); // This checks if the file exists
+    const file = bucket.file(filePath);
+    const [exists] = await file.exists();
     return exists;
   } catch (error) {
     console.error(`Error checking file ${filePath} in Firebase:`, error);
@@ -16,96 +15,88 @@ const doesFileExistInFirebase = async (filePath) => {
   }
 };
 
-// Upload Product Images to Firebase and save to MySQL via Sequelize
+// Upload Product Images to Firebase and save URLs to MySQL via Sequelize
 const uploadProductImages = async (productFolderPath) => {
-  const files = fs.readdirSync(productFolderPath); // Get all folders/files in the directory
+  const directories = fs.readdirSync(productFolderPath);
 
-  for (const file of files) {
-    const filePath = path.join(productFolderPath, file);
+  for (const dir of directories) {
+    const dirPath = path.join(productFolderPath, dir);
 
-    if (fs.statSync(filePath).isDirectory()) {
-      const productName = path.basename(filePath); // Extract product name from folder name
+    if (fs.statSync(dirPath).isDirectory()) {
+      const productName = path.basename(dirPath).trim().toLowerCase();
       console.log(`Processing folder: ${productName}`);
 
-      const images = fs.readdirSync(filePath);
+      const images = fs.readdirSync(dirPath);
       const imageUrls = [];
 
       for (const image of images) {
-        const fileName = path.basename(image);
-        const fileUploadPath = `${productName}/${fileName}`;
+        const fileUploadPath = `${productName}/${image}`;
 
-        // Check if the file already exists in Firebase Storage
+        // Check if the image already exists in Firebase
         const fileExists = await doesFileExistInFirebase(fileUploadPath);
 
         if (fileExists) {
           console.log(
             `File ${fileUploadPath} already exists. Skipping upload.`
           );
-          const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${
-            bucket.name
-          }/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
-          imageUrls.push(downloadUrl); // Use existing URL if already uploaded
         } else {
-          const fileStream = fs.createReadStream(path.join(filePath, image));
-          await fileStream
-            .pipe(
-              bucket.file(fileUploadPath).createWriteStream({
-                metadata: {
-                  contentType: "image/jpeg", // Adjust content type if necessary
-                },
-              })
-            )
-            .on("finish", () => {
-              console.log(`File ${fileUploadPath} uploaded successfully.`);
-              imageUrls.push(downloadUrl);
-            });
-
-          const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${
-            bucket.name
-          }/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
-          imageUrls.push(downloadUrl);
+          const fileStream = fs.createReadStream(path.join(dirPath, image));
+          await new Promise((resolve, reject) => {
+            fileStream
+              .pipe(
+                bucket.file(fileUploadPath).createWriteStream({
+                  metadata: { contentType: "image/jpeg" },
+                })
+              )
+              .on("finish", resolve)
+              .on("error", reject);
+          });
           console.log(`File ${fileUploadPath} uploaded successfully.`);
         }
+
+        const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${
+          bucket.name
+        }/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
+        imageUrls.push(downloadUrl);
       }
 
-      // Save the image URLs to MySQL and associate them with a product
+      // Save or update the product in MySQL
       await saveToMySQL(productName, imageUrls);
     }
   }
   console.log("All folders processed.");
 };
 
-// Save product and image URLs to MySQL using Sequelize
+// Save product and image URLs to MySQL
 const saveToMySQL = async (productName, imageUrls) => {
   try {
-    const [product, created] = await Product.upsert({
-      name: productName,
-      images: imageUrls,
-    });
-    if (created) {
-      console.log(`Product ${productName} saved successfully.`);
-    } else {
+    const product = await Product.findOne({ where: { name: productName } });
+
+    if (product) {
+      product.images = imageUrls;
+      await product.save();
       console.log(`Product ${productName} updated successfully.`);
+    } else {
+      await Product.create({ name: productName, images: imageUrls });
+      console.log(`Product ${productName} saved successfully.`);
     }
   } catch (error) {
     console.error(`Error saving product ${productName} to MySQL:`, error);
   }
 };
 
-// Path to your product folders (each folder contains images)
+// Path to product folders (each folder contains images)
 const productFolderPath = path.resolve(__dirname, "../images");
 
-// Check if the folder exists, if not, handle the error or create it
-if (!fs.existsSync(productFolderPath)) {
-  console.error(`Directory ${productFolderPath} does not exist.`);
-  // Optionally, you can create the directory if needed:
-  // fs.mkdirSync(productFolderPath, { recursive: true });
-} else {
-  // Continue with the image processing logic
+// Ensure the directory exists and start processing images
+if (fs.existsSync(productFolderPath)) {
   console.log(`Directory ${productFolderPath} exists. Proceeding with upload.`);
-  // Your existing logic to process images goes here
+  processImagesOnStartup();
+} else {
+  console.error(`Directory ${productFolderPath} does not exist.`);
 }
-// Export the function for server start
+
+// Start the image upload process
 const processImagesOnStartup = async () => {
   try {
     await uploadProductImages(productFolderPath);
@@ -114,6 +105,4 @@ const processImagesOnStartup = async () => {
   }
 };
 
-module.exports = {
-  processImagesOnStartup,
-};
+module.exports = { processImagesOnStartup };

@@ -9,6 +9,7 @@ const Product = sequelize.define(
     sku: {
       type: DataTypes.STRING,
       allowNull: true,
+      unique: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -28,12 +29,16 @@ const Product = sequelize.define(
         this.setDataValue("slug", slugValue);
       },
     },
-    imageUrl: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    imageKey: {
-      type: DataTypes.STRING,
+    // imageUrl: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    // },
+    // imageKey: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    // },
+    images: {
+      type: DataTypes.JSON, // Array of image URLs
       allowNull: true,
     },
     description: {
