@@ -5,7 +5,7 @@ const helmet = require("helmet");
 const keys = require("./config/keys");
 const socket = require("./socket");
 const setupDB = require("./utils/db");
-const { processImagesOnStartup } = require("./utils/productImages");
+const { processImagesOnProducts } = require("./utils/productImages");
 
 const authRoutes = require("./routes/authRouter");
 const userRoutes = require("./routes/userRouter");
@@ -63,7 +63,7 @@ const server = app.listen(port, async () => {
 
   // Run image upload script on server startup
   // try {
-  //   await processImagesOnStartup();
+  //   await processImagesOnProducts();
   //   console.log("Images upload check completed.");
   // } catch (error) {
   //   console.error("Error during image upload process:", error);

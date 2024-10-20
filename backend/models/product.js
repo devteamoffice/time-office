@@ -1,15 +1,20 @@
+// models/product.js
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database"); // Assuming you have a database configuration file
+const sequelize = require("../config/database");
 const slugify = require("slugify");
 
 // Product Model
 const Product = sequelize.define(
   "Product",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     sku: {
       type: DataTypes.STRING,
       allowNull: true,
-      unique: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -25,42 +30,22 @@ const Product = sequelize.define(
           strict: true,
           locale: "en",
           trim: true,
-        }).substring(0, 120); // Truncate to 120 characters if needed
+        }).substring(0, 120);
         this.setDataValue("slug", slugValue);
       },
     },
-    // imageUrl: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true,
-    // },
-    // imageKey: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true,
-    // },
     images: {
-      type: DataTypes.JSON, // Array of image URLs
+      type: DataTypes.JSON,
       allowNull: true,
     },
     description: {
-      type: DataTypes.TEXT, // Changed to TEXT to allow longer paragraphs
+      type: DataTypes.TEXT,
       allowNull: true,
       trim: true,
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
     },
     price: {
       type: DataTypes.FLOAT,
       allowNull: true,
-    },
-    taxable: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    isActive: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
     },
     brand: {
       type: DataTypes.INTEGER,
@@ -70,9 +55,25 @@ const Product = sequelize.define(
         key: "id",
       },
     },
-    updated: {
-      type: DataTypes.DATE,
-      allowNull: true,
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    categoryId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "categories",
+        key: "id",
+      },
+      allowNull: false,
+    },
+    subcategoryId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "subcategories",
+        key: "id",
+      },
+      allowNull: false,
     },
     created: {
       type: DataTypes.DATE,
@@ -81,7 +82,7 @@ const Product = sequelize.define(
   },
   {
     tableName: "products",
-    timestamps: false, // Disable automatic timestamp fields (createdAt, updatedAt)
+    timestamps: false,
   }
 );
 

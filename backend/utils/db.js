@@ -9,6 +9,7 @@ const CartItem = require("../models/cartitem");
 const Order = require("../models/order");
 const Review = require("../models/review");
 const Wishlist = require("../models/wishlist");
+const { Category, Subcategory } = require("../models/category");
 
 const setupDB = async () => {
   try {
@@ -46,6 +47,21 @@ const setupDB = async () => {
     User.hasMany(Wishlist, { foreignKey: "userId", as: "wishlists" });
     Wishlist.belongsTo(User, { foreignKey: "userId", as: "users" });
     Wishlist.belongsTo(Product, { foreignKey: "productId", as: "products" });
+
+    Category.hasMany(Subcategory, {
+      foreignKey: "categoryId",
+      as: "subcategories",
+    });
+    Subcategory.belongsTo(Category, { foreignKey: "categoryId" });
+
+    Subcategory.hasMany(Product, {
+      foreignKey: "subcategoryId",
+      as: "products",
+    });
+    Product.belongsTo(Subcategory, { foreignKey: "subcategoryId" });
+
+    Category.hasMany(Product, { foreignKey: "categoryId", as: "products" });
+    Product.belongsTo(Category, { foreignKey: "categoryId" });
   } catch (error) {
     console.log(
       "\x1b[31m%s\x1b[0m",
