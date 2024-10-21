@@ -11,11 +11,11 @@ package.json.bak
 
 # config file
 .env
-
+*git-filter-repo
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log* 
 
-teamoffice.json
+backend/teamoffice.json
 teamoffice-28b46.json
