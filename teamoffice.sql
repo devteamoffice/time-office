@@ -15,10 +15,8 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for timeoffice
-DROP DATABASE IF EXISTS `timeoffice`;
-CREATE DATABASE IF NOT EXISTS `timeoffice` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `timeoffice`;
+
+USE `u690099781_teamoffice`;
 
 -- Dumping structure for table timeoffice.addresses
 DROP TABLE IF EXISTS `addresses`;

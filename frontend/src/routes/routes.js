@@ -25,6 +25,7 @@ import BlogList from "../pages/BlogList";
 import Checkout from "../pages/Checkout";
 import PaymetFailure from "../pages/PaymetFailure";
 import Account from "../pages/Account";
+import PaymentConfirmation from "../pages/PaymentConfirmation";
 
 export const publicRoutes = [
   // Error Pages
@@ -47,9 +48,10 @@ export const publicRoutes = [
   { path: "/products", element: Product },
   { path: "/product/:sku", element: ProductDetails },
   { path: "/orders/:id", element: OrderDetails },
-  { path: "/orders/:id/checkout", element: Checkout },
-  { path: "/orders/:id/invoice", element: Invoice },
-  { path: "/orders/:id/payment=failure", element: PaymetFailure },
+  { path: "/order/:id/checkout", element: Checkout },
+  { path: "/order/:id/invoice", element: Invoice },
+  { path: "/order/:id/payment=confirmation", element: PaymentConfirmation },
+  { path: "/order/:id/payment=failure", element: PaymetFailure },
 
   // User Account
   { path: "/u/:id", element: Account },

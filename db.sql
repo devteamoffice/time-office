@@ -15,11 +15,11 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for timeoffice
-CREATE DATABASE IF NOT EXISTS `timeoffice` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `timeoffice`;
+-- Dumping database structure for u690099781_teamoffice
+CREATE DATABASE IF NOT EXISTS `u690099781_teamoffice` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `u690099781_teamoffice`;
 
--- Dumping structure for table timeoffice.addresses
+-- Dumping structure for table u690099781_teamoffice.addresses
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
@@ -34,12 +34,11 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.addresses: ~0 rows (approximately)
-DELETE FROM `addresses`;
+-- Dumping data for table u690099781_teamoffice.addresses: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.brands
+-- Dumping structure for table u690099781_teamoffice.brands
 CREATE TABLE IF NOT EXISTS `brands` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -109,14 +108,18 @@ CREATE TABLE IF NOT EXISTS `brands` (
   UNIQUE KEY `slug_55` (`slug`),
   UNIQUE KEY `slug_56` (`slug`),
   UNIQUE KEY `slug_57` (`slug`),
+  UNIQUE KEY `slug_58` (`slug`),
+  UNIQUE KEY `slug_59` (`slug`),
+  UNIQUE KEY `slug_60` (`slug`),
+  UNIQUE KEY `slug_61` (`slug`),
+  UNIQUE KEY `slug_62` (`slug`),
   KEY `merchantId` (`merchantId`),
   CONSTRAINT `brands_ibfk_1` FOREIGN KEY (`merchantId`) REFERENCES `merchants` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.brands: ~0 rows (approximately)
-DELETE FROM `brands`;
+-- Dumping data for table u690099781_teamoffice.brands: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.carts
+-- Dumping structure for table u690099781_teamoffice.carts
 CREATE TABLE IF NOT EXISTS `carts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
@@ -181,15 +184,38 @@ CREATE TABLE IF NOT EXISTS `carts` (
   CONSTRAINT `carts_ibfk_59` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
   CONSTRAINT `carts_ibfk_6` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
   CONSTRAINT `carts_ibfk_60` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_61` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_62` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_63` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_64` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_65` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_66` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_67` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_68` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_69` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
   CONSTRAINT `carts_ibfk_7` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_70` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_71` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_72` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_73` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_74` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_75` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_76` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_77` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_78` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_79` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
   CONSTRAINT `carts_ibfk_8` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_80` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_81` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_82` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_83` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_ibfk_84` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
   CONSTRAINT `carts_ibfk_9` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.carts: ~0 rows (approximately)
-DELETE FROM `carts`;
+-- Dumping data for table u690099781_teamoffice.carts: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.cart_items
+-- Dumping structure for table u690099781_teamoffice.cart_items
 CREATE TABLE IF NOT EXISTS `cart_items` (
   `id` int NOT NULL AUTO_INCREMENT,
   `productId` int NOT NULL,
@@ -215,9 +241,33 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   CONSTRAINT `cart_items_ibfk_115` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
   CONSTRAINT `cart_items_ibfk_117` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
   CONSTRAINT `cart_items_ibfk_119` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
-  CONSTRAINT `cart_items_ibfk_120` FOREIGN KEY (`cartId`) REFERENCES `carts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `cart_items_ibfk_121` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_123` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_125` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_127` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_129` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
   CONSTRAINT `cart_items_ibfk_13` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_131` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_133` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_135` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_137` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_139` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_141` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_143` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_145` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_147` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_149` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
   CONSTRAINT `cart_items_ibfk_15` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_151` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_153` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_155` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_157` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_159` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_161` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_163` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_165` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_167` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
+  CONSTRAINT `cart_items_ibfk_168` FOREIGN KEY (`cartId`) REFERENCES `carts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `cart_items_ibfk_17` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
   CONSTRAINT `cart_items_ibfk_19` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
   CONSTRAINT `cart_items_ibfk_21` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
@@ -264,95 +314,31 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   CONSTRAINT `cart_items_ibfk_95` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
   CONSTRAINT `cart_items_ibfk_97` FOREIGN KEY (`productId`) REFERENCES `products` (`id`),
   CONSTRAINT `cart_items_ibfk_99` FOREIGN KEY (`productId`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.cart_items: ~0 rows (approximately)
-DELETE FROM `cart_items`;
+-- Dumping data for table u690099781_teamoffice.cart_items: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.categories
+-- Dumping structure for table u690099781_teamoffice.categories
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `image` longblob,
-  `imageContentType` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
   `isActive` tinyint(1) DEFAULT '1',
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`slug`),
-  UNIQUE KEY `slug_2` (`slug`),
-  UNIQUE KEY `slug_3` (`slug`),
-  UNIQUE KEY `slug_4` (`slug`),
-  UNIQUE KEY `slug_5` (`slug`),
-  UNIQUE KEY `slug_6` (`slug`),
-  UNIQUE KEY `slug_7` (`slug`),
-  UNIQUE KEY `slug_8` (`slug`),
-  UNIQUE KEY `slug_9` (`slug`),
-  UNIQUE KEY `slug_10` (`slug`),
-  UNIQUE KEY `slug_11` (`slug`),
-  UNIQUE KEY `slug_12` (`slug`),
-  UNIQUE KEY `slug_13` (`slug`),
-  UNIQUE KEY `slug_14` (`slug`),
-  UNIQUE KEY `slug_15` (`slug`),
-  UNIQUE KEY `slug_16` (`slug`),
-  UNIQUE KEY `slug_17` (`slug`),
-  UNIQUE KEY `slug_18` (`slug`),
-  UNIQUE KEY `slug_19` (`slug`),
-  UNIQUE KEY `slug_20` (`slug`),
-  UNIQUE KEY `slug_21` (`slug`),
-  UNIQUE KEY `slug_22` (`slug`),
-  UNIQUE KEY `slug_23` (`slug`),
-  UNIQUE KEY `slug_24` (`slug`),
-  UNIQUE KEY `slug_25` (`slug`),
-  UNIQUE KEY `slug_26` (`slug`),
-  UNIQUE KEY `slug_27` (`slug`),
-  UNIQUE KEY `slug_28` (`slug`),
-  UNIQUE KEY `slug_29` (`slug`),
-  UNIQUE KEY `slug_30` (`slug`),
-  UNIQUE KEY `slug_31` (`slug`),
-  UNIQUE KEY `slug_32` (`slug`),
-  UNIQUE KEY `slug_33` (`slug`),
-  UNIQUE KEY `slug_34` (`slug`),
-  UNIQUE KEY `slug_35` (`slug`),
-  UNIQUE KEY `slug_36` (`slug`),
-  UNIQUE KEY `slug_37` (`slug`),
-  UNIQUE KEY `slug_38` (`slug`),
-  UNIQUE KEY `slug_39` (`slug`),
-  UNIQUE KEY `slug_40` (`slug`),
-  UNIQUE KEY `slug_41` (`slug`),
-  UNIQUE KEY `slug_42` (`slug`),
-  UNIQUE KEY `slug_43` (`slug`),
-  UNIQUE KEY `slug_44` (`slug`),
-  UNIQUE KEY `slug_45` (`slug`),
-  UNIQUE KEY `slug_46` (`slug`),
-  UNIQUE KEY `slug_47` (`slug`),
-  UNIQUE KEY `slug_48` (`slug`),
-  UNIQUE KEY `slug_49` (`slug`),
-  UNIQUE KEY `slug_50` (`slug`),
-  UNIQUE KEY `slug_51` (`slug`),
-  UNIQUE KEY `slug_52` (`slug`),
-  UNIQUE KEY `slug_53` (`slug`),
-  UNIQUE KEY `slug_54` (`slug`),
-  UNIQUE KEY `slug_55` (`slug`),
-  UNIQUE KEY `slug_56` (`slug`),
-  UNIQUE KEY `slug_57` (`slug`),
-  UNIQUE KEY `slug_58` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.categories: ~7 rows (approximately)
-DELETE FROM `categories`;
-INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `imageContentType`, `description`, `isActive`, `updated`, `created`) VALUES
-	(1, 'Attendance and Access Control Systems', NULL, NULL, NULL, NULL, 1, NULL, '2024-10-20 06:27:00'),
-	(2, 'Door Locks and Controllers', NULL, NULL, NULL, NULL, 1, NULL, '2024-10-20 06:43:57'),
-	(3, 'Barcode Scanners ', NULL, NULL, NULL, NULL, 1, NULL, '2024-10-20 06:43:57'),
-	(4, 'Accessories', NULL, NULL, NULL, NULL, 1, NULL, '2024-10-20 06:43:57'),
-	(5, 'Switches for Access Control', NULL, NULL, NULL, NULL, 1, NULL, '2024-10-20 06:43:57'),
-	(6, 'Readers', NULL, NULL, NULL, NULL, 1, NULL, '2024-10-20 06:43:57'),
-	(7, 'Elevator Control System', NULL, NULL, NULL, NULL, 1, NULL, '2024-10-20 06:43:57');
+-- Dumping data for table u690099781_teamoffice.categories: ~7 rows (approximately)
+INSERT INTO `categories` (`id`, `name`, `isActive`, `updated`, `created`) VALUES
+	(1, 'Attendance and Access Control Systems', 1, NULL, '2024-10-20 06:27:00'),
+	(2, 'Door Locks and Controllers', 1, NULL, '2024-10-20 06:43:57'),
+	(3, 'Barcode Scanners ', 1, NULL, '2024-10-20 06:43:57'),
+	(4, 'Accessories', 1, NULL, '2024-10-20 06:43:57'),
+	(5, 'Switches for Access Control', 1, NULL, '2024-10-20 06:43:57'),
+	(6, 'Readers', 1, NULL, '2024-10-20 06:43:57'),
+	(7, 'Elevator Control System', 1, NULL, '2024-10-20 06:43:57');
 
--- Dumping structure for table timeoffice.contacts
+-- Dumping structure for table u690099781_teamoffice.contacts
 CREATE TABLE IF NOT EXISTS `contacts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -361,14 +347,13 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.contacts: ~0 rows (approximately)
-DELETE FROM `contacts`;
+-- Dumping data for table u690099781_teamoffice.contacts: ~1 rows (approximately)
 INSERT INTO `contacts` (`id`, `name`, `email`, `message`, `updated`, `created`) VALUES
 	(1, 'Dhruv Verma', 'vermadhruv09112002@gmail.com', 'dsvdvsdvsdv', NULL, '2024-10-01 08:44:24');
 
--- Dumping structure for table timeoffice.coupons
+-- Dumping structure for table u690099781_teamoffice.coupons
 CREATE TABLE IF NOT EXISTS `coupons` (
   `id` int NOT NULL AUTO_INCREMENT,
   `created` datetime DEFAULT NULL,
@@ -393,66 +378,12 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   UNIQUE KEY `code_4` (`code`),
   UNIQUE KEY `email_4` (`email`),
   UNIQUE KEY `code_5` (`code`),
-  UNIQUE KEY `email_5` (`email`),
-  UNIQUE KEY `code_6` (`code`),
-  UNIQUE KEY `email_6` (`email`),
-  UNIQUE KEY `code_7` (`code`),
-  UNIQUE KEY `email_7` (`email`),
-  UNIQUE KEY `code_8` (`code`),
-  UNIQUE KEY `email_8` (`email`),
-  UNIQUE KEY `code_9` (`code`),
-  UNIQUE KEY `email_9` (`email`),
-  UNIQUE KEY `code_10` (`code`),
-  UNIQUE KEY `email_10` (`email`),
-  UNIQUE KEY `code_11` (`code`),
-  UNIQUE KEY `email_11` (`email`),
-  UNIQUE KEY `code_12` (`code`),
-  UNIQUE KEY `email_12` (`email`),
-  UNIQUE KEY `code_13` (`code`),
-  UNIQUE KEY `email_13` (`email`),
-  UNIQUE KEY `code_14` (`code`),
-  UNIQUE KEY `email_14` (`email`),
-  UNIQUE KEY `code_15` (`code`),
-  UNIQUE KEY `email_15` (`email`),
-  UNIQUE KEY `code_16` (`code`),
-  UNIQUE KEY `email_16` (`email`),
-  UNIQUE KEY `code_17` (`code`),
-  UNIQUE KEY `email_17` (`email`),
-  UNIQUE KEY `code_18` (`code`),
-  UNIQUE KEY `email_18` (`email`),
-  UNIQUE KEY `code_19` (`code`),
-  UNIQUE KEY `email_19` (`email`),
-  UNIQUE KEY `code_20` (`code`),
-  UNIQUE KEY `email_20` (`email`),
-  UNIQUE KEY `code_21` (`code`),
-  UNIQUE KEY `email_21` (`email`),
-  UNIQUE KEY `code_22` (`code`),
-  UNIQUE KEY `email_22` (`email`),
-  UNIQUE KEY `code_23` (`code`),
-  UNIQUE KEY `email_23` (`email`),
-  UNIQUE KEY `code_24` (`code`),
-  UNIQUE KEY `email_24` (`email`),
-  UNIQUE KEY `code_25` (`code`),
-  UNIQUE KEY `email_25` (`email`),
-  UNIQUE KEY `code_26` (`code`),
-  UNIQUE KEY `email_26` (`email`),
-  UNIQUE KEY `code_27` (`code`),
-  UNIQUE KEY `email_27` (`email`),
-  UNIQUE KEY `code_28` (`code`),
-  UNIQUE KEY `email_28` (`email`),
-  UNIQUE KEY `code_29` (`code`),
-  UNIQUE KEY `email_29` (`email`),
-  UNIQUE KEY `code_30` (`code`),
-  UNIQUE KEY `email_30` (`email`),
-  UNIQUE KEY `code_31` (`code`),
-  UNIQUE KEY `email_31` (`email`),
-  UNIQUE KEY `code_32` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `email_5` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.coupons: ~0 rows (approximately)
-DELETE FROM `coupons`;
+-- Dumping data for table u690099781_teamoffice.coupons: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.discounts
+-- Dumping structure for table u690099781_teamoffice.discounts
 CREATE TABLE IF NOT EXISTS `discounts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) NOT NULL,
@@ -487,18 +418,21 @@ CREATE TABLE IF NOT EXISTS `discounts` (
   CONSTRAINT `discounts_ibfk_29` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `discounts_ibfk_3` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `discounts_ibfk_30` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `discounts_ibfk_31` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `discounts_ibfk_32` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `discounts_ibfk_33` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `discounts_ibfk_34` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `discounts_ibfk_4` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `discounts_ibfk_5` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `discounts_ibfk_6` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `discounts_ibfk_7` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `discounts_ibfk_8` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `discounts_ibfk_9` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.discounts: ~0 rows (approximately)
-DELETE FROM `discounts`;
+-- Dumping data for table u690099781_teamoffice.discounts: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.merchants
+-- Dumping structure for table u690099781_teamoffice.merchants
 CREATE TABLE IF NOT EXISTS `merchants` (
   `id` int NOT NULL AUTO_INCREMENT,
   `brandName` varchar(255) NOT NULL,
@@ -512,12 +446,11 @@ CREATE TABLE IF NOT EXISTS `merchants` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `merchants_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.merchants: ~0 rows (approximately)
-DELETE FROM `merchants`;
+-- Dumping data for table u690099781_teamoffice.merchants: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.orders
+-- Dumping structure for table u690099781_teamoffice.orders
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `cartId` int NOT NULL,
@@ -528,14 +461,13 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `cartId` (`cartId`),
   KEY `userId` (`userId`),
-  CONSTRAINT `orders_ibfk_119` FOREIGN KEY (`cartId`) REFERENCES `carts` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `orders_ibfk_120` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `orders_ibfk_167` FOREIGN KEY (`cartId`) REFERENCES `carts` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `orders_ibfk_168` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.orders: ~0 rows (approximately)
-DELETE FROM `orders`;
+-- Dumping data for table u690099781_teamoffice.orders: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.products
+-- Dumping structure for table u690099781_teamoffice.products
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sku` varchar(255) DEFAULT NULL,
@@ -558,6 +490,54 @@ CREATE TABLE IF NOT EXISTS `products` (
   UNIQUE KEY `slug_4` (`slug`),
   UNIQUE KEY `sku_3` (`sku`),
   UNIQUE KEY `slug_5` (`slug`),
+  UNIQUE KEY `sku_4` (`sku`),
+  UNIQUE KEY `slug_6` (`slug`),
+  UNIQUE KEY `sku_5` (`sku`),
+  UNIQUE KEY `slug_7` (`slug`),
+  UNIQUE KEY `sku_6` (`sku`),
+  UNIQUE KEY `slug_8` (`slug`),
+  UNIQUE KEY `sku_7` (`sku`),
+  UNIQUE KEY `slug_9` (`slug`),
+  UNIQUE KEY `sku_8` (`sku`),
+  UNIQUE KEY `slug_10` (`slug`),
+  UNIQUE KEY `sku_9` (`sku`),
+  UNIQUE KEY `slug_11` (`slug`),
+  UNIQUE KEY `sku_10` (`sku`),
+  UNIQUE KEY `slug_12` (`slug`),
+  UNIQUE KEY `sku_11` (`sku`),
+  UNIQUE KEY `slug_13` (`slug`),
+  UNIQUE KEY `sku_12` (`sku`),
+  UNIQUE KEY `slug_14` (`slug`),
+  UNIQUE KEY `sku_13` (`sku`),
+  UNIQUE KEY `slug_15` (`slug`),
+  UNIQUE KEY `sku_14` (`sku`),
+  UNIQUE KEY `slug_16` (`slug`),
+  UNIQUE KEY `sku_15` (`sku`),
+  UNIQUE KEY `slug_17` (`slug`),
+  UNIQUE KEY `sku_16` (`sku`),
+  UNIQUE KEY `slug_18` (`slug`),
+  UNIQUE KEY `sku_17` (`sku`),
+  UNIQUE KEY `slug_19` (`slug`),
+  UNIQUE KEY `sku_18` (`sku`),
+  UNIQUE KEY `slug_20` (`slug`),
+  UNIQUE KEY `sku_19` (`sku`),
+  UNIQUE KEY `slug_21` (`slug`),
+  UNIQUE KEY `sku_20` (`sku`),
+  UNIQUE KEY `slug_22` (`slug`),
+  UNIQUE KEY `sku_21` (`sku`),
+  UNIQUE KEY `slug_23` (`slug`),
+  UNIQUE KEY `sku_22` (`sku`),
+  UNIQUE KEY `slug_24` (`slug`),
+  UNIQUE KEY `sku_23` (`sku`),
+  UNIQUE KEY `slug_25` (`slug`),
+  UNIQUE KEY `sku_24` (`sku`),
+  UNIQUE KEY `slug_26` (`slug`),
+  UNIQUE KEY `sku_25` (`sku`),
+  UNIQUE KEY `slug_27` (`slug`),
+  UNIQUE KEY `sku_26` (`sku`),
+  UNIQUE KEY `slug_28` (`slug`),
+  UNIQUE KEY `sku_27` (`sku`),
+  UNIQUE KEY `slug_29` (`slug`),
   KEY `brand` (`brand`),
   KEY `categoryId` (`categoryId`),
   KEY `subcategoryId` (`subcategoryId`),
@@ -573,12 +553,36 @@ CREATE TABLE IF NOT EXISTS `products` (
   CONSTRAINT `products_ibfk_116` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_119` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_122` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
-  CONSTRAINT `products_ibfk_123` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`),
-  CONSTRAINT `products_ibfk_124` FOREIGN KEY (`subcategoryId`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `products_ibfk_125` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_128` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_13` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_131` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_134` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_137` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_140` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_143` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_146` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_149` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_15` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_152` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_155` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_158` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_161` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_164` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_167` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_17` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_170` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_173` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_176` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_179` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_182` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_185` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_188` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_19` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_191` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_194` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  CONSTRAINT `products_ibfk_195` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`),
+  CONSTRAINT `products_ibfk_196` FOREIGN KEY (`subcategoryId`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `products_ibfk_21` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_23` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_25` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
@@ -623,10 +627,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   CONSTRAINT `products_ibfk_95` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_97` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
   CONSTRAINT `products_ibfk_99` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=671 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=671 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.products: ~64 rows (approximately)
-DELETE FROM `products`;
+-- Dumping data for table u690099781_teamoffice.products: ~64 rows (approximately)
 INSERT INTO `products` (`id`, `sku`, `name`, `slug`, `description`, `price`, `isActive`, `brand`, `created`, `categoryId`, `images`, `subcategoryId`) VALUES
 	(607, '305cb', 'Z305CB Fingerprint Attendance Device', NULL, '', 8000, 1, NULL, '2024-10-19 09:50:50', NULL, '["https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F1.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F2.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F3.jpg?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F4.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F5.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F6.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2FThumbs.db?alt=media"]', 5),
 	(608, 'bs20', 'BS20 / CQH20', NULL, 'scanBarcodeCategory: 0, codeReadingDensity: 0, operatingTemperature: 0, typeOfDecoding: 0, storage: 0, scanMode: 0, operatingHumidity: 0, seismicResistance: 0, promptMode: 0, Communication: 0, operatingModes: 0, drivers: 0, batteryCapacity: 0, batteryType: 0', 1999, 1, NULL, '2024-10-19 09:51:11', NULL, '["https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F1.jpg?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F2.jpeg?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F3.jpg?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F4.jpeg?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F5.jpg?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F6.jpg?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2FThumbs.db?alt=media"]', 11),
@@ -693,7 +696,7 @@ INSERT INTO `products` (`id`, `sku`, `name`, `slug`, `description`, `price`, `is
 	(669, 'z902n', 'Z902N', NULL, 'Authentication Method: 0, Face Capacity: 0,    Card Capacity: 0,    Transaction Capacity: 0,    Display: 0,    Camera: 0,   Voice Indication: 0,   Operating Voltage: 0,   Data Push: 0,  Access Control: 0,       Identification Time: 0,    Face Technology: 0,    Working Mode: 0,    Communication: 0,    Battery Backup: 0,  Face Identification Range: 0,   Humidity: 0, Temperature: 0, User Validity: 0,  Dimensions: 0', 33550, 1, NULL, '2024-10-19 10:32:38', NULL, '["https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz902n%2F1.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz902n%2F3.PNG?alt=media"]', 1),
 	(670, 'zl-braket-for-em-lock', 'ZL Bracket for EM Lock (600lbs)', NULL, '', 1000, 1, NULL, '2024-10-19 10:32:56', NULL, '["https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F1.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F2.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F3.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F4.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F5.png?alt=media", "https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2FThumbs.db?alt=media"]', 13);
 
--- Dumping structure for table timeoffice.reviews
+-- Dumping structure for table u690099781_teamoffice.reviews
 CREATE TABLE IF NOT EXISTS `reviews` (
   `id` int NOT NULL AUTO_INCREMENT,
   `productId` int DEFAULT NULL,
@@ -708,43 +711,43 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   PRIMARY KEY (`id`),
   KEY `productId` (`productId`),
   KEY `userId` (`userId`),
-  CONSTRAINT `reviews_ibfk_119` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `reviews_ibfk_120` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `reviews_ibfk_167` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `reviews_ibfk_168` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.reviews: ~0 rows (approximately)
-DELETE FROM `reviews`;
+-- Dumping data for table u690099781_teamoffice.reviews: ~0 rows (approximately)
 
--- Dumping structure for table timeoffice.sequelizemeta
+-- Dumping structure for table u690099781_teamoffice.sequelizemeta
 CREATE TABLE IF NOT EXISTS `sequelizemeta` (
   `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   PRIMARY KEY (`name`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Dumping data for table timeoffice.sequelizemeta: ~5 rows (approximately)
-DELETE FROM `sequelizemeta`;
+-- Dumping data for table u690099781_teamoffice.sequelizemeta: ~7 rows (approximately)
 INSERT INTO `sequelizemeta` (`name`) VALUES
 	('1-create-subcategories.js'),
 	('20240930041722-add-created-at-to-users.js'),
 	('20240930042209-remove-created-from-users.js'),
+	('20241022045827-add-foreign-key-to-subcategories-2024-10-22.js'),
+	('20241022050325-add-sku-column-to-categories.js'),
 	('add-subcategoryId-to-products.js'),
 	('remove-redundant-email-indexes.js');
 
--- Dumping structure for table timeoffice.subcategories
+-- Dumping structure for table u690099781_teamoffice.subcategories
 CREATE TABLE IF NOT EXISTS `subcategories` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `categoryId` int NOT NULL,
+  `categoryId` int DEFAULT NULL,
   `isActive` tinyint(1) DEFAULT '1',
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `categoryId` (`categoryId`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `categoryId` (`categoryId`),
+  CONSTRAINT `subcategories_ibfk_1` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.subcategories: ~18 rows (approximately)
-DELETE FROM `subcategories`;
+-- Dumping data for table u690099781_teamoffice.subcategories: ~18 rows (approximately)
 INSERT INTO `subcategories` (`id`, `name`, `categoryId`, `isActive`, `updated`, `created`) VALUES
 	(1, 'Dynamic Face Recognition Attendance Cum Access Control System', 1, 1, NULL, '2024-10-20 06:27:00'),
 	(2, 'Face with Fingerprint Time Attendance & Professional Access Control', 1, 1, NULL, '2024-10-20 06:43:57'),
@@ -765,7 +768,7 @@ INSERT INTO `subcategories` (`id`, `name`, `categoryId`, `isActive`, `updated`, 
 	(17, 'Readers', 6, 1, NULL, '2024-10-20 06:43:57'),
 	(18, 'Elevator Control System', 7, 1, NULL, '2024-10-20 06:43:58');
 
--- Dumping structure for table timeoffice.users
+-- Dumping structure for table u690099781_teamoffice.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
@@ -789,17 +792,40 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email_3` (`email`),
   UNIQUE KEY `email_4` (`email`),
   UNIQUE KEY `email_5` (`email`),
+  UNIQUE KEY `email_6` (`email`),
+  UNIQUE KEY `email_7` (`email`),
+  UNIQUE KEY `email_8` (`email`),
+  UNIQUE KEY `email_9` (`email`),
+  UNIQUE KEY `email_10` (`email`),
+  UNIQUE KEY `email_11` (`email`),
+  UNIQUE KEY `email_12` (`email`),
+  UNIQUE KEY `email_13` (`email`),
+  UNIQUE KEY `email_14` (`email`),
+  UNIQUE KEY `email_15` (`email`),
+  UNIQUE KEY `email_16` (`email`),
+  UNIQUE KEY `email_17` (`email`),
+  UNIQUE KEY `email_18` (`email`),
+  UNIQUE KEY `email_19` (`email`),
+  UNIQUE KEY `email_20` (`email`),
+  UNIQUE KEY `email_21` (`email`),
+  UNIQUE KEY `email_22` (`email`),
+  UNIQUE KEY `email_23` (`email`),
+  UNIQUE KEY `email_24` (`email`),
+  UNIQUE KEY `email_25` (`email`),
+  UNIQUE KEY `email_26` (`email`),
+  UNIQUE KEY `email_27` (`email`),
+  UNIQUE KEY `email_28` (`email`),
+  UNIQUE KEY `email_29` (`email`),
   KEY `merchantId` (`merchantId`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`merchantId`) REFERENCES `merchants` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.users: ~2 rows (approximately)
-DELETE FROM `users`;
+-- Dumping data for table u690099781_teamoffice.users: ~2 rows (approximately)
 INSERT INTO `users` (`id`, `email`, `phoneNumber`, `name`, `username`, `password`, `provider`, `googleId`, `facebookId`, `avatar`, `role`, `resetPasswordToken`, `resetPasswordExpires`, `merchantId`, `createdAt`, `updatedAt`) VALUES
 	(1, 'vermadhruv09112002@gmail.com', NULL, 'dhruv', 'verma', '$2a$10$sFDIzV7w/VeL8JOp4hVhSeGYLFLOg.RJ7yOtjWzjzkTIqwR75TGAu', 'Email', NULL, NULL, NULL, 'ROLE MEMBER', NULL, NULL, NULL, '2024-09-30 04:20:12', NULL),
 	(2, 'admin@teamoffice.in', NULL, NULL, 'admin', '$2a$10$MJadh/2ev9z4eGHXyCWsy.UmvPSADwsqgew036Qo8T04WzpwRkFu2', 'Email', NULL, NULL, NULL, 'ROLE ADMIN', NULL, NULL, NULL, '2024-10-21 06:09:08', '2024-10-21 06:09:08');
 
--- Dumping structure for table timeoffice.wishlists
+-- Dumping structure for table u690099781_teamoffice.wishlists
 CREATE TABLE IF NOT EXISTS `wishlists` (
   `id` int NOT NULL AUTO_INCREMENT,
   `productId` int DEFAULT NULL,
@@ -810,12 +836,11 @@ CREATE TABLE IF NOT EXISTS `wishlists` (
   PRIMARY KEY (`id`),
   KEY `productId` (`productId`),
   KEY `userId` (`userId`),
-  CONSTRAINT `wishlists_ibfk_119` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `wishlists_ibfk_120` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `wishlists_ibfk_167` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `wishlists_ibfk_168` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table timeoffice.wishlists: ~0 rows (approximately)
-DELETE FROM `wishlists`;
+-- Dumping data for table u690099781_teamoffice.wishlists: ~0 rows (approximately)
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -693,10 +693,10 @@ const Cart = () => {
             </div>
 
             <div class="main-btn my-4 text-end">
-              <a href="product-grid.html" class="btn btn-primary">
+              <a href="/product" class="btn btn-primary">
                 Continue Shopping
               </a>
-              <a href="order-checkout.html" class="btn btn-success">
+              <a href="/order/:id/checkout" class="btn btn-success">
                 Buy Now
               </a>
             </div>
