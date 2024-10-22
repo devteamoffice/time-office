@@ -25,6 +25,37 @@ import handleError from "../../utils/error";
 import { formatSelectOptions, unformatSelectOptions } from "../../utils/select";
 import { allFieldsValidation } from "../../utils/validation";
 
+export const fetchAllProducts = () => {
+  return async (dispatch) => {
+    try {
+      // // Set loading state to true
+      // dispatch({ type: SET_PRODUCTS_LOADING, payload: true });
+
+      // Make the API call to fetch all products
+      const response = await axios.get(`${API_URL}/product/`);
+      const data = await response.json();
+      dispatch({ type: "FETCH_PRODUCTS_SUCCESS", payload: data });
+      console.log("Products fetched:", data); // Debug log
+
+      // Dispatch the result to the Redux store
+      dispatch({
+        type: FETCH_PRODUCTS,
+        payload: response.data.products,
+      });
+    } catch (error) {
+      // Handle any errors and display a toast notification
+      handleError(error, dispatch);
+      toast.error("Failed to fetch products. Please try again later.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } finally {
+      // Set loading state to false after the request is done
+      dispatch({ type: SET_PRODUCTS_LOADING, payload: false });
+    }
+  };
+};
+
 export const productChange = (name, value) => {
   let formData = {};
   formData[name] = value;

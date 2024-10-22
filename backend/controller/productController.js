@@ -3,17 +3,35 @@ const multer = require("multer");
 // Bring in Models & Utils
 const Product = require("../models/product");
 const Brand = require("../models/brand");
-const Category = require("../models/category");
+const { Category } = require("../models/category");
 
-const checkAuth = require("../utils/auth");
 // const { s3Upload } = require("../utils/storage");
 const {
   getStoreProductsQuery,
   getStoreProductsWishListQuery,
 } = require("../utils/queries");
 
+const checkAuth = require("../utils/auth");
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
+exports.fetchAllProducts = async (req, res) => {
+  try {
+    // Fetch all products along with their associated brand information
+    const products = await Product.findAll({});
+
+    // Return the fetched products
+    res.status(200).json({
+      products,
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({
+      error: "Internal server error. Please try again later.",
+    });
+  }
+};
 
 exports.fetchProductSlug = async (req, res) => {
   try {
@@ -70,6 +88,9 @@ exports.fetchProductName = async (req, res) => {
   }
 };
 
+// Function to fetch store products with filters
+// controllers/productController.js
+
 exports.fetchStoreProducts = async (req, res) => {
   try {
     let {
@@ -82,71 +103,51 @@ exports.fetchStoreProducts = async (req, res) => {
       page = 1,
       limit = 10,
     } = req.query;
-    sortOrder = JSON.parse(sortOrder);
-
+    sortOrder = sortOrder ? JSON.parse(sortOrder) : { createdAt: -1 };
     const categoryFilter = category ? { category } : {};
-    const basicQuery = getStoreProductsQuery(min, max, rating);
 
+    const basicQuery = await getStoreProductsQuery(min, max, rating);
     const userDoc = await checkAuth(req);
-    const categoryDoc = await Category.findOne({
-      slug: categoryFilter.category,
-      isActive: true,
-    });
 
+    const categoryDoc = await Category.findOne({
+      where: { slug: categoryFilter.category, isActive: true },
+    });
     if (categoryDoc) {
       basicQuery.push({
-        $match: {
-          isActive: true,
-          _id: {
-            $in: Array.from(categoryDoc.products),
-          },
-        },
+        $match: { isActive: true, category_id: categoryDoc.id },
       });
     }
 
     const brandDoc = await Brand.findOne({
-      slug: brand,
-      isActive: true,
+      where: { slug: brand, isActive: true },
     });
-
     if (brandDoc) {
-      basicQuery.push({
-        $match: {
-          "brand._id": { $eq: brandDoc._id },
-        },
-      });
+      basicQuery.push({ $match: { brand_id: brandDoc.id } });
     }
 
     let products = null;
-    const productsCount = await Product.aggregate(basicQuery);
-    const count = productsCount.length;
-    const size = count > limit ? page - 1 : 0;
-    const currentPage = count > limit ? Number(page) : 1;
+    const productsCount = basicQuery.length;
+    const totalPages = Math.ceil(productsCount / limit);
+    const currentPage = productsCount > limit ? Number(page) : 1;
+    const offset = (currentPage - 1) * limit;
 
-    // paginate query
     const paginateQuery = [
       { $sort: sortOrder },
-      { $skip: size * limit },
-      { $limit: limit * 1 },
+      { $skip: offset },
+      { $limit: parseInt(limit) },
     ];
-
     if (userDoc) {
-      const wishListQuery = getStoreProductsWishListQuery(userDoc.id).concat(
-        basicQuery
-      );
-      products = await Product.aggregate(wishListQuery.concat(paginateQuery));
+      const wishListQuery = await getStoreProductsWishListQuery(userDoc.id);
+      products = wishListQuery.concat(basicQuery.concat(paginateQuery));
     } else {
-      products = await Product.aggregate(basicQuery.concat(paginateQuery));
+      products = basicQuery.concat(paginateQuery);
     }
 
-    res.status(200).json({
-      products,
-      totalPages: Math.ceil(count / limit),
-      currentPage,
-      count,
-    });
+    res
+      .status(200)
+      .json({ products, totalPages, currentPage, count: productsCount });
   } catch (error) {
-    console.log("error", error);
+    console.error("error", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
