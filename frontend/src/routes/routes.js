@@ -45,7 +45,7 @@ export const publicRoutes = [
 
   // Product Pages
   { path: "/products", element: Product },
-  { path: "/products/:id", element: ProductDetails },
+  { path: "/product/:sku", element: ProductDetails },
   { path: "/orders/:id", element: OrderDetails },
   { path: "/orders/:id/checkout", element: Checkout },
   { path: "/orders/:id/invoice", element: Invoice },

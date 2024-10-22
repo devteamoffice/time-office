@@ -2,8 +2,7 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database"); // Assuming you have a database configuration file
 const slugify = require("slugify");
 const { Subcategory } = require("./subCategory");
-// Association with Products
-const Product = require("./product"); // Assuming the Product model is defined in the same directory
+const Product = require("./product"); // Assuming you have the Product model too
 
 // Category Model
 const Category = sequelize.define(
@@ -18,10 +17,6 @@ const Category = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       trim: true,
-    },
-    sku: {
-      type: DataTypes.ARRAY(DataTypes.STRING), // Array of SKUs
-      allowNull: true,
     },
     isActive: {
       type: DataTypes.BOOLEAN,
@@ -44,19 +39,19 @@ const Category = sequelize.define(
 
 // Subcategory Model
 
-// Set up relationships
+// Category and Subcategory association
 Category.hasMany(Subcategory, {
   foreignKey: "categoryId",
-  as: "subcategories", // Alias for the association
+  as: "subcategories",
 });
 Subcategory.belongsTo(Category, {
   foreignKey: "categoryId",
 });
 
-// Product associations
+// Subcategory and Product association
 Subcategory.hasMany(Product, {
   foreignKey: "subcategoryId",
-  as: "products", // Alias for the association
+  as: "products",
 });
 Product.belongsTo(Subcategory, {
   foreignKey: "subcategoryId",

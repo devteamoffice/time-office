@@ -17,11 +17,13 @@ const Subcategory = sequelize.define(
     },
     categoryId: {
       type: DataTypes.INTEGER,
+      allowNull: true, // Make this field nullable
       references: {
         model: "categories",
         key: "id",
       },
-      allowNull: true,
+      onDelete: "SET NULL",
+      onUpdate: "CASCADE",
     },
     isActive: {
       type: DataTypes.BOOLEAN,

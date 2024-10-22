@@ -20,18 +20,8 @@ router.post(
   upload.single("image"),
   productController.addProduct
 );
-router.get(
-  "/",
-  auth,
-  role.check(ROLES.Admin, ROLES.Merchant),
-  productController.fetchProducts
-);
-router.get(
-  "/:id",
-  auth,
-  role.check(ROLES.Admin, ROLES.Merchant),
-  productController.fetchProductById
-);
+router.get("/", productController.fetchAllProducts);
+router.get("/:id", auth, productController.fetchProductById);
 router.put(
   "/:id",
   auth,

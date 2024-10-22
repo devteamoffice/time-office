@@ -9,8 +9,8 @@ const CartItem = require("../models/cartitem");
 const Order = require("../models/order");
 const Review = require("../models/review");
 const Wishlist = require("../models/wishlist");
-const { Category, Subcategory } = require("../models/category");
-
+const { Category } = require("../models/category");
+const { Subcategory } = require("../models/subCategory");
 const setupDB = async () => {
   try {
     // Test the MySQL connection using Sequelize
