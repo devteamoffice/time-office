@@ -911,12 +911,12 @@ const Checkout = () => {
                 Back To Cart
               </a>
               <a
-                href="#!"
+                href="/order/:id/payment=confirmation"
                 class="btn btn-success"
                 data-bs-toggle="modal"
                 data-bs-target="#checkoutModal"
               >
-                Checkout Order
+                Confirm Payment
               </a>
             </div>
             <div data-bs-theme="dark">

@@ -121,7 +121,7 @@ const SingleProduct = ({ authenticated }) => {
             <div class="mt-3">
               <div class="d-flex gap-2">
                 <a
-                  href="order-cart.html"
+                  href="/cart"
                   class="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
                 >
                   <i class="bx bx-cart align-middle"></i> Add To Cart
