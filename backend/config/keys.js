@@ -5,9 +5,6 @@ module.exports = {
     clientURL: process.env.CLIENT_URL || "http://localhost:3000",
   },
   port: process.env.PORT || 4000,
-  database: {
-    url: process.env.MONGO_URI,
-  },
   jwt: {
     secret: process.env.JWT_SECRET || "vhvvhjvj34fefwefwefwfwf", // Provide a fallback secret
     tokenLife: "7d",

@@ -21,7 +21,7 @@ router.post(
   productController.addProduct
 );
 router.get("/", productController.fetchAllProducts);
-router.get("/:id", auth, productController.fetchProductById);
+router.get("/:id", productController.fetchProductById);
 router.put(
   "/:id",
   auth,

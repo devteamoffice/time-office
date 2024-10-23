@@ -1,2 +1,1 @@
-ALTER TABLE `addresses`
-MODIFY `zipCode` varchar(10);
+ALTER TABLE products ADD INDEX (brand);

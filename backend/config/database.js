@@ -1,22 +1,23 @@
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
-// Create a Sequelize instance
-const sequelize = new Sequelize("timeoffice", "root", "dv@09112002", {
-  host: "localhost", // Replace with your MySQL host, e.g., '127.0.0.1'
-  dialect: "mysql", // Choose the database dialect (MySQL in this case)
-  port: 3306, // Default MySQL port is 3306
-  logging: console.log,
-  // Pool configuration used to manage connections
-  pool: {
-    max: 5, // Maximum number of connection in pool
-    min: 0, // Minimum number of connection in pool
-    acquire: 30000, // Maximum time (ms) that pool will try to get connection before throwing error
-    idle: 10000, // Maximum time (ms) that a connection can be idle before being released
-  },
-
-  // Optional logging configuration (can be a function or boolean)
-  // Set to 'console.log' to see SQL queries
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST, // MySQL host
+    dialect: "mysql",
+    port: process.env.DB_PORT || 3306,
+    logging: console.log,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+  }
+);
 
 // Test the connection
 sequelize

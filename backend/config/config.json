@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": "dv@09112002",
-    "database": "timeoffice",
-    "host": "127.0.0.1",
+    "username": "u690099781_root",
+    "password": "teamOffice@2024",
+    "database": "u690099781_teamoffice",
+    "host": "193.203.184.164",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": "dv@09112002",
-    "database": "timeoffice",
-    "host": "127.0.0.1",
+    "username": "u690099781_root",
+    "password": "teamOffice@2024",
+    "database": "u690099781_teamoffice",
+    "host": "193.203.184.164",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "dv@09112002",
-    "database": "timeoffice",
-    "host": "127.0.0.1",
+    "username": "u690099781_root",
+    "password": "teamOffice@2024",
+    "database": "u690099781_teamoffice",
+    "host": "193.203.184.164",
     "dialect": "mysql"
   }
 }
