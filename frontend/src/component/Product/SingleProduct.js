@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AddToWishList from "../Store/AddToWishList";
 import axios from "axios";
 import { HeartIcon } from "../Common/Icon";
+import { API_URL } from "../../constants";
 const SingleProduct = ({ authenticated }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +11,7 @@ const SingleProduct = ({ authenticated }) => {
   // Function to fetch products from the API
   const fetchAllProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/product"); // Ensure this is the correct endpoint
+      const response = await axios.get(`${API_URL}/product`); // Ensure this is the correct endpoint
       setProducts(response.data.products); // Assuming the API returns products in data.products
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -23,7 +24,7 @@ const SingleProduct = ({ authenticated }) => {
   const updateWishlist = async (sku) => {
     try {
       const response = await axios.post(
-        `http://yourapi.com/wishlist/${sku}`,
+        `${API_URL}/wishlist/${sku}`,
         { sku },
         {
           headers: {
