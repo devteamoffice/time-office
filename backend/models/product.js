@@ -1,16 +1,22 @@
-// models/product.js
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 const slugify = require("slugify");
+const { v4: uuidv4 } = require("uuid");
+const crypto = require("crypto");
 
 // Product Model
 const Product = sequelize.define(
   "Product",
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.STRING,
       primaryKey: true,
+      unique: true,
+      allowNull: false, // Ensure this is not null
+      defaultValue: () => {
+        // Generating a UUID and then encoding it with a hashed format
+        return crypto.createHash("sha256").update(uuidv4()).digest("hex");
+      },
     },
     sku: {
       type: DataTypes.STRING,

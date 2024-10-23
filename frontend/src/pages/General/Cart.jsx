@@ -693,7 +693,7 @@ const Cart = () => {
             </div>
 
             <div class="main-btn my-4 text-end">
-              <a href="/product" class="btn btn-primary">
+              <a href="/products" class="btn btn-primary">
                 Continue Shopping
               </a>
               <a href="/order/:id/checkout" class="btn btn-success">

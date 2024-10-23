@@ -276,28 +276,10 @@ exports.fetchProducts = async (req, res) => {
 exports.fetchProductById = async (req, res) => {
   try {
     const productId = req.params.id;
+    console.log("Fetching product with ID:", productId); // Log the product ID
 
-    let productDoc = null;
-
-    if (req.user.merchant) {
-      const brands = await Brand.find({
-        merchant: req.user.merchant,
-      }).populate("merchant", "_id");
-
-      const brandId = brands[0]["_id"];
-
-      productDoc = await Product.findOne({ _id: productId })
-        .populate({
-          path: "brand",
-          select: "name",
-        })
-        .where("brand", brandId);
-    } else {
-      productDoc = await Product.findOne({ _id: productId }).populate({
-        path: "brand",
-        select: "name",
-      });
-    }
+    // Fetch the product directly
+    const productDoc = await Product.findOne({ _id: productId });
 
     if (!productDoc) {
       return res.status(404).json({
@@ -309,6 +291,7 @@ exports.fetchProductById = async (req, res) => {
       product: productDoc,
     });
   } catch (error) {
+    console.error("Error fetching product by ID:", error); // Log the error
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });

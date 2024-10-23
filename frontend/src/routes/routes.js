@@ -20,7 +20,7 @@ import Orders from "../component/Account/Orders";
 import Address from "../component/Account/Address";
 import Wishlist from "../component/Account/Wishlist";
 import OrderDetails from "../pages/OrderDetail";
-import ProductDetails from "../component/Product/ProductDetails";
+import ProductDetails from "../pages/ProductDetails";
 import BlogList from "../pages/BlogList";
 import Checkout from "../pages/Checkout";
 import PaymetFailure from "../pages/PaymetFailure";
