@@ -1,16 +1,28 @@
-// AuthContext.js
-import { createContext, useState, useContext } from "react";
+// src/context/AuthContext.js
+import { createContext, useState, useEffect } from "react";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const login = () => {
+  // Check if the user is already logged in (for example, using localStorage token)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsAuthenticated(true); // Set the isAuthenticated state to true if token is found
+    }
+  }, []);
+
+  const login = (token) => {
+    // Save the token to localStorage or sessionStorage
+    localStorage.setItem("token", token);
     setIsAuthenticated(true);
   };
 
   const logout = () => {
+    // Clear the token and set isAuthenticated to false
+    localStorage.removeItem("token");
     setIsAuthenticated(false);
   };
 
@@ -20,5 +32,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

@@ -5,14 +5,14 @@ import { FaShippingFast } from "react-icons/fa";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { FaGift } from "react-icons/fa6";
 import { RiCustomerServiceFill } from "react-icons/ri";
-const ProductDetails = () => {
+const ProductDetails = ({ productId }) => {
   return (
     <div className="container">
       <div class="wrapper">
         <div class="page-content">
           {/* Start Container Fluid */}
           <div class="container-xxl">
-            <SingleProductDetails />
+            <SingleProductDetails productId={productId} />
             <div class="row">
               <div class="col-lg-12">
                 <div class="card bg-light-subtle">

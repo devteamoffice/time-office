@@ -5,6 +5,9 @@ import {
   FETCH_PRODUCTS,
   FETCH_STORE_PRODUCTS,
   FETCH_PRODUCT,
+  FETCH_PRODUCT_REQUEST,
+  FETCH_PRODUCT_FAILURE,
+  FETCH_PRODUCT_SUCCESS,
   FETCH_STORE_PRODUCT,
   PRODUCT_CHANGE,
   PRODUCT_EDIT_CHANGE,
@@ -207,30 +210,25 @@ export const fetchProducts = () => {
 
 // fetch product api
 export const fetchProduct = (id) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_PRODUCT_REQUEST }); // Set loading state
+
     try {
+      // Call API to get the product based on SKU
       const response = await axios.get(`${API_URL}/product/${id}`);
+      const product = response.data.product;
 
-      const inventory = response.data.product.quantity;
-
-      const brand = response.data.product.brand;
-      const isBrand = brand ? true : false;
-      const brandData = formatSelectOptions(
-        isBrand && [brand],
-        !isBrand,
-        "fetchProduct"
-      );
-
-      response.data.product.brand = brandData[0];
-
-      const product = { ...response.data.product, inventory };
-
+      // Dispatch success action with the product data
       dispatch({
-        type: FETCH_PRODUCT,
+        type: FETCH_PRODUCT_SUCCESS,
         payload: product,
       });
     } catch (error) {
-      handleError(error, dispatch);
+      // Dispatch failure action if error occurs
+      dispatch({
+        type: FETCH_PRODUCT_FAILURE,
+        payload: error.message || "Failed to fetch product.",
+      });
     }
   };
 };

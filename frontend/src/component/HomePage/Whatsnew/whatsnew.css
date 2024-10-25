@@ -3,82 +3,83 @@
   flex-direction: column;
   gap: 15px;
   align-items: center;
+  position: relative; /* Allows positioning of children relative to this container */
+}
+
+.card_inner img {
+  width: 100%; /* Ensures the image takes the full width of the container */
+  height: auto; /* Maintains aspect ratio of the image */
 }
 
 .card_inner p {
   font-size: 20px;
   color: black;
   font-weight: 600;
-  }
+}
 
 .card_inner .link {
-  display: none;
-}
-
-.card_inner:hover {
-    transform: scale(1.04);
-    
-}
-
-.card_inner:hover .link {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  background-color: rgba(151, 71, 255, 0.6); 
+  display: none; /* Initially hidden */
+  position: absolute; /* Position it absolutely within the card_inner */
+  bottom: 0; /* Position it at the top */
+  left: 0; /* Position it at the left */
+  width: 100%; /* Make the link cover the full width */
+  height: 20%; /* Make the link cover the full height */
+  background-color: rgba(151, 71, 255, 0.6); /* Semi-transparent background */
   color: #fff;
-  width: 260px;
-  padding: 12px 12px;
   text-align: center;
   font-size: 20px;
   font-weight: 600;
-  opacity: 1;
-  
+  display: flex; /* Use flexbox for centering text */
+  justify-content: center;
+  align-items: center;
+  opacity: 0; /* Start with zero opacity */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
 
+.card_inner:hover {
+  transform: scale(1.04); /* Slightly scale on hover */
+}
+
+.card_inner:hover .link {
+  display: flex; /* Show link as flexbox */
+  opacity: 1; /* Show the link on hover */
 }
 
 .card_inner:hover p {
-       display: none;   
-
+  display: none; /* Hide the paragraph on hover */
 }
 
 .btnView {
-   display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   margin: 14px 0;
   padding: 14px 0;
-
 }
 
 .btnView button {
   background-color: white;
-  border: 1px solid #9747FF;
+  border: 1px solid #9747ff;
   padding: 10px 30px;
   font-size: 21px;
   font-weight: 600;
-  color: #9747FF;
+  color: #9747ff;
 }
-
 
 .btnView button:hover {
-  background-color: #9747FF;
-  padding: 10px 30px;
-  font-size: 21px;
-  font-weight: 600;
+  background-color: #9747ff;
   color: #fff;
-  transition: 1s
+  transition: 1s;
 }
-
-
-
-
-
 
 /* For mobile screens */
 @media (max-width: 768px) {
   .card_inner:hover {
     transform: scale(1);
-    margin-bottom: 26px ;
-    
-}
+    margin-bottom: 26px;
+  }
+
+  .card_inner .link {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
 }

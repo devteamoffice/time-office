@@ -58,7 +58,7 @@ const SingleProduct = ({ authenticated }) => {
         <div key={product.id} className="col-md-6 col-xl-3">
           <div className="card">
             <Link
-              to={`/product/${product.sku}`}
+              to={`/product/${product.id}`}
               className="item-link d-flex flex-column h-100"
             >
               <div className="card-body bg-light-subtle rounded-bottom">

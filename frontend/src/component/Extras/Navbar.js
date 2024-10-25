@@ -88,7 +88,7 @@ const Navbar = () => {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/products"
+                  to="/store"
                 >
                   Our Store
                 </Link>
