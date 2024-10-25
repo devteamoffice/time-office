@@ -18,7 +18,7 @@ import ShippingDelivery from "../pages/General/ShippingDelivery";
 import MyAccount from "../component/Account/MyAccount";
 import Orders from "../component/Account/Orders";
 import Address from "../component/Account/Address";
-import Wishlist from "../component/Account/Wishlist";
+import Wishlist from "../component/Wishlist/Wishlist";
 import OrderDetails from "../pages/OrderDetail";
 import ProductDetails from "../pages/ProductDetails";
 import BlogList from "../pages/BlogList";
@@ -45,8 +45,8 @@ export const publicRoutes = [
   { path: "/shipping-policy", element: ShippingDelivery },
 
   // Product Pages
-  { path: "/products", element: Product },
-  { path: "/product/:sku", element: ProductDetails },
+  { path: "/store", element: Product },
+  { path: "/product/:id", element: ProductDetails },
   { path: "/orders/:id", element: OrderDetails },
   { path: "/order/:id/checkout", element: Checkout },
   { path: "/order/:id/invoice", element: Invoice },

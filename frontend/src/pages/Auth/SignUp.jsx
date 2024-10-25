@@ -27,7 +27,7 @@ const SignUp = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log("Form Submitted!");
     if (!termsAccepted) {
       toast.error(
         "You must accept the Terms and Conditions before signing up."

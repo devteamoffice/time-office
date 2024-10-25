@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "./component/Extras/Navbar";
+import FooterNew from "./component/Extras/FooterNew";
+import NavbarN from "./component/Extras/HeaderN";
+import { AuthProvider } from "./context/Socket/AuthContext";
 
 function App() {
   const [showContent, setShowContent] = useState(false);
@@ -28,10 +31,13 @@ function App() {
 
   return (
     <>
-      {/* <Headers /> */}
-      <Navbar />
-      {showContent && <Router />}
-      <Footer />
+      <AuthProvider>
+        {/* <Navbar /> */}
+        <NavbarN />
+        {showContent && <Router />}
+        <Footer />
+        {/* <FooterNew /> */}
+      </AuthProvider>
     </>
   );
 }

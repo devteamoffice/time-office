@@ -23,6 +23,30 @@ const Footer = () => {
                     and Manufacturing, POE(Power on Ethernet)Switches, Hotel
                     Locks, Biometric Villa Locks.
                   </p>
+                </div>
+                <div className="footer-2">
+                  <h2>Information</h2>
+                  <ul>
+                    <li>
+                      <Link to={"/contact"}> About </Link>
+                    </li>
+                    {/* <li>
+                      <Link to={"/contact"}>More Search</Link>
+                    </li> */}
+                    {/* <li>
+                      <Link to="/contact">Testimonials</Link>
+                    </li> */}
+                    <li>
+                      <Link to="/blogs">Blog </Link>
+                    </li>
+                    {/* <li>
+                      <Link href="/events">Events </Link>
+                    </li> */}
+                  </ul>
+                  <p>
+                    Address: Anannya Complex, Near Akshar Chowk O.P. Road,
+                    Vadodara-390020
+                  </p>
                   <div className="col-social">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -51,30 +75,6 @@ const Footer = () => {
                     </svg>
                     <p>info@chiptronics.co.in</p>
                   </div>
-                </div>
-                <div className="footer-2">
-                  <h2>Information</h2>
-                  <ul>
-                    <li>
-                      <Link to={"/contact"}> About </Link>
-                    </li>
-                    <li>
-                      <Link to={"/contact"}>More Search</Link>
-                    </li>
-                    <li>
-                      <Link to="/contact">Testimonials</Link>
-                    </li>
-                    <li>
-                      <Link to="/blogs">Blog </Link>
-                    </li>
-                    <li>
-                      <Link href="/events">Events </Link>
-                    </li>
-                  </ul>
-                  <p>
-                    Address: Anannya Complex, Near Akshar Chowk O.P. Road,
-                    Vadodara-390020
-                  </p>
                 </div>
                 <div className="footer-3">
                   <h2>Helpful Links</h2>
@@ -118,6 +118,33 @@ const Footer = () => {
                   <div className="footer-input">
                     <input type="text" name="" id="" placeholder="Subsribe" />
                   </div>
+
+                  <div className="copyFooter-right">
+                    <p>Follow us: </p>
+                    <div className="social-icon-new">
+                      <a
+                        href="https://www.instagram.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i className="fab fa-instagram"></i>
+                      </a>
+                      <a
+                        href="https://www.facebook.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i className="fab fa-facebook"></i>
+                      </a>
+                      <a
+                        href="https://www.twitter.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i className="fab fa-twitter"></i>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -131,29 +158,6 @@ const Footer = () => {
                     <b> Picky Vibe LLP.</b>
                   </a>
                 </p>
-              </div>
-              <div className="copyFooter-right">
-                <a
-                  href="https://www.instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-instagram"></i>
-                </a>
-                <a
-                  href="https://www.facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-facebook"></i>
-                </a>
-                <a
-                  href="https://www.twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-twitter"></i>
-                </a>
               </div>
             </div>
           </div>
