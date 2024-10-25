@@ -32,7 +32,7 @@ const MainNav = () => {
               {section.items &&
                 section.items.map((item, idx) => (
                   <li className="nav-item" key={idx}>
-                    <a className="nav-link" href={item.link}>
+                    <a className="nav-link" to={item.link}>
                       <span className="nav-icon">{item.icon}</span>
                       <span className="nav-text"> {item.text} </span>
                     </a>
@@ -55,7 +55,7 @@ const MainNav = () => {
                     <ul className="nav sub-navbar-nav">
                       {section.submenu.map((subitem, idx) => (
                         <li className="sub-nav-item" key={idx}>
-                          <a className="sub-nav-link" href={subitem.link}>
+                          <a className="sub-nav-link" to={subitem.link}>
                             {subitem.text}
                           </a>
                         </li>

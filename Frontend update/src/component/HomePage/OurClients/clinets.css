@@ -1,0 +1,33 @@
+.slider-container img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+
+  /* height: 130px;
+  width: 130px; */
+}
+
+.clinet-div {
+  display: grid;
+  place-items: center;
+  height: 130px;
+  width: 130px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.clinet-slider h2 {
+  margin: 71px 0;
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 56px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.clinet-slider h2 span {
+  color: #9747ff;
+}
+

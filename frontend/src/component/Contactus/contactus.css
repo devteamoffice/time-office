@@ -4,7 +4,6 @@
 }
 
 .contact-top {
-<<<<<<< HEAD:frontend/src/component/Contactus/contactus.css
     margin-top: 82px;
     background-image: url('../../assets//Image/contactus.jpg');
     background-position: center;
@@ -31,32 +30,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-=======
-  margin-top: 82px;
-  background-image: url("../assets/images/contactus.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 50vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-family: "Roboto Serif";
-}
-
-.contact-top h1 {
-  color: #ffffff;
-  font-size: 50px;
-}
-
-.contact-top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
->>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7:frontend/src/styles/contactus.css
 }
 
 .contact-section {

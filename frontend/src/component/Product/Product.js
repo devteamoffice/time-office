@@ -1,20 +1,10 @@
 import React from "react";
-<<<<<<< HEAD
 import "../../assets/Product Page/css/vendor.min.css";
 import "../../assets/Product Page/css/icons.min.css";
 import "../../assets/Product Page/css/app.min.css";
 import "./ProductDetails.css";
 
 import p1 from "../../assets/Product Page/images/product/p-1.png";
-=======
-// import "../../assets/Product Page/css/vendor.min.css";
-// import "../../assets/Product Page/css/icons.min.css";
-// import "../../assets/Product Page/css/app.min.css";
-import "./ProductDetails.css";
-
-import p1 from "../../assets/Product Page/images/product/p-1.png";
-import Pagination from "../Extras/Pagination";
->>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
 const Product = () => {
   return (
     <>
@@ -1213,7 +1203,6 @@ const Product = () => {
                   {/* ************************************************ */}
                 </div>
 
-<<<<<<< HEAD
                 <div className="py-3 border-top">
                   <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-end mb-0">
@@ -1245,9 +1234,6 @@ const Product = () => {
                     </ul>
                   </nav>
                 </div>
-=======
-                <Pagination />
->>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
               </div>
             </div>
           </div>

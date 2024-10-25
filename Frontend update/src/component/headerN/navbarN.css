@@ -1,0 +1,83 @@
+.header-top-social ul li a {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 100%;
+
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-size: 15px;
+  background: #8486a7;
+  border: 1px solid #eeeeee;
+  color: white;
+}
+
+/* Handle logo */
+.brand-logo {
+  width: auto;
+  height: 52px;
+}
+
+/* input search */
+
+.search {
+  width: 90%;
+
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
+  display: inline-block;
+}
+
+/* 
+.search input {
+  background: #ffffff;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+
+} */
+
+.search input {
+  width: 100%;
+  height: 46px;
+  text-indent: 32px;
+  border: 1px solid rgba(77, 1, 133, 0.6);
+  outline: none;
+  border-radius: 0 !important;
+}
+.search .fa-search {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.search .fa-search {
+  left: auto;
+  right: 10px;
+}
+
+.cart_icon ul {
+  margin: auto 0;
+}
+
+.cart_icon i {
+  color: #4d0186;
+}
+
+.handle_hr {
+  color: rgba(77, 1, 134, 0.1);
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .show > .nav-link {
+  color: rgb(77 1 134);
+}
