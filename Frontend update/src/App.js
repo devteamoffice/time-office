@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "./component/Extras/Navbar";
 import NavbarN from "./component/headerN/NavbarN";
+import Loading from "./component/HomePage/Loading/Loading";
 
 function App() {
   const [showContent, setShowContent] = useState(false);
@@ -31,6 +32,7 @@ function App() {
     <>
       <NavbarN />
 
+      <Loading />
       {/* <Navbar /> */}
       {/* <HeaderN /> */}
       {showContent && <Router />}
