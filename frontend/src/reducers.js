@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-// import homepageReducer from "./containers/Homepage/reducer";
+import homepageReducer from "./containers/Homepage/reducer";
 import signupReducer from "./containers/Signup/reducer";
 import loginReducer from "./containers/Login/reducer";
 import forgotPasswordReducer from "./containers/ForgotPassword/reducer";
@@ -25,7 +25,7 @@ import reviewReducer from "./containers/Review/reducer";
 // Create your root reducer without `connected-react-router`
 const createReducer = () =>
   combineReducers({
-    // homepage: homepageReducer,
+    homepage: homepageReducer,
     signup: signupReducer,
     login: loginReducer,
     forgotPassword: forgotPasswordReducer,

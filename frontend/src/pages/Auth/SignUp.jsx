@@ -1,33 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signupChange, signUp } from "../../containers/Signup/actions";
+import { signupChange, subscribeChange } from "../../containers/Signup/actions";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/team_office_logo_13.png";
 import img from "../../assets/images/access-control-solution.jpg";
-import TermsAndConditionsModal from "../../component/Modals/Terms&Condition"; // Import the modal component
-import { toast } from "react-toastify"; // For showing success/error messages
+import TermsAndConditionsModal from "../../component/Modals/Terms&Condition";
+import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { AuthContext } from "../../context/Socket/AuthContext";
+import axios from "axios";
+import { API_URL } from "../../constants";
 
 const SignUp = () => {
+  const { login } = useContext(AuthContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // Get signup form data, loading state, and form errors from Redux store
   const signupFormData = useSelector((state) => state.signup.signupFormData);
   const isSubmitting = useSelector((state) => state.signup.isSubmitting);
   const formErrors = useSelector((state) => state.signup.formErrors);
+  const isSubscribed = useSelector((state) => state.signup.isSubscribed);
 
-  const [termsAccepted, setTermsAccepted] = useState(false); // To track if terms are accepted
-  const [showPassword, setShowPassword] = useState(false); // To toggle password visibility
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // Handle input change and dispatch action to Redux
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    dispatch(signupChange(name, value)); // Dispatch change to Redux
+    dispatch(signupChange(name, value));
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleCheckboxChange = () => {
+    dispatch(subscribeChange());
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted!");
+
     if (!termsAccepted) {
       toast.error(
         "You must accept the Terms and Conditions before signing up."
@@ -35,8 +44,29 @@ const SignUp = () => {
       return;
     }
 
-    // Dispatch signUp action for form submission
-    dispatch(signUp());
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/auth/register`, {
+        name: signupFormData.name,
+        username: signupFormData.username, // Include username in request
+        email: signupFormData.email,
+        password: signupFormData.password,
+        isSubscribed,
+      });
+
+      if (response.status === 200) {
+        login();
+        navigate("/");
+        toast.success("Successfully signed up!");
+      } else {
+        toast.error(response.data.message || "Sign-up failed.");
+      }
+    } catch (error) {
+      toast.error("An error occurred during sign-up. Please try again.");
+      console.error("Sign-up error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -87,7 +117,7 @@ const SignUp = () => {
                               id="username"
                               name="username"
                               className="form-control"
-                              placeholder="Enter your username"
+                              placeholder="Choose a username"
                               value={signupFormData.username || ""}
                               onChange={handleInputChange}
                             />
@@ -150,6 +180,24 @@ const SignUp = () => {
                           <input
                             type="checkbox"
                             className="form-check-input"
+                            id="isSubscribed"
+                            checked={isSubscribed}
+                            onChange={handleCheckboxChange}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="isSubscribed"
+                          >
+                            Subscribe to newsletter
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="mb-3">
+                        <div className="form-check">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
                             id="termsAccepted"
                             checked={termsAccepted}
                             onChange={(e) => setTermsAccepted(e.target.checked)}
@@ -167,9 +215,9 @@ const SignUp = () => {
                         <button
                           className="btn btn-soft-primary"
                           type="submit"
-                          disabled={isSubmitting}
+                          disabled={loading}
                         >
-                          {isSubmitting ? "Signing Up..." : "Sign Up"}
+                          {loading ? "Signing Up..." : "Sign Up"}
                         </button>
                       </div>
                     </form>
