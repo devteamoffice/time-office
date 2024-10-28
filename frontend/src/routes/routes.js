@@ -18,15 +18,15 @@ import ShippingDelivery from "../pages/General/ShippingDelivery";
 import MyAccount from "../component/Account/MyAccount";
 import Orders from "../component/Account/Orders";
 import Address from "../component/Account/Address";
-import Wishlist from "../component/Wishlist/Wishlist";
+import Wishlist from "../containers/WishList";
 import OrderDetails from "../pages/OrderDetail";
 import ProductDetails from "../pages/ProductDetails";
-import BlogList from "../pages/BlogList";
+import Blogs from "../pages/General/Blogs";
 import Checkout from "../pages/Checkout";
 import PaymetFailure from "../pages/PaymetFailure";
 import Account from "../pages/Account";
 import PaymentConfirmation from "../pages/PaymentConfirmation";
-
+import Pricing from "../pages/General/Pricing";
 export const publicRoutes = [
   // Error Pages
   { path: "/500", element: Error505Page },
@@ -58,13 +58,14 @@ export const publicRoutes = [
   { path: "/u/:id/orders", element: Orders },
   { path: "/u/:id/orders/:orderId", element: OrderDetails },
   { path: "/u/:id/address", element: Address },
-  { path: "/u/:id/wishlist", element: Wishlist },
+  // { path: "/u/:id/wishlist", element: Wishlist },
 
   // General Pages
   { path: "/", element: Home },
   { path: "/contact", element: ContactPage },
   { path: "/aboutus", element: AboutUs },
-  { path: "/blogs", element: BlogList },
+  { path: "/blogs", element: Blogs },
   { path: "/cart", element: Cart },
   { path: "/faqs", element: Faqs },
+  { path: "/pricing", element: Pricing },
 ];

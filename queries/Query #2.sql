@@ -1,2 +1,4 @@
-
-SHOW TABLE STATUS WHERE Name='Brands';
+ALTER TABLE `carts` 
+ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) 
+    ON UPDATE RESTRICT 
+    ON DELETE RESTRICT;

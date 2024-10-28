@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/images/team_office_logo_13.png";
@@ -6,7 +6,7 @@ import img from "../../assets/images/access-control-solution.jpg";
 import LoadingIndicator from "../../component/Extras/LoadingIndicator";
 import { Alert } from "react-bootstrap";
 import { API_URL } from "../../constants";
-
+import { AuthContext } from "../../context/Socket/AuthContext";
 const SignIn = () => {
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -17,7 +17,7 @@ const SignIn = () => {
   const [loginError, setLoginError] = useState("");
   const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
-
+  const { login } = useContext(AuthContext);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginFormData((prev) => ({
@@ -51,7 +51,7 @@ const SignIn = () => {
 
       if (data.success) {
         setLoginSuccess(true);
-        setLoginError("");
+        login();
         navigate("/"); // Redirect to dashboard or home
       } else {
         setLoginError(data.message || "Login failed. Please try again.");
