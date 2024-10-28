@@ -5,7 +5,7 @@ body {
 }
 
 .slider {
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
   overflow: hidden;
   position: relative;
@@ -37,7 +37,7 @@ body {
 
 .slider .list .item .content {
   position: absolute;
-  top: 25%;
+  top: 15%;
   left: 10%;
   color: white;
   opacity: 0;
@@ -118,7 +118,34 @@ body {
 }
 
 /* Responsive Styles */
+
+@media (max-width: 575px) {
+  /* / Styles for phones / */
+
+  .slider {
+    height: 60vh !important ;
+  }
+
+  .slider .list .item .content {
+    top: 0%;
+  }
+
+  .slider .list .item .content .title {
+    font-size: 10px;
+  }
+  .slider .list .item .content .description {
+    font-size: 13px !important;
+  }
+
+  .nextPrevArrows {
+    top: 81%;
+  }
+}
+
 @media (max-width: 768px) {
+  .slider {
+    height: 75vh;
+  }
   .thumbnail {
     display: none;
   }
@@ -142,10 +169,10 @@ body {
   }
 
   .slider .list .item .content .title {
-    font-size: 35px;
+    font-size: 28px;
   }
 
   .slider .list .item .content .description {
-    font-size: 18px;
+    font-size: 17px;
   }
 }

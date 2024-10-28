@@ -17,7 +17,7 @@ import Freeship2 from "../../component/HomePage/FreeShip/Freeship2";
 const Home = () => {
   return (
     <>
-      {/* <HeroSlider /> */}
+      <HeroSlider />
       {/* <NewHero /> */}
 
       <Freeship2 />
