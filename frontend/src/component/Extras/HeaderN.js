@@ -6,7 +6,7 @@ import avatar from "../../assets/images/avatar.jpg";
 import CartIcon from "../Common/CartIcon";
 import { Link } from "react-router-dom";
 const NavbarN = () => {
-  const { isAuthenticated, login, logout } = useContext(AuthContext);
+  const { isAuthenticated, login, logout, cartItems } = useContext(AuthContext);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const handleSearch = () => {
@@ -254,7 +254,7 @@ const NavbarN = () => {
                       </div>
                     </li>
                     <li class="list-inline-item me-4">
-                      <a class="hdr-heart" href="#">
+                      <a class="hdr-heart" href="/u/:id/wishlist">
                         <i
                           class="fa-solid fa-heart"
                           style={{ fontSize: "30px" }}
@@ -263,11 +263,8 @@ const NavbarN = () => {
                     </li>
 
                     <li class="list-inline-item">
-                      <a class="hdr-shopping" href="#">
-                        <i
-                          class="fa-solid fa-cart-shopping"
-                          style={{ fontSize: "30px" }}
-                        ></i>
+                      <a class="hdr-shopping" href="/cart">
+                        <CartIcon cartItems={cartItems} />
                       </a>
                     </li>
                   </ul>
@@ -300,7 +297,7 @@ const NavbarN = () => {
               >
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center w-100 ">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">
+                    <a class="nav-link active" aria-current="page" href="/">
                       Home
                     </a>
                   </li>
@@ -362,17 +359,17 @@ const NavbarN = () => {
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/store">
                       Our Store
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/aboutus">
                       About
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/contact">
                       Contact us
                     </a>
                   </li>
@@ -478,7 +475,7 @@ const NavbarN = () => {
                   </li>
 
                   <li class="list-inline-item">
-                    <a class="hdr-heart" href="#">
+                    <a class="hdr-heart" href="/u/:id/wishlist">
                       <i
                         class="fa-solid fa-heart"
                         style={{ fontSize: "30px" }}
@@ -487,7 +484,7 @@ const NavbarN = () => {
                   </li>
 
                   <li class="list-inline-item">
-                    <a class="hdr-shopping" href="#">
+                    <a class="hdr-shopping" href="/cart">
                       <i
                         class="fa-solid fa-cart-shopping"
                         style={{ fontSize: "30px" }}

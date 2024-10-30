@@ -273,22 +273,22 @@ exports.fetchProducts = async (req, res) => {
   }
 };
 
+// Controller function to fetch a product by ID
 exports.fetchProductById = async (req, res) => {
   try {
     const productId = req.params.id;
-    console.log("Fetching product with ID:", productId); // Log the product ID
 
-    // Fetch the product directly
-    const productDoc = await Product.findOne({ _id: productId });
+    // Fetch the product by primary key (ID)
+    const product = await Product.findByPk(productId);
 
-    if (!productDoc) {
+    if (!product) {
       return res.status(404).json({
         message: "No product found.",
       });
     }
 
     res.status(200).json({
-      product: productDoc,
+      product,
     });
   } catch (error) {
     console.error("Error fetching product by ID:", error); // Log the error

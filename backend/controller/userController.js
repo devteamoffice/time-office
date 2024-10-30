@@ -53,26 +53,27 @@ exports.fetchUsers = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
   try {
-    const user = req.user._id;
-    const userDoc = await User.findById(user, { password: 0 }).populate({
-      path: "merchant",
-      model: "Merchant",
-      populate: {
-        path: "brand",
-        model: "Brand",
-      },
-    });
+    const userId = req.user.id; // Fetch `id` directly from the user object
+    const userDoc = await User.findOne({ _id: userId }, { password: 0 }); // Use `_id` for querying by user ID
+
+    if (!userDoc) {
+      return res.status(404).json({
+        error: "User not found.",
+      });
+    }
 
     res.status(200).json({
+      message: "User profile retrieved successfully.",
       user: userDoc,
     });
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
+    console.error(error); // Log the error for debugging
+    res.status(500).json({
+      // Use 500 for server-side errors
+      error: "An internal server error occurred. Please try again later.",
     });
   }
 };
-
 exports.updateProfile = async (req, res) => {
   try {
     const user = req.user._id;

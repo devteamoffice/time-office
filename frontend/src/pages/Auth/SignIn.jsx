@@ -6,7 +6,8 @@ import img from "../../assets/images/access-control-solution.jpg";
 import LoadingIndicator from "../../component/Extras/LoadingIndicator";
 import { Alert } from "react-bootstrap";
 import { API_URL } from "../../constants";
-import { AuthContext } from "../../context/Socket/AuthContext";
+import { AuthContext } from "../../context/Socket/AuthContext"; // Ensure correct import
+
 const SignIn = () => {
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -17,7 +18,8 @@ const SignIn = () => {
   const [loginError, setLoginError] = useState("");
   const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext); // Accessing login from AuthContext
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginFormData((prev) => ({
@@ -50,8 +52,9 @@ const SignIn = () => {
       const data = response.data;
 
       if (data.success) {
+        // Successfully logged in
         setLoginSuccess(true);
-        login();
+        login(data.token); // Call login with the token returned from the server
         navigate("/"); // Redirect to dashboard or home
       } else {
         setLoginError(data.message || "Login failed. Please try again.");

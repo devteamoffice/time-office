@@ -40,11 +40,11 @@ export const setProfileLoading = (value) => {
   };
 };
 
-export const fetchProfile = () => {
+export const fetchProfile = (id) => {
   return async (dispatch, getState) => {
     try {
       dispatch(setProfileLoading(true));
-      const response = await axios.get(`${API_URL}/user/me`);
+      const response = await axios.get(`${API_URL}/user/${id}`);
 
       dispatch({ type: FETCH_PROFILE, payload: response.data.user });
     } catch (error) {

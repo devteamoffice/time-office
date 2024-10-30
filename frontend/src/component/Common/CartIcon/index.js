@@ -1,23 +1,15 @@
-/**
- *
- * CartIcon
- *
- */
+import React from "react";
+import Button from "../Button";
 
-import React from 'react';
-
-import { BagIcon } from '../Icon';
-import Button from '../Button';
-
-const CartIcon = props => {
-  const { className, onClick, cartItems } = props;
+const CartIcon = (props) => {
+  const { className, onClick, cartItems = [] } = props; // Default to an empty array
 
   const Icon = (
-    <span className='cart-icon'>
-      <BagIcon />
+    <span className="cart-icon">
+      <i className="fa-solid fa-cart-shopping" style={{ fontSize: "30px" }}></i>
       {cartItems.length > 0 && (
-        <span className='cart-badge'>
-          {cartItems.length >= 99 ? '99+' : cartItems.length}
+        <span className="cart-badge">
+          {cartItems.length >= 99 ? "99+" : cartItems.length}
         </span>
       )}
     </span>
@@ -28,10 +20,10 @@ const CartIcon = props => {
   return (
     <Button
       borderless
-      variant='empty'
+      variant="empty"
       className={className}
       ariaLabel={
-        items > 0 ? `your cart have ${items} items` : 'your cart is empty'
+        items > 0 ? `your cart has ${items} items` : "your cart is empty"
       }
       icon={Icon}
       onClick={onClick}

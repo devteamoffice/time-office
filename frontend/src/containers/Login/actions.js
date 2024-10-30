@@ -80,7 +80,7 @@ export const signOut = () => {
 
     dispatch(clearAuth());
     dispatch(clearAccount());
-    useNavigate().push("/login");
+    useNavigate("/login");
 
     localStorage.removeItem("token");
 
