@@ -62,8 +62,7 @@ const HeroSlider = () => {
       imgSrc: slider5,
       title: "Switches For Access Control",
       type: "",
-      description: `Welcome to TeamOffice! Exciting content, tutorials, 
-                    and projects ahead. Let’s build together! 🚀💻`,
+      description: `Welcome to TeamOffice! New Wireless barcode scanners are waiting for you to be part of your workspace. Let's secure your workplace together! 🚀💻`,
     },
     {
       id: 6,

@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import avatar from "../../assets/images/avatar.jpg";
 import { FaFileDownload } from "react-icons/fa";
 import { EMAIL_PROVIDER } from "../../constants";
 import UserRole from "../Manager/UserRole";
-const AccountDetails = (props) => {
-  const { user, accountChange, updateProfile } = props;
+import { API_URL } from "../../constants";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { fetchProfile, updateProfile } from "../../containers/Account/actions";
+const AccountDetails = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.account);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    updateProfile();
+  useEffect(() => {
+    dispatch(fetchProfile(id));
+  }, [dispatch, id]);
+
+  const handleProfileUpdate = (updatedProfileData) => {
+    dispatch(updateProfile(updatedProfileData));
   };
   return (
     <div class="col-lg-4">
@@ -24,20 +34,18 @@ const AccountDetails = (props) => {
           <div class="mt-4 pt-3">
             <h4 class="mb-1">
               {" "}
-              Michael A. Miner
+              {user.name}
               <i class="bx bxs-badge-check text-success align-middle"></i>
             </h4>
             <div class="mt-2">
               <a href="#!" class="link-primary fs-15">
-                @michael_cus_2024
+                @{user.username}
               </a>
               <p class="fs-15 mb-1 mt-1">
-                <span class="text-dark fw-semibold">Email : </span>{" "}
-                michaelaminer@dayrep.com
+                <span class="text-dark fw-semibold">Email : </span> {user.email}
               </p>
               <p class="fs-15 mb-0 mt-1">
-                <span class="text-dark fw-semibold">Phone : </span> +28 (57)
-                760-010-27
+                <span class="text-dark fw-semibold">Phone : </span> {user.phone}
               </p>
             </div>
           </div>
