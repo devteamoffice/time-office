@@ -4,15 +4,18 @@ import AddToWishList from "../Store/AddToWishList";
 import axios from "axios";
 import { HeartIcon } from "../Common/Icon";
 import { API_URL } from "../../constants";
+import { useSelector } from "react-redux";
+import AddToCartButton from "../Cart/AddToCartButton";
 const SingleProduct = ({ authenticated }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Function to fetch products from the API
+  const cartCount = useSelector((state) => state.cart.cartItems.length); // Get cart count from Redux
+
   const fetchAllProducts = async () => {
     try {
-      const response = await axios.get(`${API_URL}/product`); // Ensure this is the correct endpoint
-      setProducts(response.data.products); // Assuming the API returns products in data.products
+      const response = await axios.get(`${API_URL}/product`);
+      setProducts(response.data.products);
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -20,37 +23,13 @@ const SingleProduct = ({ authenticated }) => {
     }
   };
 
-  // Function to update the wishlist
-  const updateWishlist = async (sku) => {
-    try {
-      const response = await axios.post(
-        `${API_URL}/wishlist/${sku}`,
-        { sku },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token for authentication
-          },
-        }
-      );
-
-      console.log("Wishlist updated successfully:", response.data);
-    } catch (error) {
-      console.error("Error updating wishlist:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchAllProducts(); // Fetch products on component mount
+    fetchAllProducts();
   }, []);
 
-  if (loading) {
-    return <p>Loading products...</p>;
-  }
-
-  if (!Array.isArray(products) || products.length === 0) {
+  if (loading) return <p>Loading products...</p>;
+  if (!Array.isArray(products) || products.length === 0)
     return <p>No products available.</p>;
-  }
 
   return (
     <div className="row">
@@ -121,12 +100,7 @@ const SingleProduct = ({ authenticated }) => {
             </Link>
             <div class="mt-3">
               <div class="d-flex gap-2">
-                <a
-                  href="/cart"
-                  class="btn btn-outline-dark border border-secondary-subtle d-flex align-items-center justify-content-center gap-1 w-100"
-                >
-                  <i class="bx bx-cart align-middle"></i> Add To Cart
-                </a>
+                <AddToCartButton product={product} />
               </div>
             </div>
           </div>

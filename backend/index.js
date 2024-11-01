@@ -22,7 +22,7 @@ const reviewRoutes = require("./routes/reviewRouter");
 const couponRoutes = require("./routes/couponRouter");
 const discountRoutes = require("./routes/discountRouter");
 const wishlistRoutes = require("./routes/wishlistRouter");
-
+const subCategoryRoutes = require("./routes/subCateogoryRouter");
 const { port } = keys;
 const app = express();
 
@@ -47,6 +47,7 @@ app.use("/api/address", addressRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/subcategory", subCategoryRoutes);
 app.use("/api/brand", brandRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/merchant", merchantRoutes);

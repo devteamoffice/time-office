@@ -49,6 +49,14 @@ const navRoutes = [
     ],
   },
   {
+    title: "SubCategory",
+    icon: <FaClipboardList />,
+    submenu: [
+      { text: "List", link: "/subcategory/list" },
+      { text: "Create", link: "/subcategory/add" },
+    ],
+  },
+  {
     title: "Orders",
     icon: <FaShoppingBag />,
     submenu: [

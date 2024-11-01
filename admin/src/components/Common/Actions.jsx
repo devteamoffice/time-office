@@ -2,23 +2,27 @@ import React from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaPen } from "react-icons/fa";
 import { ImBin } from "react-icons/im";
-const Actions = () => {
+
+const Actions = ({ id, viewUrl, editUrl, deleteAction }) => {
   return (
-    <div class="d-flex gap-2">
-      <a href="#!" class="btn btn-light btn-sm">
-        <IoEyeOutline class="align-middle fs-18" />
+    <div className="d-flex gap-2">
+      <a href={`${viewUrl}`} className="btn btn-light btn-sm" target="_blank">
+        <IoEyeOutline className="align-middle fs-18" />
       </a>
       <a
-        href="#!"
-        class="btn btn-soft-primary btn-sm"
+        className="btn btn-soft-primary btn-sm"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
+        href={`${editUrl}/${id}`}
       >
-        <FaPen class="align-middle fs-18" />
+        <FaPen className="align-middle fs-18" />
       </a>
-      <a href="#!" class="btn btn-soft-danger btn-sm">
-        <ImBin class="align-middle fs-18" />
-      </a>
+      <button
+        className="btn btn-soft-danger btn-sm"
+        onClick={() => deleteAction(id)}
+      >
+        <ImBin className="align-middle fs-18" />
+      </button>
     </div>
   );
 };
