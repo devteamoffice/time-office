@@ -6,6 +6,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../../containers/Product/actions";
+import AddToCartButton from "../Cart/AddToCartButton";
 const SingleProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -77,12 +78,7 @@ const SingleProductDetails = () => {
             <div className="card-footer border-top">
               <div className="row g-2">
                 <div className="col-lg-5">
-                  <a
-                    href="/cart"
-                    className="btn btn-primary d-flex align-items-center justify-content-center gap-2 w-100"
-                  >
-                    <i className="bx bx-cart fs-18"></i> Add To Cart
-                  </a>
+                  <AddToCartButton />
                 </div>
                 <div className="col-lg-5">
                   <a

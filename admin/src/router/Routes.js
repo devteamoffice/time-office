@@ -16,13 +16,16 @@ import ProductList from "../pages/Product/ProductList";
 import Warehouse from "../pages/Product/Warehouse";
 import Roles from "../pages/Roles/Roles";
 import RolesAdd from "../pages/Roles/RolesAdd";
-
+import SubCategoryAdd from "../pages/SubCategory/SubCategoryAdd";
+import SubCategoryList from "../pages/SubCategory/SubCategoryList";
 export const publicRoutes = [
   { path: "/", element: Dashboard },
   { path: "/product/list", element: ProductList },
   { path: "/product/add", element: ProductAdd },
   { path: "product/warehouse", element: Warehouse },
   { path: "/category/list", element: CategoryList },
+  { path: "/subcategory/add", element: SubCategoryAdd },
+  { path: "/subcategory/list", element: SubCategoryList },
   { path: "/category/add", element: CategoryAdd },
   { path: "/orders/list", element: OrderList },
   { path: "/orders/invoices", element: OrderInvoice },
