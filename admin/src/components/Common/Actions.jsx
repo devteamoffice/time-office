@@ -9,12 +9,7 @@ const Actions = ({ id, viewUrl, editUrl, deleteAction }) => {
       <a href={`${viewUrl}`} className="btn btn-light btn-sm" target="_blank">
         <IoEyeOutline className="align-middle fs-18" />
       </a>
-      <a
-        className="btn btn-soft-primary btn-sm"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-        href={`${editUrl}/${id}`}
-      >
+      <a className="btn btn-soft-primary btn-sm" href={`${editUrl}`}>
         <FaPen className="align-middle fs-18" />
       </a>
       <button

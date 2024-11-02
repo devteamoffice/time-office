@@ -80,7 +80,10 @@ const ProductItem = () => {
             55 Review
           </td>
           <td>
-            <Actions viewUrl={`${SOCKET_URL}/product/${product.id}`} />
+            <Actions
+              viewUrl={`${SOCKET_URL}/product/${product.id}`}
+              editUrl={`/product/${product.id}/edit`}
+            />
           </td>
         </tr>
       ))}
