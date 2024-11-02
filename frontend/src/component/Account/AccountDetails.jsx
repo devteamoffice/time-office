@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchProfile, updateProfile } from "../../containers/Account/actions";
+import Address from "./Address";
 const AccountDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -272,6 +273,7 @@ const AccountDetails = () => {
           </div>
         </div>
       </div>
+      <Address />
     </div>
   );
 };
