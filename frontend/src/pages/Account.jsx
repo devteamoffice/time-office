@@ -1,14 +1,15 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 import { FaFileInvoice } from "react-icons/fa6";
 import { RiOrderPlayFill } from "react-icons/ri";
 import { FaMoneyBill1Wave } from "react-icons/fa6";
 import AccountDetails from "../component/Account/AccountDetails";
 const Account = () => {
+  const user = useSelector((state) => state.account.user);
   return (
     <div class="container-xxl">
       <div class="row">
-        <AccountDetails />
+        {user ? <AccountDetails user={user} /> : <p>Loading...</p>}
 
         <div class="col-lg-8">
           <div class="row">

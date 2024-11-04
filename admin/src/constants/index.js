@@ -1,4 +1,5 @@
-export const API_URL = process.env.API_URL || "http://localhost:4000/api";
+export const API_URL =
+  process.env.API_URL || "https://time-office.onrender.com/api";
 
 export const SOCKET_URL =
   window.location.host.indexOf("localhost") >= 0

@@ -1,4 +1,6 @@
-ALTER TABLE `carts` 
-ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) 
-    ON UPDATE RESTRICT 
-    ON DELETE RESTRICT;
+CREATE TRIGGER set_uuid_before_insert
+BEFORE INSERT ON users
+FOR EACH ROW
+BEGIN
+  SET NEW.id = UUID();
+END;

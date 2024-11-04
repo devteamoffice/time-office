@@ -1,5 +1,5 @@
 // Bring in Models & Utils
-const Category = require("../models/category");
+const { Category } = require("../models/category");
 const store = require("../utils/store");
 
 exports.addCategory = async (req, res) => {
@@ -51,13 +51,17 @@ exports.fetchStoreCategories = async (req, res) => {
 
 exports.fetchCategories = async (req, res) => {
   try {
-    const categories = await Category.find({});
+    // Fetch all categories from the MySQL database
+    const categories = await Category.findAll();
+
     res.status(200).json({
       categories,
     });
   } catch (error) {
+    console.error("Error fetching categories:", error); // Log the error
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
+      details: error.message, // Optional: include error details for debugging
     });
   }
 };

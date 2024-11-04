@@ -57,9 +57,9 @@ const ProductsList = () => {
                           ></label>
                         </div>
                       </th>
-                      <th>Product Name & Size</th>
+                      <th>Product Name</th>
                       <th>Price</th>
-                      <th>Stock</th>
+                      <th>SKU</th>
                       <th>Category</th>
                       <th>Rating</th>
                       <th>Action</th>

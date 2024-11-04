@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const sequelize = require("../config/database");
 const { ROLES, EMAIL_PROVIDER } = require("../constants");
-
+const Role = require("./role");
 // Function to generate a unique hexadecimal ID
 const generateHexId = () => {
   return [...Array(16)]
@@ -67,14 +67,7 @@ const User = sequelize.define(
       allowNull: false,
       defaultValue: ROLES.Member,
     },
-    merchantId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: "merchants",
-        key: "id",
-      },
-    },
+
     resetPasswordToken: {
       type: DataTypes.STRING,
       allowNull: true,

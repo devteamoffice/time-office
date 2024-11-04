@@ -44,4 +44,4 @@ const Subcategory = sequelize.define(
   }
 );
 
-module.exports = { Subcategory };
+module.exports = Subcategory;

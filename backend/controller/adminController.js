@@ -2,7 +2,61 @@ const User = require("../models/user");
 const Permission = require("../models/permission"); // Assuming the Permission model is defined
 const bcrypt = require("bcryptjs");
 require("dotenv");
+const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
+    if (!email) {
+      return res.status(400).json({ error: "Email address is required." });
+    }
+
+    if (!password) {
+      return res.status(400).json({ error: "Password is required." });
+    }
+
+    const user = await User.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: "No user found with this email." });
+    }
+
+    if (user.role !== "admin") {
+      // Check if the user has special admin-granted permissions
+      const hasPermission = await checkPermission(user.roleId, "admin_access");
+      if (!hasPermission) {
+        return res.status(403).json({ error: "Access denied." });
+      }
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: "Incorrect password." });
+    }
+
+    const payload = {
+      id: user.id,
+      role: user.role,
+    };
+
+    const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
+    res.status(200).json({
+      success: true,
+      token: `Bearer ${token}`,
+      user: {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Login failed. Please try again." });
+  }
+};
 // Utility function to check permissions
 const checkPermission = async (roleId, action) => {
   const permission = await Permission.findOne({
@@ -147,4 +201,5 @@ module.exports = {
   editUser,
   deleteUser,
   createUserWithPermissions,
+  adminLogin,
 };

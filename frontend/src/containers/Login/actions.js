@@ -80,7 +80,6 @@ export const signOut = () => {
 
     dispatch(clearAuth());
     dispatch(clearAccount());
-    useNavigate("/login");
 
     localStorage.removeItem("token");
 
@@ -88,6 +87,5 @@ export const signOut = () => {
       position: "top-right",
       autoClose: 1000,
     });
-    // dispatch(clearCart());
   };
 };

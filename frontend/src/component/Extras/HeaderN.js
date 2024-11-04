@@ -6,10 +6,13 @@ import avatar from "../../assets/images/avatar.jpg";
 import CartIcon from "../Common/CartIcon";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 const NavbarN = () => {
   const { isAuthenticated, login, logout } = useContext(AuthContext);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems.length);
+
   const handleSearch = () => {
     setIsSearchVisible(!isSearchVisible); // Toggle search input visibility
   };
