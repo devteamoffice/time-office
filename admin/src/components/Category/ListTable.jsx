@@ -1,62 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import CategoryItem from "./CategoryItem";
+import { API_URL } from "../../constants";
 
 const ListTable = () => {
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/category`);
+        setCategories(response.data.categories);
+      } catch (err) {
+        setError("Failed to fetch categories");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
-    <table class="table align-middle mb-0 table-hover table-centered">
-      <thead class="bg-light-subtle">
+    <table className="table align-middle mb-0 table-hover table-centered">
+      <thead className="bg-light-subtle">
         <tr>
-          <th style={{ width: "20px;" }}>
-            <div class="form-check">
+          <th style={{ width: "20px" }}>
+            <div className="form-check">
               <input
                 type="checkbox"
-                class="form-check-input"
+                className="form-check-input"
                 id="customCheck1"
               />
-              <label class="form-check-label" for="customCheck1"></label>
+              <label
+                className="form-check-label"
+                htmlFor="customCheck1"
+              ></label>
             </div>
           </th>
           <th>Categories</th>
-          <th>Starting Price</th>
-          <th>Create by</th>
-          <th>ID</th>
-          <th>Product Stock</th>
+          <th>State</th>
+          <th>Created</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="customCheck2"
-              />
-              <label class="form-check-label" for="customCheck2"></label>
-            </div>
-          </td>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-                <img
-                  src="assets/images/product/p-1.png"
-                  alt=""
-                  class="avatar-md"
-                />
-              </div>
-              <p class="text-dark fw-medium fs-15 mb-0">
-                Fashion Men , Women & Kid's
-              </p>
-            </div>
-          </td>
-          <td>$80 to $400</td>
-          <td>Seller</td>
-          <td>FS16276</td>
-          <td>46233</td>
-          <td>
-            <Actions />
-          </td>
-        </tr>
+        {isLoading ? (
+          <tr>
+            <td colSpan="5">Loading categories...</td>
+          </tr>
+        ) : error ? (
+          <tr>
+            <td colSpan="5">{error}</td>
+          </tr>
+        ) : (
+          categories.map((category) => (
+            <CategoryItem key={category.id} category={category} />
+          ))
+        )}
       </tbody>
     </table>
   );

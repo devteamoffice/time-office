@@ -13,51 +13,34 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (!email) {
+    if (!email || !password) {
       return res
         .status(400)
-        .json({ error: "You must enter an email address." });
+        .json({ error: "Email and password are required." });
     }
 
-    if (!password) {
-      return res.status(400).json({
-        error: "You must enter a password.",
-      });
-    }
-
-    const user = await User.findOne({
-      where: { email }, // Corrected 'where' condition
-    });
-
+    const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res
-        .status(400)
-        .send({ error: "No user found for this email address." });
+      return res.status(404).json({ error: "User not found." });
     }
 
-    if (user && user.provider !== EMAIL_PROVIDER.Email) {
-      return res.status(400).send({
-        error: `That email address is already in use using ${user.provider} provider.`,
-      });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
+    if (user.provider !== EMAIL_PROVIDER.Email) {
       return res.status(400).json({
-        success: false,
-        error: "Password Incorrect",
+        error: `This email is already in use with the ${user.provider} provider.`,
       });
     }
 
-    const payload = {
-      id: user.id,
-    };
+    const passwordMatches = await bcrypt.compare(password, user.password);
+    if (!passwordMatches) {
+      return res.status(401).json({ error: "Incorrect password." });
+    }
 
+    const payload = { id: user.id };
     const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
 
     if (!token) {
-      throw new Error();
+      console.error("Token generation failed.");
+      return res.status(500).json({ error: "Token generation failed." });
     }
 
     res.status(200).json({
@@ -72,9 +55,8 @@ exports.login = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
-    });
+    console.error("Login error:", error); // Log specific error details
+    res.status(500).json({ error: "An unexpected error occurred." });
   }
 };
 

@@ -7,20 +7,23 @@ import Footer from "./components/Common/Footer";
 import Router from "./router/Router";
 import "./assets/css/app.min.css";
 import { FutureProvider } from "./Context";
+import { AuthProvider } from "./context/Socket/AuthContext";
 
 function App() {
   return (
-    <div className="wrapper">
-      {/* Conditionally render the layout components */}
-      <Header />
-      <MainNav />
+    <AuthProvider>
+      <div className="wrapper">
+        {/* Conditionally render the layout components */}
+        <Header />
+        <MainNav />
 
-      <div className="page-content">
-        <Router />
+        <div className="page-content">
+          <Router />
+        </div>
+
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
+    </AuthProvider>
   );
 }
 

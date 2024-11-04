@@ -58,11 +58,11 @@ const SubCategoryList = () => {
                           ></label>
                         </div>
                       </th>
-                      <th>Categories</th>
-                      <th>Starting Price</th>
-                      <th>Create by</th>
-                      <th>ID</th>
-                      <th>Product Stock</th>
+                      <th>Sub Categories Name</th>
+                      <th>Status</th>
+                      <th>Created At</th>
+                      <th> Category ID</th>
+
                       <th>Action</th>
                     </tr>
                   </thead>

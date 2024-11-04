@@ -23,6 +23,7 @@ const couponRoutes = require("./routes/couponRouter");
 const discountRoutes = require("./routes/discountRouter");
 const wishlistRoutes = require("./routes/wishlistRouter");
 const subCategoryRoutes = require("./routes/subCateogoryRouter");
+const adminRoutes = require("./routes/adminRouter");
 const { port } = keys;
 const app = express();
 
@@ -57,7 +58,7 @@ app.use("/api/review", reviewRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/discount", discountRoutes);
 app.use("/api/coupons", couponRoutes);
-
+app.use("/api/admin", adminRoutes);
 // Start Server
 const server = app.listen(port, async () => {
   console.log(`✓ Listening on port ${port}. Visit http://localhost:${port}/`);

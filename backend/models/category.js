@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database"); // Assuming you have a database configuration file
 const slugify = require("slugify");
-const { Subcategory } = require("./subCategory");
+const Subcategory = require("./subCategory");
 const Product = require("./product"); // Assuming you have the Product model too
 
 // Category Model

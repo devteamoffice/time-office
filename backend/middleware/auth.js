@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config(); // Load environment variables
 
-const secretKey = process.env.JWT_SECRET; // You should store this in environment variables
+const secretKey = process.env.JWT_SECRET; // Access the JWT secret from environment variables
+console.log("JWT Secret Key:", secretKey); // This should log the secret key, or undefined if not set
 
 // JWT authentication middleware
 const auth = (req, res, next) => {

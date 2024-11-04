@@ -53,15 +53,33 @@ exports.fetchUsers = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
   try {
-    const userId = req.user.id; // Fetch `id` directly from the user object
-    const userDoc = await User.findOne({ _id: userId }, { password: 0 }); // Use `_id` for querying by user ID
+    // Check if the user is authenticated and has an ID and email
+    if (!req.user || !req.user.id || !req.user.email) {
+      return res.status(401).json({
+        error: "Unauthorized access.",
+      });
+    }
 
+    // Fetch user details from the database using both ID and email
+    const userId = req.user.id; // Get user ID from the request
+    const userEmail = req.user.email; // Get user email from the request
+
+    const userDoc = await User.findOne({
+      where: {
+        id: userId, // Check user ID
+        email: userEmail, // Check user email
+      },
+      attributes: { exclude: ["password"] }, // Exclude the password from the response
+    });
+
+    // Check if the user exists
     if (!userDoc) {
       return res.status(404).json({
         error: "User not found.",
       });
     }
 
+    // Respond with the user details
     res.status(200).json({
       message: "User profile retrieved successfully.",
       user: userDoc,
@@ -69,11 +87,11 @@ exports.getProfile = async (req, res) => {
   } catch (error) {
     console.error(error); // Log the error for debugging
     res.status(500).json({
-      // Use 500 for server-side errors
       error: "An internal server error occurred. Please try again later.",
     });
   }
 };
+
 exports.updateProfile = async (req, res) => {
   try {
     const user = req.user._id;

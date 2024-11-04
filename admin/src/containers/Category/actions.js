@@ -116,8 +116,27 @@ export const fetchCategory = (id) => {
   };
 };
 
+// activate category api
+export const activateCategory = (id, value) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`${API_URL}/category/${id}/active`, {
+        category: {
+          isActive: value,
+        },
+      });
+
+      if (response.data.success === true) {
+        toast.success(response.data.message); // Updated notification
+      }
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  };
+};
+
 // add category api
-export const addCategory = () => {
+export const addCategory = (navigate) => {
   return async (dispatch, getState) => {
     try {
       const rules = {
@@ -149,15 +168,10 @@ export const addCategory = () => {
       const response = await axios.post(`${API_URL}/category/add`, newCategory);
 
       if (response.data.success === true) {
-        toast.success(response.data.message); // Updated notification
-        dispatch({
-          type: ADD_CATEGORY,
-          payload: response.data.category,
-        });
+        toast.success(response.data.message);
+        dispatch({ type: ADD_CATEGORY, payload: response.data.category });
         dispatch(resetCategory());
-
-        const navigate = useNavigate();
-        navigate(-1); // Updated navigation
+        navigate(-1); // Navigate back
       }
     } catch (error) {
       handleError(error, dispatch);
@@ -166,7 +180,7 @@ export const addCategory = () => {
 };
 
 // update category api
-export const updateCategory = () => {
+export const updateCategory = (navigate) => {
   return async (dispatch, getState) => {
     try {
       const rules = {
@@ -208,30 +222,9 @@ export const updateCategory = () => {
       });
 
       if (response.data.success === true) {
-        toast.success(response.data.message); // Updated notification
+        toast.success(response.data.message);
         dispatch(resetCategory());
-
-        const navigate = useNavigate();
-        navigate(-1); // Updated navigation
-      }
-    } catch (error) {
-      handleError(error, dispatch);
-    }
-  };
-};
-
-// activate category api
-export const activateCategory = (id, value) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.put(`${API_URL}/category/${id}/active`, {
-        category: {
-          isActive: value,
-        },
-      });
-
-      if (response.data.success === true) {
-        toast.success(response.data.message); // Updated notification
+        navigate(-1); // Navigate back
       }
     } catch (error) {
       handleError(error, dispatch);
@@ -240,20 +233,15 @@ export const activateCategory = (id, value) => {
 };
 
 // delete category api
-export const deleteCategory = (id) => {
+export const deleteCategory = (id, navigate) => {
   return async (dispatch) => {
     try {
       const response = await axios.delete(`${API_URL}/category/delete/${id}`);
 
       if (response.data.success === true) {
-        toast.success(response.data.message); // Updated notification
-        dispatch({
-          type: REMOVE_CATEGORY,
-          payload: id,
-        });
-
-        const navigate = useNavigate();
-        navigate(-1); // Updated navigation
+        toast.success(response.data.message);
+        dispatch({ type: REMOVE_CATEGORY, payload: id });
+        navigate(-1); // Navigate back
       }
     } catch (error) {
       handleError(error, dispatch);
