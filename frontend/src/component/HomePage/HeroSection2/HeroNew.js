@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./HeroNew.css";
-import slider1 from "../../../assets/Image/Hero/Slider1.jpg";
+import slider1 from "../../../assets/Image/Hero/Slider1.png";
 import slider2 from "../../../assets/Image/Hero/Slider2.png";
 import slider3 from "../../../assets/Image/Hero/Slider3.png";
 import slider4 from "../../../assets/Image/Hero/Slider4.png";
@@ -20,26 +20,34 @@ const HeroSlider = () => {
     );
   };
 
+  // Auto-scrolling effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 3000); // Change slide every 5 seconds
+    return () => clearInterval(interval); // Cleanup the interval on component unmount
+  }, []);
+
   const slides = [
     {
       id: 1,
       imgSrc: slider1,
-      title: "Biometric Attendance Solutions",
-      type: "Your Timekeeping Partner",
-      description: `Our company specializes in providing state-of-the-art Attendance and Access Control Systems, Door Locks and Controllers, Barcode Scanners, and related accessories. With a focus on security, convenience, and efficiency, we offer a wide range of solutions tailored to meet the diverse needs of businesses, institutions, and organizations.`,
+      title: "Biometric Attendance",
+      // type: "Your Timekeeping Partner",
+      description: `Our company offers advanced Attendance and Access Control Systems, Door Locks, Controllers, Barcode Scanners, and accessories.`,
     },
     {
       id: 2,
       imgSrc: slider2,
-      title: "Attendance and Access",
-      type: "Control Systems",
-      description: `We offer dynamic face recognition, fingerprint-based, and card-based attendance systems, designed to ensure accurate attendance tracking and secure access control for professional and basic needs.`,
+      title: "Attendance and Access Control Systems",
+      // type: "",
+      description: `"Offering advanced Attendance & Access Control Systems, Door Locks, Controllers, Barcode Scanners, & accessories for secure, efficient solutions." `,
     },
     {
       id: 3,
       imgSrc: slider3,
-      title: "Door Locks and ",
-      type: "Controllers",
+      title: "Door Locks and Controllers ",
+      // type: "",
       description: `Our range of door locks and controllers provides security solutions for various doors, including clutch hook glass door locks, multi-door controllers, and exit readers.`,
     },
     {
@@ -52,10 +60,9 @@ const HeroSlider = () => {
     {
       id: 5,
       imgSrc: slider5,
-      title: "SWITCHES FOR ACCESS",
-      type: "CONTROL",
-      description: `Welcome back to CodeDevotee! Exciting content, tutorials, 
-                    and projects ahead. Let’s build together! 🚀💻`,
+      title: "Switches For Access Control",
+      type: "",
+      description: `Welcome to TeamOffice! New Wireless barcode scanners are waiting for you to be part of your workspace. Let's secure your workplace together! 🚀💻`,
     },
     {
       id: 6,
@@ -83,7 +90,7 @@ const HeroSlider = () => {
   ];
 
   return (
-    <div className="slider">
+    <div className="slider mt-2">
       <div className="list">
         {slides.map((slide, index) => (
           <div

@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -149,7 +149,7 @@ export const addBrand = () => {
 
         dispatch({ type: RESET_BRAND });
 
-        useHistory().goBack(); // Navigate back using react-router-dom's useHistory
+        useNavigate().goBack(); // Navigate back using react-router-dom's useNavigate
       }
     } catch (error) {
       handleError(error, dispatch);
@@ -199,7 +199,7 @@ export const updateBrand = () => {
           autoClose: 1000,
         });
 
-        useHistory().goBack(); // Navigate back using react-router-dom's useHistory
+        useNavigate().goBack(); // Navigate back using react-router-dom's useNavigate
       }
     } catch (error) {
       handleError(error, dispatch);
@@ -249,7 +249,7 @@ export const deleteBrand = (id) => {
           payload: id,
         });
 
-        useHistory().goBack(); // Navigate back using react-router-dom's useHistory
+        useNavigate().goBack(); // Navigate back using react-router-dom's useNavigate
       }
     } catch (error) {
       handleError(error, dispatch);

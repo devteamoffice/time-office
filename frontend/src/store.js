@@ -17,15 +17,15 @@ const composeEnhancers =
 
 // Create store with reducers and enhancers
 const store = createStore(
-  createReducer(), // No history needed for the reducers
+  createReducer(), // Pass root reducer
   composeEnhancers(...enhancers) // Apply enhancers
 );
 
 // Enable hot module replacement for reducers in development mode
 if (module.hot) {
   module.hot.accept("./reducers", () => {
-    const nextRootReducer = require("./reducers").default; // eslint-disable-line global-require
-    store.replaceReducer(nextRootReducer()); // Replace with the new reducer
+    const nextRootReducer = require("./reducers").default;
+    store.replaceReducer(nextRootReducer); // Replace with the new reducer directly
   });
 }
 

@@ -18,14 +18,15 @@ import ShippingDelivery from "../pages/General/ShippingDelivery";
 import MyAccount from "../component/Account/MyAccount";
 import Orders from "../component/Account/Orders";
 import Address from "../component/Account/Address";
-import Wishlist from "../component/Account/Wishlist";
+import Wishlist from "../containers/WishList";
 import OrderDetails from "../pages/OrderDetail";
-import ProductDetails from "../component/Product/ProductDetails";
-import BlogList from "../pages/BlogList";
+import ProductDetails from "../pages/ProductDetails";
+import Blogs from "../pages/General/Blogs";
 import Checkout from "../pages/Checkout";
 import PaymetFailure from "../pages/PaymetFailure";
 import Account from "../pages/Account";
-
+import PaymentConfirmation from "../pages/PaymentConfirmation";
+import Pricing from "../pages/General/Pricing";
 export const publicRoutes = [
   // Error Pages
   { path: "/500", element: Error505Page },
@@ -44,15 +45,16 @@ export const publicRoutes = [
   { path: "/shipping-policy", element: ShippingDelivery },
 
   // Product Pages
-  { path: "/products", element: Product },
-  { path: "/products/:id", element: ProductDetails },
+  { path: "/store", element: Product },
+  { path: "/product/:id", element: ProductDetails },
   { path: "/orders/:id", element: OrderDetails },
-  { path: "/orders/:id/checkout", element: Checkout },
-  { path: "/orders/:id/invoice", element: Invoice },
-  { path: "/orders/:id/payment=failure", element: PaymetFailure },
+  { path: "/order/:id/checkout", element: Checkout },
+  { path: "/order/:id/invoice", element: Invoice },
+  { path: "/order/:id/payment=confirmation", element: PaymentConfirmation },
+  { path: "/order/:id/payment=failure", element: PaymetFailure },
 
   // User Account
-  { path: "/u/:id", element: Account },
+  { path: `/u/:id`, element: Account },
   { path: "/u/:id/orders", element: Orders },
   { path: "/u/:id/orders/:orderId", element: OrderDetails },
   { path: "/u/:id/address", element: Address },
@@ -62,7 +64,8 @@ export const publicRoutes = [
   { path: "/", element: Home },
   { path: "/contact", element: ContactPage },
   { path: "/aboutus", element: AboutUs },
-  { path: "/blogs", element: BlogList },
+  { path: "/blogs", element: Blogs },
   { path: "/cart", element: Cart },
   { path: "/faqs", element: Faqs },
+  { path: "/pricing", element: Pricing },
 ];

@@ -1,9 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 import "./testomonial.css";
-import testo from "../../../assets/Image/testimonial.png";
 
-const Testomonial = () => {
+const Testomonial = ({ reviews }) => {
   var settings = {
     dots: true,
     infinite: true,
@@ -40,245 +39,48 @@ const Testomonial = () => {
       },
     ],
   };
+
   return (
     <div className="container main-slider-testo slider-container">
       <h2>
-        What Our <span>Customer</span> Says
+        What Our <span>Customers</span> Say
       </h2>
       <Slider {...settings}>
-        <div>
-          <div className="outer-testo">
-            <div className="inner-testo">
-              <div className="col1">
-                <div className="box-testo"> </div>
+        {reviews.map((review, index) => (
+          <div key={index}>
+            <div className="outer-testo">
+              <div className="inner-testo">
+                <div className="col1">
+                  <div className="box-testo"> </div>
+                </div>
+                <div className="col2">
+                  <hr />
+                  <p> "{review.message}" </p>
+                </div>
               </div>
-              <div className="col2">
-                <hr />
-                <p>
-                  {" "}
-                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                  deleniti veniam nihil consectetur. Animi error commodi id
-                  dolorem asperiores. Repellendus quae delectus suscipit, modi
-                  laudantium culpa totam nisi at laborum. "
-                </p>
-              </div>
-            </div>
-            <div className="img_testomonial">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
-                alt=""
-              />
-              <h3>Yashika Mishra</h3>
-              <p>HR</p>
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star-half"></i>
-                  </li>
-                </ul>
+              <div className="img_testomonial">
+                <img src={review.image} alt={review.name} />
+                <h3>{review.name}</h3>
+                <p>{review.position}</p>
+                <div className="d-flex align-items-center gap-2 mb-1">
+                  <ul className="d-flex text-warning m-0 fs-20 list-unstyled">
+                    {Array.from({ length: 5 }, (v, i) => (
+                      <li key={i}>
+                        <i
+                          className={
+                            i < review.rating
+                              ? "bx bxs-star"
+                              : "bx bxs-star-half"
+                          }
+                        ></i>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* This is our 4th and main component */}
-
-        <div>
-          <div className="outer-testo">
-            <div className="inner-testo">
-              <div className="col1">
-                <div className="box-testo"> </div>
-              </div>
-              <div className="col2">
-                <hr />
-                <p>
-                  {" "}
-                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                  deleniti veniam nihil consectetur. Animi error commodi id
-                  dolorem asperiores. Repellendus quae delectus suscipit, modi
-                  laudantium culpa totam nisi at laborum. "
-                </p>
-              </div>
-            </div>
-            <div className="img_testomonial">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
-                alt=""
-              />
-              <h3>Yashika Mishra</h3>
-              <p>HR</p>
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star-half"></i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="outer-testo">
-            <div className="inner-testo">
-              <div className="col1">
-                <div className="box-testo"> </div>
-              </div>
-              <div className="col2">
-                <hr />
-                <p>
-                  {" "}
-                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                  deleniti veniam nihil consectetur. Animi error commodi id
-                  dolorem asperiores. Repellendus quae delectus suscipit, modi
-                  laudantium culpa totam nisi at laborum. "
-                </p>
-              </div>
-            </div>
-            <div className="img_testomonial">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
-                alt=""
-              />
-              <h3>Yashika Mishra</h3>
-              <p>HR</p>
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star-half"></i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="outer-testo">
-            <div className="inner-testo">
-              <div className="col1">
-                <div className="box-testo"> </div>
-              </div>
-              <div className="col2">
-                <hr />
-                <p>
-                  {" "}
-                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                  deleniti veniam nihil consectetur. Animi error commodi id
-                  dolorem asperiores. Repellendus quae delectus suscipit, modi
-                  laudantium culpa totam nisi at laborum. "
-                </p>
-              </div>
-            </div>
-            <div className="img_testomonial">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
-                alt=""
-              />
-              <h3>Yashika Mishra</h3>
-              <p>HR</p>
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star-half"></i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="outer-testo">
-            <div className="inner-testo">
-              <div className="col1">
-                <div className="box-testo"> </div>
-              </div>
-              <div className="col2">
-                <hr />
-                <p>
-                  {" "}
-                  " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                  deleniti veniam nihil consectetur. Animi error commodi id
-                  dolorem asperiores. Repellendus quae delectus suscipit, modi
-                  laudantium culpa totam nisi at laborum. "
-                </p>
-              </div>
-            </div>
-            <div className="img_testomonial">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/5231/5231020.png"
-                alt=""
-              />
-              <h3>Yashika Mishra</h3>
-              <p>HR</p>
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <ul class="d-flex text-warning m-0 fs-20 list-unstyled">
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star"></i>
-                  </li>
-                  <li>
-                    <i class="bx bxs-star-half"></i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </Slider>
     </div>
   );

@@ -1,0 +1,127 @@
+/* 1. Fade and Slide from Right */
+.slider .list .item .content.fade-slide-right {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: translateX(100px); /* Slide in from the right */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.slider .list .item.active .content.fade-slide-right {
+  opacity: 1;
+  transform: translateX(0); /* Reset to original position */
+}
+
+/* 2. Scale with Fade */
+.slider .list .item .content.scale-fade {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: scale(0.8); /* Smaller size initially */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.slider .list .item.active .content.scale-fade {
+  opacity: 1;
+  transform: scale(1); /* Reset to full size */
+}
+
+/* 3. Rotate In */
+.slider .list .item .content.rotate-in {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: rotate(20deg); /* Rotate slightly initially */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.slider .list .item.active .content.rotate-in {
+  opacity: 1;
+  transform: rotate(0); /* Reset to original position */
+}
+
+/* 4. Flip In */
+.slider .list .item .content.flip-in {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: rotateX(90deg); /* Flip effect */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.slider .list .item.active .content.flip-in {
+  opacity: 1;
+  transform: rotateX(0); /* Reset to original position */
+}
+
+/* 5. Skew with Fade */
+.slider .list .item .content.skew-fade {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: skew(20deg); /* Skew the content */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.slider .list .item.active .content.skew-fade {
+  opacity: 1;
+  transform: skew(0); /* Reset to original shape */
+}
+
+/* 6. Swing Effect */
+.slider .list .item .content.swing {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: rotateZ(10deg); /* Swing effect */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.slider .list .item.active .content.swing {
+  opacity: 1;
+  transform: rotateZ(0); /* Settle into place */
+}
+
+/* 7. Diagonal Slide with Fade */
+.slider .list .item .content.diagonal-slide {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: translate(100px, 100px); /* Diagonal slide from bottom-right */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.slider .list .item.active .content.diagonal-slide {
+  opacity: 1;
+  transform: translate(0, 0); /* Reset to original position */
+}
+
+/* 8. Fade In and Blur Out */
+.slider .list .item .content.blur-fade {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  filter: blur(10px); /* Start with blur */
+  transition: opacity 0.8s ease-in-out, filter 0.8s ease-in-out;
+}
+
+.slider .list .item.active .content.blur-fade {
+  opacity: 1;
+  filter: blur(0); /* Clear blur */
+}

@@ -1,31 +1,69 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginChange, login } from "../../containers/Login/actions";
+import axios from "axios";
 import logo from "../../assets/images/team_office_logo_13.png";
 import img from "../../assets/images/access-control-solution.jpg";
 import LoadingIndicator from "../../component/Extras/LoadingIndicator";
 import { Alert } from "react-bootstrap";
+import { API_URL } from "../../constants";
+import { AuthContext } from "../../context/Socket/AuthContext"; // Ensure correct import
 
 const SignIn = () => {
-  const dispatch = useDispatch();
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [loginError, setLoginError] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
-
-  const { loginFormData, isSubmitting, formErrors, loginSuccess, loginError } =
-    useSelector((state) => state.login);
+  const { login } = useContext(AuthContext); // Accessing login from AuthContext
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    dispatch(loginChange(name, value)); // Update the login form state
+    setLoginFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login()).then((res) => {
-      if (res?.success) {
-        navigate("/dashboard"); // Redirect to dashboard on successful login
+
+    // Simple validation
+    if (!loginFormData.email || !loginFormData.password) {
+      setFormErrors({
+        email: !loginFormData.email ? "Email is required" : "",
+        password: !loginFormData.password ? "Password is required" : "",
+      });
+      setLoginError("Email and Password are required!");
+      return;
+    }
+
+    // Clear any previous errors
+    setFormErrors({});
+    setLoginError("");
+    setLoginSuccess(false);
+    setIsSubmitting(true);
+
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, loginFormData); // Update with your API URL
+      const data = response.data;
+
+      if (data.success) {
+        // Successfully logged in
+        setLoginSuccess(true);
+        login(data.token); // Call login with the token returned from the server
+        navigate("/"); // Redirect to dashboard or home
+      } else {
+        setLoginError(data.message || "Login failed. Please try again.");
       }
-    });
+    } catch (error) {
+      setLoginError("An error occurred during login. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -70,7 +108,7 @@ const SignIn = () => {
                           name="email"
                           className="form-control"
                           placeholder="Enter your email"
-                          value={loginFormData.email || ""}
+                          value={loginFormData.email}
                           onChange={handleInputChange}
                           disabled={isSubmitting}
                         />
@@ -90,7 +128,7 @@ const SignIn = () => {
                           name="password"
                           className="form-control"
                           placeholder="Enter your password"
-                          value={loginFormData.password || ""}
+                          value={loginFormData.password}
                           onChange={handleInputChange}
                           disabled={isSubmitting}
                         />

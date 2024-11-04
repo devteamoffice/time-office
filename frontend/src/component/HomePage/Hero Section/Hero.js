@@ -16,8 +16,7 @@ const Hero = () => {
               <div class="title">MAGIC SLIDER</div>
               <div class="type">FLOWER</div>
               <div class="description">
-                "Welcome back to CodeDevotee! Exciting content, tutorials,{" "}
-                <br />
+                "Welcome to TeamOffice! Exciting content, tutorials, <br />
                 and projects ahead. Let’s build together! 🚀💻"
               </div>
               <div class="button">

@@ -9,18 +9,22 @@ import Insights from "../../component/HomePage/Insight/Insights";
 import Recent from "../../component/HomePage/Recent/Recent";
 import Hero from "../../component/HomePage/Hero Section/Hero";
 import HeroSlider from "../../component/HomePage/HeroSection2/HeroNew";
-
+import OurClientScroll from "../../component/HomePage/OurClients/OurClientScroll";
+import reviews from "../../assets/testimonials";
+import Freeship2 from "../../component/HomePage/FreeShip/Freeship2";
 const Home = () => {
   return (
     <>
       <HeroSlider />
+      <Freeship2 />
       <Gallery />
       <SliderBrand />
       <Slider2 />
       <Whatnew />
-      <Testomonial />
+      <Testomonial reviews={reviews} />
 
-      <OurClinets />
+      {/* <OurClinets /> */}
+      <OurClientScroll />
       <Insights />
       <Recent />
     </>

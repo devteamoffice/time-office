@@ -13,12 +13,19 @@ import Navbar from "./component/Navbar/Navbar";
 import Footer from "./component/Footer/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
+<<<<<<< HEAD
 import { useEffect } from "react";
 import Contact from "./component/Contactus/Contact";
 import TermCondition from "./component/Policy Pages/TermCondition";
 import CancellationRefundPolicy from "./component/Policy Pages/CancellationRefundPolicy";
 import PrivacyPolicy from "./component/Policy Pages/PrivacyPolicy";
 import ShippingDelivery from "./component/Policy Pages/ShippingDelivery";
+=======
+import Navbar from "./component/Extras/Navbar";
+import FooterNew from "./component/Extras/FooterNew";
+import NavbarN from "./component/Extras/HeaderN";
+import { AuthProvider } from "./context/Socket/AuthContext";
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 
 function App() {
   useEffect(() => {
@@ -32,6 +39,7 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -59,6 +67,15 @@ function App() {
       </BrowserRouter>
 
       {/* <Slidernew /> */}
+=======
+      <AuthProvider>
+        {/* <Navbar /> */}
+        <NavbarN />
+        {showContent && <Router />}
+        <Footer />
+        {/* <FooterNew /> */}
+      </AuthProvider>
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
     </>
   );
 }

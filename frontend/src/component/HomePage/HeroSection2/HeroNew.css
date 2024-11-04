@@ -1,18 +1,26 @@
 /* General CSS */
-
 body {
     margin: 0;
     font-family: Poppins, sans-serif;
 }
 
 .slider {
+<<<<<<< HEAD
     height: 100vh;
     width: 100vw;
     overflow: hidden;
     position: relative;
+=======
+  height: 90vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
+/* Slider Items */
 .slider .list .item {
+<<<<<<< HEAD
     width: 100%;
     height: 100%;
     position: absolute;
@@ -26,6 +34,22 @@ body {
     opacity: 1;
     transform: scale(1); /* Smooth transition */
         
+=======
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.1); /* Slight zoom out effect */
+  transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+  z-index: 0;
+}
+
+.slider .list .item.active {
+  opacity: 1;
+  transform: scale(1); /* Reset to original scale */
+  z-index: 1;
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
 .slider .list .item img {
@@ -36,6 +60,7 @@ body {
 }
 
 .slider .list .item .content {
+<<<<<<< HEAD
     position: absolute;
     bottom: 28%;
     left: 10%;
@@ -44,14 +69,28 @@ body {
     transform: translateY(30px);
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     width: 45%;
+=======
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  color: white;
+  opacity: 0;
+  transform: translateY(30px); /* Slide up effect */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
-/* When the slide is active, make the content visible */
 .slider .list .item.active .content {
+<<<<<<< HEAD
     opacity: 1;
     transform: translateY(0); /* Bring the content up smoothly */
+=======
+  opacity: 1;
+  transform: translateY(0); /* Reset to original position */
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
+/* Content Styles */
 .slider .list .item .content .title {
     margin-top: 50px;
     font-size: 2.5rem;
@@ -63,8 +102,9 @@ body {
     font-size: 1.2rem;
 }
 
-/* Thumbnail styles */
+/* Thumbnail Styles */
 .thumbnail {
+<<<<<<< HEAD
     position: absolute;
     bottom: 50px;
     left: 85%;
@@ -79,6 +119,22 @@ body {
     cursor: pointer;
     transition: transform 0.3s ease, border 0.3s ease;
     border: 2px solid transparent;
+=======
+  position: absolute;
+  bottom: 21px;
+  left: 85%;
+  transform: translateX(-70%);
+  display: flex;
+  gap: 20px;
+}
+
+.thumbnail .item {
+  width: 100px;
+  height: 150px;
+  cursor: pointer;
+  transition: transform 0.7s ease, border 0.9s ease;
+  border: 2px solid transparent;
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
 .thumbnail .item img {
@@ -90,12 +146,17 @@ body {
 }
 
 .thumbnail .item.active {
+<<<<<<< HEAD
     transform: scale(1.2); /* Highlight the active thumbnail */
     /* border: 2px solid #14ff72cb;  */
+=======
+  transform: scale(1.2); /* Highlight active thumbnail */
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
-/* Next/Prev arrows */
+/* Next/Prev Arrows */
 .nextPrevArrows {
+<<<<<<< HEAD
     position: absolute;
     top: 90%;
     transform: translate(300px, -50%);
@@ -114,6 +175,24 @@ body {
     font-weight: bold;
     transition: background-color 0.3s;
     cursor: pointer;
+=======
+  position: absolute;
+  top: 90%;
+  display: flex;
+  gap: 10px;
+}
+
+.nextPrevArrows button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #4d0186;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
 .nextPrevArrows button:hover {
@@ -121,6 +200,7 @@ body {
     color: #000;
 }
 
+<<<<<<< HEAD
 .slider .list .item .button button {
     
     background-color: #4D0186;
@@ -134,4 +214,64 @@ body {
 .slider .list .item .type {
     /* color: #14ff72cb; */
     color: #14ff72cb;
+=======
+/* Responsive Styles */
+
+@media (max-width: 575px) {
+  /* / Styles for phones / */
+
+  .slider {
+    height: 60vh !important ;
+  }
+
+  .slider .list .item .content {
+    top: 0%;
+  }
+
+  .slider .list .item .content .title {
+    font-size: 10px;
+  }
+  .slider .list .item .content .description {
+    font-size: 13px !important;
+  }
+
+  .nextPrevArrows {
+    top: 81%;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider {
+    height: 75vh;
+  }
+  .thumbnail {
+    display: none;
+  }
+
+  .nextPrevArrows {
+    right: 80px;
+  }
+
+  .slider .list .item .content .title {
+    font-size: 28px;
+  }
+
+  .slider .list .item .content .description {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .thumbnail {
+    left: 98%;
+  }
+
+  .slider .list .item .content .title {
+    font-size: 28px;
+  }
+
+  .slider .list .item .content .description {
+    font-size: 17px;
+  }
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }

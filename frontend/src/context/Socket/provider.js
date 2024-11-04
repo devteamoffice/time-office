@@ -10,12 +10,12 @@ const SocketProvider = ({ children }) => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      const sk = io(SOCKET_URL, {
-        autoConnect: false, // Initially, don't auto-connect
-        auth: { token }, // Send token in authentication payload
-        reconnection: true, // Allow automatic reconnection
-        reconnectionAttempts: 5, // Set the maximum number of reconnection attempts
-        reconnectionDelay: 1000, // Delay between reconnections
+      const sk = io("http://localhost:3000", {
+        autoConnect: false,
+        auth: { token },
+        reconnection: true,
+        reconnectionAttempts: 10, // Increased reconnection attempts
+        reconnectionDelay: 2000, // Increased delay between reconnections
       });
 
       sk.connect();

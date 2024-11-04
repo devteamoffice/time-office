@@ -20,7 +20,7 @@ import {
   SET_ADVANCED_FILTERS,
 } from "./constants";
 import handleError from "../../utils/error";
-import { allFieldsValidation, sanitizeFields } from "../../utils/validation";
+import { allFieldsValidation, santizeFields } from "../../utils/validation";
 import { API_URL } from "../../constants";
 
 // Action to update review form data
@@ -171,7 +171,7 @@ export const addProductReview = () => {
         return dispatch({ type: SET_REVIEW_FORM_ERRORS, payload: errors });
       }
 
-      const sanitizedReview = sanitizeFields(newReview);
+      const sanitizedReview = santizeFields(newReview);
 
       const response = await axios.post(
         `${API_URL}/review/add`,

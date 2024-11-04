@@ -4,6 +4,7 @@
   gap: 15px;
   align-items: center;
 <<<<<<< HEAD
+<<<<<<< HEAD
   position: relative; /* Ensure elements can be positioned properly inside the card */
   overflow: hidden; /* Prevent content from overflowing */
 }
@@ -13,12 +14,21 @@
   height: auto; /* Maintain the aspect ratio */
 =======
 >>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
+=======
+  position: relative; /* Allows positioning of children relative to this container */
+}
+
+.card_inner img {
+  width: 100%; /* Ensures the image takes the full width of the container */
+  height: auto; /* Maintains aspect ratio of the image */
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
 .card_inner p {
   font-size: 20px;
   color: black;
   font-weight: 600;
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 =======
@@ -70,36 +80,72 @@
 =======
   opacity: 1;
   
+=======
+}
 
+.card_inner .link {
+  display: none; /* Initially hidden */
+  position: absolute; /* Position it absolutely within the card_inner */
+  bottom: 0; /* Position it at the top */
+  left: 0; /* Position it at the left */
+  width: 100%; /* Make the link cover the full width */
+  height: 20%; /* Make the link cover the full height */
+  background-color: rgba(151, 71, 255, 0.6); /* Semi-transparent background */
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex; /* Use flexbox for centering text */
+  justify-content: center;
+  align-items: center;
+  opacity: 0; /* Start with zero opacity */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
+
+.card_inner:hover {
+  transform: scale(1.04); /* Slightly scale on hover */
+}
+
+.card_inner:hover .link {
+  display: flex; /* Show link as flexbox */
+  opacity: 1; /* Show the link on hover */
 }
 
 .card_inner:hover p {
-       display: none;   
-
+  display: none; /* Hide the paragraph on hover */
 }
 
 .btnView {
+<<<<<<< HEAD
    display: flex;
 >>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
+=======
+  display: flex;
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
   align-items: center;
   justify-content: center;
   margin: 14px 0;
   padding: 14px 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
+=======
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 }
 
 .btnView button {
   background-color: white;
-  border: 1px solid #9747FF;
+  border: 1px solid #9747ff;
   padding: 10px 30px;
   font-size: 21px;
   font-weight: 600;
-  color: #9747FF;
+  color: #9747ff;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .btnView button:hover {
   background-color: #9747FF;
@@ -123,26 +169,27 @@
 }
 =======
 
+=======
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df
 .btnView button:hover {
-  background-color: #9747FF;
-  padding: 10px 30px;
-  font-size: 21px;
-  font-weight: 600;
+  background-color: #9747ff;
   color: #fff;
-  transition: 1s
+  transition: 1s;
 }
-
-
-
-
-
 
 /* For mobile screens */
 @media (max-width: 768px) {
   .card_inner:hover {
     transform: scale(1);
-    margin-bottom: 26px ;
-    
+    margin-bottom: 26px;
+  }
+
+  .card_inner .link {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
 }
+<<<<<<< HEAD
 }
 >>>>>>> b2ab9b79cc264f301f32d301eabbf7bf2b76c3d7
+=======
+>>>>>>> a6aa20575969e990fd6ab8ad57a29a5fedcc01df

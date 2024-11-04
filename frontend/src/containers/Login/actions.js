@@ -29,11 +29,7 @@ export const loginChange = (name, value) => {
 
 export const login = () => {
   return async (dispatch, getState) => {
-    const rules = {
-      email: "required|email",
-      password: "required|min:6",
-    };
-
+    const rules = { email: "required|email", password: "required|min:6" };
     const user = getState().login.loginFormData;
 
     const { isValid, errors } = allFieldsValidation(user, rules, {
@@ -52,7 +48,6 @@ export const login = () => {
 
     try {
       const response = await axios.post(`${API_URL}/auth/login`, user);
-
       const firstName = response.data.user.firstName;
 
       const successfulMessage = `Hey${
@@ -60,7 +55,6 @@ export const login = () => {
       }, Welcome Back!`;
 
       localStorage.setItem("token", response.data.token);
-
       setToken(response.data.token);
 
       dispatch(setAuth());
@@ -68,11 +62,11 @@ export const login = () => {
         position: "top-right",
         autoClose: 1000,
       });
-
       dispatch({ type: LOGIN_RESET });
     } catch (error) {
-      const title = `Please try to login again!`;
-      handleError(error, dispatch, title);
+      const errorMessage =
+        error.response?.data?.message || "An error occurred. Please try again!";
+      handleError(errorMessage, dispatch, "Login Error");
     } finally {
       dispatch({ type: SET_LOGIN_SUBMITTING, payload: false });
       dispatch({ type: SET_LOGIN_LOADING, payload: false });
@@ -86,7 +80,7 @@ export const signOut = () => {
 
     dispatch(clearAuth());
     dispatch(clearAccount());
-    useNavigate().push("/login");
+    useNavigate("/login");
 
     localStorage.removeItem("token");
 
