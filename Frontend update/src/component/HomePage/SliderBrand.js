@@ -53,26 +53,26 @@ const products = [
     image: n9,
     title: "Drop Bolt Lock Fully Glass",
   },
-  {
-    image: s1,
-    title: "Door Locks & Brackets",
-  },
-  {
-    image: s2,
-    title: "Access Control System",
-  },
-  {
-    image: s3,
-    title: "Biometric Access Control",
-  },
-  {
-    image: s4,
-    title: "Barcode Scanner",
-  },
-  {
-    image: s5,
-    title: "Computerized Time Attendance Device",
-  },
+  // {
+  //   image: s1,
+  //   title: "Door Locks & Brackets",
+  // },
+  // {
+  //   image: s2,
+  //   title: "Access Control System",
+  // },
+  // {
+  //   image: s3,
+  //   title: "Biometric Access Control",
+  // },
+  // {
+  //   image: s4,
+  //   title: "Barcode Scanner",
+  // },
+  // {
+  //   image: s5,
+  //   title: "Computerized Time Attendance Device",
+  // },
 ];
 
 const SliderBrand = () => {
