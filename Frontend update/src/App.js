@@ -32,7 +32,7 @@ function App() {
     <>
       <NavbarN />
 
-      <Loading />
+      {/* <Loading /> */}
       {/* <Navbar /> */}
       {/* <HeaderN /> */}
       {showContent && <Router />}

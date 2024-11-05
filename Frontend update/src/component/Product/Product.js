@@ -68,7 +68,7 @@ const Product = () => {
                           className="form-check-label"
                           for="fashion-categories"
                         >
-                          Attendance and Access Control Systems
+                          Update Attendance and Access Control Systems
                         </label>
                       </div>
 
@@ -336,9 +336,11 @@ const Product = () => {
                     </div>
                     <div className="col-lg-6">
                       <div className="text-md-end mt-3 mt-md-0">
+                        {/* For checking comment */}
                         <button
                           type="button"
                           className="btn btn-outline-secondary me-1"
+                          onClick={handlefilter}
                         >
                           <i className="bx bx-filter-alt me-1"></i> Filters
                         </button>
