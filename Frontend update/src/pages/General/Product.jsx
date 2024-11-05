@@ -3,6 +3,8 @@ import React from "react";
 import p1 from "../../assets/Product Page/images/product/p-1.png";
 import Pagination from "../../component/Extras/Pagination";
 const Product = () => {
+
+  
   return (
     <div className="page-content">
       {/* Start Container Fluid */}
