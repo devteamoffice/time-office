@@ -1,7 +1,2 @@
 ALTER TABLE `users`
-  DROP COLUMN `role`,
-  ADD COLUMN `roleId` INT(11) NULL DEFAULT NULL,
-  ADD CONSTRAINT `fk_users_roles`
-    FOREIGN KEY (`roleId`) REFERENCES `roles`(`id`)
-    ON UPDATE CASCADE
-    ON DELETE SET NULL;
+DROP INDEX `merchantId`;

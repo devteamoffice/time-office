@@ -5,12 +5,23 @@ import Pagination from "../../component/Common/Pagination";
 import ProductFilter from "../../component/Product/ProductFilter";
 import SingleProduct from "../../component/Product/SingleProduct";
 const Product = (props) => {
-  // Assuming totalItems and itemsPerPage are being fetched from somewhere
-  const totalItems = 100; // Replace with actual total items count
-  const itemsPerPage = 10; // Replace with actual items per page count
-
-  // Calculate the total number of pages
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+  const totalItems = data.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const displayedItems = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handleFilter = () => {
+    setIsFilterVisible(!isFilterVisible);
+  };
 
   return (
     <div className="page-content">

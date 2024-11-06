@@ -93,7 +93,10 @@ const navRoutes = [
   {
     title: "Customers",
     icon: <AiOutlineCustomerService />,
-    submenu: [{ text: "List", link: "/customer/list" }],
+    submenu: [
+      { text: "List", link: "/customer/list" },
+      { text: "All Users", link: "/customer/users" },
+    ],
   },
   {
     title: "Coupons",

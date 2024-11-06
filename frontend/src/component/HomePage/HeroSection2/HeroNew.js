@@ -24,7 +24,7 @@ const HeroSlider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 3000); // Change slide every 5 seconds
+    }, 9000); // Change slide every 5 seconds
     return () => clearInterval(interval); // Cleanup the interval on component unmount
   }, []);
 
@@ -62,7 +62,8 @@ const HeroSlider = () => {
       imgSrc: slider5,
       title: "Switches For Access Control",
       type: "",
-      description: `Welcome to TeamOffice! New Wireless barcode scanners are waiting for you to be part of your workspace. Let's secure your workplace together! 🚀💻`,
+      description: `Welcome back to CodeDevotee! Exciting content, tutorials, 
+                    and projects ahead. Let’s build together! 🚀💻`,
     },
     {
       id: 6,

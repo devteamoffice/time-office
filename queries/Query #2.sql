@@ -1,6 +1,1 @@
-CREATE TRIGGER set_uuid_before_insert
-BEFORE INSERT ON users
-FOR EACH ROW
-BEGIN
-  SET NEW.id = UUID();
-END;
+ALTER TABLE users DROP COLUMN roleId;

@@ -1,21 +1,21 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { useDispatch } from "react-redux"; // Import useDispatch from react-redux
+import { createContext, useContext, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   SET_AUTH,
   CLEAR_AUTH,
 } from "../../containers/Authentication/constants";
-import { useNavigate } from "react-router-dom";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const dispatch = useDispatch(); // Create a dispatch function
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
-      dispatch({ type: SET_AUTH }); // Dispatching SET_AUTH if token exists
+      dispatch({ type: SET_AUTH });
     }
   }, [dispatch]);
 
@@ -25,22 +25,21 @@ export const AuthProvider = ({ children }) => {
       : `Bearer ${token}`;
     localStorage.setItem("token", formattedToken);
     setIsAuthenticated(true);
-    dispatch({ type: SET_AUTH }); // Dispatch action on login
+    dispatch({ type: SET_AUTH });
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
-    dispatch({ type: CLEAR_AUTH }); // Dispatch action on logout
-  };
-
-  const signup = async (userData) => {
-    // Your signup logic...
+    dispatch({ type: CLEAR_AUTH });
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, signup }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+// Optional: Create a custom hook for easier access
+export const useAuth = () => useContext(AuthContext);

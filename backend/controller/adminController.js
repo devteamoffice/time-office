@@ -24,7 +24,7 @@ const adminLogin = async (req, res) => {
 
     if (user.role !== "admin") {
       // Check if the user has special admin-granted permissions
-      const hasPermission = await checkPermission(user.roleId, "admin_access");
+      const hasPermission = await checkPermission(user.role, "admin_access");
       if (!hasPermission) {
         return res.status(403).json({ error: "Access denied." });
       }

@@ -1,0 +1,3 @@
+order id generation = #datedayidyearnumberoforderoftheday which means what is the count of order is which means total length of order on that day if the orders were 4 then plus the current order 5 and forexample
+#05220245 and then / pincode of the area 
+sums as #0522024/124001 this will be the order_slug which will be used for the order_id rendering on the invoice and other things but for authorizations order_id will be uuid which will be used as how it supposed to be used 
