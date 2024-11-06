@@ -1,5 +1,5 @@
 // controllers/subcategoryController.js
-const { Subcategory } = require("../models/subCategory");
+const Subcategory = require("../models/subCategory");
 
 exports.createSubcategory = async (req, res) => {
   try {

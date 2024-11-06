@@ -1,25 +1,25 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Row, Col } from "reactstrap";
 import Checkbox from "../../Common/Checkbox";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
+import { addAddress as addAddressAction } from "../../../containers/Address/actions";
 
 const AddAddress = (props) => {
-  const { addressFormData, formErrors, addressChange, addAddress } = props;
+  const { addressFormData, formErrors, addressChange } = props;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addAddress();
+    dispatch(addAddressAction(navigate)); // Dispatch addAddress with navigate
   };
 
   return (
     <div className="card border-0 mb-0">
       <div className="card-body">
-        <div className="check-icon text-center">
-          <img src="assets/images/party.png" alt="" className="img-fluid" />
-          <p className="mb-1">Add New Address</p>
-        </div>
-        <hr />
         <form onSubmit={handleSubmit} noValidate>
           <div className="row mt-4">
             <div className="col-lg-12">
@@ -119,6 +119,7 @@ const AddAddress = (props) => {
               />
             </div>
           </div>
+          {/* form fields go here as in your original component */}
           <div className="add-address-actions mt-4">
             <Button type="submit" text="Add Address" />
           </div>

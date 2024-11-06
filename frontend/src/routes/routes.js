@@ -54,7 +54,7 @@ export const publicRoutes = [
   { path: "/order/:id/payment=failure", element: PaymetFailure },
 
   // User Account
-  { path: `/u/:id`, element: Account },
+  { path: "/u/:id", element: Account },
   { path: "/u/:id/orders", element: Orders },
   { path: "/u/:id/orders/:orderId", element: OrderDetails },
   { path: "/u/:id/address", element: Address },

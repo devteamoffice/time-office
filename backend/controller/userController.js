@@ -1,5 +1,5 @@
 const User = require("../models/user");
-
+const checkAuth = require("../utils/auth"); // Import checkAuth function
 exports.searchUser = async (req, res) => {
   try {
     const { search } = req.query;
@@ -53,16 +53,18 @@ exports.fetchUsers = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
   try {
-    // Check if the user is authenticated and has an ID and email
-    if (!req.user || !req.user.id || !req.user.email) {
+    // Check if the user is authenticated
+    const user = await checkAuth(req);
+
+    if (!user || !user.id || !user.email) {
       return res.status(401).json({
         error: "Unauthorized access.",
       });
     }
 
     // Fetch user details from the database using both ID and email
-    const userId = req.user.id; // Get user ID from the request
-    const userEmail = req.user.email; // Get user email from the request
+    const userId = user.id; // Use user ID from the token
+    const userEmail = user.email; // Use user email from the token
 
     const userDoc = await User.findOne({
       where: {
@@ -85,7 +87,7 @@ exports.getProfile = async (req, res) => {
       user: userDoc,
     });
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.error("Error in getProfile:", error); // Log the error for debugging
     res.status(500).json({
       error: "An internal server error occurred. Please try again later.",
     });

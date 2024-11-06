@@ -233,58 +233,72 @@ export const fetchProduct = (id) => {
   };
 };
 
-export const addProduct = () => {
+export const addProduct = (formData) => {
   return async (dispatch, getState) => {
     try {
+      // Validation rules for product fields
       const rules = {
-        /* your validation rules */
+        name: { required: true, minLength: 2 },
+        price: { required: true, isNumeric: true },
+        category: { required: true },
+        sku: { required: true },
+        description: { required: true, minLength: 10 },
+        isActive: { required: true },
+        discount: { isNumeric: true },
+        tax: { isNumeric: true },
       };
-      const navigate = useNavigate(); // initiate in your function
-      const product = getState().product.productFormData;
+
       const user = getState().account.user;
-      const brands = getState().brand.brandsSelect;
 
-      const brand = unformatSelectOptions([product.brand]);
+      // Include user ID and other fields from formData
       const newProduct = {
-        /* form newProduct object */
+        ...formData,
+        userId: user.id,
       };
 
+      // Validate the product data
       const { isValid, errors } = allFieldsValidation(newProduct, rules, {
-        // validation messages
+        name: "Product name is required",
+        price: "Price must be a valid number",
+        category: "Category is required",
+        sku: "SKU is required",
+        description: "Description must be at least 10 characters",
+        isActive: "Please specify if the product is active",
       });
 
       if (!isValid) {
         return dispatch({ type: SET_PRODUCT_FORM_ERRORS, payload: errors });
       }
 
-      const formData = new FormData();
+      // Prepare FormData for submission
+      const formDataToSubmit = new FormData();
       for (const key in newProduct) {
         if (newProduct.hasOwnProperty(key)) {
-          formData.set(key, newProduct[key]);
+          formDataToSubmit.append(key, newProduct[key]);
         }
       }
 
-      const response = await axios.post(`${API_URL}/product/add`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      // Submit product data to API
+      const response = await axios.post(
+        `${API_URL}/product/add`,
+        formDataToSubmit,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-      if (response.data.success === true) {
+      if (response.data.success) {
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
         });
 
+        // Update state and reset product form
         dispatch({ type: ADD_PRODUCT, payload: response.data.product });
-        dispatch(resetProduct());
-        navigate("/"); // Use react-router-dom's useNavigate
+        dispatch({ type: RESET_PRODUCT });
       }
     } catch (error) {
-      handleError(error, dispatch);
+      handleError(error, dispatch); // Handle error
     }
   };
 };

@@ -5,43 +5,27 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, updateProfile } from "../../containers/Account/actions";
 import Address from "./Address";
-import { API_URL } from "../../constants";
 const AccountDetails = () => {
   const { id } = useParams();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.account);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await fetch(`${API_URL}/user/${id}`); // Replace API_URL with your actual API URL
-        if (!response.ok) {
-          throw new Error("Failed to fetch user data");
-        }
-        const data = await response.json();
-        setUser(data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    dispatch(fetchProfile(id));
+  }, [dispatch, id]);
 
-    fetchProfile();
-  }, [id]);
+  const handleProfileUpdate = (updatedProfileData) => {
+    dispatch(updateProfile(updatedProfileData));
+  };
 
   if (loading) {
-    return <div>Loading...</div>; // Consider using a spinner here
+    return <div>Loading...</div>; // Show a loading message or spinner
   }
 
   if (error) {
-    return (
-      <div className="alert alert-danger">
-        Error fetching profile: {error.message}
-      </div>
-    ); // Display an error message
+    console.log("Error fetching profile:", error); // Display an error message
   }
+
   return (
     <div className="col-lg-4">
       <div className="card overflow-hidden">

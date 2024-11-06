@@ -89,7 +89,8 @@ export const fetchAddress = (addressId) => {
   };
 };
 
-export const addAddress = () => {
+// Action file
+export const addAddress = (navigate) => {
   return async (dispatch, getState) => {
     try {
       const rules = {
@@ -123,15 +124,15 @@ export const addAddress = () => {
       const response = await axios.post(`${API_URL}/address/add`, address);
 
       if (response.data.success === true) {
-        toast.success(response.data.message); // Updated notification
+        toast.success(response.data.message);
         dispatch({
           type: ADD_ADDRESS,
           payload: response.data.address,
         });
         dispatch({ type: RESET_ADDRESS });
 
-        const navigate = useNavigate();
-        navigate(-1); // Updated navigation
+        // Use passed navigate function
+        navigate(-1);
       }
     } catch (error) {
       handleError(error, dispatch);

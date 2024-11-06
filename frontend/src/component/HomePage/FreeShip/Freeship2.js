@@ -62,17 +62,17 @@ const FeaturePage = () => {
         </div> */}
         <div className="row">
           {features.map((feature, index) => (
-            <div className="col-md-6 col-lg-3" key={index}>
+            <div className="col-md-3 col-sm-3 col-lg-3" key={index}>
               <div className="single-feature">
                 <div className="feature-content">
                   <span className="feature-icon">
                     <i className={feature.icon}></i>
                   </span>
                   <h3 className="feature-title">{feature.title}</h3>
-                  <p className="feature-description">{feature.description}</p>
+                  {/* <p className="feature-description">{feature.description}</p>
                   <a href="#" className="feature-learn-more">
                     {feature.linkText}
-                  </a>
+                  </a> */}
                 </div>
                 <span className="feature-circle-before"></span>
               </div>

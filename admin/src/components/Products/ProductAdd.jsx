@@ -1,145 +1,101 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addProduct } from "../../containers/Product/actions";
 const ProductAdd = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    category: "",
+    sku: "",
+    isActive: "",
+    description: "",
+    price: "",
+    discount: "",
+    tax: "",
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addProduct(formData));
+    navigate("/"); // Use navigate here after dispatch
+  };
+
   return (
-    <div class="row">
-      <div class="col-xl-3 col-lg-4">
-        <div class="card">
-          <div class="card-body">
+    <div className="row">
+      <div className="col-xl-3 col-lg-4">
+        <div className="card">
+          <div className="card-body">
             <img
               src="assets/images/product/p-1.png"
               alt=""
-              class="img-fluid rounded bg-light"
+              className="img-fluid rounded bg-light"
             />
-            <div class="mt-3">
+            <div className="mt-3">
               <h4>
-                Men Black Slim Fit T-shirt{" "}
-                <span class="fs-14 text-muted ms-1">(Fashion)</span>
+                Men Black Slim Fit T-shirt
+                <span className="fs-14 text-muted ms-1">(Fashion)</span>
               </h4>
-              <h5 class="text-dark fw-medium mt-3">Price :</h5>
-              <h4 class="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
-                <span class="text-muted text-decoration-line-through">
+              <h5 className="text-dark fw-medium mt-3">Price :</h5>
+              <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
+                <span className="text-muted text-decoration-line-through">
                   $100
                 </span>{" "}
-                $80 <small class="text-muted"> (30% Off)</small>
+                $80 <small className="text-muted"> (30% Off)</small>
               </h4>
-              <div class="mt-3">
-                <h5 class="text-dark fw-medium">Size :</h5>
-                <div
-                  class="d-flex flex-wrap gap-2"
-                  role="group"
-                  aria-label="Basic checkbox toggle button group"
-                >
-                  <input type="checkbox" class="btn-check" id="size-s" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="size-s"
-                  >
-                    S
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    class="btn-check"
-                    id="size-m"
-                    checked
-                  />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="size-m"
-                  >
-                    M
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="size-xl" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="size-xl"
-                  >
-                    Xl
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="size-xxl" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="size-xxl"
-                  >
-                    XXL
-                  </label>
+              {/* Sizes */}
+              <div className="mt-3">
+                <h5 className="text-dark fw-medium">Size :</h5>
+                <div className="d-flex flex-wrap gap-2">
+                  {/* Size checkboxes */}
                 </div>
               </div>
-              <div class="mt-3">
-                <h5 class="text-dark fw-medium">Colors :</h5>
-                <div
-                  class="d-flex flex-wrap gap-2"
-                  role="group"
-                  aria-label="Basic checkbox toggle button group"
-                >
-                  <input type="checkbox" class="btn-check" id="color-dark" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="color-dark"
-                  >
-                    {" "}
-                    <i class="bx bxs-circle fs-18 text-dark"></i>
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="color-yellow" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="color-yellow"
-                  >
-                    {" "}
-                    <i class="bx bxs-circle fs-18 text-warning"></i>
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="color-white" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="color-white"
-                  >
-                    {" "}
-                    <i class="bx bxs-circle fs-18 text-white"></i>
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="color-red" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="color-red"
-                  >
-                    {" "}
-                    <i class="bx bxs-circle fs-18 text-danger"></i>
-                  </label>
+              {/* Colors */}
+              <div className="mt-3">
+                <h5 className="text-dark fw-medium">Colors :</h5>
+                <div className="d-flex flex-wrap gap-2">
+                  {/* Color checkboxes */}
                 </div>
               </div>
             </div>
           </div>
-          <div class="card-footer bg-light-subtle">
-            <div class="row g-2">
-              <div class="col-lg-6">
-                <a href="#!" class="btn btn-outline-secondary w-100">
+          <div className="card-footer bg-light-subtle">
+            <div className="row g-2">
+              <div className="col-lg-6">
+                <button
+                  onClick={handleSubmit}
+                  className="btn btn-outline-secondary w-100"
+                >
                   Create Product
-                </a>
+                </button>
               </div>
-              <div class="col-lg-6">
-                <a href="#!" class="btn btn-primary w-100">
+              <div className="col-lg-6">
+                <button
+                  onClick={() => navigate("/")}
+                  className="btn btn-primary w-100"
+                >
                   Cancel
-                </a>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-xl-9 col-lg-8 ">
+      <div className="col-xl-9 col-lg-8">
         <div class="card">
           <div class="card-header">
             <h4 class="card-title">Add Product Photo</h4>
           </div>
           <div class="card-body">
             <form
-              action="https://techzaa.getappui.com/"
-              method="post"
               class="dropzone"
               id="myAwesomeDropzone"
               data-plugin="dropzone"
@@ -163,401 +119,157 @@ const ProductAdd = () => {
             </form>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Product Information</h4>
+        {/* Product Photo and Form Section */}
+        <div className="card">
+          <div className="card-header">
+            <h4 className="card-title">Product Information</h4>
           </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <form>
-                  <div class="mb-3">
-                    <label for="product-name" class="form-label">
+          <div className="card-body">
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="name" className="form-label">
                       Product Name
                     </label>
                     <input
                       type="text"
-                      id="product-name"
-                      class="form-control"
-                      placeholder="Items Name"
+                      id="name"
+                      className="form-control"
+                      placeholder="Item Name"
+                      value={formData.name}
+                      onChange={handleChange}
                     />
                   </div>
-                </form>
-              </div>
-              <div class="col-lg-6">
-                <form>
-                  <label for="product-categories" class="form-label">
-                    Product Categories
+                </div>
+                <div className="col-lg-6">
+                  <label htmlFor="category" className="form-label">
+                    Product Category
                   </label>
                   <select
-                    class="form-control"
-                    id="product-categories"
-                    data-choices
-                    data-choices-groups
-                    data-placeholder="Select Categories"
-                    name="choices-single-groups"
+                    id="category"
+                    className="form-control"
+                    value={formData.category}
+                    onChange={handleChange}
                   >
-                    <option value="">Choose a categories</option>
+                    <option value="">Choose a category</option>
                     <option value="Fashion">Fashion</option>
                     <option value="Electronics">Electronics</option>
-                    <option value="Footwear">Footwear</option>
-                    <option value="Sportswear">Sportswear</option>
-                    <option value="Watches">Watches</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="Appliances">Appliances</option>
-                    <option value="Headphones">Headphones</option>
-                    <option value="Other Accessories">Other Accessories</option>
+                    {/* Add more options as needed */}
                   </select>
-                </form>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-4">
-                <form>
-                  <div class="mb-3">
-                    <label for="product-brand" class="form-label">
-                      Brand
+              <div className="row">
+                <div className="col-lg-4">
+                  <div className="mb-3">
+                    <label htmlFor="sku" className="form-label">
+                      SKU
                     </label>
                     <input
                       type="text"
-                      id="product-brand"
-                      class="form-control"
-                      placeholder="Brand Name"
+                      id="sku"
+                      className="form-control"
+                      placeholder="SKU"
+                      value={formData.sku}
+                      onChange={handleChange}
                     />
                   </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <div class="mb-3">
-                    <label for="product-weight" class="form-label">
-                      Weight
-                    </label>
-                    <input
-                      type="text"
-                      id="product-weight"
-                      class="form-control"
-                      placeholder="In gm & kg"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <label for="gender" class="form-label">
-                    Gender
+                </div>
+                <div className="col-lg-4">
+                  <label htmlFor="isActive" className="form-label">
+                    Is Active
                   </label>
                   <select
-                    class="form-control"
-                    id="gender"
-                    data-choices
-                    data-choices-groups
-                    data-placeholder="Select Gender"
+                    id="isActive"
+                    className="form-control"
+                    value={formData.isActive}
+                    onChange={handleChange}
                   >
-                    <option value="">Select Gender</option>
-                    <option value="Men">Men</option>
-                    <option value="Women">Women</option>
-                    <option value="Other">Other</option>
+                    <option value="">Choose an option</option>
+                    <option value="true">True</option>
+                    <option value="false">False</option>
                   </select>
-                </form>
+                </div>
               </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-lg-4">
-                <div class="mt-3">
-                  <h5 class="text-dark fw-medium">Size :</h5>
-                  <div
-                    class="d-flex flex-wrap gap-2"
-                    role="group"
-                    aria-label="Basic checkbox toggle button group"
-                  >
-                    <input type="checkbox" class="btn-check" id="size-xs1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="size-xs1"
-                    >
-                      XS
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="mb-3">
+                    <label htmlFor="description" className="form-label">
+                      Description
                     </label>
-
-                    <input type="checkbox" class="btn-check" id="size-s1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="size-s1"
-                    >
-                      S
-                    </label>
-
-                    <input type="checkbox" class="btn-check" id="size-m1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="size-m1"
-                    >
-                      M
-                    </label>
-
-                    <input type="checkbox" class="btn-check" id="size-xl1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="size-xl1"
-                    >
-                      Xl
-                    </label>
-
-                    <input type="checkbox" class="btn-check" id="size-xxl1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="size-xxl1"
-                    >
-                      XXL
-                    </label>
-                    <input type="checkbox" class="btn-check" id="size-3xl1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="size-3xl1"
-                    >
-                      3XL
-                    </label>
+                    <textarea
+                      id="description"
+                      className="form-control bg-light-subtle"
+                      rows="7"
+                      placeholder="Product description"
+                      value={formData.description}
+                      onChange={handleChange}
+                    ></textarea>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-5">
-                <div class="mt-3">
-                  <h5 class="text-dark fw-medium">Colors :</h5>
-                  <div
-                    class="d-flex flex-wrap gap-2"
-                    role="group"
-                    aria-label="Basic checkbox toggle button group"
-                  >
-                    <input type="checkbox" class="btn-check" id="color-dark1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="color-dark1"
-                    >
-                      {" "}
-                      <i class="bx bxs-circle fs-18 text-dark"></i>
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      class="btn-check"
-                      id="color-yellow1"
-                    />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="color-yellow1"
-                    >
-                      {" "}
-                      <i class="bx bxs-circle fs-18 text-warning"></i>
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      class="btn-check"
-                      id="color-white1"
-                    />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="color-white1"
-                    >
-                      {" "}
-                      <i class="bx bxs-circle fs-18 text-white"></i>
-                    </label>
-
-                    <input type="checkbox" class="btn-check" id="color-red1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="color-red1"
-                    >
-                      {" "}
-                      <i class="bx bxs-circle fs-18 text-primary"></i>
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      class="btn-check"
-                      id="color-green1"
-                    />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="color-green1"
-                    >
-                      {" "}
-                      <i class="bx bxs-circle fs-18 text-success"></i>
-                    </label>
-
-                    <input type="checkbox" class="btn-check" id="color-blue1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="color-blue1"
-                    >
-                      {" "}
-                      <i class="bx bxs-circle fs-18 text-danger"></i>
-                    </label>
-
-                    <input type="checkbox" class="btn-check" id="color-sky1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="color-sky1"
-                    >
-                      {" "}
-                      <i class="bx bxs-circle fs-18 text-info"></i>
-                    </label>
-
-                    <input type="checkbox" class="btn-check" id="color-gray1" />
-                    <label
-                      class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                      for="color-gray1"
-                    >
-                      {" "}
-                      <i class="bx bxs-circle fs-18 text-secondary"></i>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="mb-3">
-                  <label for="description" class="form-label">
-                    Description
-                  </label>
-                  <textarea
-                    class="form-control bg-light-subtle"
-                    id="description"
-                    rows="7"
-                    placeholder="Short description about the product"
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-4">
-                <form>
-                  <div class="mb-3">
-                    <label for="product-id" class="form-label">
-                      Tag Number
-                    </label>
-                    <input
-                      type="number"
-                      id="product-id"
-                      class="form-control"
-                      placeholder="#******"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <div class="mb-3">
-                    <label for="product-stock" class="form-label">
-                      Stock
-                    </label>
-                    <input
-                      type="number"
-                      id="product-stock"
-                      class="form-control"
-                      placeholder="Quantity"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <label for="product-stock" class="form-label">
-                  Tag
-                </label>
-                <select
-                  class="form-control"
-                  id="choices-multiple-remove-button"
-                  data-choices
-                  data-choices-removeItem
-                  name="choices-multiple-remove-button"
-                  multiple
-                >
-                  <option value="Fashion" selected>
-                    Fashion
-                  </option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Watches">Watches</option>
-                  <option value="Headphones">Headphones</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Pricing Details</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-4">
-                <form>
-                  <label for="product-price" class="form-label">
+              {/* Pricing Details */}
+              <div className="row">
+                <div className="col-lg-4">
+                  <label htmlFor="price" className="form-label">
                     Price
                   </label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text fs-20">
-                      <i class="bx bx-dollar"></i>
-                    </span>
-                    <input
-                      type="number"
-                      id="product-price"
-                      class="form-control"
-                      placeholder="000"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <label for="product-discount" class="form-label">
+                  <input
+                    type="number"
+                    id="price"
+                    className="form-control"
+                    placeholder="0"
+                    value={formData.price}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-lg-4">
+                  <label htmlFor="discount" className="form-label">
                     Discount
                   </label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text fs-20">
-                      <i class="bx bxs-discount"></i>
-                    </span>
-                    <input
-                      type="number"
-                      id="product-discount"
-                      class="form-control"
-                      placeholder="000"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <label for="product-tex" class="form-label">
-                    Tex
+                  <input
+                    type="number"
+                    id="discount"
+                    className="form-control"
+                    placeholder="0"
+                    value={formData.discount}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-lg-4">
+                  <label htmlFor="tax" className="form-label">
+                    Tax
                   </label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text fs-20">
-                      <i class="bx bxs-file-txt"></i>
-                    </span>
-                    <input
-                      type="number"
-                      id="product-tex"
-                      class="form-control"
-                      placeholder="000"
-                    />
-                  </div>
-                </form>
+                  <input
+                    type="number"
+                    id="tax"
+                    className="form-control"
+                    placeholder="0"
+                    value={formData.tax}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
-        <div class="p-3 bg-light mb-3 rounded">
-          <div class="row justify-content-end g-2">
-            <div class="col-lg-2">
-              <a href="#!" class="btn btn-outline-secondary w-100">
+        <div className="p-3 bg-light mb-3 rounded">
+          <div className="row justify-content-end g-2">
+            <div className="col-lg-2">
+              <button
+                onClick={handleSubmit}
+                className="btn btn-outline-secondary w-100"
+              >
                 Create Product
-              </a>
+              </button>
             </div>
-            <div class="col-lg-2">
-              <a href="#!" class="btn btn-primary w-100">
+            <div className="col-lg-2">
+              <button
+                onClick={() => navigate("/")}
+                className="btn btn-primary w-100"
+              >
                 Cancel
-              </a>
+              </button>
             </div>
           </div>
         </div>
