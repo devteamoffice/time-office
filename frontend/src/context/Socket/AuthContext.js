@@ -4,18 +4,20 @@ import {
   SET_AUTH,
   CLEAR_AUTH,
 } from "../../containers/Authentication/constants";
-
+import { fetchProfile } from "../../containers/Account/actions";
+import { useSelector } from "react-redux";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
       dispatch({ type: SET_AUTH });
+      dispatch(fetchProfile());
     }
   }, [dispatch]);
 
@@ -26,6 +28,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", formattedToken);
     setIsAuthenticated(true);
     dispatch({ type: SET_AUTH });
+    dispatch(fetchProfile());
   };
 
   const logout = () => {
@@ -35,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

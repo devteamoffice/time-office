@@ -44,16 +44,23 @@ export const fetchProfile = (id) => {
   return async (dispatch, getState) => {
     try {
       dispatch(setProfileLoading(true));
-      const token = localStorage.getItem("token"); // Get the token from localStorage
+      const token = localStorage.getItem("token");
+      console.log("Token:", token);
 
-      const response = await axios.get(`${API_URL}/user/${id}`, {
+      const config = {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the request headers
+          Authorization: `Bearer ${token}`,
         },
-      });
+      };
+
+      const response = await axios.get(`${API_URL}/user/me`, config);
+
+      console.log("API Response Headers:", response.headers);
+      console.log("API Response Data:", response.data);
 
       dispatch({ type: FETCH_PROFILE, payload: response.data.user });
     } catch (error) {
+      console.error("Error fetching profile:", error.response);
       handleError(error, dispatch);
     } finally {
       dispatch(setProfileLoading(false));

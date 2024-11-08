@@ -1,66 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import io from "socket.io-client";
-import SocketContext from "./context";
-import { SOCKET_URL } from "../../constants";
+
+const SocketContext = createContext();
 
 const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
-  const connect = () => {
+  useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (token) {
-      const sk = io("http://localhost:3000", {
+      const socketInstance = io("http://localhost:3000", {
         autoConnect: false,
         auth: { token },
         reconnection: true,
-        reconnectionAttempts: 10, // Increased reconnection attempts
-        reconnectionDelay: 2000, // Increased delay between reconnections
+        reconnectionAttempts: 10,
+        reconnectionDelay: 2000,
       });
 
-      sk.connect();
+      socketInstance.connect();
 
-      sk.on("connect", () => {
-        console.log("Socket connected");
-        setSocket(sk); // Store the socket instance after successful connection
-      });
+      socketInstance.on("connect", () => setSocket(socketInstance));
+      socketInstance.on("connect_error", (err) =>
+        console.error("Socket error:", err.message)
+      );
+      socketInstance.on("reconnect", (attempt) =>
+        console.log(`Reconnected on attempt ${attempt}`)
+      );
+      socketInstance.on("disconnect", (reason) => setSocket(null));
 
-      sk.on("connect_error", (err) => {
-        console.error("Socket connection error:", err.message);
-      });
-
-      sk.on("reconnect", (attempt) => {
-        console.log(`Reconnected successfully after ${attempt} attempts`);
-      });
-
-      sk.on("disconnect", (reason) => {
-        console.log(`Socket disconnected: ${reason}`);
-        setSocket(null); // Clear socket reference after disconnection
-      });
+      return () => socketInstance.disconnect();
     }
-  };
-
-  const disconnect = () => {
-    if (socket) {
-      socket.disconnect();
-      console.log("Socket manually disconnected");
-      setSocket(null); // Clear socket reference when manually disconnected
-    }
-  };
-
-  useEffect(() => {
-    connect(); // Connect socket on mount
-
-    return () => {
-      disconnect(); // Clean up socket on unmount
-    };
-  }, []); // Empty dependency array ensures this runs once
+  }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, connect, disconnect }}>
+    <SocketContext.Provider value={{ socket }}>
       {children}
     </SocketContext.Provider>
   );
 };
 
+export const useSocket = () => useContext(SocketContext);
 export default SocketProvider;

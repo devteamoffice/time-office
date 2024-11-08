@@ -6,8 +6,12 @@ const AddToCartButton = ({ product }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
 
+  if (!product || !product._id) {
+    return null; // Return null or an error message if product is undefined or missing _id
+  }
+
   // Check if the product is already in the cart
-  const itemInCart = cartItems.find((item) => item.id === product.id);
+  const itemInCart = cartItems.find((item) => item._id === product._id);
 
   const addToCart = () => {
     const quantity = itemInCart ? itemInCart.quantity + 1 : 1;

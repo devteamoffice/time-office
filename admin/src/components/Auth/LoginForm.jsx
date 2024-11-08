@@ -47,10 +47,7 @@ const LoginForm = ({ toggleForms }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post(
-        `${API_URL}/admin/login`,
-        loginFormData
-      ); // Update with your API URL
+      const response = await axios.post(`${API_URL}/auth/login`, loginFormData); // Update with your API URL
       const data = response.data;
 
       if (data.success) {

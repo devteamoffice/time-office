@@ -1,69 +1,33 @@
-import React, { useState, useContext } from "react";
+// SignIn.js
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import logo from "../../assets/images/team_office_logo_13.png";
 import img from "../../assets/images/access-control-solution.jpg";
 import LoadingIndicator from "../../component/Extras/LoadingIndicator";
 import { Alert } from "react-bootstrap";
-import { API_URL } from "../../constants";
-import { AuthContext } from "../../context/Socket/AuthContext"; // Ensure correct import
-
+import { toast } from "react-toastify";
+import { loginChange, login } from "../../containers/Login/actions";
 const SignIn = () => {
-  const [loginFormData, setLoginFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formErrors, setFormErrors] = useState({});
-  const [loginError, setLoginError] = useState("");
-  const [loginSuccess, setLoginSuccess] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // Accessing login from AuthContext
 
+  // Access Redux state
+  const { loginFormData, isSubmitting, formErrors, loginError, loginSuccess } =
+    useSelector((state) => state.login);
+
+  // Handle input change using Redux action
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setLoginFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    dispatch(loginChange(name, value));
   };
 
-  const handleSubmit = async (e) => {
+  // Submit form
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Simple validation
-    if (!loginFormData.email || !loginFormData.password) {
-      setFormErrors({
-        email: !loginFormData.email ? "Email is required" : "",
-        password: !loginFormData.password ? "Password is required" : "",
-      });
-      setLoginError("Email and Password are required!");
-      return;
-    }
-
-    // Clear any previous errors
-    setFormErrors({});
-    setLoginError("");
-    setLoginSuccess(false);
-    setIsSubmitting(true);
-
-    try {
-      const response = await axios.post(`${API_URL}/auth/login`, loginFormData); // Update with your API URL
-      const data = response.data;
-
-      if (data.success) {
-        // Successfully logged in
-        setLoginSuccess(true);
-        login(data.token); // Call login with the token returned from the server
-        navigate("/"); // Redirect to dashboard or home
-      } else {
-        setLoginError(data.message || "Login failed. Please try again.");
-      }
-    } catch (error) {
-      setLoginError("An error occurred during login. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    dispatch(login())
+      .then(() => navigate("/"))
+      .catch((error) => toast.error("Login failed. Please try again."));
   };
 
   return (
@@ -138,6 +102,7 @@ const SignIn = () => {
                           </small>
                         )}
                       </div>
+
                       <div className="mb-3">
                         <div className="form-check">
                           <input
