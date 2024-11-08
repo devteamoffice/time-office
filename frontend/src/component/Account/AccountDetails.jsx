@@ -5,57 +5,68 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, updateProfile } from "../../containers/Account/actions";
 import Address from "./Address";
+import { useAuth } from "../../context/Socket/AuthContext";
 const AccountDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { user, loading, error } = useSelector((state) => state.account);
+  const { isAuthenticated } = useAuth();
 
+  // Fetch profile data only once on component mount
   useEffect(() => {
-    dispatch(fetchProfile(id));
-  }, [dispatch, id]);
+    if (isAuthenticated) {
+      dispatch(fetchProfile()); // Fetch profile on authentication
+    } else {
+      console.warn("Token is null when trying to fetch profile.");
+    }
+  }, [dispatch, isAuthenticated]); // Dependency array includes dispatch and isAuthenticated
 
   const handleProfileUpdate = (updatedProfileData) => {
     dispatch(updateProfile(updatedProfileData));
   };
 
+  // Conditional rendering based on loading and error states
   if (loading) {
-    return <div>Loading...</div>; // Show a loading message or spinner
+    return <div>Loading...</div>; // Show loading message or spinner
   }
 
   if (error) {
     console.log("Error fetching profile:", error); // Display an error message
   }
-
   return (
     <div className="col-lg-4">
       <div className="card overflow-hidden">
         <div className="card-body">
-          <div className="bg-primary profile-bg rounded-top p-5 position-relative mx-n3 mt-n3">
-            <img
-              src={avatar}
-              alt=""
-              className="avatar-lg border border-light border-3 rounded-circle position-absolute top-100 start-0 translate-middle ms-5"
-            />
-          </div>
-          <div className="mt-4 pt-3">
-            <h4 className="mb-1">
-              {user.name}
-              <i className="bx bxs-badge-check text-success align-middle"></i>
-            </h4>
-            <div className="mt-2">
-              <a href="#!" className="link-primary fs-15">
-                @{user.username}
-              </a>
-              <p className="fs-15 mb-1 mt-1">
-                <span className="text-dark fw-semibold">Email : </span>{" "}
-                {user.email}
-              </p>
-              <p className="fs-15 mb-0 mt-1">
-                <span className="text-dark fw-semibold">Phone : </span>{" "}
-                {user.phone}
-              </p>
-            </div>
-          </div>
+          {user && (
+            <>
+              <div className="bg-primary profile-bg rounded-top p-5 position-relative mx-n3 mt-n3">
+                <img
+                  src={avatar}
+                  alt=""
+                  className="avatar-lg border border-light border-3 rounded-circle position-absolute top-100 start-0 translate-middle ms-5"
+                />
+              </div>
+              <div className="mt-4 pt-3">
+                <h4 className="mb-1">
+                  {user.name}
+                  <i className="bx bxs-badge-check text-success align-middle"></i>
+                </h4>
+                <div className="mt-2">
+                  <a href="#!" className="link-primary fs-15">
+                    @{user.username}
+                  </a>
+                  <p className="fs-15 mb-1 mt-1">
+                    <span className="text-dark fw-semibold">Email : </span>{" "}
+                    {user.email}
+                  </p>
+                  <p className="fs-15 mb-0 mt-1">
+                    <span className="text-dark fw-semibold">Phone : </span>{" "}
+                    {user.phone}
+                  </p>
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <div className="card-footer border-top gap-1 hstack">
           <a href="#!" className="btn btn-primary w-100">

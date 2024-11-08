@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import p1 from "../../assets/Product Page/images/product/p-1.png";
 import Pagination from "../../component/Common/Pagination";

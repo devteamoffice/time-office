@@ -165,29 +165,36 @@ const deleteUser = async (req, res) => {
 // Create user with specific permissions (with admin check)
 const createUserWithPermissions = async (req, res) => {
   try {
-    const { roleId } = req.user; // Current logged-in user's role
+    const { email, password, tag, roleName, status } = req.body; // Extracting new user info
 
-    // Check if current user has permission to create other users
-    const hasPermission = await checkPermission(roleId, "create_users");
+    // Only admins can create users; ensure current user has admin permissions
+    const { role } = req.user; // Current logged-in user's role
+    const isAdmin = await checkPermission(role, "admin");
 
-    if (!hasPermission) {
+    if (!isAdmin) {
       return res
         .status(403)
-        .json({ message: "Access denied. No permission to create users." });
+        .json({ message: "Access denied. Only admins can create users." });
     }
 
-    const { username, email, password, role } = req.body; // Extracting new user info
+    // Create a new user with provided information
     const user = new User({
-      username,
       email,
       password,
-      role,
+
+      tag,
+      roleName,
+      status, // 'active' or 'inactive'
     });
 
+    // Encrypt the password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
+    // Save the new user to the database
     await user.save();
+
+    // Respond with success message and created user info
     res.json({ message: "User created successfully", user });
   } catch (error) {
     res.status(500).json({ message: "Error creating user", error });

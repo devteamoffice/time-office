@@ -3,20 +3,21 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../constants";
 import DeleteModal from "./DeleteModal";
 import Actions from "../Common/Actions";
-const CustomerItem = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+import { SOCKET_URL } from "../../constants";
+const CustomerItem = ({ user }) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const handleDelete = async () => {
     if (selectedUser) {
       try {
-        await axios.delete(`${API_URL}/users/${selectedUser}.id`);
+        await axios.delete(`${API_URL}/user/${selectedUser.id}`);
         setSelectedUser((prev) =>
           prev.filter((user) => user.id !== selectedUser.id)
         );
       } catch (error) {
+        setError("Failed to fetch users");
         console.error("Error deleting user:", error);
       } finally {
         setSelectedUser(null);
@@ -24,62 +25,61 @@ const CustomerItem = () => {
       }
     }
   };
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/user`);
-        setUsers(response.data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      } finally {
-        setUsers(false);
-      }
-    };
-  });
 
-  if (loading) return <p>Loading users</p>;
-  if (!Array.isArray(users) || users.length === 0)
-    return <p>No users available.</p>;
   return (
     <>
       <DeleteModal
         user={selectedUser}
         onConfirm={handleDelete}
         isVisible={modalVisible}
+        onCancel={() => setModalVisible(false)}
       />
-      {users.map((user) => (
-        <tr key={user.id}>
-          <td>
-            <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id={`customCheck2${user.id}`}
-              />
-              <label class="form-check-label" for="customCheck2">
-                &nbsp;
-              </label>
-            </div>
-          </td>
-          <td>
-            <img
-              src={user.avatar}
-              class="avatar-sm rounded-circle me-2"
-              alt="..."
-            />{" "}
-          </td>
 
-          <td> {user.name} </td>
-          <td> {user.username} </td>
-          <td> {user.email}</td>
-          <td> {user.phoneNo} </td>
-          <td>{user.role}</td>
-          <td>{user.createdAt}</td>
-          <td>
-            <Actions />
-          </td>
-        </tr>
-      ))}
+      <tr>
+        <td>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id={`customCheck2${user.id}`}
+            />
+            <label class="form-check-label" htmlFor={`customCheck${user.id}`}>
+              &nbsp;
+            </label>
+          </div>
+        </td>
+        <td>
+          <img
+            src={user.avatar}
+            class="avatar-sm rounded-circle me-2"
+            alt="..."
+          />{" "}
+        </td>
+
+        <td> {user.name} </td>
+        <td> {user.username} </td>
+        <td> {user.email}</td>
+        <td> {user.phoneNo} </td>
+        <td>{user.role}</td>
+
+        <td>
+          {user.createdAt
+            ? new Date(user.createdAt).toLocaleDateString()
+            : "N/A"}
+        </td>
+        <td>
+          <Actions
+            id={user.id}
+            name={user.name}
+            viewUrl={`${SOCKET_URL}/u/${user.id}`}
+            editUrl={`/customer/${user.id}/edit`}
+            deleteAction={() => {
+              setSelectedUser(user); // Set the selected product for deletion
+              setModalVisible(true); // Show the modal
+            }}
+          />
+        </td>
+      </tr>
     </>
   );
 };

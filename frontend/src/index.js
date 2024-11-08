@@ -1,22 +1,15 @@
+// index.js
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./context/Socket/AuthContext"; // Import AuthProvider
+import App from "./App";
 import store from "./store";
-import setToken from "./utils/token";
-import { SET_AUTH } from "./containers/Authentication/constants";
-const token = localStorage.getItem("token");
+import { checkAuth } from "./containers/Authentication/actions"; // Import checkAuth action
+import { AuthProvider } from "./context/Socket/AuthContext";
 
-if (token) {
-  // authenticate api authorization
-  setToken(token);
-  // authenticate routes
-  store.dispatch({ type: SET_AUTH });
-}
+// Dispatch checkAuth at the start
+store.dispatch(checkAuth());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,13 +17,9 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <AuthProvider>
-          {" "}
-          {/* Wrap with AuthProvider */}
           <App />
         </AuthProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );
-
-reportWebVitals();
