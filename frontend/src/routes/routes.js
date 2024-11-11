@@ -27,6 +27,7 @@ import PaymetFailure from "../pages/PaymetFailure";
 import Account from "../pages/Account";
 import PaymentConfirmation from "../pages/PaymentConfirmation";
 import Pricing from "../pages/General/Pricing";
+import Settings from "../pages/General/Settings";
 export const publicRoutes = [
   // Error Pages
   { path: "/500", element: Error505Page },
@@ -59,6 +60,7 @@ export const publicRoutes = [
   { path: "/u/:id/orders/:orderId", element: OrderDetails },
   { path: "/u/:id/address", element: Address },
   { path: "/u/:id/wishlist", element: Wishlist },
+  { path: "/settings", element: Settings },
 
   // General Pages
   { path: "/", element: Home },

@@ -1,3 +1,4 @@
+// db.js (Database setup)
 const Permission = require("../models/permission");
 require("dotenv").config();
 const sequelize = require("../config/database");
@@ -20,94 +21,81 @@ const setupDB = async () => {
     await sequelize.authenticate();
     console.log("\x1b[32m%s\x1b[0m", "✓ MySQL Connected!"); // Green color for success message
 
-    // Define associations between Role and Permission
-    // Role.hasMany(Permission, { foreignKey: "roleId", onDelete: "CASCADE" });
-    // Permission.belongsTo(Role, { foreignKey: "roleId" });
-    // User.belongsTo(Role, { foreignKey: "roleId" });
-    // console.log(
-    //   "\x1b[32m%s\x1b[0m",
-    //   "✓ Role and Permission associations defined!"
-    // );
-
     // Define associations between models within the setupDB function
+
+    // User and Address associations
     User.hasMany(Address, { foreignKey: "userId", as: "addresses" });
-    Address.belongsTo(User, { foreignKey: "userId", as: "users" });
+    Address.belongsTo(User, { foreignKey: "userId", as: "user" });
     console.log(
       "\x1b[32m%s\x1b[0m",
       "✓ User and Address associations defined!"
     );
 
-    // Merchant.hasMany(Product, { foreignKey: "merchantId", as: "products" });
-    // Product.belongsTo(Merchant, { foreignKey: "merchantId", as: "merchants" });
-    // console.log(
-    //   "\x1b[32m%s\x1b[0m",
-    //   "✓ Merchant and Product associations defined!"
-    // );
-
+    // User and Cart associations
     User.hasMany(Cart, { foreignKey: "userId", as: "carts" });
-    Cart.belongsTo(User, { foreignKey: "userId", as: "users" });
+    Cart.belongsTo(User, { foreignKey: "userId", as: "user" });
     console.log("\x1b[32m%s\x1b[0m", "✓ User and Cart associations defined!");
 
+    // Cart and CartItem associations
     Cart.hasMany(CartItem, { foreignKey: "cartId", as: "items" });
-    CartItem.belongsTo(Cart, { foreignKey: "cartId", as: "carts" });
-    CartItem.belongsTo(Product, { foreignKey: "productId", as: "products" });
+    CartItem.belongsTo(Cart, { foreignKey: "cartId", as: "cart" });
+    CartItem.belongsTo(Product, { foreignKey: "productId", as: "product" });
     console.log(
       "\x1b[32m%s\x1b[0m",
       "✓ Cart and CartItem associations defined!"
     );
 
+    // User and Order associations
     User.hasMany(Order, { foreignKey: "userId", as: "orders" });
-    Order.belongsTo(User, { foreignKey: "userId", as: "users" });
-    Order.belongsTo(Cart, { foreignKey: "cartId", as: "carts" });
+    Order.belongsTo(User, { foreignKey: "userId", as: "user" });
+    Order.belongsTo(Cart, { foreignKey: "cartId", as: "cart" });
     console.log("\x1b[32m%s\x1b[0m", "✓ User and Order associations defined!");
 
+    // Product and Review associations
     Product.hasMany(Review, { foreignKey: "productId", as: "reviews" });
-    Review.belongsTo(Product, { foreignKey: "productId", as: "products" });
-    User.hasMany(Review, { foreignKey: "userId", as: "reviews" });
-    Review.belongsTo(User, { foreignKey: "userId", as: "users" });
+    Review.belongsTo(Product, { foreignKey: "productId", as: "product" });
+    User.hasMany(Review, { foreignKey: "userId", as: "userReviews" });
+    Review.belongsTo(User, { foreignKey: "userId", as: "user" });
     console.log(
       "\x1b[32m%s\x1b[0m",
       "✓ Product, User, and Review associations defined!"
     );
 
+    // User and Wishlist associations
     User.hasMany(Wishlist, { foreignKey: "userId", as: "wishlists" });
-    Wishlist.belongsTo(User, { foreignKey: "userId", as: "users" });
-    Wishlist.belongsTo(Product, { foreignKey: "productId", as: "products" });
+    Wishlist.belongsTo(User, { foreignKey: "userId", as: "user" });
+    Wishlist.belongsTo(Product, { foreignKey: "productId", as: "product" });
     console.log(
       "\x1b[32m%s\x1b[0m",
       "✓ User and Wishlist associations defined!"
     );
 
-    // Keep the Category to Subcategory association
+    // Category and Subcategory association with unique alias
     Category.hasMany(Subcategory, {
       foreignKey: "categoryId",
       as: "subcategories", // Alias for Category -> Subcategory association
     });
-    Subcategory.belongsTo(Category, { foreignKey: "categoryId" });
+    Subcategory.belongsTo(Category, {
+      foreignKey: "categoryId",
+      as: "category",
+    });
     console.log(
       "\x1b[32m%s\x1b[0m",
       "✓ Category and Subcategory associations defined!"
     );
 
-    // Update the alias for Category to Product association to avoid conflict
+    // Category and Product association with unique alias
     Category.hasMany(Product, {
       foreignKey: "categoryId",
-      as: "categoryProducts",
+      as: "categoryProducts", // Alias for Category -> Product association
     });
     Product.belongsTo(Category, {
       foreignKey: "categoryId",
-      as: "productCategory",
+      as: "productCategory", // Alias for Product -> Category association
     });
     console.log(
       "\x1b[32m%s\x1b[0m",
       "✓ Category and Product associations defined with unique alias!"
-    );
-
-    Category.hasMany(Product, { foreignKey: "categoryId", as: "products" });
-    Product.belongsTo(Category, { foreignKey: "categoryId" });
-    console.log(
-      "\x1b[32m%s\x1b[0m",
-      "✓ Category and Product associations defined!"
     );
 
     // Sync the models with the database (do not alter foreign keys every time)

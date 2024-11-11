@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Actions from "../Common/Actions";
 import { SOCKET_URL } from "../../constants";
-import DeleteModal from "./DeleteModal";
-
+import DeleteModal from "../Common/DeleteModal";
 const ProductItem = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -50,10 +49,11 @@ const ProductItem = () => {
   return (
     <>
       <DeleteModal
-        product={selectedProduct}
         onConfirm={handleDelete}
         onCancel={() => setModalVisible(false)} // Close the modal without deleting
         isVisible={modalVisible}
+        item={selectedProduct}
+        itemType="product"
       />
 
       {products.map((product) => (

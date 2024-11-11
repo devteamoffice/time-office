@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Actions from "../Common/Actions";
 import { API_URL } from "../../constants";
 import axios from "axios";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../Common/DeleteModal";
 import { SOCKET_URL } from "../../constants";
 const SubCategoryItem = () => {
   const [subcategories, setSubcategories] = useState([]);
@@ -52,10 +52,11 @@ const SubCategoryItem = () => {
   return (
     <>
       <DeleteModal
-        subcategory={selectedSubCategory}
         onConfirm={handleDelete}
         onCancel={() => setModalVisible(false)}
         isVisible={modalVisible}
+        item={selectedSubCategory}
+        itemType="subcategory"
       />
       {subcategories.map((subcategory) => (
         <tr key={subcategory.id}>

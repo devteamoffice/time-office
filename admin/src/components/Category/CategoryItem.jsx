@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Actions from "../Common/Actions";
 import axios from "axios";
 import { API_URL } from "../../constants";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../Common/DeleteModal";
 import { SOCKET_URL } from "../../constants";
 const CategoryItem = ({ category }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -27,10 +27,11 @@ const CategoryItem = ({ category }) => {
   return (
     <>
       <DeleteModal
-        category={selectedCategory}
         onConfirm={handleDelete}
         onCancel={() => setModalVisible(false)}
         isVisible={modalVisible}
+        item={selectedCategory}
+        itemType="category"
       />
       <tr>
         <td>

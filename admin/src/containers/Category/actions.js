@@ -90,6 +90,7 @@ export const fetchCategories = () => {
       });
     } catch (error) {
       handleError(error, dispatch);
+      console.error(error);
     } finally {
       dispatch({ type: SET_CATEGORIES_LOADING, payload: false });
     }

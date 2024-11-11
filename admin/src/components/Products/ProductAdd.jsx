@@ -1,11 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../../containers/Product/actions";
+import { fetchCategories } from "../../containers/Category/actions";
 const ProductAdd = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+  const categories = useSelector((state) => state.product.categories || []);
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -153,12 +157,15 @@ const ProductAdd = () => {
                     onChange={handleChange}
                   >
                     <option value="">Choose a category</option>
-                    <option value="Fashion">Fashion</option>
-                    <option value="Electronics">Electronics</option>
-                    {/* Add more options as needed */}
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
+
               <div className="row">
                 <div className="col-lg-4">
                   <div className="mb-3">

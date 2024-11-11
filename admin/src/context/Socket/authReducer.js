@@ -1,15 +1,18 @@
-// src/reducers/authReducer.js
-export const initialAuthState = {
+// reducers/authReducer.js
+const initialState = {
   isAuthenticated: false,
+  user: null,
 };
 
-export const authReducer = (state, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "LOGIN":
+    case SET_AUTH:
       return { ...state, isAuthenticated: true };
-    case "LOGOUT":
-      return { ...state, isAuthenticated: false };
+    case CLEAR_AUTH:
+      return { ...state, isAuthenticated: false, user: null };
     default:
       return state;
   }
 };
+
+export default authReducer;
