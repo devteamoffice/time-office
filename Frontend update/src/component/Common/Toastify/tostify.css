@@ -1,0 +1,16 @@
+.tostify-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.notify-button {
+  padding: 10px;
+  border: none;
+  background: #4d0186;
+  color: white;
+  width: 100px;
+  border-radius: 10px;
+}

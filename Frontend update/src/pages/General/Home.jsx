@@ -14,12 +14,13 @@ import OurClientScroll from "../../component/HomePage/OurClients/OurClientScroll
 
 import Freeshiping from "../../component/HomePage/FreeShip/Freeshiping";
 import Freeship2 from "../../component/HomePage/FreeShip/Freeship2";
+import Toastify from "../../component/Common/Toastify/Toastify";
 const Home = () => {
   return (
     <>
-      <HeroSlider />
+      {/* <HeroSlider /> */}
       {/* <NewHero /> */}
-
+      <Toastify />
       <Freeship2 />
       {/* <Freeshiping /> */}
       <Gallery />
