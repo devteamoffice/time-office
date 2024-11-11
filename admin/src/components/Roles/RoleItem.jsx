@@ -2,7 +2,7 @@ import React from "react";
 import Actions from "../Common/Actions";
 import { useState } from "react";
 import { API_URL } from "../../constants";
-import DeleteModal from "../Customers/DeleteModal";
+import DeleteModal from "../Common/DeleteModal";
 import axios from "axios";
 const RoleItem = ({ role }) => {
   const [selectedRole, setSelectedRole] = useState(null);
@@ -26,10 +26,11 @@ const RoleItem = ({ role }) => {
   return (
     <>
       <DeleteModal
-        role={role}
         onConfirm={handleDelete}
         isVisible={modalVisible}
         onCancel={() => setModalVisible(false)}
+        item={role}
+        itemType="role"
       />
       <tr>
         <td>{role.roleName}</td>

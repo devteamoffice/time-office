@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../constants";
-import DeleteModal from "./DeleteModal";
 import Actions from "../Common/Actions";
+import DeleteModal from "../Common/DeleteModal";
 import { SOCKET_URL } from "../../constants";
 const CustomerItem = ({ user }) => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -29,10 +29,11 @@ const CustomerItem = ({ user }) => {
   return (
     <>
       <DeleteModal
-        user={selectedUser}
         onConfirm={handleDelete}
         isVisible={modalVisible}
         onCancel={() => setModalVisible(false)}
+        item={selectedUser}
+        itemType="user"
       />
 
       <tr>

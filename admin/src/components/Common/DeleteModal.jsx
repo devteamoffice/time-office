@@ -1,6 +1,6 @@
 import React from "react";
 
-const DeleteModal = ({ role, onConfirm, onCancel, isVisible }) => {
+const DeleteModal = ({ item, itemType, onConfirm, onCancel, isVisible }) => {
   if (!isVisible) return null; // Don't render if not visible
 
   return (
@@ -18,8 +18,8 @@ const DeleteModal = ({ role, onConfirm, onCancel, isVisible }) => {
           </div>
           <div className="modal-body">
             <p>
-              Are you sure you want to delete the role:{" "}
-              <strong>{role.name}</strong>?
+              Are you sure you want to delete the {itemType}:{" "}
+              <strong>{item.name}</strong>?
             </p>
           </div>
           <div className="modal-footer">

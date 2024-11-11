@@ -4,34 +4,42 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { fetchProduct, updateProduct } from "../../containers/Product/actions";
 import { fetchCategories } from "../../containers/Category/actions";
+import ProductEditCard from "./ProductEditCard";
 const ProductEdit = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // State for form fields
   const [productName, setProductName] = useState("");
   const [brand, setBrand] = useState("");
   const [weight, setWeight] = useState("");
   const [description, setDescription] = useState("");
+  const [slug, setSlug] = useState("");
   const [tagNumber, setTagNumber] = useState("");
   const [stock, setStock] = useState(0);
   const [price, setPrice] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [sku, setSKU] = useState("");
 
-  // Access product and categories from Redux store
   const product = useSelector((state) => state.product.product);
   const categories = useSelector((state) => state.product.categories);
 
   useEffect(() => {
-    // Fetch product details and categories on mount
-    dispatch(fetchProduct(id));
-    dispatch(fetchCategories());
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchProduct(id));
+        await dispatch(fetchCategories());
+      } catch (error) {
+        console.error("Failed to fetch product or categories:", error);
+        toast.error("An error occurred while loading data");
+      }
+    };
+
+    fetchData();
   }, [dispatch, id]);
 
   useEffect(() => {
     if (product) {
-      // Populate form fields with fetched product data
       setProductName(product.name || "");
       setBrand(product.brand || "");
       setWeight(product.weight || "");
@@ -40,6 +48,8 @@ const ProductEdit = () => {
       setStock(product.stock || 0);
       setPrice(product.price || 0);
       setSelectedCategory(product.category || "");
+      setSKU(product.sku || "");
+      setSlug(product.slug || "");
     }
   }, [product]);
 
@@ -53,125 +63,16 @@ const ProductEdit = () => {
       stock,
       price,
       category: selectedCategory,
+      sku,
+      slug,
     };
 
     dispatch(updateProduct(updatedProduct, id, navigate));
   };
+
   return (
     <div class="row">
-      <div class="col-xl-3 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <img
-              src="assets/images/product/p-1.png"
-              alt=""
-              class="img-fluid rounded bg-light"
-            />
-            <div class="mt-3">
-              <h4>
-                Men Black Slim Fit T-shirt{" "}
-                <span class="fs-14 text-muted ms-1">(Fashion)</span>
-              </h4>
-              <h5 class="text-dark fw-medium mt-3">Price :</h5>
-              <h4 class="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
-                <span class="text-muted text-decoration-line-through">
-                  $100
-                </span>{" "}
-                $80 <small class="text-muted"> (30% Off)</small>
-              </h4>
-              <div class="mt-3">
-                <h5 class="text-dark fw-medium">Size :</h5>
-                <div
-                  class="d-flex flex-wrap gap-2"
-                  role="group"
-                  aria-label="Basic checkbox toggle button group"
-                >
-                  <input type="checkbox" class="btn-check" id="size-s" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="size-s"
-                  >
-                    S
-                  </label>
-
-                  <input
-                    type="checkbox"
-                    class="btn-check"
-                    id="size-m"
-                    checked
-                  />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="size-m"
-                  >
-                    M
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="size-xl" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="size-xl"
-                  >
-                    Xl
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="size-xxl" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="size-xxl"
-                  >
-                    XXL
-                  </label>
-                </div>
-              </div>
-              <div class="mt-3">
-                <h5 class="text-dark fw-medium">Colors :</h5>
-                <div
-                  class="d-flex flex-wrap gap-2"
-                  role="group"
-                  aria-label="Basic checkbox toggle button group"
-                >
-                  <input type="checkbox" class="btn-check" id="color-dark" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="color-dark"
-                  >
-                    {" "}
-                    <i class="bx bxs-circle fs-18 text-dark"></i>
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="color-yellow" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="color-yellow"
-                  >
-                    {" "}
-                    <i class="bx bxs-circle fs-18 text-warning"></i>
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="color-white" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="color-white"
-                  >
-                    {" "}
-                    <i class="bx bxs-circle fs-18 text-white"></i>
-                  </label>
-
-                  <input type="checkbox" class="btn-check" id="color-red" />
-                  <label
-                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                    for="color-red"
-                  >
-                    {" "}
-                    <i class="bx bxs-circle fs-18 text-danger"></i>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProductEditCard />
 
       <div class="col-xl-9 col-lg-8 ">
         <div class="p-3 bg-light mb-3 rounded">
@@ -198,8 +99,6 @@ const ProductEdit = () => {
           </div>
           <div class="card-body">
             <form
-              action="https://techzaa.getappui.com/"
-              method="post"
               class="dropzone"
               id="myAwesomeDropzone"
               data-plugin="dropzone"
@@ -232,7 +131,7 @@ const ProductEdit = () => {
               <div class="col-lg-6">
                 <form>
                   <div class="mb-3">
-                    <label for="product-name" class="form-label">
+                    <label htmlFor="product-name" class="form-label">
                       Product Name
                     </label>
                     <input
@@ -247,7 +146,7 @@ const ProductEdit = () => {
                 </form>
               </div>
               <div class="col-lg-6">
-                <label for="product-categories" class="form-label">
+                <label htmlFor="product-categories" class="form-label">
                   Product Categories
                 </label>
                 <select
@@ -277,7 +176,7 @@ const ProductEdit = () => {
               <div class="col-lg-4">
                 <form>
                   <div class="mb-3">
-                    <label for="product-brand" class="form-label">
+                    <label htmlFor="product-brand" class="form-label">
                       Brand
                     </label>
                     <input
@@ -292,14 +191,16 @@ const ProductEdit = () => {
               <div class="col-lg-4">
                 <form>
                   <div class="mb-3">
-                    <label for="product-brand" class="form-label">
-                      Brand
+                    <label htmlFor="product-brand" class="form-label">
+                      SKU
                     </label>
                     <input
                       type="text"
                       id="product-brand"
                       class="form-control"
-                      placeholder="Brand Name"
+                      placeholder="SKU"
+                      value={sku}
+                      onChange={(e) => setSKU(e.target.value)}
                     />
                   </div>
                 </form>
@@ -309,16 +210,33 @@ const ProductEdit = () => {
             <div class="row">
               <div class="col-lg-12">
                 <div class="mb-3">
-                  <label for="description" class="form-label">
+                  <label htmlFor="description" class="form-label">
                     Description
                   </label>
                   <textarea
                     class="form-control bg-light-subtle"
                     id="description"
                     rows="7"
-                    placeholder="Short description about the product"
+                    placeholder="Enter the Item Details"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="mb-3">
+                  <label htmlFor="slug" class="form-label">
+                    Slug
+                  </label>
+                  <textarea
+                    class="form-control bg-light-subtle"
+                    id="slug"
+                    rows="7"
+                    placeholder="Short description about the product"
+                    value={slug}
+                    onChange={(e) => setSlug(e.target.value)}
                   ></textarea>
                 </div>
               </div>
@@ -327,7 +245,7 @@ const ProductEdit = () => {
               <div class="col-lg-4">
                 <form>
                   <div class="mb-3">
-                    <label for="product-id" class="form-label">
+                    <label htmlFor="product-id" class="form-label">
                       Tag Number
                     </label>
                     <input
@@ -342,7 +260,7 @@ const ProductEdit = () => {
               <div class="col-lg-4">
                 <form>
                   <div class="mb-3">
-                    <label for="product-stock" class="form-label">
+                    <label htmlFor="product-stock" class="form-label">
                       Stock
                     </label>
                     <input
@@ -365,7 +283,7 @@ const ProductEdit = () => {
             <div class="row">
               <div class="col-lg-4">
                 <form>
-                  <label for="product-price" class="form-label">
+                  <label htmlFor="product-price" class="form-label">
                     Price
                   </label>
                   <div class="input-group mb-3">
@@ -377,13 +295,15 @@ const ProductEdit = () => {
                       id="product-price"
                       class="form-control"
                       placeholder="000"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
                     />
                   </div>
                 </form>
               </div>
               <div class="col-lg-4">
                 <form>
-                  <label for="product-discount" class="form-label">
+                  <label htmlFor="product-discount" class="form-label">
                     Discount
                   </label>
                   <div class="input-group mb-3">
@@ -401,7 +321,7 @@ const ProductEdit = () => {
               </div>
               <div class="col-lg-4">
                 <form>
-                  <label for="product-tex" class="form-label">
+                  <label htmlFor="product-tex" class="form-label">
                     Tex
                   </label>
                   <div class="input-group mb-3">

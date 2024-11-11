@@ -118,6 +118,7 @@ const Contact = () => {
                 </div>
               </div>
             </div>
+
             {/* Handling Form */}
             <div className="col-md-6">
               <div className="outer-form">
