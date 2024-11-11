@@ -18,7 +18,7 @@ import ShippingDelivery from "../pages/General/ShippingDelivery";
 import MyAccount from "../component/Account/MyAccount";
 import Orders from "../component/Account/Orders";
 import Address from "../component/Account/Address";
-import Wishlist from "../containers/WishList";
+// import Wishlist from "../containers/WishList";
 import OrderDetails from "../pages/OrderDetail";
 import ProductDetails from "../pages/ProductDetails";
 import Blogs from "../pages/General/Blogs";
@@ -59,7 +59,7 @@ export const publicRoutes = [
   { path: "/u/:id/orders", element: Orders },
   { path: "/u/:id/orders/:orderId", element: OrderDetails },
   { path: "/u/:id/address", element: Address },
-  { path: "/u/:id/wishlist", element: Wishlist },
+  //  { path: "/u/:id/wishlist", element: Wishlist },
   { path: "/settings", element: Settings },
 
   // General Pages
