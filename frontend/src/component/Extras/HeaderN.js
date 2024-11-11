@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import HeaderTop from "../HomePage/HeaderTop";
 
 const NavbarN = () => {
-  const { isAuthenticated, login, logout } = useContext(AuthContext);
+  const { isAuthenticated, login, logout, user } = useContext(AuthContext);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const cartItems = useSelector((state) => state.cart?.cartItems?.length || 0);
@@ -93,7 +93,10 @@ const NavbarN = () => {
                             <>
                               <h6 className="dropdown-header">Welcome User!</h6>
                               <li>
-                                <a className="dropdown-item" href="/u/:id">
+                                <a
+                                  className="dropdown-item"
+                                  href={`/u/${user.id}`}
+                                >
                                   <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
                                   Profile
                                 </a>

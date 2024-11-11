@@ -3,7 +3,7 @@ export const API_URL =
 
 export const SOCKET_URL =
   window.location.host.indexOf("localhost") >= 0
-    ? "http://localhost:3000"
+    ? "https://time-office.vercel.app"
     : window.location.host;
 
 export const ROLES = {

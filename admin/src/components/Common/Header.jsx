@@ -97,11 +97,11 @@ const Header = () => {
                       Welcome {user?.username || "Guest"}!
                     </h6>
 
-                    <a className="dropdown-item" href="pages-profile.html">
+                    <a className="dropdown-item" href={`/u/${user.id}`}>
                       <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
                       <span className="align-middle">Profile</span>
                     </a>
-                    <a className="dropdown-item" href="apps-chat.html">
+                    {/* <a className="dropdown-item" href="apps-chat.html">
                       <i className="bx bx-message-dots text-muted fs-18 align-middle me-1"></i>
                       <span className="align-middle">Messages</span>
                     </a>
@@ -117,7 +117,7 @@ const Header = () => {
                     <a className="dropdown-item" href="auth-lock-screen.html">
                       <i className="bx bx-lock text-muted fs-18 align-middle me-1"></i>
                       <span className="align-middle">Lock screen</span>
-                    </a>
+                    </a> */}
 
                     <div className="dropdown-divider my-1"></div>
 
