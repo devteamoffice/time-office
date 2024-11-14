@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Navigation from "../../components/Common/Navigation";
 import Actions from "../../components/Common/Actions";
 import ListTable from "../../components/Category/ListTable";
 
 const CategoryList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalItems = 50; // Example total items
+  const itemNo = 10; // Items per page
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   return (
     <div class="container-xxl">
       <div class="row">
@@ -46,7 +53,11 @@ const CategoryList = () => {
               </div>
             </div>
             <div class="card-footer border-top">
-              <Navigation />
+              <Navigation
+                totalItems={totalItems}
+                itemNo={itemNo}
+                onPageChange={handlePageChange}
+              />
             </div>
           </div>
         </div>

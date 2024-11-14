@@ -8,6 +8,8 @@ const initialState = {
   loginFormData: { email: "", password: "" },
   formErrors: {},
   isLoading: false,
+  loginError: null,
+  loginSuccess: false,
 };
 
 const loginReducer = (state = initialState, action) => {

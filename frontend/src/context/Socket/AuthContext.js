@@ -1,23 +1,30 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   SET_AUTH,
   CLEAR_AUTH,
 } from "../../containers/Authentication/constants";
-import { fetchProfile } from "../../containers/Account/actions";
-import { useSelector } from "react-redux";
+import { jwtDecode as jwt_decode } from "jwt-decode";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setIsAuthenticated(true);
-      dispatch({ type: SET_AUTH });
-      dispatch(fetchProfile());
+      try {
+        setIsAuthenticated(true);
+        dispatch({ type: SET_AUTH });
+        const decodedUser = jwt_decode(token.replace("Bearer ", "")); // Decode without 'Bearer'
+        setUser(decodedUser);
+      } catch (error) {
+        console.error("Token decoding error:", error);
+        setIsAuthenticated(false);
+        setUser(null);
+      }
     }
   }, [dispatch]);
 
@@ -28,12 +35,14 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", formattedToken);
     setIsAuthenticated(true);
     dispatch({ type: SET_AUTH });
-    dispatch(fetchProfile());
+    const decodedUser = jwt_decode(formattedToken.replace("Bearer ", ""));
+    setUser(decodedUser);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
+    setUser(null);
     dispatch({ type: CLEAR_AUTH });
   };
 
@@ -43,6 +52,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-// Optional: Create a custom hook for easier access
-export const useAuth = () => useContext(AuthContext);

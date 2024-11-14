@@ -1,35 +1,33 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 
-const Pagination = ({ pageCount, onPageChange }) => {
-  const handlePageClick = (data) => {
-    let selectedPage = data.selected;
-    onPageChange(selectedPage + 1); // Assuming your pages start from 1
+const Pagination = ({ totalItems, itemNo = 20, onPageChange }) => {
+  const pageCount = Math.ceil(totalItems / itemNo);
+
+  const handlePageClick = (event) => {
+    onPageChange(event.selected + 1); // `selected` is zero-based
   };
 
   return (
-    <div className="py-3 border-top">
-      <ReactPaginate
-        previousLabel={"Previous"}
-        nextLabel={"Next"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
-        pageCount={pageCount} // Total number of pages
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={3}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination justify-content-end mb-0"}
-        activeClassName={"active"}
-        pageClassName={"page-item"}
-        pageLinkClassName={"page-link"}
-        previousClassName={"page-item"}
-        previousLinkClassName={"page-link"}
-        nextClassName={"page-item"}
-        nextLinkClassName={"page-link"}
-        breakLinkClassName={"page-link"}
-        disabledClassName={"disabled"}
-      />
-    </div>
+    <ReactPaginate
+      previousLabel={"Previous"}
+      nextLabel={"Next"}
+      breakLabel={"..."}
+      pageCount={pageCount}
+      marginPagesDisplayed={2}
+      pageRangeDisplayed={3}
+      onPageChange={handlePageClick}
+      containerClassName={"pagination justify-content-end mb-0"}
+      pageClassName={"page-item"}
+      pageLinkClassName={"page-link"}
+      previousClassName={"page-item"}
+      previousLinkClassName={"page-link"}
+      nextClassName={"page-item"}
+      nextLinkClassName={"page-link"}
+      breakClassName={"page-item"}
+      breakLinkClassName={"page-link"}
+      activeClassName={"active"}
+    />
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navigation from "../../components/Common/Navigation";
 import Actions from "../../components/Common/Actions";
 import CustomerCard from "../../components/Customers/CustomerCard";
@@ -6,6 +6,13 @@ import CustomerItem from "../../components/Customers/CustomerItem";
 import ListTable from "../../components/Customers/ListTable";
 
 const Customers = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalItems = 50; // Example total items
+  const itemNo = 10; // Items per page
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   return (
     <div class="container-xxl">
       <CustomerCard />
@@ -43,10 +50,14 @@ const Customers = () => {
             </div>
             <div>
               <div class="table-responsive">
-                <ListTable />
+                <ListTable currentPage={currentPage} itemNo={itemNo} />
               </div>
             </div>
-            <Navigation />
+            <Navigation
+              totalItems={totalItems}
+              itemNo={itemNo}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
       </div>

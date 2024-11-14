@@ -14,12 +14,12 @@ store.dispatch(checkAuth());
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <BrowserRouter>
           <App />
-        </AuthProvider>
-      </Provider>
-    </BrowserRouter>
+        </BrowserRouter>
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );

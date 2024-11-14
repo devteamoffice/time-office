@@ -1,6 +1,7 @@
 export const API_URL =
-  process.env.API_URL || "https://time-office.onrender.com/api";
-
+  process.env.NODE_ENV === "production"
+    ? "https://time-office.onrender.com/api"
+    : "http://localhost:4000/api";
 export const SOCKET_URL =
   window.location.host.indexOf("localhost") >= 0
     ? "https://time-office.vercel.app"

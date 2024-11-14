@@ -41,11 +41,11 @@ function App(user) {
   }, []);
 
   return (
-    <AuthProvider>
+    <>
       <NavbarN />
       {showContent && <Router isAuthenticated={isAuthenticated} />}
       <Footer />
-    </AuthProvider>
+    </>
   );
 }
 

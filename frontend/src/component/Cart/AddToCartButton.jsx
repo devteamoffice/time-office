@@ -2,9 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleAddToCart } from "../../containers/Cart/actions";
 
-const AddToCartButton = ({ product }) => {
+const AddToCartButton = ({ product, cartItems }) => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const cartCount =
+    useSelector((state) => state.cart?.cartItems?.length || 0) || 0;
 
   if (!product || !product._id) {
     return null; // Return null or an error message if product is undefined or missing _id

@@ -9,8 +9,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import HeaderTop from "../HomePage/HeaderTop";
+import SearchBar from "./SearchBar";
 
-const NavbarN = () => {
+const NavbarN = (id) => {
   const { isAuthenticated, login, logout, user } = useContext(AuthContext);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
@@ -57,13 +58,7 @@ const NavbarN = () => {
                 </Link>
               </div>
               <div className="col-md-6 text-center">
-                <div class="search">
-                  <span
-                    class="fa fa-search"
-                    style={{ lineHeight: "25px" }}
-                  ></span>
-                  <input placeholder="Search products..." />
-                </div>
+                <SearchBar />
               </div>
               <div className="col-md-3 text-end">
                 <div className="cart_icon">
@@ -95,7 +90,7 @@ const NavbarN = () => {
                               <li>
                                 <a
                                   className="dropdown-item"
-                                  href={`/u/${user.id}`}
+                                  href={`/u/${user?.id}`}
                                 >
                                   <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
                                   Profile
@@ -319,7 +314,7 @@ const NavbarN = () => {
                           <>
                             <h6 className="dropdown-header">Welcome User!</h6>
                             <li>
-                              <a className="dropdown-item" href="/u/:id">
+                              <a className="dropdown-item" href={`/u/${id}`}>
                                 <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
                                 Profile
                               </a>

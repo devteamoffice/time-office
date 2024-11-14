@@ -8,26 +8,66 @@ import LoadingIndicator from "../../component/Extras/LoadingIndicator";
 import { Alert } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { loginChange, login } from "../../containers/Login/actions";
+import { AuthContext } from "../../context/Socket/AuthContext";
+import { useContext } from "react";
+import axios from "axios";
+import { API_URL } from "../../constants";
 const SignIn = () => {
-  const dispatch = useDispatch();
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [loginError, setLoginError] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Accessing login from AuthContext
 
-  // Access Redux state
-  const { loginFormData, isSubmitting, formErrors, loginError, loginSuccess } =
-    useSelector((state) => state.login);
-
-  // Handle input change using Redux action
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    dispatch(loginChange(name, value));
+    setLoginFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  // Submit form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login())
-      .then(() => navigate("/"))
-      .catch((error) => toast.error("Login failed. Please try again."));
+
+    // Simple validation
+    if (!loginFormData.email || !loginFormData.password) {
+      setFormErrors({
+        email: !loginFormData.email ? "Email is required" : "",
+        password: !loginFormData.password ? "Password is required" : "",
+      });
+      setLoginError("Email and Password are required!");
+      return;
+    }
+
+    // Clear any previous errors
+    setFormErrors({});
+    setLoginError("");
+    setLoginSuccess(false);
+    setIsSubmitting(true);
+
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, loginFormData); // Update with your API URL
+      const data = response.data;
+
+      if (data.success) {
+        // Successfully logged in
+        setLoginSuccess(true);
+        login(data.token); // Call login with the token returned from the server
+        navigate("/"); // Redirect to dashboard or home
+      } else {
+        setLoginError(data.message || "Login failed. Please try again.");
+      }
+    } catch (error) {
+      setLoginError("An error occurred during login. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

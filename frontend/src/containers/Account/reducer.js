@@ -19,6 +19,8 @@ const initialState = {
     role: "",
   },
   isLoading: false,
+
+  error: null,
 };
 
 const accountReducer = (state = initialState, action) => {

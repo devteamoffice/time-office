@@ -28,6 +28,7 @@ import Account from "../pages/Account";
 import PaymentConfirmation from "../pages/PaymentConfirmation";
 import Pricing from "../pages/General/Pricing";
 import Settings from "../pages/General/Settings";
+import AccountSetupPage from "../pages/AccountSetup";
 export const publicRoutes = [
   // Error Pages
   { path: "/500", element: Error505Page },
@@ -61,7 +62,7 @@ export const publicRoutes = [
   { path: "/u/:id/address", element: Address },
   //  { path: "/u/:id/wishlist", element: Wishlist },
   { path: "/settings", element: Settings },
-
+  { path: "/account_setup", element: AccountSetupPage },
   // General Pages
   { path: "/", element: Home },
   { path: "/contact", element: ContactPage },

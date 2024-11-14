@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { FaFileInvoice } from "react-icons/fa6";
 import { RiOrderPlayFill } from "react-icons/ri";
 import { FaMoneyBill1Wave } from "react-icons/fa6";
 import AccountDetails from "../component/Account/AccountDetails";
+import { AuthContext } from "../context/Socket/AuthContext";
 const Account = () => {
-  const user = useSelector((state) => state.account.user);
+  const { isAuthenticated, login, logout, user } = useContext(AuthContext);
+
   return (
     <div class="container-xxl">
       <div class="row">
