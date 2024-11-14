@@ -1,3 +1,4 @@
+import ProfileWrapper from "../components/Profile/ProfileWrapper";
 import Attributes from "../pages/Attributes/Attributes";
 import AttributesAdd from "../pages/Attributes/AttributesAdd";
 import Login from "../pages/Auth/Login";
@@ -15,6 +16,7 @@ import ProductEdit from "../pages/Product/ProductEdit";
 import ProductList from "../pages/Product/ProductList";
 import ProductsAdd from "../pages/Product/ProductsAdd";
 import Warehouse from "../pages/Product/Warehouse";
+import Profile from "../pages/Profile/Profile";
 import Roles from "../pages/Roles/Roles";
 import RolesAdd from "../pages/Roles/RolesAdd";
 import SubCategoryAdd from "../pages/SubCategory/SubCategoryAdd";
@@ -41,4 +43,5 @@ export const publicRoutes = [
   { path: "/customer/list", element: Customers },
   { path: "/customer/:id", element: CustomerDetails },
   { path: "/login", element: Login },
+  { path: "/u/:id", element: Profile },
 ];

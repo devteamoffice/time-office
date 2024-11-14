@@ -1,5 +1,5 @@
 const multer = require("multer");
-
+const Sequelize = require("sequelize");
 // Bring in Models & Utils
 const Product = require("../models/product");
 const Brand = require("../models/brand");
@@ -67,27 +67,91 @@ exports.fetchProductName = async (req, res) => {
   try {
     const name = req.params.name;
 
-    const productDoc = await Product.find(
-      { name: { $regex: new RegExp(name), $options: "is" }, isActive: true },
-      { name: 1, slug: 1, imageUrl: 1, price: 1, _id: 0 }
-    );
+    // Query the database to fetch products by name
+    const products = await Product.findAll({
+      where: {
+        name: {
+          [Sequelize.Op.iLike]: `%${name}%`, // Case-insensitive match (Postgres) or use `LIKE` for MySQL
+        },
+        isActive: true,
+      },
+      attributes: ["name", "slug", "imageUrl", "price"], // Selecting specific columns
+    });
 
-    if (productDoc.length < 0) {
+    // Check if no products were found
+    if (products.length === 0) {
       return res.status(404).json({
         message: "No product found.",
       });
     }
 
+    // Return the products if found
     res.status(200).json({
-      products: productDoc,
+      products,
     });
   } catch (error) {
+    // Log the error for debugging purposes
+    console.error(error);
+
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
   }
 };
+exports.searchProducts = async (req, res) => {
+  try {
+    const { name, minPrice, maxPrice } = req.query; // Using query parameters for search filters
 
+    // Construct the where condition
+    let whereCondition = { isActive: true }; // Start with active products filter
+
+    // Add name filter if provided
+    if (name) {
+      whereCondition.name = {
+        [Op.like]: `%${name}%`, // Case-insensitive match using LIKE
+      };
+    }
+
+    // Add price filter if minPrice or maxPrice are provided
+    if (minPrice) {
+      whereCondition.price = {
+        ...whereCondition.price,
+        [Op.gte]: parseFloat(minPrice), // Greater than or equal to minPrice
+      };
+    }
+    if (maxPrice) {
+      whereCondition.price = {
+        ...whereCondition.price,
+        [Op.lte]: parseFloat(maxPrice), // Less than or equal to maxPrice
+      };
+    }
+
+    // Query the database to fetch products based on the filters
+    const products = await Product.findAll({
+      where: whereCondition,
+      attributes: ["name", "price"], // Selecting specific columns
+    });
+
+    // Check if no products were found
+    if (products.length === 0) {
+      return res.status(404).json({
+        message: "No products found matching your criteria.",
+      });
+    }
+
+    // Return the products if found
+    res.status(200).json({
+      products,
+    });
+  } catch (error) {
+    // Log the error for debugging purposes
+    console.error(error);
+
+    res.status(400).json({
+      error: "Your request could not be processed. Please try again.",
+    });
+  }
+};
 // Function to fetch store products with filters
 // controllers/productController.js
 

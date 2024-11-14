@@ -1,11 +1,16 @@
 export const API_URL =
-  process.env.API_URL || "https://time-office.onrender.com/api";
+  process.env.NODE_ENV === "production"
+    ? "https://time-office.onrender.com/api"
+    : "http://localhost:4000/api";
 export const API = "https://time-office.onrender.com/api";
 export const SOCKET_URL =
   window.location.host.indexOf("localhost") >= 0
     ? "https://time-office.vercel.app"
     : window.location.host;
-
+export const APP_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://time-office.vercel.app"
+    : "http://localhost:3000";
 export const ROLES = {
   Admin: "ROLE ADMIN",
   Member: "ROLE MEMBER",

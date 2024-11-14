@@ -1,33 +1,54 @@
-import React, { useState } from "react";
-
-import p1 from "../../assets/Product Page/images/product/p-1.png";
+import React, { useState, useEffect } from "react";
 import Pagination from "../../component/Common/Pagination";
 import ProductFilter from "../../component/Product/ProductFilter";
 import SingleProduct from "../../component/Product/SingleProduct";
-const Product = (props) => {
+import axios from "axios";
+import { API_URL } from "../../constants";
+
+const Product = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
-  const totalItems = data.length;
-  const pageCount = Math.ceil(totalItems / itemsPerPage);
+
+  const itemsPerPage = 20;
+
+  // Fetching product data
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/product`);
+        setData(response.data.products);
+        setFilteredData(response.data.products); // Initially set filtered data to all products
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  const displayedItems = data.slice(
+
+  const handleFilter = (filteredItems) => {
+    setFilteredData(filteredItems); // Set filtered data based on selected filters
+    setCurrentPage(1); // Reset to first page after filtering
+  };
+
+  // Calculate total pages and displayed items for pagination
+  const totalItems = filteredData.length;
+  const pageCount = Math.ceil(totalItems / itemsPerPage);
+  const displayedItems = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
-  const handleFilter = () => {
-    setIsFilterVisible(!isFilterVisible);
-  };
 
   return (
     <div className="page-content">
       <div className="container-xxl">
         <div className="row">
-          <ProductFilter />
+          <ProductFilter onFilter={handleFilter} />
           <div className="col-lg-9">
             <div className="card bg-light-subtle">
               <div className="card-header border-0">
@@ -39,12 +60,14 @@ const Product = (props) => {
                           Categories
                         </a>
                       </li>
-                      <li className="breadcrumb-item active">All Product</li>
+                      <li className="breadcrumb-item active">All Products</li>
                     </ol>
                     <p className="mb-0 text-muted">
                       Showing all{" "}
-                      <span className="text-dark fw-semibold">780</span> items
-                      results
+                      <span className="text-dark fw-semibold">
+                        {totalItems}
+                      </span>{" "}
+                      items
                     </p>
                   </div>
                   <div className="col-lg-6">
@@ -61,9 +84,13 @@ const Product = (props) => {
               </div>
             </div>
             <div className="row">
-              <SingleProduct />
+              <SingleProduct products={displayedItems} />
             </div>
-            <Pagination pageCount={pageCount} />
+            <Pagination
+              totalItems={totalItems}
+              itemNo={itemsPerPage}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
       </div>

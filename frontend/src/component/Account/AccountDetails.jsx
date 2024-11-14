@@ -5,13 +5,13 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, updateProfile } from "../../containers/Account/actions";
 import Address from "./Address";
-import { useAuth } from "../../context/Socket/AuthContext";
+import { AuthContext } from "../../context/Socket/AuthContext";
+import { useContext } from "react";
 const AccountDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.account);
-  const { isAuthenticated } = useAuth();
-
+  const { isLoading, error } = useSelector((state) => state.account);
+  const { isAuthenticated, login, logout, user } = useContext(AuthContext);
   // Fetch profile data only once on component mount
   useEffect(() => {
     if (isAuthenticated) {
@@ -25,9 +25,9 @@ const AccountDetails = () => {
     dispatch(updateProfile(updatedProfileData));
   };
 
-  // Conditional rendering based on loading and error states
-  if (loading) {
-    return <div>Loading...</div>; // Show loading message or spinner
+  // Conditional rendering based on isLoading and error states
+  if (isLoading) {
+    return <div>Loading...</div>; // Show isLoading message or spinner
   }
 
   if (error) {

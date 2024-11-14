@@ -14,15 +14,10 @@ import { Navigate } from "react-router-dom";
 import { allFieldsValidation } from "../../utils/validation";
 import setToken from "../../utils/token";
 import handleError from "../../utils/error";
-export const loginChange = (name, value) => {
-  let formData = {};
-  formData[name] = value;
-
-  return {
-    type: LOGIN_CHANGE,
-    payload: formData,
-  };
-};
+export const loginChange = (name, value) => ({
+  type: LOGIN_CHANGE,
+  payload: { [name]: value },
+});
 
 export const login = () => {
   return async (dispatch, getState) => {

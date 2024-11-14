@@ -1,38 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
 
-const Navigation = () => {
+const Navigation = ({ totalItems, itemNo = 10, onPageChange }) => {
+  const pageCount = Math.ceil(totalItems / itemNo);
+
+  const handlePageClick = (event) => {
+    onPageChange(event.selected + 1); // `selected` is zero-based
+  };
+
   return (
-    <div class="card-footer border-top">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end mb-0">
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">
-              Previous
-            </a>
-          </li>
-          <li class="page-item active">
-            <a class="page-link" href="javascript:void(0);">
-              1
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">
-              2
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">
-              3
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <ReactPaginate
+      previousLabel={"Previous"}
+      nextLabel={"Next"}
+      breakLabel={"..."}
+      pageCount={pageCount}
+      marginPagesDisplayed={2}
+      pageRangeDisplayed={3}
+      onPageChange={handlePageClick}
+      containerClassName={"pagination justify-content-end mb-0"}
+      pageClassName={"page-item"}
+      pageLinkClassName={"page-link"}
+      previousClassName={"page-item"}
+      previousLinkClassName={"page-link"}
+      nextClassName={"page-item"}
+      nextLinkClassName={"page-link"}
+      breakClassName={"page-item"}
+      breakLinkClassName={"page-link"}
+      activeClassName={"active"}
+    />
   );
 };
 

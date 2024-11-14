@@ -60,7 +60,12 @@ export const fetchProfile = (id) => {
 
       dispatch({ type: FETCH_PROFILE, payload: response.data.user });
     } catch (error) {
-      console.error("Error fetching profile:", error.response);
+      if (error.response && error.response.status === 403) {
+        console.error("Token is invalid or expired. Redirecting to login.");
+        // Redirect to login or prompt re-authentication
+      } else {
+        console.error("Error fetching profile:", error);
+      }
       handleError(error, dispatch);
     } finally {
       dispatch(setProfileLoading(false));
