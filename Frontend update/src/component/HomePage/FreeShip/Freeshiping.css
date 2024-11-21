@@ -59,7 +59,7 @@ Color 2
 
 .feature-page .single-feature {
   position: relative;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   background-color: #fff;
   border-radius: 10px;
   padding: 20px 30px 20px 30px;
@@ -166,4 +166,70 @@ Color 2
 
 .feature-page .single-feature:hover a:after {
   background-color: #fff;
+}
+
+
+
+@media (max-width: 575px) {
+  /* Styles for phones */
+  .feature-page .single-feature .feature-title {
+    
+    font-size: 9px !important;
+}
+.feature-page .single-feature .feature-content {
+  gap: 5px;
+}
+
+.feature-page .single-feature {  
+  padding: 8px 5px !important;
+}
+}
+
+
+@media (max-width: 767px) {
+  /* Styles for phones in landscape */
+  .feature-page .single-feature .feature-icon {
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.feature-page .single-feature .feature-content {
+
+  gap: 8px;
+}
+
+.feature-page .single-feature {
+
+  border-radius: 4px;
+  padding: 8px 10px;
+
+}
+
+.feature-page .single-feature .feature-title {
+  /* margin-bottom: 18px; */
+    font-size: 14px;
+}
+.feature-page .single-feature .feature-circle-before {
+
+  transform: translate(33%, -40%);
+  width: 70px;
+  height: 70px;
+
+}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Styles for tablets */
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Styles for desktops */
+}
+
+@media (min-width: 1200px) {
+  /* Styles for large desktops */
 }

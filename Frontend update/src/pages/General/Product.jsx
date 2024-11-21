@@ -78,7 +78,7 @@ const Product = () => {
                           className="form-check-label"
                           for="all-categories"
                         >
-                          All Categories
+                          
                         </label>
                       </div>
                       <div className="form-check">
@@ -375,10 +375,10 @@ const Product = () => {
             </div>
             <div className="row">
               {displayedItems.map((card) => (
-                <div className="col-md-6 col-xl-4" key={card.id}>
-                  <div className="card">
+                <div className="col-md-6 col-xl-4" key={card.id} >
+                  <div className="card" >
                     <img src={p1} alt="" className="img-fluid" />
-                    <div className="card-body bg-light-subtle rounded-bottom">
+                    <div className="card-body bg-light-subtle rounded-bottom d-flex flex-column" style={{height:"220px"}}>
                       <a
                         href="product-details.html"
                         className="text-dark fw-medium fs-16"
@@ -418,7 +418,7 @@ const Product = () => {
                         </span>
                         $80 <small className="text-muted">(30% Off)</small>
                       </h4>
-                      <div className="mt-3">
+                      <div className="mt-auto">
                         <a
                           href="order-cart.html"
                           className="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-1"

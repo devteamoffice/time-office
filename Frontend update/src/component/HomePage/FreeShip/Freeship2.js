@@ -1,13 +1,14 @@
 import React from "react";
 import "./Freeshiping.css";
+import ship1 from "../../../assets/Image/FreeShiping/24x7.png"
 
 const features = [
-  {
-    icon: "fab fa-battle-net",
-    title: "Free Shipping",
-    description: "Free shipping on all US order or order above $200",
-    linkText: "Learn More",
-  },
+  // {
+  //   icon: "fab fa-battle-net",
+  //   title: "Free Shipping",
+  //   description: "Free shipping on all US order or order above $200",
+  //   linkText: "Learn More",
+  // },
   {
     icon: "fab fa-asymmetrik",
     title: "24X7 Support",
@@ -45,7 +46,7 @@ const features = [
 
 const FeaturePage = () => {
   return (
-    <section className="feature-page">
+    <section className="feature-page py-3 my-4">
       <div className="container">
         {/* <div className="row justify-content-center text-center">
           <div className="col-md-10 col-lg-8">
@@ -62,7 +63,7 @@ const FeaturePage = () => {
         </div> */}
         <div className="row">
           {features.map((feature, index) => (
-            <div className="col-md-3 col-sm-3 col-lg-3" key={index}>
+            <div className="col-4" key={index}>
               <div className="single-feature">
                 <div className="feature-content">
                   <span className="feature-icon">
@@ -79,7 +80,34 @@ const FeaturePage = () => {
             </div>
           ))}
         </div>
-      </div>
+
+         {/* <section>
+        <div className="row">
+  <div className="col-4">
+    <img
+      src={ship1} // Replace with your image URL
+      alt="Image 1"
+      className="img-fluid"
+    />
+  </div>
+  <div className="col-4">
+    <img
+      src="https://via.placeholder.com/150" // Replace with your image URL
+      alt="Image 2"
+      className="img-fluid"
+    />
+  </div>
+  <div className="col-4">
+    <img
+      src="https://via.placeholder.com/150" // Replace with your image URL
+      alt="Image 3"
+      className="img-fluid"
+    />
+  </div>
+</div>
+
+        </section>  */}
+</div>
     </section>
   );
 };

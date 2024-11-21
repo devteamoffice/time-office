@@ -18,7 +18,7 @@ import Toastify from "../../component/Common/Toastify/Toastify";
 const Home = () => {
   return (
     <>
-      {/* <HeroSlider /> */}
+      <HeroSlider />
       {/* <NewHero /> */}
       <Toastify />
       <Freeship2 />
