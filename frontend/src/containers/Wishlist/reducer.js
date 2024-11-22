@@ -12,7 +12,7 @@ const initialState = {
   wishlistForm: {},
 };
 
-const wishListReducer = (state = initialState, action) => {
+const wishlistReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_WISHLIST:
       return {
@@ -29,4 +29,4 @@ const wishListReducer = (state = initialState, action) => {
   }
 };
 
-export default wishListReducer;
+export default wishlistReducer;

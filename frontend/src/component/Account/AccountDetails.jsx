@@ -7,19 +7,40 @@ import { fetchProfile, updateProfile } from "../../containers/Account/actions";
 import Address from "./Address";
 import { AuthContext } from "../../context/Socket/AuthContext";
 import { useContext } from "react";
+import { jwtDecode as jwt_decode } from "jwt-decode"; // Import the jwt_decode function
 const AccountDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.account);
-  const { isAuthenticated, login, logout, user } = useContext(AuthContext);
-  // Fetch profile data only once on component mount
+  const { isLoading = false, error = null } = useSelector(
+    (state) => state.account || {}
+  );
+
+  const [user, setUser] = useState(null); // State for storing decoded user data
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to manage authentication status
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Get token from localStorage
+    if (token) {
+      try {
+        // Decode the token and extract user data
+        const decodedUser = jwt_decode(token.replace("Bearer ", ""));
+        setUser(decodedUser);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error("Token decoding error:", error);
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (isAuthenticated) {
-      dispatch(fetchProfile()); // Fetch profile on authentication
+      dispatch(fetchProfile()); // Fetch profile if authenticated
     } else {
       console.warn("Token is null when trying to fetch profile.");
     }
-  }, [dispatch, isAuthenticated]); // Dependency array includes dispatch and isAuthenticated
+  }, [dispatch, isAuthenticated, user]);
 
   const handleProfileUpdate = (updatedProfileData) => {
     dispatch(updateProfile(updatedProfileData));
@@ -27,7 +48,7 @@ const AccountDetails = () => {
 
   // Conditional rendering based on isLoading and error states
   if (isLoading) {
-    return <div>Loading...</div>; // Show isLoading message or spinner
+    return <div>Loading...</div>; // Show loading message or spinner
   }
 
   if (error) {

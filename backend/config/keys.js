@@ -6,7 +6,9 @@ module.exports = {
   },
   port: process.env.PORT || 4000,
   jwt: {
-    secret: process.env.JWT_SECRET || "vhvvhjvj34fefwefwefwfwf", // Provide a fallback secret
+    secret:
+      process.env.JWT_SECRET ||
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ", // Provide a fallback secret
     tokenLife: "7d",
   },
   mailchimp: {

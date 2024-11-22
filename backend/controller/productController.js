@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 const Product = require("../models/product");
 const Brand = require("../models/brand");
 const { Category } = require("../models/category");
-
+const { uploadToFirebase } = require("../utils/uploadToFirebase"); // Assuming a utility function for Firebase upload
 // const { s3Upload } = require("../utils/storage");
 const {
   getStoreProductsQuery,
@@ -15,6 +15,46 @@ const checkAuth = require("../utils/auth");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
+/**
+ * Filter products by category
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
+exports.filterProductsByCategory = async (req, res) => {
+  const { category } = req.query;
+
+  if (!category) {
+    return res.status(400).json({ message: "Category is required" });
+  }
+
+  try {
+    // Check if the category exists
+    const categoryExists = await Category.findOne({
+      where: { name: category },
+    });
+
+    if (!categoryExists) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+
+    // Fetch products associated with the given category
+    const products = await Product.findAll({
+      where: { categoryId: categoryExists.id },
+    });
+
+    if (!products.length) {
+      return res
+        .status(404)
+        .json({ message: "No products found in this category" });
+    }
+
+    return res.status(200).json({ products });
+  } catch (error) {
+    console.error("Error filtering products by category:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 exports.fetchAllProducts = async (req, res) => {
   try {
@@ -234,43 +274,7 @@ exports.listSelect = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
   try {
-    const sku = req.body.sku;
-    const name = req.body.name;
-    const description = req.body.description;
-    const quantity = req.body.quantity;
-    const price = req.body.price;
-    const taxable = req.body.taxable;
-    const isActive = req.body.isActive;
-    const brand = req.body.brand;
-    const image = req.file;
-
-    if (!sku) {
-      return res.status(400).json({ error: "You must enter sku." });
-    }
-
-    if (!description || !name) {
-      return res
-        .status(400)
-        .json({ error: "You must enter description & name." });
-    }
-
-    if (!quantity) {
-      return res.status(400).json({ error: "You must enter a quantity." });
-    }
-
-    if (!price) {
-      return res.status(400).json({ error: "You must enter a price." });
-    }
-
-    const foundProduct = await Product.findOne({ sku });
-
-    if (foundProduct) {
-      return res.status(400).json({ error: "This sku is already in use." });
-    }
-
-    // const { imageUrl, imageKey } = await s3Upload(image);
-
-    const product = new Product({
+    const {
       sku,
       name,
       description,
@@ -279,19 +283,58 @@ exports.addProduct = async (req, res) => {
       taxable,
       isActive,
       brand,
-      imageUrl,
-      imageKey,
+      categoryId,
+      subcategoryId,
+    } = req.body;
+
+    // Validate required fields
+    if (!sku || !name || !description || !quantity || !price) {
+      return res.status(400).json({
+        error: "SKU, name, description, quantity, and price are required.",
+      });
+    }
+
+    // Check for duplicate SKU
+    const foundProduct = await Product.findOne({ where: { sku } });
+    if (foundProduct) {
+      return res.status(400).json({ error: "This SKU is already in use." });
+    }
+
+    // Handle image upload and format the image URLs
+    const images = [];
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const imageUrl = await uploadToFirebase(file); // Function to upload to Firebase
+        images.push(imageUrl);
+      }
+    }
+
+    // Create product object
+    const product = new Product({
+      sku,
+      name,
+      description,
+      quantity,
+      price,
+      taxable: taxable || false,
+      isActive: isActive || true,
+      brand: brand || null,
+      images: JSON.stringify(images), // Store images as a JSON string
+      categoryId: categoryId || null,
+      subcategoryId: subcategoryId || null,
     });
 
+    // Save the product to the database
     const savedProduct = await product.save();
 
     res.status(200).json({
       success: true,
-      message: `Product has been added successfully!`,
+      message: `Product "${name}" has been added successfully!`,
       product: savedProduct,
     });
   } catch (error) {
-    return res.status(400).json({
+    console.error("Error adding product:", error);
+    return res.status(500).json({
       error: "Your request could not be processed. Please try again.",
     });
   }

@@ -1,55 +1,72 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/contactus.css";
-import { useDispatch, useSelector } from "react-redux";
-import { contactFormChange, contactUs } from "../../containers/Contact/actions"; // Update with the correct path
 import { toast } from "react-toastify";
+import axios from "axios"; // Import Axios
+import { API_URL } from "../../constants";
 
 const Contact = () => {
-  const dispatch = useDispatch();
-  const { contactFormData, errors } = useSelector((state) => state.contact); // Ensure you have this in your Redux store
+  // State to manage form inputs
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
+  const [error, setError] = useState(null); // Local state for error handling
+
+  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch(contactFormChange(name, value));
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(contactUs());
+    try {
+      // Send form data to API
+      const response = await axios.post(`${API_URL}/contact`, formData); // Replace with your actual API endpoint
+      if (response.status === 200) {
+        toast.success("Your message has been sent successfully!");
+        setFormData({ name: "", email: "", message: "" }); // Clear form fields
+      }
+    } catch (error) {
+      toast.error("There was an error sending your message.");
+      setError(error?.response?.data?.errors || "An unexpected error occurred");
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    if (errors) {
-      errors.forEach((error) => toast.error(error)); // Display errors as toast notifications
+    if (error) {
+      // Display error as toast notifications
+      toast.error(error);
     }
-  }, [errors]);
+  }, [error]);
 
   return (
     <>
-      {/* <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-12 aboutBg-image">Contact us</div>
-      </div>
-    </div> */}
       <div className="col-md-12 contact-top">
         <h1>CONTACT US</h1>
       </div>
 
-      {/* Contact */}
-      <div className="contact-section   ">
-        <div className="container   py-4">
-          <div className="row contact-left  py-4">
+      <div className="contact-section">
+        <div className="container py-4">
+          <div className="row contact-left py-4">
             {/* Get in touch */}
             <div className="col-md-6">
               <h2>Get In Touch</h2>
               <p>
                 "We’re here to make things easier for you. Reach out to us by
                 filling out the form, and we’ll respond as quickly as possible
-                or you can call us at given number.
+                or you can call us at the given number."
               </p>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i class="fa-solid fa-location-dot"></i>
+                  <i className="fa-solid fa-location-dot"></i>
                 </div>
                 <div className="address-section-inner">
                   <h3>Address</h3>
@@ -61,22 +78,20 @@ const Contact = () => {
               </div>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i class="fa-solid fa-phone"></i>
+                  <i className="fa-solid fa-phone"></i>
                 </div>
-
-                <div className="address-section-inner ">
+                <div className="address-section-inner">
                   <h3>Phone Number</h3>
-                  <p> 080-6901 0000</p>
+                  <p>080-6901 0000</p>
                 </div>
               </div>
               <div className="address-section my-3">
                 <div className="icon">
-                  <i class="fa-solid fa-envelope"></i>
+                  <i className="fa-solid fa-envelope"></i>
                 </div>
-
                 <div className="address-section-inner">
                   <h3>Email Address</h3>
-                  <p> info@chiptronics.co.in</p>
+                  <p>info@chiptronics.co.in</p>
                 </div>
               </div>
               <hr />
@@ -86,7 +101,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        class="fa-brands fa-facebook-f"
+                        className="fa-brands fa-facebook-f"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -94,7 +109,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        class="fa-brands fa-twitter"
+                        className="fa-brands fa-twitter"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -102,7 +117,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        class="fa-brands fa-instagram"
+                        className="fa-brands fa-instagram"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -110,7 +125,7 @@ const Contact = () => {
                   <div className="icon">
                     <a href="">
                       <i
-                        class="fa-brands fa-youtube"
+                        className="fa-brands fa-youtube"
                         style={{ color: "#ffffff" }}
                       ></i>
                     </a>
@@ -122,12 +137,30 @@ const Contact = () => {
             {/* Handling Form */}
             <div className="col-md-6">
               <div className="outer-form">
-                <form action="" className="inner-form">
+                <form onSubmit={handleSubmit} className="inner-form">
                   <h1 className="my-2">Send a Message</h1>
-                  <input type="text" placeholder="Name" />
-                  <input type="email" placeholder="E-mail Address" />
-                  <input type="text" placeholder="Message" />
-                  <button>Submit</button>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="email"
+                    placeholder="E-mail Address"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                  />
+                  <button type="submit">Submit</button>
                 </form>
               </div>
             </div>
@@ -140,7 +173,6 @@ const Contact = () => {
         className="col-md-12 contact-map mt-4"
         style={{ position: "relative" }}
       >
-        {/* Company Info Overlay */}
         <div
           style={{
             position: "absolute",
@@ -169,7 +201,6 @@ const Contact = () => {
           </a>
         </div>
 
-        {/* Google Map */}
         <iframe
           src="https://maps.google.com/maps?q=B205,%20Anannya%20Complex,%20Near%20Akshar%20Chowk%20O.P.%20Road,%20Vadodara-390020&amp;t=&amp;z=19&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
           frameBorder="0"

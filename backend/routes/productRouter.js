@@ -21,6 +21,7 @@ router.post(
   upload.single("image"),
   productController.addProduct
 );
+router.get("/filter", productController.filterProductsByCategory);
 router.get("/", productController.fetchAllProducts);
 router.get("/:id", productController.fetchProductById);
 router.put(

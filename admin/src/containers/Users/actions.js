@@ -17,34 +17,47 @@ export const setUserLoading = (value) => {
 };
 
 export const fetchUsers = (page) => {
-  return async (disptach, getState) => {
+  return async (dispatch, getState) => {
     try {
-      disptach(setUserLoading(true));
+      dispatch(setUserLoading(true));
+
+      const token = getState().auth?.token;
+      if (!token) {
+        throw new Error("Authorization token not found");
+      }
+
       const response = await axios.get(`${API_URL}/user`, {
         params: {
           page: page ?? 1,
           limit: 20,
         },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      console.log("API Response:", response.data); // Log API response to check structure
 
       const { users, totalPages, currentPage, count } = response.data;
 
-      disptach({
+      dispatch({
         type: FETCH_USERS,
         payload: users,
       });
 
-      disptach({
+      dispatch({
         type: SET_ADVANCED_FILTERS,
-        payload: ({ totalPages, currentPage, count } = response.data),
+        payload: { totalPages, currentPage, count },
       });
     } catch (error) {
-      handleError(error, disptach);
+      handleError(error, dispatch);
     } finally {
-      disptach(setUserLoading(false));
+      dispatch(setUserLoading(false));
     }
   };
 };
+
+// Action creator for setting loading state
 
 export const searchUsers = (filter) => {
   return async (dispatch, getState) => {
