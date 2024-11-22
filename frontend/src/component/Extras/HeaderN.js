@@ -99,7 +99,7 @@ const NavbarN = (id) => {
                               <li>
                                 <a
                                   className="dropdown-item"
-                                  href="/u/:id/orders"
+                                  href={`/u/${user?.id}/orders`}
                                 >
                                   <i className="bx bx-message-dots text-muted fs-18 align-middle me-1"></i>
                                   Your Orders

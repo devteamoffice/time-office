@@ -1,7 +1,7 @@
 {
   "categories": [
     {
-      "id": "cat001",
+      "id": "1",
       "name": "Attendance and Access Control Systems",
       "subcategories": [
         {
@@ -156,7 +156,7 @@
       ]
     },
     {
-      "id": "cat002",
+      "id": "2",
       "name": "Door Locks and Controllers",
       "subcategories": [
         {
@@ -235,7 +235,7 @@
       ]
     },
     {
-      "id": "cat003",
+      "id": "3",
       "name": "Barcode Scanners ",
       "subcategories": [
         {
@@ -267,7 +267,7 @@
       ]
     },
     {
-      "id": "cat004",
+      "id": "4",
       "name": "Accessories",
       "subcategories": [
         {
@@ -461,7 +461,7 @@
       ]
     },
     {
-      "id": "cat005",
+      "id": "5",
       "name": "Switches for Access Control",
       "subcategories": [
         {
@@ -562,7 +562,7 @@
       ]
     },
     {
-      "id": "cat006",
+      "id": "6",
       "name": "Readers",
       "subcategories": [
         {
@@ -580,7 +580,7 @@
       ]
     },
     {
-      "id": "cat008",
+      "id": "7",
       "name": "Elevator Control System",
       "subcategories": [
         {

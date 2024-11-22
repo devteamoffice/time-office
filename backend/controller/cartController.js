@@ -9,85 +9,120 @@ exports.addToCart = async (req, res) => {
     const user = req.user._id;
     const items = req.body.products;
 
+    if (!items || !Array.isArray(items)) {
+      return res.status(400).json({ error: "Invalid product list." });
+    }
+
     const products = store.caculateItemsSalesTax(items);
 
-    const cart = new Cart({
-      user,
-      products,
-    });
-
+    const cart = new Cart({ user, products });
     const cartDoc = await cart.save();
 
-    decreaseQuantity(products);
+    try {
+      decreaseQuantity(products);
+    } catch (err) {
+      console.error("Error updating inventory:", err);
+      return res.status(500).json({ error: "Failed to update inventory." });
+    }
 
     res.status(200).json({
       success: true,
       cartId: cartDoc.id,
+      cart: cartDoc, // Optional: Include cart details
     });
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
-    });
+    console.error("Error adding to cart:", error);
+    res.status(500).json({ error: "Your request could not be processed." });
   }
 };
 
 exports.deleteCart = async (req, res) => {
   try {
-    await Cart.deleteOne({ _id: req.params.cartId });
+    const cart = await Cart.findById(req.params.cartId);
+
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found." });
+    }
+
+    await cart.deleteOne();
 
     res.status(200).json({
       success: true,
+      message: "Cart deleted successfully.",
     });
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
-    });
+    console.error("Error deleting cart:", error);
+    res.status(500).json({ error: "Your request could not be processed." });
   }
 };
 
 exports.addItemToCart = async (req, res) => {
   try {
     const product = req.body.product;
+
+    if (!product || !product.product || !product.quantity) {
+      return res.status(400).json({ error: "Invalid product details." });
+    }
+
     const query = { _id: req.params.cartId };
 
-    await Cart.updateOne(query, { $push: { products: product } }).exec();
+    const cart = await Cart.findOneAndUpdate(
+      query,
+      { $push: { products: product } },
+      { new: true }
+    );
+
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found." });
+    }
 
     res.status(200).json({
       success: true,
+      cart,
     });
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
-    });
+    console.error("Error adding item to cart:", error);
+    res.status(500).json({ error: "Your request could not be processed." });
   }
 };
 
 exports.deleteItemToCart = async (req, res) => {
   try {
-    const product = { product: req.params.productId };
     const query = { _id: req.params.cartId };
+    const product = { product: req.params.productId };
 
-    await Cart.updateOne(query, { $pull: { products: product } }).exec();
+    const cart = await Cart.findOneAndUpdate(
+      query,
+      { $pull: { products: product } },
+      { new: true }
+    );
+
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found." });
+    }
 
     res.status(200).json({
       success: true,
+      cart,
     });
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
-    });
+    console.error("Error removing item from cart:", error);
+    res.status(500).json({ error: "Your request could not be processed." });
   }
 };
 
-const decreaseQuantity = (products) => {
-  let bulkOptions = products.map((item) => {
-    return {
+const decreaseQuantity = async (products) => {
+  try {
+    const bulkOptions = products.map((item) => ({
       updateOne: {
         filter: { _id: item.product },
         update: { $inc: { quantity: -item.quantity } },
       },
-    };
-  });
+    }));
 
-  Product.bulkWrite(bulkOptions);
+    await Product.bulkWrite(bulkOptions);
+  } catch (error) {
+    console.error("Error decreasing inventory:", error);
+    throw new Error("Failed to update inventory.");
+  }
 };

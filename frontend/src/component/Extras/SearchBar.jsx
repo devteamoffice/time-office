@@ -14,7 +14,7 @@ const SearchBar = () => {
     try {
       const res = await axios.get(`${API_URL}/product/search/${name}`);
       navigate(`/store?name=${name}`, {
-        state: { searchResult: res.data.data },
+        state: { searchResult: res.data.products },
       });
     } catch (err) {
       console.error("Failed to fetch search results: ", err);

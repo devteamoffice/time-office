@@ -1,12 +1,39 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import AccountPaginate from "./AccountPaginate";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  fetchProfile,
+  updateProfile,
+  accountChange,
+} from "../../containers/Account/actions";
 const AccountSetup = () => {
+  const dispatch = useDispatch();
+
+  // Accessing the Redux state
+  const account = useSelector((state) => state.account);
+  const { user = {}, isLoading } = account;
+
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, [dispatch]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(accountChange({ [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateProfile(user));
+  };
   return (
     <div class="card">
       <div class="card-header">
         <h5 class="card-title anchor" id="basic-wizard">
           Account Setup
-          <a class="anchor-link" href="#horizontal-wizard">
+          <a class="anchor-link" href="/terms-and-conditions" target="_blank">
             Why we ask for your data?
           </a>
         </h5>
@@ -15,79 +42,6 @@ const AccountSetup = () => {
         <div class="mb-5">
           <form>
             <div id="horizontalwizard">
-              <ul
-                class="nav nav-pills nav-justified icon-wizard form-wizard-header bg-light p-1"
-                role="tablist"
-              >
-                <li class="nav-item" role="presentation">
-                  <a
-                    href="#basictab1"
-                    data-bs-toggle="tab"
-                    data-toggle="tab"
-                    class="nav-link rounded-0 py-2 active"
-                    aria-selected="true"
-                    role="tab"
-                  >
-                    <iconify-icon
-                      icon="iconamoon:profile-circle-duotone"
-                      class="fs-26"
-                    ></iconify-icon>
-                    Account
-                  </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a
-                    href="#basictab2"
-                    data-bs-toggle="tab"
-                    data-toggle="tab"
-                    class="nav-link rounded-0 py-2"
-                    aria-selected="false"
-                    role="tab"
-                    tabindex="-1"
-                  >
-                    <iconify-icon
-                      icon="iconamoon:profile-duotone"
-                      class="fs-26"
-                    ></iconify-icon>
-                    Profile
-                  </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a
-                    href="#basictab3"
-                    data-bs-toggle="tab"
-                    data-toggle="tab"
-                    class="nav-link rounded-0 py-2"
-                    aria-selected="false"
-                    tabindex="-1"
-                    role="tab"
-                  >
-                    <iconify-icon
-                      icon="iconamoon:link-fill"
-                      class="fs-26"
-                    ></iconify-icon>
-                    Payment Methods
-                  </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a
-                    href="#basictab4"
-                    data-bs-toggle="tab"
-                    data-toggle="tab"
-                    class="nav-link rounded-0 py-2"
-                    aria-selected="false"
-                    tabindex="-1"
-                    role="tab"
-                  >
-                    <iconify-icon
-                      icon="iconamoon:check-circle-1-duotone"
-                      class="fs-26"
-                    ></iconify-icon>
-                    Finish
-                  </a>
-                </li>
-              </ul>
-
               <div class="tab-content mb-0">
                 <div
                   class="tab-pane active show"
@@ -106,8 +60,11 @@ const AccountSetup = () => {
                         <input
                           id="basicUser"
                           type="text"
+                          name="username"
                           class="form-control"
                           placeholder="Enter User Name"
+                          value={user.username || ""}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
@@ -119,8 +76,11 @@ const AccountSetup = () => {
                         <input
                           id="basicUser"
                           type="text"
+                          name="name"
                           class="form-control"
                           placeholder="Enter User Name"
+                          value={user.name || ""}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
@@ -132,8 +92,11 @@ const AccountSetup = () => {
                         <input
                           id="basicEmail"
                           type="email"
+                          name="email"
                           class="form-control"
                           placeholder="Enter your email"
+                          value={user.email || ""}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
@@ -154,8 +117,8 @@ const AccountSetup = () => {
                 </div>
 
                 <div class="tab-pane" id="basictab2" role="tabpanel">
-                  <h4 class="fs-16 fw-semibold mb-1">Profile Information</h4>
-                  <p class="text-muted">Setup your profile information</p>
+                  <h4 class="fs-16 fw-semibold mb-1">user Information</h4>
+                  <p class="text-muted">Setup your user information</p>
 
                   <div class="row">
                     <div class="col-12">
@@ -457,35 +420,7 @@ const AccountSetup = () => {
                   </div>
                 </div>
 
-                <div class="d-flex flex-wrap align-items-center wizard justify-content-between gap-3 mt-3">
-                  <div class="first">
-                    <a href="javascript:void(0);" class="btn btn-soft-primary">
-                      First
-                    </a>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="previous">
-                      <a
-                        href="javascript:void(0);"
-                        class="btn btn-primary disabled"
-                      >
-                        <i class="bx bx-left-arrow-alt me-2"></i>Back To
-                        Previous
-                      </a>
-                    </div>
-                    <div class="next">
-                      <a href="javascript:void(0);" class="btn btn-primary">
-                        Next Step
-                        <i class="bx bx-right-arrow-alt ms-2"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="last">
-                    <a href="javascript:void(0);" class="btn btn-soft-primary">
-                      Finish
-                    </a>
-                  </div>
-                </div>
+                <AccountPaginate />
               </div>
             </div>
           </form>

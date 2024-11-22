@@ -5,24 +5,40 @@ import "../../assets/Product Page/css/app.min.css";
 import { FaRegHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "../../containers/Product/actions";
+import { fetchProduct } from "../../containers/Product/actions"; // Assuming you have an action to fetch products
 import AddToCartButton from "../Cart/AddToCartButton";
+import { API_URL } from "../../constants";
+import axios from "axios";
+
 const SingleProductDetails = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { product, loading, error } = useSelector((state) => state.product);
+  const { id } = useParams(); // Get the product id from the URL
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [count, setCount] = useState(1);
 
-  // Dispatch fetchProduct action
   useEffect(() => {
-    if (id) {
-      dispatch(fetchProduct(id));
-    }
-  }, [id, dispatch]);
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/product/${id}`);
+        // Axios automatically throws an error for non-2xx status codes, so no need for `response.ok`
+        const data = response.data.product; // No need for `await` here as `data` is already resolved
+        setProduct(data);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching product:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductData();
+  }, [id]);
 
   if (loading) return <p>Loading product details...</p>;
   if (error) return <p>Error: {error}</p>;
 
+  // Parsing images, ensure that it matches the structure in the response
   const images = product?.images
     ? JSON.parse(product.images).filter((img) => !img.includes("Thumbs.db"))
     : [];

@@ -93,19 +93,20 @@ const productReducer = (state = initialState, action) => {
     case FETCH_PRODUCT_REQUEST:
       return {
         ...state,
-        loading: true,
+        isLoading: true, // Use isLoading instead of isLoading
         error: null,
       };
+
     case FETCH_PRODUCT_SUCCESS:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         product: action.payload,
       };
     case FETCH_PRODUCT_FAILURE:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload,
       };
     case FETCH_STORE_PRODUCT:

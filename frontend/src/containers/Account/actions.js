@@ -16,7 +16,7 @@ import {
 } from "./constants";
 import handleError from "../../utils/error";
 import { API_URL } from "../../constants";
-
+import { LOGOUT } from "../Authentication/constants";
 export const accountChange = (name, value) => {
   let formData = {};
   formData[name] = value;
@@ -40,62 +40,26 @@ export const setProfileLoading = (value) => {
   };
 };
 
-export const fetchProfile = (id) => {
-  return async (dispatch, getState) => {
-    try {
-      dispatch(setProfileLoading(true));
-      const token = localStorage.getItem("token");
-      console.log("Token:", token);
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      const response = await axios.get(`${API_URL}/user/me`, config);
-
-      console.log("API Response Headers:", response.headers);
-      console.log("API Response Data:", response.data);
-
-      dispatch({ type: FETCH_PROFILE, payload: response.data.user });
-    } catch (error) {
-      if (error.response && error.response.status === 403) {
-        console.error("Token is invalid or expired. Redirecting to login.");
-        // Redirect to login or prompt re-authentication
-      } else {
-        console.error("Error fetching profile:", error);
-      }
-      handleError(error, dispatch);
-    } finally {
-      dispatch(setProfileLoading(false));
-    }
-  };
+export const fetchProfile = () => async (dispatch) => {
+  dispatch({ type: SET_PROFILE_LOADING, payload: true });
+  try {
+    const token = localStorage.getItem("token"); // Replace with your token retrieval logic
+    const { data } = await axios.get(`${API_URL}/user/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch({ type: FETCH_PROFILE, payload: data });
+  } catch (error) {
+    handleError(error, dispatch);
+  }
 };
 
-export const updateProfile = () => {
-  return async (dispatch, getState) => {
-    const profile = getState().account.user;
-
-    try {
-      const response = await axios.put(`${API_URL}/user`, {
-        profile,
-      });
-
-      dispatch({ type: FETCH_PROFILE, payload: response.data.user });
-
-      // Display success notification using react-toastify
-      toast.success(response.data.message, {
-        position: "top-right",
-        autoClose: 1000, // autoDismiss 1 is equivalent to 1000 ms
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    } catch (error) {
-      handleError(error, dispatch);
-    }
-  };
+export const updateProfile = (profile) => async (dispatch) => {
+  try {
+    await axios.put(`${API_URL}/user`, profile);
+    toast.success("Profile updated successfully!");
+  } catch (error) {
+    handleError(error);
+  }
 };

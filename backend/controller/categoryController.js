@@ -1,12 +1,9 @@
 // Bring in Models & Utils
-const { Category } = require("../models/category");
+const { Category } = require("../models/category"); // Assuming Sequelize models are defined
 const store = require("../utils/store");
 
 exports.addCategory = async (req, res) => {
-  const name = req.body.name;
-  const description = req.body.description;
-  const products = req.body.products;
-  const isActive = req.body.isActive;
+  const { name, description, products, isActive } = req.body;
 
   if (!description || !name) {
     return res
@@ -14,35 +11,32 @@ exports.addCategory = async (req, res) => {
       .json({ error: "You must enter description & name." });
   }
 
-  const category = new Category({
-    name,
-    description,
-    products,
-    isActive,
-  });
-
-  category.save((err, data) => {
-    if (err) {
-      return res.status(400).json({
-        error: "Your request could not be processed. Please try again.",
-      });
-    }
-
+  try {
+    const category = await Category.create({
+      name,
+      description,
+      products,
+      isActive,
+    });
     res.status(200).json({
       success: true,
       message: `Category has been added successfully!`,
-      category: data,
+      category,
     });
-  });
+  } catch (error) {
+    console.error("Error adding category:", error);
+    res.status(400).json({
+      error: "Your request could not be processed. Please try again.",
+    });
+  }
 };
 
 exports.fetchStoreCategories = async (req, res) => {
   try {
-    const categories = await Category.find({ isActive: true });
-    res.status(200).json({
-      categories,
-    });
+    const categories = await Category.findAll({ where: { isActive: true } });
+    res.status(200).json({ categories });
   } catch (error) {
+    console.error("Error fetching store categories:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
@@ -51,40 +45,33 @@ exports.fetchStoreCategories = async (req, res) => {
 
 exports.fetchCategories = async (req, res) => {
   try {
-    // Fetch all categories from the MySQL database
     const categories = await Category.findAll();
-
-    res.status(200).json({
-      categories,
-    });
+    res.status(200).json({ categories });
   } catch (error) {
-    console.error("Error fetching categories:", error); // Log the error
+    console.error("Error fetching categories:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
-      details: error.message, // Optional: include error details for debugging
     });
   }
 };
 
 exports.fetchCategoryById = async (req, res) => {
   try {
-    const categoryId = req.params.id;
-
-    const categoryDoc = await Category.findOne({ _id: categoryId }).populate({
-      path: "products",
-      select: "name",
+    const { id } = req.params;
+    const category = await Category.findByPk(id, {
+      include: {
+        association: Category.associations.products, // Assuming association is defined
+        attributes: ["name"], // Select only the name field
+      },
     });
 
-    if (!categoryDoc) {
-      return res.status(404).json({
-        message: "No Category found.",
-      });
+    if (!category) {
+      return res.status(404).json({ message: "No Category found." });
     }
 
-    res.status(200).json({
-      category: categoryDoc,
-    });
+    res.status(200).json({ category });
   } catch (error) {
+    console.error("Error fetching category by ID:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
@@ -93,28 +80,29 @@ exports.fetchCategoryById = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
   try {
-    const categoryId = req.params.id;
-    const update = req.body.category;
-    const query = { _id: categoryId };
-    const { slug } = req.body.category;
+    const { id } = req.params;
+    const updateData = req.body.category;
 
     const foundCategory = await Category.findOne({
-      $or: [{ slug }],
+      where: { slug: updateData.slug },
     });
 
-    if (foundCategory && foundCategory._id != categoryId) {
+    if (foundCategory && foundCategory.id !== parseInt(id, 10)) {
       return res.status(400).json({ error: "Slug is already in use." });
     }
 
-    await Category.findOneAndUpdate(query, update, {
-      new: true,
-    });
+    const [updated] = await Category.update(updateData, { where: { id } });
+
+    if (!updated) {
+      return res.status(404).json({ message: "Category not found." });
+    }
 
     res.status(200).json({
       success: true,
       message: "Category has been updated successfully!",
     });
   } catch (error) {
+    console.error("Error updating category:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
@@ -123,29 +111,33 @@ exports.updateCategory = async (req, res) => {
 
 exports.updateCategoryActive = async (req, res) => {
   try {
-    const categoryId = req.params.id;
-    const update = req.body.category;
-    const query = { _id: categoryId };
+    const { id } = req.params;
+    const { isActive } = req.body.category;
 
-    // disable category(categoryId) products
-    if (!update.isActive) {
-      const categoryDoc = await Category.findOne(
-        { _id: categoryId, isActive: true },
-        "products -_id"
-      ).populate("products");
+    if (isActive === false) {
+      const category = await Category.findByPk(id, {
+        include: {
+          association: Category.associations.products, // Assuming association is defined
+        },
+      });
 
-      store.disableProducts(categoryDoc.products);
+      if (category) {
+        await store.disableProducts(category.products);
+      }
     }
 
-    await Category.findOneAndUpdate(query, update, {
-      new: true,
-    });
+    const [updated] = await Category.update({ isActive }, { where: { id } });
+
+    if (!updated) {
+      return res.status(404).json({ message: "Category not found." });
+    }
 
     res.status(200).json({
       success: true,
       message: "Category has been updated successfully!",
     });
   } catch (error) {
+    console.error("Error updating category active status:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
@@ -154,14 +146,19 @@ exports.updateCategoryActive = async (req, res) => {
 
 exports.deleteCategory = async (req, res) => {
   try {
-    const product = await Category.deleteOne({ _id: req.params.id });
+    const { id } = req.params;
+    const deleted = await Category.destroy({ where: { id } });
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Category not found." });
+    }
 
     res.status(200).json({
       success: true,
-      message: `Category has been deleted successfully!`,
-      product,
+      message: "Category has been deleted successfully!",
     });
   } catch (error) {
+    console.error("Error deleting category:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });

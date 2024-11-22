@@ -1,0 +1,267 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Attendance and Access Control Systems",
+
+      "products": [
+        {
+          "name": "Z901 Mini"
+        },
+        {
+          "name": "Z901"
+        },
+        {
+          "name": "Z902N"
+        },
+        {
+          "name": "Z904"
+        },
+
+        {
+          "name": "Z906 Dynamic Face Recognition Attendance With Access Control System(Face + Card)"
+        },
+        {
+          "name": "Z999 Dynamic Face Recognition Attendance With Access Control System(Face + Card)"
+        },
+
+        {
+          "name": "Z900 Face With Fingerprint Time Attendance And Professional Access Control"
+        },
+        {
+          "name": "Z619 Face Based Attendance Cum Access Control"
+        },
+
+        {
+          "name": "Z500V2 Face Recognition Attendance System With Payroll Software"
+        },
+
+        {
+          "name": "Z100AC / Z199"
+        },
+        {
+          "name": "Z300AC (Cloud Supported)"
+        },
+        {
+          "name": "Z200BW Fingerprint Attendance Cum Access Control Device"
+        },
+
+        {
+          "name": "Z100N"
+        },
+        {
+          "name": "Z305CB Fingerprint Attendance Device"
+        },
+
+        {
+          "name": "Z12"
+        },
+        {
+          "name": "Z101N"
+        },
+        {
+          "name": "Z33"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Door Locks and Controllers",
+
+      "products": [
+        {
+          "name": "Z70R"
+        },
+        {
+          "name": "Z20R V2 Glass Door Lock"
+        },
+        {
+          "name": "L25 Padlock"
+        },
+
+        {
+          "name": "1 Door Controller"
+        },
+        {
+          "name": "2 Door Controller"
+        },
+        {
+          "name": "4 Door Controller"
+        },
+
+        {
+          "name": "Z86"
+        },
+
+        {
+          "name": "Z4"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Barcode Scanners ",
+
+      "products": [
+        {
+          "name": "BS20W / CQH20G"
+        },
+
+        {
+          "name": "BS20 / CQH20"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Accessories",
+
+      "products": [
+        {
+          "name": "EM Lock 120LBS"
+        },
+        {
+          "name": "EM Lock 300 LBS"
+        },
+        {
+          "name": "EM Lock 600 LBS"
+        },
+        {
+          "name": "EM Lock 1200 LBS Double Leaf"
+        },
+        {
+          "name": "EM Lock 1200 LBS Single Leaf"
+        },
+        {
+          "name": "RIM Lock"
+        },
+        {
+          "name": "Drop Bolt Lock with Feedback and Timer"
+        },
+        {
+          "name": "Drop Bolt Lock for Fully Glass Door"
+        },
+        {
+          "name": "Surface Mount Drop Bolt Lock"
+        },
+
+        {
+          "name": "L Brackets"
+        },
+        {
+          "name": "U Bracket For EM Lock (600lbs)"
+        },
+        {
+          "name": "U Bracket For Drop Bolt Lock"
+        },
+        {
+          "name": "ZL Bracket for EM Lock (600lbs)"
+        },
+
+        {
+          "name": "ERD PS-30D(12V DC-3A) Power Adapter"
+        },
+        {
+          "name": "ERD PS-11 12V-4CH SINGLE OUTPUT SMPS"
+        },
+        {
+          "name": "ERD AD-11 12V-4CH OUTPUT SMPS"
+        },
+        {
+          "name": "ERD AD-22 12V-8CH OUTPUT SMPS"
+        },
+        {
+          "name": "ERD AD-33 12V-16CH OUTPUT SMPS"
+        },
+        {
+          "name": "Erd Ps-22 12v-8ch Single Output Smps"
+        },
+        {
+          "name": "Erd Ps-33 12v-16ch Single Output Smps"
+        },
+
+        {
+          "name": "Proximity Cards"
+        },
+        {
+          "name": "RFID Key Fobs"
+        },
+        {
+          "name": "1K Smart Cards"
+        },
+        {
+          "name": "UHF Cards and Tags"
+        },
+        {
+          "name": "USB Card Reader Z11"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Switches for Access Control",
+
+      "products": [
+        {
+          "name": "TOP-173R (NO/NC/COM) Inbuilt Receiver"
+        },
+        {
+          "name": "TOP-173 (NO/NC/COM)"
+        },
+        {
+          "name": "TOP-042 (N0/COM)"
+        },
+        {
+          "name": "TOP-73 (NO/NC/COM)"
+        },
+        {
+          "name": "TOP-72 (NO/COM)"
+        },
+        {
+          "name": "TOP-25 (NO/NC/COM)"
+        },
+        {
+          "name": "TOP-023LB (NO/NC/COM)"
+        },
+        {
+          "name": "TOP-032 (NO/COM)"
+        },
+        {
+          "name": "TOP-033 (NO/NC/COM)"
+        },
+        {
+          "name": "Remote Kit"
+        },
+        {
+          "name": "TOFP-203 (NO/NC/COM)"
+        },
+        {
+          "name": "TOP-12 Mobile App (NO/NC/COM)"
+        },
+        {
+          "name": "TOP-43 Exit Push Switch Metal"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Readers",
+
+      "products": [
+        {
+          "name": "Z201 UHF Reader 12mtr"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Elevator Control System",
+
+      "products": [
+        {
+          "name": "Facial Recognition Elevator ControlSystem"
+        }
+      ]
+    }
+  ]
+}

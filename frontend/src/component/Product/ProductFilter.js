@@ -1,6 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { API_URL } from "../../constants";
 
-const ProductFilter = () => {
+const ProductFilter = ({ onFilter, isFilterVisible }) => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${API_URL}/category`);
+        setCategories(response.data.categories || []);
+        setError("");
+      } catch (err) {
+        setError(err.message || "Failed to fetch categories");
+        setCategories([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    onFilter(category); // Notify parent about the selected category
+  };
+
   return (
     <div className="col-lg-3">
       <div className="card- bg-light-subtle">
@@ -33,81 +63,25 @@ const ProductFilter = () => {
           </a>
           <div id="categories" className="collapse show">
             <div className="categories-list d-flex flex-column gap-2 mt-2">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="all-categories"
-                  checked
-                />
-                <label className="form-check-label" for="all-categories">
-                  All Categories
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="fashion-categories"
-                />
-                <label className="form-check-label" for="fashion-categories">
-                  Attendance and Access Control Systems
-                </label>
-              </div>
-
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="sunglass-categories"
-                />
-                <label className="form-check-label" for="sunglass-categories">
-                  Door Locks and Controllers
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="watches-categories"
-                />
-                <label className="form-check-label" for="watches-categories">
-                  Barcode Scanners
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="electronics-categories"
-                />
-                <label
-                  className="form-check-label"
-                  for="electronics-categories"
-                >
-                  Accessories
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="furniture-categories"
-                />
-                <label className="form-check-label" for="furniture-categories">
-                  Switches for Access Control
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="headphones-categories"
-                />
-                <label className="form-check-label" for="headphones-categories">
-                  Readers
-                </label>
-              </div>
+              {categories.map((category) => (
+                <div className="form-check" key={category.id}>
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    id={`category-${category.id}`}
+                    name="category"
+                    value={category.name}
+                    checked={selectedCategory === category.name}
+                    onChange={() => handleCategoryChange(category.name)}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={`category-${category.id}`}
+                  >
+                    {category.name}
+                  </label>
+                </div>
+              ))}
             </div>
           </div>
 

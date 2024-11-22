@@ -1,39 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import CustomerItem from "./CustomerItem";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { API_URL } from "../../constants";
+import { fetchUsers } from "../../containers/Users/actions";
 const ListTable = () => {
-  const [users, setusers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const { users, isLoading, error } = useSelector((state) => state.users);
 
   useEffect(() => {
-    const fetchusers = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/user`);
-        setusers(response.data.users);
-      } catch (err) {
-        setError("Failed to fetch users");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    dispatch(fetchUsers()); // Fetch users when the component mounts
+  }, [dispatch]);
 
-    fetchusers();
-  }, []);
   return (
-    <table class="table align-middle mb-0 table-hover table-centered">
-      <thead class="bg-light-subtle">
+    <table className="table align-middle mb-0 table-hover table-centered">
+      <thead className="bg-light-subtle">
         <tr>
           <th style={{ width: "20px" }}>
-            <div class="form-check">
+            <div className="form-check">
               <input
                 type="checkbox"
-                class="form-check-input"
+                className="form-check-input"
                 id="customCheck1"
               />
-              <label class="form-check-label" for="customCheck1"></label>
+              <label
+                className="form-check-label"
+                htmlFor="customCheck1"
+              ></label>
             </div>
           </th>
           <th>Avatar</th>
@@ -42,19 +33,18 @@ const ListTable = () => {
           <th>Email</th>
           <th>Phone No.</th>
           <th>Role</th>
-
           <th>Created At</th>
           <th>Action</th>
         </tr>
-      </thead>{" "}
+      </thead>
       <tbody>
         {isLoading ? (
           <tr>
-            <td colSpan="5">Loading users...</td>
+            <td colSpan="9">Loading users...</td>
           </tr>
         ) : error ? (
           <tr>
-            <td colSpan="5">{error}</td>
+            <td colSpan="9">{error}</td>
           </tr>
         ) : (
           users.map((user) => <CustomerItem key={user.id} user={user} />)

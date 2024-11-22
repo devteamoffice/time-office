@@ -1,131 +1,125 @@
 .main404page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 75vh;
-    margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  margin-top: 30px;
 }
 
 .container404 {
-    text-align: center;
-    position: relative;
+  text-align: center;
+  position: relative;
 }
 
 .container404 h1 {
-    font-size: 18rem;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 900;
-    color: #9747FF;
-    margin: 0;
-    letter-spacing: 22px;
+  font-size: 18rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  color: #9747ff;
+  margin: 0;
+  letter-spacing: 22px;
 }
 
 .message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 250px;
-    height: 250px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 40px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .message p {
-    margin: 0;
-    font-size: 22px;
-    color: #333;
-    font-weight: 500;
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+  font-weight: 500;
 }
 
 .description404 {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 /* 505 page */
 
 .text505page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .container505 h1 {
-    font-size: 7rem;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 800;
-    color: #9747FF;
+  font-size: 7rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  color: #9747ff;
 }
 
-
 .container505 h3 {
-    font-size: 40px;
-    font-weight: 700;
+  font-size: 40px;
+  font-weight: 700;
 }
 
 .container505 img {
-    width: 80%;
+  width: 80%;
 }
-
 
 /* 404 error */
 
 .error-container {
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .inner404eror {
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
-
+  align-items: center;
+  justify-content: center;
 }
 
 .circle {
-    width: 200px;
-    height: 200px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgb(0, 0, 0);
-    font-weight: 500;
-    font-size: 1.5rem;
-    text-align: center;
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  font-size: 1.5rem;
+  text-align: center;
 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .inner404eror h1 {
-    font-size: 15rem;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 900;
-    color: #9747FF;
-
+  font-size: 15rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  color: #9747ff;
 }
 
 .error-btn {
-    background-color: #9747FF;
-    border-radius: 10rem;
-    color: white;
-    font-weight: 600;
+  background-color: #9747ff;
+  border-radius: 10rem;
+  color: white;
+  font-weight: 600;
 }
 
 .error-container p {
-    font-weight: 500;
-
+  font-weight: 500;
 }
