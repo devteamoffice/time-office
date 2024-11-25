@@ -2,39 +2,49 @@ const categories = require("./categories.json"); // Adjust path to categories.js
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Ensure the categories are an array
     if (!Array.isArray(categories)) {
       throw new Error("categories.json must be an array of categories.");
     }
 
-    // Insert categories data
-    await queryInterface.bulkInsert(
+    // Insert categories into the database
+    const insertedCategories = await queryInterface.bulkInsert(
       "categories",
       categories.map((category) => {
-        // Map through categories and remove 'products' field as we will insert them separately
-        const { products, ...categoryData } = category;
-        return categoryData; // return the category without 'products'
-      })
+        const { products, ...categoryData } = category; // Exclude 'products' field
+        return {
+          ...categoryData,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+      }),
+      { returning: true } // This allows us to get back the inserted category IDs
     );
 
-    // Now that categories are inserted, we'll insert products associated with each category
-    for (const category of categories) {
-      const categoryId = category.id; // The category ID is already available from the JSON data
-
-      const productsData = category.products.map((product) => ({
-        ...product,
-        categoryId, // Assign the category ID to each product
-        created: new Date(),
-        updated: new Date(),
-      }));
-
-      // Insert products for the current category
-      await queryInterface.bulkInsert("products", productsData);
+    // Create a map of category names to their IDs
+    const categoryMap = {};
+    for (const insertedCategory of insertedCategories) {
+      categoryMap[insertedCategory.name] = insertedCategory.id;
     }
+
+    // Insert products with the correct categoryId
+    const productsToInsert = [];
+    for (const category of categories) {
+      const categoryId = categoryMap[category.name];
+      for (const product of category.products) {
+        productsToInsert.push({
+          name: product.name,
+          categoryId, // Associate product with its category ID
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+      }
+    }
+
+    await queryInterface.bulkInsert("products", productsToInsert);
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Rollback the inserted data
+    // Rollback products and categories data
     await queryInterface.bulkDelete("products", null, {});
     await queryInterface.bulkDelete("categories", null, {});
   },
