@@ -43,15 +43,21 @@ export const setProfileLoading = (value) => {
 export const fetchProfile = () => async (dispatch) => {
   dispatch({ type: SET_PROFILE_LOADING, payload: true });
   try {
-    const token = localStorage.getItem("token"); // Replace with your token retrieval logic
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found in localStorage.");
+
     const { data } = await axios.get(`${API_URL}/user/me`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
     });
+
     dispatch({ type: FETCH_PROFILE, payload: data });
   } catch (error) {
-    handleError(error, dispatch);
+    console.error("Profile fetch error:", error.response || error.message);
+    handleError(error, dispatch); // Custom error handler
+  } finally {
+    dispatch({ type: SET_PROFILE_LOADING, payload: false });
   }
 };
 

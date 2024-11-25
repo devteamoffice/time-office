@@ -41,6 +41,15 @@ const AccountDetails = () => {
       console.warn("Token is null when trying to fetch profile.");
     }
   }, [dispatch, isAuthenticated, user]);
+  useEffect(() => {
+    if (user) {
+      console.log("User Properties:", {
+        name: user.name,
+        username: user.username,
+        email: user.email,
+      });
+    }
+  }, [user]);
 
   const handleProfileUpdate = (updatedProfileData) => {
     dispatch(updateProfile(updatedProfileData));

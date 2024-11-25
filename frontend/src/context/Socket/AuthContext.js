@@ -14,37 +14,43 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (token) {
       try {
-        setIsAuthenticated(true);
-        dispatch({ type: SET_AUTH });
-        const decodedUser = jwt_decode(token.replace("")); // Decode without 'Bearer'
-        setUser(decodedUser);
+        const tokenWithoutBearer = token.replace("Bearer ", "");
+        const decodedUser = jwt_decode(tokenWithoutBearer);
+
+        console.log("Decoded Token:", decodedUser);
+
+        // Validate token payload
+        if (decodedUser.id) {
+          console.log("User ID:", decodedUser.id);
+          setUser(decodedUser);
+          setIsAuthenticated(true);
+          dispatch({ type: SET_AUTH });
+        } else {
+          console.error("ID not found in token payload.");
+          logout();
+        }
       } catch (error) {
         console.error("Token decoding error:", error);
-        setIsAuthenticated(false);
-        setUser(null);
-        dispatch({ type: CLEAR_AUTH }); // Clear auth if token is invalid
+        logout();
       }
     }
-    console.log(token);
   }, [dispatch]);
 
   const login = (token) => {
-    // Ensure that you add "Bearer " only once
-    const formattedToken = token.startsWith("Bearer ")
-      ? token
-      : `Bearer ${token}`;
-
-    localStorage.setItem("token", formattedToken); // Save the formatted token to localStorage
+    localStorage.setItem("jwtToken", token);
+    const decodedToken = jwt_decode(token);
+    setUser({ id: decodedToken.id, role: decodedToken.role });
     setIsAuthenticated(true);
-    dispatch({ type: SET_AUTH });
-
-    // Decode token without "Bearer " prefix
-    const decodedUser = jwt_decode(formattedToken.replace("Bearer ", ""));
-    setUser(decodedUser);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      login(token); // Re-authenticate user on page refresh.
+    }
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("token");

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const auth = (req, res, next) => {
-  const token = req.headers["authorization"]?.split(" ")[1]; // Extract token from Authorization header
+  const token = req.headers["authorization"]?.split(" ")[1];
 
   if (!token) {
     return res.status(403).json({ error: "No token provided." });
@@ -10,11 +10,14 @@ const auth = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
+      console.error("Token verification failed:", err.message);
       return res.status(403).json({ error: "Invalid or expired token." });
     }
 
-    req.user = user; // Attach the decoded user to the request object
+    console.log("Decoded user:", user); // Debugging log
+    req.user = user;
     next();
   });
 };
+
 module.exports = auth;
