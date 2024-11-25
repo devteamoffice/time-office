@@ -13,36 +13,37 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // Validate input
     if (!email || !password) {
       return res
         .status(400)
         .json({ error: "Email and password are required." });
     }
 
+    // Check if user exists
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
 
+    // Check if the provider is email
     if (user.provider !== EMAIL_PROVIDER.Email) {
       return res.status(400).json({
         error: `This email is already in use with the ${user.provider} provider.`,
       });
     }
 
+    // Verify password
     const passwordMatches = await bcrypt.compare(password, user.password);
     if (!passwordMatches) {
       return res.status(401).json({ error: "Incorrect password." });
     }
 
-    const payload = { id: user.id };
+    // Generate JWT token
+    const payload = { id: user.id, role: user.role };
     const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
 
-    if (!token) {
-      console.error("Token generation failed.");
-      return res.status(500).json({ error: "Token generation failed." });
-    }
-
+    // Return user details and token
     res.status(200).json({
       success: true,
       token: `Bearer ${token}`,
@@ -55,7 +56,7 @@ exports.login = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Login error:", error); // Log specific error details
+    console.error("Login error:", error); // Log specific error details for debugging
     res.status(500).json({ error: "An unexpected error occurred." });
   }
 };
