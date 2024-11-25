@@ -12,7 +12,7 @@ const SearchBar = () => {
     if (!name) return; // Do nothing if the input is empty
 
     try {
-      const res = await axios.get(`${API_URL}/product/search/${name}`);
+      const res = await axios.get(`${API_URL}/product/list/search/${name}`);
       navigate(`/store?name=${name}`, {
         state: { searchResult: res.data.products },
       });

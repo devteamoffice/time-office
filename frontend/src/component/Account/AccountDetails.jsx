@@ -9,59 +9,23 @@ import { AuthContext } from "../../context/Socket/AuthContext";
 import { useContext } from "react";
 import { jwtDecode as jwt_decode } from "jwt-decode"; // Import the jwt_decode function
 const AccountDetails = () => {
-  const { id } = useParams();
   const dispatch = useDispatch();
-  const { isLoading = false, error = null } = useSelector(
-    (state) => state.account || {}
-  );
-
-  const [user, setUser] = useState(null); // State for storing decoded user data
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to manage authentication status
-
-  useEffect(() => {
-    const token = localStorage.getItem("token"); // Get token from localStorage
-    if (token) {
-      try {
-        // Decode the token and extract user data
-        const decodedUser = jwt_decode(token.replace("Bearer ", ""));
-        setUser(decodedUser);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error("Token decoding error:", error);
-        setIsAuthenticated(false);
-        setUser(null);
-      }
-    }
-  }, []);
+  const { user, isAuthenticated } = React.useContext(AuthContext);
 
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(fetchProfile()); // Fetch profile if authenticated
     } else {
-      console.warn("Token is null when trying to fetch profile.");
+      console.warn("User is not authenticated.");
     }
-  }, [dispatch, isAuthenticated, user]);
-  useEffect(() => {
-    if (user) {
-      console.log("User Properties:", {
-        name: user.name,
-        username: user.username,
-        email: user.email,
-      });
-    }
-  }, [user]);
+  }, [dispatch, isAuthenticated]);
 
   const handleProfileUpdate = (updatedProfileData) => {
     dispatch(updateProfile(updatedProfileData));
   };
 
-  // Conditional rendering based on isLoading and error states
-  if (isLoading) {
-    return <div>Loading...</div>; // Show loading message or spinner
-  }
-
-  if (error) {
-    console.log("Error fetching profile:", error); // Display an error message
+  if (!isAuthenticated) {
+    return <div>You need to log in to view this page.</div>;
   }
   return (
     <div className="col-lg-4">

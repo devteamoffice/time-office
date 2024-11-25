@@ -5,6 +5,7 @@ import {
   CLEAR_AUTH,
 } from "../../containers/Authentication/constants";
 import { jwtDecode as jwt_decode } from "jwt-decode";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -19,11 +20,7 @@ export const AuthProvider = ({ children }) => {
         const tokenWithoutBearer = token.replace("Bearer ", "");
         const decodedUser = jwt_decode(tokenWithoutBearer);
 
-        console.log("Decoded Token:", decodedUser);
-
-        // Validate token payload
         if (decodedUser.id) {
-          console.log("User ID:", decodedUser.id);
           setUser(decodedUser);
           setIsAuthenticated(true);
           dispatch({ type: SET_AUTH });
@@ -38,19 +35,39 @@ export const AuthProvider = ({ children }) => {
     }
   }, [dispatch]);
 
-  const login = (token) => {
-    localStorage.setItem("jwtToken", token);
-    const decodedToken = jwt_decode(token);
-    setUser({ id: decodedToken.id, role: decodedToken.role });
-    setIsAuthenticated(true);
+  const fetchUserDetails = async (userId) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`);
+      const userData = await response.json();
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        name: userData.name,
+        username: userData.username,
+        email: userData.email,
+        phone: userData.phone,
+      }));
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (token) {
-      login(token); // Re-authenticate user on page refresh.
-    }
-  }, []);
+  const login = (token) => {
+    localStorage.setItem("token", token);
+    const decodedToken = jwt_decode(token.replace("Bearer ", ""));
+
+    const userDetails = {
+      id: decodedToken.id,
+      role: decodedToken.role,
+    };
+
+    setUser(userDetails);
+    setIsAuthenticated(true);
+    dispatch({ type: SET_AUTH });
+
+    // Fetch additional details
+    fetchUserDetails(decodedToken.id);
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -58,7 +75,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     dispatch({ type: CLEAR_AUTH });
   };
-
+  console.log(user);
   return (
     <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
       {children}

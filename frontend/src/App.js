@@ -8,9 +8,9 @@ import "aos/dist/aos.css";
 import NavbarN from "./component/Extras/HeaderN";
 import { AuthContext, AuthProvider } from "./context/Socket/AuthContext";
 
-function App(user) {
+function App() {
   const [showContent, setShowContent] = useState(false);
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, user } = useContext(AuthContext);
 
   useEffect(() => {
     AOS.init({
@@ -31,7 +31,7 @@ function App(user) {
       // Decode the token to get the user ID
       try {
         const decodedToken = jwtDecode(token);
-        console.log("User ID:", user.id); // Adjust according to your token's payload structure
+        console.log("User ID:", user?.name); // Adjust according to your token's payload structure
       } catch (error) {
         console.error("Invalid JWT token:", error);
       }

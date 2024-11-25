@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Pagination from "../../component/Common/Pagination";
 import ProductFilter from "../../component/Product/ProductFilter";
 import SingleProduct from "../../component/Product/SingleProduct";
@@ -6,6 +7,7 @@ import axios from "axios";
 import { API_URL } from "../../constants";
 
 const Product = () => {
+  const location = useLocation();
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [data, setData] = useState([]); // Holds all products data
   const [filteredData, setFilteredData] = useState([]); // Holds filtered products data
@@ -14,20 +16,27 @@ const Product = () => {
 
   const itemsPerPage = 20;
 
-  // Fetch products on page load
+  // Fetch products on page load or when search results are passed
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${API_URL}/product`);
-        const products = response.data.products || [];
-        setData(products);
-        setFilteredData(products); // Show all products initially
+        // Check if search results are available from the location state
+        if (location.state && location.state.searchResult) {
+          setData(location.state.searchResult); // Set the search results as data
+          setFilteredData(location.state.searchResult); // Set the filtered data
+        } else {
+          // If no search results, fetch all products
+          const response = await axios.get(`${API_URL}/product`);
+          const products = response.data.products || [];
+          setData(products);
+          setFilteredData(products); // Show all products initially
+        }
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
     fetchProducts();
-  }, []);
+  }, [location.state]); // Re-run if the search state changes
 
   // Toggle filter visibility
   const handleFill = () => {
@@ -40,14 +49,14 @@ const Product = () => {
     if (category) {
       try {
         const response = await axios.get(
-          `${API_URL}/product/filter?categories=${category}`
+          `${API_URL}/product/filter/${category}`
         );
         const filteredProducts = response.data.products || [];
         setFilteredData(filteredProducts);
         setCurrentPage(1); // Reset to page 1 when applying filter
       } catch (error) {
         console.error("Error filtering products:", error);
-        setFilteredData([]);
+        setFilteredData([]); // Show empty list if filter fails
       }
     } else {
       setFilteredData(data); // Show all products if no category is selected

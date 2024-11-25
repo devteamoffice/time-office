@@ -21,8 +21,9 @@ const upload = multer({ storage });
  * @param {Object} req - The request object
  * @param {Object} res - The response object
  */
+// In your controller (filterProductsByCategory)
 exports.filterProductsByCategory = async (req, res) => {
-  const { category } = req.query;
+  const { category } = req.params; // assuming you are using URL params
 
   if (!category) {
     return res.status(400).json({ message: "Category is required" });
@@ -31,17 +32,21 @@ exports.filterProductsByCategory = async (req, res) => {
   try {
     // Check if the category exists
     const categoryExists = await Category.findOne({
-      where: { name: category },
+      where: { name: category }, // Look for category by ID instead of name
     });
 
     if (!categoryExists) {
       return res.status(404).json({ message: "Category not found" });
     }
 
+    console.log(`Category exists: ${categoryExists.name}`);
+
     // Fetch products associated with the given category
     const products = await Product.findAll({
-      where: { categoryId: categoryExists.id },
+      where: { categoryId: categoryExists.id, isActive: true }, // Ensuring active products
     });
+
+    console.log(`Products found: ${products.length}`);
 
     if (!products.length) {
       return res
@@ -111,11 +116,24 @@ exports.fetchProductName = async (req, res) => {
     const products = await Product.findAll({
       where: {
         name: {
-          [Sequelize.Op.iLike]: `%${name}%`, // Case-insensitive match (Postgres) or use `LIKE` for MySQL
+          [Sequelize.Op.like]: `%${name}%`, // Use LIKE for MySQL
         },
         isActive: true,
       },
-      attributes: ["name", "slug", "imageUrl", "price"], // Selecting specific columns
+      // Select all relevant fields from the Product model
+      attributes: [
+        "id",
+        "sku",
+        "name",
+        "slug",
+        "images",
+        "description",
+        "price",
+        "brand",
+        "categoryId",
+        "subcategoryId",
+        "created",
+      ],
     });
 
     // Check if no products were found
@@ -138,6 +156,7 @@ exports.fetchProductName = async (req, res) => {
     });
   }
 };
+
 exports.searchProducts = async (req, res) => {
   try {
     const { name, minPrice, maxPrice } = req.query; // Using query parameters for search filters
