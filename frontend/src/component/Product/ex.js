@@ -1,90 +1,65 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Pagination from "../../component/Common/Pagination";
 import ProductFilter from "../../component/Product/ProductFilter";
 import SingleProduct from "../../component/Product/SingleProduct";
 import axios from "axios";
-import { API_URL } from "../../constants"; // Ensure API_URL points to http://localhost:4000/api
+import { API_URL } from "../../constants";
 
 const Product = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [data, setData] = useState([]); // Holds all products data
   const [filteredData, setFilteredData] = useState([]); // Holds filtered products data
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategorySlug, setSelectedCategorySlug] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const itemsPerPage = 20;
 
-  // Function to get the category slug from URL query params
-  const getCategorySlugFromQuery = () => {
-    const params = new URLSearchParams(location.search);
-    return params.get("cate"); // Get the 'cate' parameter from the query string
-  };
-
-  // Fetch products on page load or when the category slug changes
+  // Fetch products on page load or when search results are passed
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const slug = getCategorySlugFromQuery(); // Get slug from URL
-        setSelectedCategorySlug(slug); // Update state with the slug
-
-        // Fetch all products if no search results are available
-        if (!slug && (!location.state || !location.state.searchResult)) {
+        // Check if search results are available from the location state
+        if (location.state && location.state.searchResult) {
+          setData(location.state.searchResult); // Set the search results as data
+          setFilteredData(location.state.searchResult); // Set the filtered data
+        } else {
+          // If no search results, fetch all products
           const response = await axios.get(`${API_URL}/product`);
           const products = response.data.products || [];
           setData(products);
           setFilteredData(products); // Show all products initially
-        } else if (location.state && location.state.searchResult) {
-          // If search results are available from the location state
-          setData(location.state.searchResult);
-          setFilteredData(location.state.searchResult);
-        } else if (slug) {
-          // Fetch filtered products based on category slug
-          const response = await axios.get(
-            `${API_URL}/product/filter/${encodeURIComponent(slug)}`
-          );
-
-          const filteredProducts = response.data.products || [];
-          setFilteredData(filteredProducts); // Update filtered data
         }
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
-
     fetchProducts();
-  }, [location.search]); // Re-run when the query parameters change (like category slug)
+  }, [location.state]); // Re-run if the search state changes
 
   // Toggle filter visibility
   const handleFill = () => {
     setIsFilterVisible(!isFilterVisible);
   };
 
-  // Filter products based on category slug
-  const handleFilter = async (slug) => {
-    setSelectedCategorySlug(slug); // Set the selected category slug
-
-    if (slug) {
+  // Filter products based on category
+  const handleFilter = async (category) => {
+    setSelectedCategory(category);
+    if (category) {
       try {
         const response = await axios.get(
-          `${API_URL}/product/filter/${encodeURIComponent(slug)}`
+          `${API_URL}/product/filter/${category}`
         );
-
         const filteredProducts = response.data.products || [];
-        setFilteredData(filteredProducts); // Update filtered products
+        setFilteredData(filteredProducts);
         setCurrentPage(1); // Reset to page 1 when applying filter
-
-        // Update the URL to reflect the selected category slug
-        navigate(`/store?cate=${slug}`);
       } catch (error) {
         console.error("Error filtering products:", error);
         setFilteredData([]); // Show empty list if filter fails
       }
     } else {
       setFilteredData(data); // Show all products if no category is selected
-      navigate("/store"); // Reset to the store page with no category
     }
   };
 
@@ -95,7 +70,7 @@ const Product = () => {
     setCurrentPage(page);
   };
 
-  // Slice the products for the current page
+  // Slice the products for current page
   const displayedItems = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -121,7 +96,7 @@ const Product = () => {
                     <ol className="breadcrumb mb-0">
                       <li className="breadcrumb-item fw-medium">
                         <a href="javascript: void(0);" className="text-dark">
-                          {selectedCategorySlug || "All Categories"}
+                          {selectedCategory || "All Categories"}
                         </a>
                       </li>
                       <li className="breadcrumb-item active">Store</li>

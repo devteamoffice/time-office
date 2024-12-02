@@ -2,27 +2,34 @@ import React, { useEffect, useState } from "react";
 import "../../assets/Product Page/css/vendor.min.css";
 import "../../assets/Product Page/css/icons.min.css";
 import "../../assets/Product Page/css/app.min.css";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "../../containers/Product/actions"; // Assuming you have an action to fetch products
+import { fetchProduct } from "../../containers/Product/actions";
+import {
+  fetchWishlist,
+  updateWishlist,
+} from "../../containers/WishList/actions";
 import AddToCartButton from "../Cart/AddToCartButton";
 import { API_URL } from "../../constants";
 import axios from "axios";
 
 const SingleProductDetails = () => {
-  const { id } = useParams(); // Get the product id from the URL
+  const { id } = useParams();
+  const dispatch = useDispatch();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [count, setCount] = useState(1);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const wishlist = useSelector((state) => state.wishlist?.wishlist || []);
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const response = await axios.get(`${API_URL}/product/${id}`);
-        // Axios automatically throws an error for non-2xx status codes, so no need for `response.ok`
-        const data = response.data.product; // No need for `await` here as `data` is already resolved
+        const data = response.data.product;
         setProduct(data);
       } catch (err) {
         setError(err.message);
@@ -33,19 +40,36 @@ const SingleProductDetails = () => {
     };
 
     fetchProductData();
-  }, [id]);
+    dispatch(fetchWishlist()); // Fetch wishlist on component mount
+  }, [id, dispatch]);
+
+  // useEffect(() => {
+  //   const checkIfWishlisted = () => {
+  //     const found = wishlist.some((item) => item.product === id);
+  //     setIsWishlisted(found);
+  //   };
+
+  //   checkIfWishlisted();
+  // }, [wishlist, id]); // This will only rerun if either wishlist or id changes
+
+  const handleWishlistClick = () => {
+    if (isWishlisted) {
+      // Only dispatch update if it's not already wishlisted
+      dispatch(updateWishlist(false, id));
+    } else {
+      dispatch(updateWishlist(true, id));
+    }
+  };
 
   if (loading) return <p>Loading product details...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  // Parsing images, ensure that it matches the structure in the response
   const images = product?.images
     ? JSON.parse(product.images).filter((img) => !img.includes("Thumbs.db"))
     : [];
 
   return (
     <div className="row">
-      {/* Product Images */}
       {product && (
         <div className="col-lg-4">
           <div className="card">
@@ -107,9 +131,12 @@ const SingleProductDetails = () => {
                 <div className="col-lg-2">
                   <button
                     type="button"
-                    className="btn btn-soft-danger d-inline-flex align-items-center justify-content-center fs-20 rounded w-100"
+                    onClick={handleWishlistClick}
+                    className={`btn ${
+                      isWishlisted ? "btn-danger" : "btn-soft-danger"
+                    } d-inline-flex align-items-center justify-content-center fs-20 rounded w-100`}
                   >
-                    <FaRegHeart />
+                    {isWishlisted ? <FaHeart /> : <FaRegHeart />}
                   </button>
                 </div>
               </div>
@@ -117,8 +144,8 @@ const SingleProductDetails = () => {
           </div>
         </div>
       )}
-
       {/* Product Details */}
+      {/* Same as in your original code */}
       {product && (
         <div className="col-lg-8">
           <div className="card">

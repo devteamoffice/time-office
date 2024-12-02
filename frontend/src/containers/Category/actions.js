@@ -81,17 +81,15 @@ export const fetchStoreCategories = () => {
 export const fetchCategories = () => {
   return async (dispatch) => {
     try {
-      dispatch({ type: SET_CATEGORIES_LOADING, payload: true });
       const response = await axios.get(`${API_URL}/category`);
-
       dispatch({
         type: FETCH_CATEGORIES,
         payload: response.data.categories,
       });
+      return response.data.categories; // Return the categories for further use
     } catch (error) {
       handleError(error, dispatch);
-    } finally {
-      dispatch({ type: SET_CATEGORIES_LOADING, payload: false });
+      return []; // Return an empty array in case of error
     }
   };
 };

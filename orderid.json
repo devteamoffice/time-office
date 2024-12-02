@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "id": "5fb3bc34aee6486f",
+      "email": "gaitondebhau@gamail.com",
+      "phoneNumber": null,
+      "name": "social application",
+      "username": "dashingvijay",
+      "provider": "Email",
+      "facebookId": null,
+      "avatar": null,
+      "role": "ROLE MEMBER",
+      "resetPasswordToken": null,
+      "resetPasswordExpires": null,
+      "updatedAt": "2024-10-29T11:47:59.000Z",
+      "createdAt": "2024-10-29T11:47:59.000Z"
+    },
+    {
+      "id": "bb1d4a9a-95ea-11ef-814d-8c067b553b28",
+      "email": "vikasfrontenddeveloper007@gmail.com",
+      "phoneNumber": null,
+      "name": "Vikas",
+      "username": "vkpickyvibe",
+      "provider": "Email",
+      "facebookId": null,
+      "avatar": null,
+      "role": "ROLE MEMBER",
+      "resetPasswordToken": null,
+      "resetPasswordExpires": null,
+      "updatedAt": "2024-10-28T09:34:12.000Z",
+      "createdAt": "2024-10-28T09:34:12.000Z"
+    },
+    {
+      "id": "bb1d45f4-95ea-11ef-814d-8c067b553b28",
+      "email": "fetch@gmail.com",
+      "phoneNumber": null,
+      "name": "nerdy guy",
+      "username": "fleekfr",
+      "provider": "Email",
+      "facebookId": null,
+      "avatar": null,
+      "role": "ROLE MEMBER",
+      "resetPasswordToken": null,
+      "resetPasswordExpires": null,
+      "updatedAt": "2024-10-28T09:11:09.000Z",
+      "createdAt": "2024-10-28T09:11:08.000Z"
+    },
+    {
+      "id": "bb1d4139-95ea-11ef-814d-8c067b553b28",
+      "email": "admin@teamoffice.in",
+      "phoneNumber": null,
+      "name": null,
+      "username": "admin",
+      "provider": "Email",
+      "facebookId": null,
+      "avatar": null,
+      "role": "ROLE ADMIN",
+      "resetPasswordToken": null,
+      "resetPasswordExpires": null,
+      "updatedAt": "2024-10-21T06:09:08.000Z",
+      "createdAt": "2024-10-21T06:09:08.000Z"
+    },
+    {
+      "id": "bb1d36af-95ea-11ef-814d-8c067b553b28",
+      "email": "vermadhruv09112002@gmail.com",
+      "phoneNumber": null,
+      "name": "dhruv",
+      "username": "verma",
+      "provider": "Email",
+      "facebookId": null,
+      "avatar": null,
+      "role": "ROLE MEMBER",
+      "resetPasswordToken": null,
+      "resetPasswordExpires": null,
+      "updatedAt": null,
+      "createdAt": "2024-09-30T04:20:12.000Z"
+    }
+  ],
+  "totalPages": 1,
+  "currentPage": 1,
+  "count": 5
+}

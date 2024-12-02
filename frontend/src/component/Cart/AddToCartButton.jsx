@@ -2,15 +2,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleAddToCart } from "../../containers/Cart/actions";
 
-const AddToCartButton = ({ product, cartItems }) => {
+const AddToCartButton = ({ product }) => {
   const dispatch = useDispatch();
 
-  const cartCount =
-    useSelector((state) => state.cart?.cartItems?.length || 0) || 0;
+  // Get cart items from the Redux store
+  const cartItems = useSelector((state) => state.cart?.cartItems || []);
 
-  if (!product || !product._id) {
-    return null; // Return null or an error message if product is undefined or missing _id
-  }
+  // Calculate the cart count
+  const cartCount = cartItems.length;
 
   // Check if the product is already in the cart
   const itemInCart = cartItems.find((item) => item._id === product._id);

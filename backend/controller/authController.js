@@ -39,8 +39,8 @@ exports.login = async (req, res) => {
       return res.status(401).json({ error: "Incorrect password." });
     }
 
-    // Generate JWT token
-    const payload = { id: user.id, role: user.role };
+    // Generate JWT token (Consistent payload structure with 'role' included)
+    const payload = { id: user.id, role: user.role, email: user.email }; // Include 'role' here
     const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
 
     // Return user details and token
@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Login error:", error); // Log specific error details for debugging
+    console.error("Login error:", error);
     res.status(500).json({ error: "An unexpected error occurred." });
   }
 };
@@ -65,21 +65,11 @@ exports.register = async (req, res) => {
   try {
     const { email, name, username, password } = req.body;
 
-    // Validate email
-    if (!email) {
-      return res
-        .status(400)
-        .json({ error: "You must enter an email address." });
-    }
-
-    // Validate name
-    if (!name || !username) {
-      return res.status(400).json({ error: "You must enter your full name." });
-    }
-
-    // Validate password
-    if (!password) {
-      return res.status(400).json({ error: "You must enter a password." });
+    // Validate input fields
+    if (!email || !name || !username || !password) {
+      return res.status(400).json({
+        error: "All fields (email, name, username, password) are required.",
+      });
     }
 
     // Check if user already exists
@@ -104,8 +94,8 @@ exports.register = async (req, res) => {
     // Save user to database
     const registeredUser = await user.save();
 
-    // Create JWT token
-    const payload = { id: registeredUser.id };
+    // Generate JWT token (Consistent payload structure with 'role' included)
+    const payload = { id: registeredUser.id, role: registeredUser.role }; // Include 'role' here
     const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
 
     // Respond with success
@@ -149,9 +139,9 @@ exports.forgotPassword = async (req, res) => {
     const resetToken = buffer.toString("hex");
 
     existingUser.resetPasswordToken = resetToken;
-    existingUser.resetPasswordExpires = Date.now() + 3600000;
+    existingUser.resetPasswordExpires = Date.now() + 3600000; // 1 hour expiration time
 
-    existingUser.save();
+    await existingUser.save();
 
     await mailgun.sendEmail(
       existingUser.email,
@@ -160,11 +150,12 @@ exports.forgotPassword = async (req, res) => {
       resetToken
     );
 
-    req.status(200).json({
+    res.status(200).json({
       success: true,
       message: "Please check your email for the link to reset your password.",
     });
   } catch (error) {
+    console.error("Forgot password error:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
@@ -176,10 +167,9 @@ exports.resetToken = async (req, res) => {
     const { password } = req.body;
 
     if (!password) {
-      return res.status(400).json({
-        error: "You must enter a password.",
-      });
+      return res.status(400).json({ error: "You must enter a password." });
     }
+
     const resetUser = await User.findOne({
       resetPasswordToken: req.params.token,
       resetPasswordExpires: { $gt: Date.now() },
@@ -199,7 +189,7 @@ exports.resetToken = async (req, res) => {
     resetUser.resetPasswordToken = undefined;
     resetUser.resetPasswordExpires = undefined;
 
-    resetUser.save();
+    await resetUser.save();
 
     await mailgun.sendEmail(resetUser.email, "reset-confirmation");
 
@@ -209,7 +199,8 @@ exports.resetToken = async (req, res) => {
         "Password changed successfully. Please login with your new password.",
     });
   } catch (error) {
-    res.staus(400).json({
+    console.error("Reset token error:", error);
+    res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
   }
@@ -224,21 +215,22 @@ exports.reset = async (req, res) => {
       return res.status(401).send("Unauthenticated");
     }
 
-    if (!password) {
-      return res.status(400).json({
-        error: "You must enter a password.",
-      });
+    if (!password || !confirmPassword) {
+      return res
+        .status(400)
+        .json({ error: "Both password fields are required." });
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: "Passwords do not match." });
     }
 
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
-      return res
-        .status(400)
-        .json({ error: "That email address is already in use." });
+      return res.status(400).json({ error: "No user found with that email." });
     }
 
     const isMatch = await bcrypt.compare(password, existingUser.password);
-
     if (!isMatch) {
       return res
         .status(400)
@@ -247,8 +239,9 @@ exports.reset = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(confirmPassword, salt);
+
     existingUser.password = hash;
-    existingUser.save();
+    await existingUser.save();
 
     await mailgun.sendEmail(existingUser.email, "reset-confirmation");
 
@@ -258,6 +251,7 @@ exports.reset = async (req, res) => {
         "Password changed successfully. Please login with your new password.",
     });
   } catch (error) {
+    console.error("Reset password error:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });

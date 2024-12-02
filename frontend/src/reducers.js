@@ -21,6 +21,7 @@ import contactReducer from "./containers/Contact/reducer";
 import orderReducer from "./containers/Order/reducer";
 import reviewReducer from "./containers/Review/reducer";
 import wishlistReducer from "./containers/WishList/reducer";
+import { alertReducer } from "./containers/Alert/reducer";
 // Create your root reducer without `connected-react-router`
 const createReducer = () =>
   combineReducers({
@@ -47,6 +48,7 @@ const createReducer = () =>
     order: orderReducer,
     review: reviewReducer,
     wishlist: wishlistReducer,
+    alert: alertReducer,
   });
 
 export default createReducer;

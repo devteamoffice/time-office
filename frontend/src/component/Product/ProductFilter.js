@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants";
 
-const ProductFilter = ({ onFilter, isFilterVisible }) => {
+const ProductFilter = ({ handleFilter }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  // const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -27,8 +27,7 @@ const ProductFilter = ({ onFilter, isFilterVisible }) => {
   }, []);
 
   const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-    onFilter(category); // Notify parent about the selected category
+    handleFilter(category);
   };
 
   return (
@@ -71,7 +70,6 @@ const ProductFilter = ({ onFilter, isFilterVisible }) => {
                     id={`category-${category.id}`}
                     name="category"
                     value={category.name}
-                    checked={selectedCategory === category.name}
                     onChange={() => handleCategoryChange(category.name)}
                   />
                   <label
