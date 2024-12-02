@@ -7,16 +7,19 @@ import CartIcon from "../Common/CartIcon";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import HeaderTop from "../HomePage/HeaderTop";
 import SearchBar from "./SearchBar";
-
+import { useDispatch } from "react-redux";
+import {
+  fetchCategories,
+  fetchStoreCategories,
+} from "../../containers/Category/actions";
 const NavbarN = (id) => {
   const { isAuthenticated, login, logout, user } = useContext(AuthContext);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-
+  const [categories, setCategories] = useState([]);
   const cartItems = useSelector((state) => state.cart?.cartItems?.length || 0);
-
+  const dispatch = useDispatch();
   const handleSearch = () => {
     setIsSearchVisible(!isSearchVisible); // Toggle search input visibility
   };
@@ -25,6 +28,14 @@ const NavbarN = (id) => {
     // alert("Click Working");
     window.scrollTo(0, 0);
   };
+  useEffect(() => {
+    const loadCategories = async () => {
+      const categories = await dispatch(fetchCategories());
+      setCategories(categories); // Set the categories directly
+    };
+
+    loadCategories();
+  }, [dispatch]);
 
   // Hide search bar when scrolling
   useEffect(() => {
@@ -215,46 +226,16 @@ const NavbarN = (id) => {
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdown"
                     >
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Attendance and Access Control Systems
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Door Locks and Controllers
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Barcode Scanners
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Accessories
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Switches for Access Control
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Readers
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          AMC
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Elevator Control System
-                        </a>
-                      </li>
+                      {categories.map((category) => (
+                        <li key={category.id}>
+                          <a
+                            className="dropdown-item"
+                            href={`/store?cat=${category.slug}`}
+                          >
+                            {category.name}
+                          </a>
+                        </li>
+                      ))}
                     </ul>
                   </li>
                   <li class="nav-item">

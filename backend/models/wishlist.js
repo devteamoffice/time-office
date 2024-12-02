@@ -18,7 +18,7 @@ const Wishlist = sequelize.define(
         model: Product,
         key: "id",
       },
-      allowNull: true,
+      allowNull: false, // Enforcing that the wishlist item must have a product
     },
     userId: {
       type: DataTypes.INTEGER,
@@ -26,7 +26,7 @@ const Wishlist = sequelize.define(
         model: User,
         key: "id",
       },
-      allowNull: true,
+      allowNull: false, // Enforcing that the wishlist item must have a user
     },
     isLiked: {
       type: DataTypes.BOOLEAN,
@@ -43,7 +43,9 @@ const Wishlist = sequelize.define(
   },
   {
     tableName: "wishlists",
-    timestamps: false,
+    timestamps: true, // Sequelize will manage createdAt and updatedAt
+    createdAt: "created",
+    updatedAt: "updated",
   }
 );
 
@@ -56,6 +58,18 @@ Wishlist.belongsTo(Product, {
 Wishlist.belongsTo(User, {
   foreignKey: "userId",
   as: "user",
+});
+
+// In Product model
+Product.hasMany(Wishlist, {
+  foreignKey: "productId",
+  as: "wishlists",
+});
+
+// In User model
+User.hasMany(Wishlist, {
+  foreignKey: "userId",
+  as: "wishlists",
 });
 
 module.exports = Wishlist;

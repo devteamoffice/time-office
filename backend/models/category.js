@@ -18,6 +18,16 @@ const Category = sequelize.define(
       allowNull: false,
       trim: true,
     },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      set(value) {
+        // Generate the slug using the name field
+        const slug = slugify(value, { lower: true, strict: true });
+        this.setDataValue("slug", slug);
+      },
+    },
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,

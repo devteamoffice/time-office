@@ -6,7 +6,9 @@ import { useEffect, useState, useContext } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import NavbarN from "./component/Extras/HeaderN";
-import { AuthContext, AuthProvider } from "./context/Socket/AuthContext";
+import { AuthContext } from "./context/Socket/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [showContent, setShowContent] = useState(false);
@@ -31,7 +33,7 @@ function App() {
       // Decode the token to get the user ID
       try {
         const decodedToken = jwtDecode(token);
-        console.log("User ID:", user?.name); // Adjust according to your token's payload structure
+        console.log("User ID:", user?.id); // Adjust according to your token's payload structure
       } catch (error) {
         console.error("Invalid JWT token:", error);
       }
@@ -45,6 +47,16 @@ function App() {
       <NavbarN />
       {showContent && <Router isAuthenticated={isAuthenticated} />}
       <Footer />
+      {/* Add ToastContainer here */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        pauseOnFocusLoss
+      />
     </>
   );
 }

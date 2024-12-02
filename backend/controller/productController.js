@@ -23,16 +23,16 @@ const upload = multer({ storage });
  */
 // In your controller (filterProductsByCategory)
 exports.filterProductsByCategory = async (req, res) => {
-  const { category } = req.params; // assuming you are using URL params
+  const { slug } = req.params; // Use slug from URL params
 
-  if (!category) {
-    return res.status(400).json({ message: "Category is required" });
+  if (!slug) {
+    return res.status(400).json({ message: "Category slug is required" });
   }
 
   try {
-    // Check if the category exists
+    // Check if the category exists using the slug
     const categoryExists = await Category.findOne({
-      where: { name: category }, // Look for category by ID instead of name
+      where: { slug }, // Assuming 'slug' is a column in your Category table
     });
 
     if (!categoryExists) {

@@ -12,12 +12,17 @@ exports.addCategory = async (req, res) => {
   }
 
   try {
+    // Generate slug if not provided
+    const slug = req.body.slug || slugify(name, { lower: true, strict: true });
+
     const category = await Category.create({
       name,
       description,
       products,
       isActive,
+      slug,
     });
+
     res.status(200).json({
       success: true,
       message: `Category has been added successfully!`,
@@ -61,7 +66,7 @@ exports.fetchCategoryById = async (req, res) => {
     const category = await Category.findByPk(id, {
       include: {
         association: Category.associations.products, // Assuming association is defined
-        attributes: ["name"], // Select only the name field
+        attributes: ["name", "slug"], // Select only the name field
       },
     });
 
@@ -83,6 +88,12 @@ exports.updateCategory = async (req, res) => {
     const { id } = req.params;
     const updateData = req.body.category;
 
+    // Generate slug if not provided
+    if (!updateData.slug) {
+      updateData.slug = slugify(updateData.name, { lower: true, strict: true });
+    }
+
+    // Check if the slug already exists
     const foundCategory = await Category.findOne({
       where: { slug: updateData.slug },
     });

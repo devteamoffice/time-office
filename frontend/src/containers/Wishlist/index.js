@@ -44,19 +44,6 @@ class Wishlist extends React.PureComponent {
                   items results
                 </p>
               </div>
-              <div class="col-lg-6">
-                <div class="text-md-end mt-3 mt-md-0">
-                  <button type="button" class="btn btn-outline-secondary me-1">
-                    <i class="bx bx-cog me-1"></i>More Setting
-                  </button>
-                  <button type="button" class="btn btn-outline-secondary me-1">
-                    <i class="bx bx-filter-alt me-1"></i> Filters
-                  </button>
-                  <a href="product-add.html" class="btn btn-success me-1">
-                    <i class="bx bx-plus"></i> New Product
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -77,11 +64,9 @@ class Wishlist extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    wishlist: state.wishlist.wishlist,
-    isLoading: state.wishlist.isLoading,
-  };
-};
+const mapStateToProps = (state) => ({
+  wishlist: state.wishlist?.wishlist || [], // Fallback to an empty array
+  isLoading: state.wishlist?.isLoading || false,
+});
 
 export default connect(mapStateToProps, actions)(Wishlist);

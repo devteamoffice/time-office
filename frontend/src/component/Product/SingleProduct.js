@@ -1,9 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import placeholder from "../../assets/images/placeholder.png";
+import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa";
-import AddToCartButton from "../Cart/AddToCartButton";
+import placeholder from "../../assets/images/placeholder.png";
+import { handleAddToCart } from "../../containers/Cart/actions";
+
 const SingleProduct = ({ products }) => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart?.cartItems || []);
+
+  const addToCart = (product) => {
+    const itemInCart = cartItems.find((item) => item._id === product._id);
+    const quantity = itemInCart ? itemInCart.quantity + 1 : 1;
+    dispatch(handleAddToCart({ ...product, quantity }));
+  };
+
   return (
     <div className="row">
       {products.map((product) => {
@@ -14,31 +25,35 @@ const SingleProduct = ({ products }) => {
         } catch (error) {
           console.error("Error parsing images JSON:", error);
         }
+
+        const itemInCart = cartItems.find((item) => item._id === product._id);
+
         return (
-          <div key={product.id} className="col-md-6 col-xl-3">
+          <div key={product._id} className="col-md-6 col-xl-3">
             <div className="card">
-              <Link
-                to={`/product/${product.id}`}
-                className="item-link d-flex flex-column h-100"
-              >
-                <div className="card-body bg-light-subtle rounded-bottom">
-                  {imageUrl ? (
-                    <img
-                      className="img-fluid"
-                      src={imageUrl}
-                      alt={product.name}
-                    />
-                  ) : (
-                    <img
-                      className="img-fluid"
-                      src={placeholder}
-                      alt="Placeholder"
-                    />
-                  )}
-                </div>
-              </Link>
+              <div className="card-body bg-light-subtle rounded-bottom">
+                {imageUrl ? (
+                  <img
+                    className="img-fluid"
+                    src={imageUrl}
+                    alt={product.name}
+                  />
+                ) : (
+                  <img
+                    className="img-fluid"
+                    src={placeholder}
+                    alt="Placeholder"
+                  />
+                )}
+              </div>
+
               <div className="card-body item-body bg-light-subtle rounded-bottom">
-                <a className="text-dark fw-medium fs-16">{product.name}</a>
+                <Link
+                  to={`/product/${product._id}`}
+                  className="item-link d-flex flex-column h-100"
+                >
+                  <a className="text-dark fw-medium fs-16">{product.name}</a>
+                </Link>
                 <div className="my-1">
                   <div className="d-flex gap-2 align-items-center">
                     <ul className="d-flex text-warning m-0 fs-18 list-unstyled">
@@ -59,8 +74,7 @@ const SingleProduct = ({ products }) => {
                       </li>
                     </ul>
                     <p className="mb-0 fw-medium fs-15 text-dark">
-                      4.5
-                      <span className="text-muted fs-13">(55 Review)</span>
+                      4.5 <span className="text-muted fs-13">(55 Review)</span>
                     </p>
                   </div>
                 </div>
@@ -72,9 +86,15 @@ const SingleProduct = ({ products }) => {
                   <small className="text-muted">(30% Off)</small>
                 </h4>
                 <div className="mt-3">
-                  <AddToCartButton />
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="btn btn-primary"
+                  >
+                    {itemInCart
+                      ? `Add More (${itemInCart.quantity})`
+                      : "Add to Cart"}
+                  </button>
                 </div>
-
                 <span className="position-absolute top-0 end-0 p-3">
                   <button
                     type="button"

@@ -1,22 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 import OrderSummary from "../../component/Cart/OrderSummary";
 import HaveACode from "../../component/Cart/HaveACode";
 import CartItem from "../../component/Cart/CartItem";
-import { BagIcon, CloseIcon } from "../../component/Common/Icon";
+import { BagIcon } from "../../component/Common/Icon";
+import mapDispatchToProps from "../../actions";
 
-const Cart = (props) => {
-  const {
-    isCartOpen,
-    cartItems = [], // Set a default empty array to avoid undefined issues
-    cartTotal,
-    toggleCart,
-    handleShopping,
-    handleCheckout,
-    handleRemoveFromCart,
-    placeOrder,
-    authenticated,
-  } = props;
-
+const Cart = ({
+  cartItems = [], // Ensure cartItems defaults to an empty array
+  handleRemoveFromCart,
+  handleShopping,
+  handleCheckout,
+}) => {
   return (
     <div className="page-content">
       <div className="container-xxl">
@@ -26,12 +21,14 @@ const Cart = (props) => {
               <p className="fw-medium fs-15 text-white m-0">
                 There are {cartItems.length} products in your cart
               </p>
-              <a
-                href="#!"
-                className="ms-auto text-white fs-14 text-decoration-underline"
+              <button
+                className="ms-auto text-white fs-14 text-decoration-underline btn btn-link"
+                onClick={() =>
+                  cartItems.forEach((item) => handleRemoveFromCart(item._id))
+                }
               >
                 Clear cart
-              </a>
+              </button>
             </div>
             {cartItems.length > 0 ? (
               <div className="cart-body">
@@ -39,7 +36,6 @@ const Cart = (props) => {
                   <CartItem
                     key={index}
                     item={item}
-                    toggleCart={toggleCart}
                     handleRemoveFromCart={handleRemoveFromCart}
                   />
                 ))}
@@ -54,14 +50,13 @@ const Cart = (props) => {
           <div className="col-lg-4">
             <HaveACode />
             <OrderSummary />
-
             <div className="main-btn my-4 text-end">
-              <a href="/products" className="btn btn-primary">
+              <button className="btn btn-primary" onClick={handleShopping}>
                 Continue Shopping
-              </a>
-              <a href="/order/:id/checkout" className="btn btn-success">
+              </button>
+              <button className="btn btn-success" onClick={handleCheckout}>
                 Buy Now
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -70,4 +65,9 @@ const Cart = (props) => {
   );
 };
 
-export default Cart;
+const mapStateToProps = (state) => ({
+  cartItems: state.cart?.cartItems || [], // Default to empty array
+  cartTotal: state.cart?.cartTotal || 0, // Default to 0
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

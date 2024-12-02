@@ -1,13 +1,11 @@
-/*
- *
- * Cart actions
- *
- */
-
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import axios from "axios";
-
+import { toast } from "react-toastify";
+import { AuthContext } from "../../context/Socket/AuthContext";
+import {
+  SET_AUTH,
+  CLEAR_AUTH,
+} from "../../containers/Authentication/constants";
 import {
   HANDLE_CART,
   ADD_TO_CART,
@@ -16,201 +14,174 @@ import {
   SET_CART_ID,
   CLEAR_CART,
 } from "./constants";
-
-import {
-  SET_PRODUCT_SHOP_FORM_ERRORS,
-  RESET_PRODUCT_SHOP,
-} from "../Product/constants";
-
-import { API_URL, CART_ID, CART_ITEMS, CART_TOTAL } from "../../constants";
-import handleError from "../../utils/error";
-import { allFieldsValidation } from "../../utils/validation";
+import handleError from "../../utils/error"; // Your error handling utility
+import { API_URL, CART_ID, CART_ITEMS, CART_TOTAL } from "../../constants"; // Your constants
 import { toggleCart } from "../Navigation/actions";
-
 // Handle Add To Cart
 export const handleAddToCart = (product) => {
-  return (dispatch, getState) => {
-    product.quantity = Number(getState().product.productShopData.quantity);
-    product.totalPrice = product.quantity * product.price;
-    product.totalPrice = parseFloat(product.totalPrice.toFixed(2));
-    const inventory = getState().product.storeProduct.inventory;
+  return async (dispatch, getState) => {
+    try {
+      const { user } = useContext(AuthContext); // Access user from AuthContext
+      const userId = user?.id; // Get userId
 
-    const result = calculatePurchaseQuantity(inventory);
+      if (!userId) {
+        throw new Error("User is not authenticated");
+      }
 
-    const rules = {
-      quantity: `min:1|max:${result}`,
-    };
+      // Post request to add product to cart
+      const response = await axios.post(`${API_URL}/cart/${userId}/add`, {
+        product: {
+          product: product._id,
+          quantity: product.quantity || 1,
+        },
+      });
 
-    const { isValid, errors } = allFieldsValidation(product, rules, {
-      "min.quantity": "Quantity must be at least 1.",
-      "max.quantity": `Quantity may not be greater than ${result}.`,
-    });
+      const updatedCart = response.data.cart;
 
-    if (!isValid) {
-      return dispatch({ type: SET_PRODUCT_SHOP_FORM_ERRORS, payload: errors });
+      // Save updated cart to local storage
+      localStorage.setItem(CART_ITEMS, JSON.stringify(updatedCart.products));
+
+      // Dispatch to update Redux state
+      dispatch({ type: ADD_TO_CART, payload: updatedCart });
+
+      // Calculate the total of the cart after adding the item
+      dispatch(calculateCartTotal());
+
+      // Optionally, toggle the cart visibility
+      dispatch(toggleCart());
+    } catch (error) {
+      handleError(error, dispatch);
+      toast.error("Failed to add product to cart");
     }
-
-    dispatch({
-      type: RESET_PRODUCT_SHOP,
-    });
-
-    dispatch({
-      type: ADD_TO_CART,
-      payload: product,
-    });
-
-    const cartItems = JSON.parse(localStorage.getItem(CART_ITEMS));
-    let newCartItems = [];
-    if (cartItems) {
-      newCartItems = [...cartItems, product];
-    } else {
-      newCartItems.push(product);
-    }
-    localStorage.setItem(CART_ITEMS, JSON.stringify(newCartItems));
-
-    dispatch(calculateCartTotal());
-    dispatch(toggleCart());
   };
 };
 
 // Handle Remove From Cart
-export const handleRemoveFromCart = (product) => {
-  return (dispatch, getState) => {
-    const cartItems = JSON.parse(localStorage.getItem(CART_ITEMS));
-    const newCartItems = cartItems.filter((item) => item._id !== product._id);
-    localStorage.setItem(CART_ITEMS, JSON.stringify(newCartItems));
+export const handleRemoveFromCart = (productId) => {
+  return async (dispatch, getState) => {
+    try {
+      const { user } = useContext(AuthContext); // Get user from AuthContext
+      const userId = user?.id; // Access userId
 
-    dispatch({
-      type: REMOVE_FROM_CART,
-      payload: product,
-    });
-    dispatch(calculateCartTotal());
-    // dispatch(toggleCart());
-  };
-};
+      if (!userId) {
+        throw new Error("User is not authenticated");
+      }
 
-export const calculateCartTotal = () => {
-  return (dispatch, getState) => {
-    const cartItems = getState().cart.cartItems;
+      // Post request to remove product from cart
+      const response = await axios.delete(
+        `${API_URL}/cart/${userId}/remove/${productId}`
+      );
 
-    let total = 0;
+      const updatedCart = response.data.cart;
 
-    cartItems.forEach((item) => {
-      total += item.price * item.quantity;
-    });
+      // Save updated cart to local storage
+      localStorage.setItem(CART_ITEMS, JSON.stringify(updatedCart.products));
 
-    total = parseFloat(total.toFixed(2));
-    localStorage.setItem(CART_TOTAL, total);
-    dispatch({
-      type: HANDLE_CART_TOTAL,
-      payload: total,
-    });
-  };
-};
+      // Dispatch to update Redux state
+      dispatch({ type: REMOVE_FROM_CART, payload: updatedCart });
 
-// set cart store from local storage
-export const handleCart = () => {
-  const cart = {
-    cartItems: JSON.parse(localStorage.getItem(CART_ITEMS)),
-    cartTotal: localStorage.getItem(CART_TOTAL),
-    cartId: localStorage.getItem(CART_ID),
-  };
-
-  return (dispatch, getState) => {
-    if (cart.cartItems !== undefined) {
-      dispatch({
-        type: HANDLE_CART,
-        payload: cart,
-      });
+      // Calculate the total of the cart after removing the item
       dispatch(calculateCartTotal());
+    } catch (error) {
+      handleError(error, dispatch);
+      toast.error("Failed to remove product from cart");
     }
   };
 };
 
-export const handleCheckout = () => {
+// Calculate Cart Total
+export const calculateCartTotal = () => {
   return (dispatch, getState) => {
-    toast.info("Please Login to proceed to checkout", {
-      position: "top-right",
-      autoClose: 1000,
-    });
+    const cartItems = JSON.parse(localStorage.getItem(CART_ITEMS)) || [];
+    const total = cartItems.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
 
-    dispatch(toggleCart());
-    useNavigate().push("/login");
+    const roundedTotal = parseFloat(total.toFixed(2)); // Round the total to 2 decimal places
+    localStorage.setItem(CART_TOTAL, roundedTotal);
+
+    // Dispatch to update Redux state with the total
+    dispatch({ type: HANDLE_CART_TOTAL, payload: roundedTotal });
   };
 };
 
-// Continue shopping use case
-export const handleShopping = () => {
-  return (dispatch, getState) => {
-    useNavigate().push("/shop");
-    dispatch(toggleCart());
+// Set Cart State from Local Storage
+export const handleCart = () => {
+  return (dispatch) => {
+    const cart = {
+      cartItems: JSON.parse(localStorage.getItem(CART_ITEMS)) || [],
+      cartTotal: parseFloat(localStorage.getItem(CART_TOTAL)) || 0,
+      cartId: localStorage.getItem(CART_ID) || "",
+    };
+
+    // Dispatch to update Redux state with the cart data
+    dispatch({ type: HANDLE_CART, payload: cart });
+
+    // Calculate cart total (if needed)
+    dispatch(calculateCartTotal());
   };
 };
 
-// create cart id api
+// Get or Create Cart ID for the User
 export const getCartId = () => {
   return async (dispatch, getState) => {
     try {
+      const { user } = useContext(AuthContext); // Access user from AuthContext
+      const userId = user?.id; // Get userId
+
+      if (!userId) {
+        throw new Error("User is not authenticated");
+      }
+
       const cartId = localStorage.getItem(CART_ID);
-      const cartItems = getState().cart.cartItems;
-      const products = getCartItems(cartItems);
 
-      // create cart id if there is no one
       if (!cartId) {
-        const response = await axios.post(`${API_URL}/cart/add`, { products });
+        // If there's no cart ID, create a new cart
+        const response = await axios.post(`${API_URL}/cart/add`, {
+          userId,
+          products: [],
+        });
 
-        dispatch(setCartId(response.data.cartId));
+        const newCartId = response.data.cartId;
+
+        localStorage.setItem(CART_ID, newCartId);
+        dispatch({ type: SET_CART_ID, payload: newCartId });
       }
     } catch (error) {
       handleError(error, dispatch);
+      toast.error("Failed to retrieve or create cart ID");
     }
   };
 };
 
-export const setCartId = (cartId) => {
-  return (dispatch, getState) => {
-    localStorage.setItem(CART_ID, cartId);
-    dispatch({
-      type: SET_CART_ID,
-      payload: cartId,
-    });
-  };
-};
-
+// Clear Cart
 export const clearCart = () => {
-  return (dispatch, getState) => {
-    localStorage.removeItem(CART_ITEMS);
-    localStorage.removeItem(CART_TOTAL);
-    localStorage.removeItem(CART_ID);
+  return async (dispatch) => {
+    try {
+      const { user } = useContext(AuthContext); // Access user from AuthContext
+      const userId = user?.id; // Get userId
 
-    dispatch({
-      type: CLEAR_CART,
-    });
+      if (!userId) {
+        throw new Error("User is not authenticated");
+      }
+
+      const cartId = localStorage.getItem(CART_ID);
+
+      if (cartId) {
+        await axios.delete(`${API_URL}/cart/${cartId}`);
+      }
+
+      // Remove cart data from local storage
+      localStorage.removeItem(CART_ITEMS);
+      localStorage.removeItem(CART_TOTAL);
+      localStorage.removeItem(CART_ID);
+
+      // Dispatch to clear cart data from Redux
+      dispatch({ type: CLEAR_CART });
+    } catch (error) {
+      handleError(error, dispatch);
+      toast.error("Failed to clear cart");
+    }
   };
-};
-
-const getCartItems = (cartItems) => {
-  const newCartItems = [];
-  cartItems.forEach((item) => {
-    const newItem = {};
-    newItem.quantity = item.quantity;
-    newItem.price = item.price;
-    newItem.taxable = item.taxable;
-    newItem.product = item._id;
-    newCartItems.push(newItem);
-  });
-
-  return newCartItems;
-};
-
-const calculatePurchaseQuantity = (inventory) => {
-  if (inventory <= 25) {
-    return 1;
-  } else if (inventory > 25 && inventory <= 100) {
-    return 5;
-  } else if (inventory > 100 && inventory < 500) {
-    return 25;
-  } else {
-    return 50;
-  }
 };
