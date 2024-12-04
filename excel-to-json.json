@@ -1,0 +1,847 @@
+{
+  "products": [
+    {
+      "id": "e2dfeba5-910b-11ef-a964-d99045a67454",
+      "sku": "drop-bolt-lock-feedback",
+      "name": "Drop Bolt Lock with Feedback and Timer",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-feedback%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-feedback%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-feedback%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-feedback%2F4.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-feedback%2FThumbs.db?alt=media\"]",
+      "price": 1500,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T09:53:25.000Z"
+    },
+    {
+      "sku": "dblc-2",
+      "name": "Drop Bolt Lock - 2 wire",
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "isActive": false
+    },
+    {
+      "id": "e2dfed9b-910b-11ef-a964-d99045a67454",
+      "sku": "bs20w",
+      "name": "BS20W / CQH20G",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20w%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20w%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20w%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20w%2FThumbs.db?alt=media\"]",
+      "description": "scanBarcodeCategory: 0, codeReadingDensity: 0, operatingTemperature: 0, typeOfDecoding: 0, storage: 0, scanMode: 0, operatingHumidity: 0, seismicResistance: 0, promptMode: 0, Communication: 0, operatingModes: 0, drivers: 0, batteryCapacity: 0, batteryType: 0",
+      "price": 4000,
+      "isActive": true,
+      "categoryId": 3,
+      "subcategoryId": 10,
+      "created": "2024-10-19T09:51:30.000Z"
+    },
+    {
+      "id": "e2dfeeeb-910b-11ef-a964-d99045a67454",
+      "sku": "electric-strike-s-es",
+      "name": "Team Office Standard Electric Strike (Fail secure)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Felectric-strike-s-es%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Felectric-strike-s-es%2F2.png?alt=media\"]",
+      "price": 1500,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T09:55:03.000Z"
+    },
+    {
+      "sku": "electric-strike-s-es-fs",
+      "name": "Team Office Standard Electric Strike (Fail Safe)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12
+    },
+    {
+      "id": "e2dfef4b-910b-11ef-a964-d99045a67454",
+      "sku": "door-controller-1-12000rs2wg",
+      "name": "1 Door Controller",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-1-12000rs2wg%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-1-12000rs2wg%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-1-12000rs2wg%2F3.jpg?alt=media\"]",
+      "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0",
+      "price": 12000,
+      "isActive": true,
+      "categoryId": 2,
+      "subcategoryId": 8,
+      "created": "2024-10-19T09:51:52.000Z"
+    },
+    {
+      "id": "e2dfefd9-910b-11ef-a964-d99045a67454",
+      "sku": "bs20",
+      "name": "BS20 / CQH20",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F2.jpeg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F4.jpeg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F5.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2F6.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fbs20%2FThumbs.db?alt=media\"]",
+      "description": "scanBarcodeCategory: 0, codeReadingDensity: 0, operatingTemperature: 0, typeOfDecoding: 0, storage: 0, scanMode: 0, operatingHumidity: 0, seismicResistance: 0, promptMode: 0, Communication: 0, operatingModes: 0, drivers: 0, batteryCapacity: 0, batteryType: 0",
+      "price": 1999,
+      "isActive": true,
+      "categoryId": 3,
+      "subcategoryId": 11,
+      "created": "2024-10-19T09:51:11.000Z"
+    },
+    {
+      "id": "e2dff09f-910b-11ef-a964-d99045a67454",
+      "sku": "door-controller-4-20000rs",
+      "name": "4 Door Controller",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-4-20000rs%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-4-20000rs%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-4-20000rs%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-4-20000rs%2FThumbs.db?alt=media\"]",
+      "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0",
+      "price": 20000,
+      "isActive": true,
+      "categoryId": 2,
+      "subcategoryId": 8,
+      "created": "2024-10-19T09:52:14.000Z"
+    },
+    {
+      "id": "e2dff0df-910b-11ef-a964-d99045a67454",
+      "sku": "door-controller-2-16000rs4wg",
+      "name": "2 Door Controller",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-2-16000rs4wg%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-2-16000rs4wg%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdoor-controller-2-16000rs4wg%2F3.jpg?alt=media\"]",
+      "description": "users: 0, eventStorage: 0, numberOfReadersSupported: 0, Communication: 0, enclosure: 0, powerSupply: 0, interlock: 0, numberOfAlarm: 0, antiPassBackFeature: 0, liveEventMonitor: 0, exitSwitchSupported: 0",
+      "price": 16000,
+      "isActive": true,
+      "categoryId": 2,
+      "subcategoryId": 8,
+      "created": "2024-10-19T09:52:03.000Z"
+    },
+    {
+      "id": "e2dff17e-910b-11ef-a964-d99045a67454",
+      "sku": "em-lock",
+      "name": "EM Lock 600 LBS",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2F4.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2F5.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2F6.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2F7.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2F8.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock%2FThumbs.db?alt=media\"]",
+      "price": 550,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T09:57:23.000Z"
+    },
+    {
+      "id": "e2dff249-910b-11ef-a964-d99045a67454",
+      "sku": "em-lock-120-lbs",
+      "name": "EM Lock 120LBS",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F10.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F11.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F8.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-120-lbs%2F9.png?alt=media\"]",
+      "price": 1500,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T09:58:29.000Z"
+    },
+    {
+      "id": "e2dff34a-910b-11ef-a964-d99045a67454",
+      "sku": "em-lock-1200-lbs",
+      "name": "EM Lock 1200 LBS Double Leaf",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-1200-lbs%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-1200-lbs%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-1200-lbs%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-1200-lbs%2FThumbs.db?alt=media\"]",
+      "price": 4500,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T09:58:52.000Z"
+    },
+    {
+      "id": "e2dff39d-910b-11ef-a964-d99045a67454",
+      "sku": "em-lock-300lbs",
+      "name": "EM Lock 300 LBS",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-300lbs%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fem-lock-300lbs%2FThumbs.db?alt=media\"]",
+      "price": 2300,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T09:58:59.000Z"
+    },
+    {
+      "id": "e2dff472-910b-11ef-a964-d99045a67454",
+      "sku": "emergency-glass-break-switch",
+      "name": "TOFP-203 (NO/NC/COM)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Femergency-glass-break-switch%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Femergency-glass-break-switch%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Femergency-glass-break-switch%2FThumbs.db?alt=media\"]",
+      "price": 750,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T09:59:14.000Z"
+    },
+    {
+      "id": "e2dff4ae-910b-11ef-a964-d99045a67454",
+      "sku": "energy-saving-switch",
+      "name": "Team Office Energy Saving Switch for Hotel",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fenergy-saving-switch%2F1.png?alt=media\"]",
+      "price": 1200,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T09:59:19.000Z"
+    },
+    {
+      "id": "e2dff59d-910b-11ef-a964-d99045a67454",
+      "sku": "fixed-mount-qr-code",
+      "name": "Z86",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ffixed-mount-qr-code%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ffixed-mount-qr-code%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ffixed-mount-qr-code%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ffixed-mount-qr-code%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ffixed-mount-qr-code%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ffixed-mount-qr-code%2F6.png?alt=media\"]",
+      "price": 8500,
+      "isActive": true,
+      "categoryId": 2,
+      "subcategoryId": 9,
+      "created": "2024-10-19T09:59:52.000Z"
+    },
+    {
+      "id": "e2dff6b2-910b-11ef-a964-d99045a67454",
+      "sku": "l-25",
+      "name": "L25 Padlock",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-25%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-25%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-25%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-25%2F4-.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-25%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-25%2F6-.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-25%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-25%2FThumbs.db?alt=media\"]",
+      "price": 2199,
+      "isActive": true,
+      "categoryId": 2,
+      "subcategoryId": 7,
+      "created": "2024-10-19T10:00:30.000Z"
+    },
+    {
+      "id": "e2dff7cf-910b-11ef-a964-d99045a67454",
+      "sku": "l-braket-for-em-lock-600-lbs",
+      "name": "L Brackets",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-braket-for-em-lock-600-lbs%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-braket-for-em-lock-600-lbs%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-braket-for-em-lock-600-lbs%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-braket-for-em-lock-600-lbs%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-braket-for-em-lock-600-lbs%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fl-braket-for-em-lock-600-lbs%2F6.png?alt=media\"]",
+      "price": 350,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 13,
+      "created": "2024-10-19T10:06:15.000Z"
+    },
+    {
+      "id": "e2dff8e9-910b-11ef-a964-d99045a67454",
+      "sku": "morpho-usb-15-mtr",
+      "name": "Morpho USB 15 Mtr",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fmorpho-usb-15-mtr-%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fmorpho-usb-15-mtr-%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fmorpho-usb-15-mtr-%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fmorpho-usb-15-mtr-%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fmorpho-usb-15-mtr-%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fmorpho-usb-15-mtr-%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fmorpho-usb-15-mtr-%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fmorpho-usb-15-mtr-%2FThumbs.db?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:07:53.000Z"
+    },
+    {
+      "id": "e2dffa21-910b-11ef-a964-d99045a67454",
+      "sku": "press-exit",
+      "name": "Team Office TOP024 Exit Switch (NO/NC/COM)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpress--exit%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpress--exit%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpress--exit%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpress--exit%2F4.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpress--exit%2F5.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpress--exit%2F6.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpress--exit%2F7.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpress--exit%2FThumbs.db?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:09:35.000Z"
+    },
+    {
+      "id": "e2dffb8b-910b-11ef-a964-d99045a67454",
+      "sku": "push-ss-exit-switch-big",
+      "name": "Team Office SS Exit Switch Big(NO/COM)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpush-ss-exit-switch-big%2F1.png?alt=media\"]",
+      "price": 402,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T10:09:39.000Z"
+    },
+    {
+      "id": "e2dffbf3-910b-11ef-a964-d99045a67454",
+      "sku": "push-ss-exit-switch-small",
+      "name": "Team office SS Exit Switch Small(NO/COM)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpush-ss-exit-switch-small%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpush-ss-exit-switch-small%2FThumbs.db?alt=media\"]",
+      "price": 450,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T10:09:43.000Z"
+    },
+    {
+      "id": "e2dffc46-910b-11ef-a964-d99045a67454",
+      "sku": "pvc-card-10",
+      "name": "Proximity Thick Cards(Pack of 10)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpvc-card%2F1.png?alt=media\"]",
+      "price": 22,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T10:09:46.000Z"
+    },
+    {
+      "sku": "pvc-card-25",
+      "name": "Proximity Thick Cards(Pack of 25)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "pvc-card-50",
+      "name": "Proximity Thick Cards(Pack of 50)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "pvc-card-100",
+      "name": "Proximity Thick Cards(Pack of 100)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "pvc-card-200",
+      "name": "Proximity Thick Cards(Pack of 200)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "id": "e2dffc76-910b-11ef-a964-d99045a67454",
+      "sku": "pvc-exit-switch-small",
+      "name": "Team office PVC Exit Switch Small(NO/NC/COM)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpvc-exit-switch-small%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fpvc-exit-switch-small%2FThumbs.db?alt=media\"]",
+      "price": 206,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T10:09:51.000Z"
+    },
+    {
+      "id": "e2dffcaa-910b-11ef-a964-d99045a67454",
+      "sku": "remote-kit",
+      "name": "Remote Kit",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fremote-kit%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fremote-kit%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fremote-kit%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fremote-kit%2F4.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fremote-kit%2FThumbs.db?alt=media\"]",
+      "price": 0,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T10:10:04.000Z"
+    },
+    {
+      "id": "e2dffd4c-910b-11ef-a964-d99045a67454",
+      "sku": "rfid-card-10",
+      "name": "Proximity Key Fobs(Pack of 10)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-card%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-card%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-card%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-card%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-card%2FThumbs.db?alt=media\"]",
+      "price": 25,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T10:10:30.000Z"
+    },
+    {
+      "sku": "rfid-card-25",
+      "name": "Proximity Key Fobs(Pack of 25)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "rfid-card-50",
+      "name": "Proximity Key Fobs(Pack of 50)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "rfid-card-100",
+      "name": "Proximity Key Fobs(Pack of 100)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "id": "e2dffd8c-910b-11ef-a964-d99045a67454",
+      "sku": "rfid-water-park",
+      "name": "RFID Locker Lock For Water Park",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-water-park%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-water-park%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-water-park%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-water-park%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-water-park%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frfid-water-park%2F6.png?alt=media\"]",
+      "price": 2650,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T10:10:54.000Z"
+    },
+    {
+      "id": "e2dffe19-910b-11ef-a964-d99045a67454",
+      "sku": "rim-lock",
+      "name": "RIM Lock",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frim-lock%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frim-lock%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frim-lock%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frim-lock%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frim-lock%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frim-lock%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Frim-lock%2F7.png?alt=media\"]",
+      "price": 2070,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T10:21:08.000Z"
+    },
+    {
+      "id": "e2dffe62-910b-11ef-a964-d99045a67454",
+      "sku": "startek-type-c",
+      "name": "Startek Type C",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-type-c%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-type-c%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-type-c%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-type-c%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-type-c%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-type-c%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-type-c%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-type-c%2F8.png?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:22:31.000Z"
+    },
+    {
+      "id": "e2dfff08-910b-11ef-a964-d99045a67454",
+      "sku": "startek-usb",
+      "name": "Startek USB",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-usb%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-usb%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-usb%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-usb%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fstartek-usb%2F5.png?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:22:43.000Z"
+    },
+    {
+      "id": "e2dfff49-910b-11ef-a964-d99045a67454",
+      "sku": "thick-card-10",
+      "name": "UHF Card(Pack of 10)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2F5.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2F8.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthick-card%2FThumbs.db?alt=media\"]",
+      "price": 50,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T10:22:59.000Z"
+    },
+    {
+      "sku": "thick-card-25",
+      "name": "UHF Card(Pack of 25)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "thick-card-50",
+      "name": "UHF Card(Pack of 50)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "thick-card-100",
+      "name": "UHF Card(Pack of 100)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "thick-card-200",
+      "name": "UHF Card(Pack of 200)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "id": "e2e0002c-910b-11ef-a964-d99045a67454",
+      "sku": "thin-card-10",
+      "name": "Proximity Thin Cards(Pack of 10)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthiin-card%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthiin-card%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthiin-card%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthiin-card%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fthiin-card%2FThumbs.db?alt=media\"]",
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "isActive": true,
+      "created": "2024-10-19T10:23:13.000Z"
+    },
+    {
+      "sku": "thin-card-25",
+      "name": "Proximity Thin Cards(Pack of 25)",
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "isActive": true
+    },
+    {
+      "sku": "thin-card-50",
+      "name": "Proximity Thin Cards(Pack of 50)",
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "isActive": true
+    },
+    {
+      "sku": "thin-card-100",
+      "name": "Proximity Thin Cards(Pack of 100)",
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "isActive": true
+    },
+    {
+      "sku": "thin-card-200",
+      "name": "Proximity Thin Cards(Pack of 200)",
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "isActive": true
+    },
+    {
+      "id": "e2e0006c-910b-11ef-a964-d99045a67454",
+      "sku": "top-173-no-touch",
+      "name": "TOP-173R (NO/NC/COM) Inbuilt Receiver",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-173-no-touch%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-173-no-touch%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-173-no-touch%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-173-no-touch%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-173-no-touch%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-173-no-touch%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-173-no-touch%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-173-no-touch%2F8.png?alt=media\"]",
+      "price": 0,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T10:24:20.000Z"
+    },
+    {
+      "id": "e2e0014c-910b-11ef-a964-d99045a67454",
+      "sku": "top-43",
+      "name": "TOP-43 Exit Push Switch Metal",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-43%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-43%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-43%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Ftop-43%2FThumbs.db?alt=media\"]",
+      "price": 500,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T10:24:31.000Z"
+    },
+    {
+      "id": "e2e0018a-910b-11ef-a964-d99045a67454",
+      "sku": "u-bracket-for-drop-bolt-lock",
+      "name": "U Bracket For Drop Bolt Lock",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-drop-bolt-lock%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-drop-bolt-lock%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-drop-bolt-lock%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-drop-bolt-lock%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-drop-bolt-lock%2FThumbs.db?alt=media\"]",
+      "price": 650,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 13,
+      "created": "2024-10-19T10:24:45.000Z"
+    },
+    {
+      "id": "e2e0027a-910b-11ef-a964-d99045a67454",
+      "sku": "u-bracket-for-em-lock",
+      "name": "U Bracket For EM Lock (600lbs)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-em-lock%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-em-lock%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-em-lock%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-em-lock%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-em-lock%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-em-lock%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-em-lock%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fu-bracket-for-em-lock%2FThumbs.db?alt=media\"]",
+      "price": 550,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 13,
+      "created": "2024-10-19T10:25:08.000Z"
+    },
+    {
+      "id": "e2e0038a-910b-11ef-a964-d99045a67454",
+      "sku": "uhf",
+      "name": "6 mtr UHF Readers",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fuhf%2F1.png?alt=media\"]",
+      "price": 50,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T10:25:11.000Z"
+    },
+    {
+      "id": "e2e003ba-910b-11ef-a964-d99045a67454",
+      "sku": "white-rotary-exit-switch-door",
+      "name": "Team office PVC Exit Switch",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fwhite-rotary-exit-switch-door%2F1.png?alt=media\"]",
+      "price": 250,
+      "isActive": true,
+      "categoryId": 5,
+      "subcategoryId": 16,
+      "created": "2024-10-19T10:25:15.000Z"
+    },
+    {
+      "id": "e2e0040b-910b-11ef-a964-d99045a67454",
+      "sku": "windshield-uhf-10",
+      "name": "Team Office UHF Windshield Tags(Pack of 10)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fwindshield-uhf%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fwindshield-uhf%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fwindshield-uhf%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fwindshield-uhf%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fwindshield-uhf%2FThumbs.db?alt=media\"]",
+      "price": 60,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T10:25:29.000Z"
+    },
+    {
+      "sku": "windshield-uhf-25",
+      "name": "Team Office UHF Windshield Tags(Pack of 25)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "windshield-uhf-50",
+      "name": "Team Office UHF Windshield Tags(Pack of 50)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "windshield-uhf-100",
+      "name": "Team Office UHF Windshield Tags(Pack of 100)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "sku": "windshield-uhf-200",
+      "name": "Team Office UHF Windshield Tags(Pack of 200)",
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15
+    },
+    {
+      "id": "e2e00539-910b-11ef-a964-d99045a67454",
+      "sku": "z100ac",
+      "name": "Z100AC / Z199",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100ac%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100ac%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100ac%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100ac%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100ac%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100ac%2F6.png?alt=media\"]",
+      "description": "Authentication Method: 0,    User Capacity: 0,    Transaction Capacity: 0,   Color: 0,    Display: 0,    Fingerprint Sensor: 0,   Communication: 0,   FAR & FRR: 0,      Voice Indication: 0,     Operating Voltage: 0,       Access Control: 0,  Fingerprint Angle: 0,         Data Push: 0,   Connection Interface: 0, LED Indication: 0",
+      "price": 8000,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 4,
+      "created": "2024-10-19T10:25:47.000Z"
+    },
+    {
+      "id": "e2e0066f-910b-11ef-a964-d99045a67454",
+      "sku": "z100n",
+      "name": "Z100N",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100n%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100n%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100n%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100n%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100n%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz100n%2FThumbs.db?alt=media\"]",
+      "description": "Authentication Method: 0, User Capacity: 0, Transaction Capacity: 0, Color: 0, Display: 0, Fingerprint Sensor: 0, Language: 0, Communication: 0, FRR: 0, FAR: 0, Identification Time: 0, Operating Voltage: 0, LED & Voice Indication: 0",
+      "price": 7500,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 5,
+      "created": "2024-10-19T10:26:05.000Z"
+    },
+    {
+      "id": "e2e007b8-910b-11ef-a964-d99045a67454",
+      "sku": "z101n",
+      "name": "Z101N",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz101n%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz101n%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz101n%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz101n%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz101n%2FThumbs.db?alt=media\"]",
+      "description": "Authentication Method: 0, User Capacity: 0, Color: 0, Card Type: 0, Input/Output Ports: 0, Fingerprint Sensor: 0, Door Opening Time: 0, LED: 0, Operating Voltage: 0, Card Reading Range: 0, Short-Circuit Protection Time: 0",
+      "price": 4300,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 6,
+      "created": "2024-10-19T10:26:18.000Z"
+    },
+    {
+      "id": "e2e00819-910b-11ef-a964-d99045a67454",
+      "sku": "z11-ic",
+      "name": "Team Office Z11 IC Usb Rfid Card Reader(13.56mhz)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-ic%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-ic%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-ic%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-ic%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-ic%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-ic%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-ic%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-ic%2FThumbs.db?alt=media\"]",
+      "price": 1000,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T10:26:47.000Z"
+    },
+    {
+      "id": "e2e008d6-910b-11ef-a964-d99045a67454",
+      "sku": "z11-id",
+      "name": "Team Office Z11 ID- USB RFID CARD READER(125Khz)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-id%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-id%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-id%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-id%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-id%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-id%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-id%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz11-id%2FThumbs.db?alt=media\"]",
+      "price": 1000,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T10:27:17.000Z"
+    },
+    {
+      "id": "e2e00927-910b-11ef-a964-d99045a67454",
+      "sku": "z200bw",
+      "name": "Z200BW Fingerprint Attendance Cum Access Control Device",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz200bw%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz200bw%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz200bw%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz200bw%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz200bw%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz200bw%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz200bw%2FThumbs.db?alt=media\"]",
+      "price": 9000,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 4,
+      "created": "2024-10-19T10:27:39.000Z"
+    },
+    {
+      "id": "e2e009b8-910b-11ef-a964-d99045a67454",
+      "sku": "z201-uhf-reader-12mtr",
+      "name": "Z201 UHF Reader 12mtr",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz201-uhf-reader-12mtr%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz201-uhf-reader-12mtr%2F2.PNG?alt=media\"]",
+      "price": 35000,
+      "isActive": true,
+      "categoryId": 6,
+      "subcategoryId": 17,
+      "created": "2024-10-19T10:27:45.000Z"
+    },
+    {
+      "id": "e2e009ea-910b-11ef-a964-d99045a67454",
+      "sku": "z203",
+      "name": "Z 203",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203%2F4.PNG?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203%2FThumbs.db?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:27:59.000Z"
+    },
+    {
+      "id": "e2e00a29-910b-11ef-a964-d99045a67454",
+      "sku": "z203t",
+      "name": "Z 203T",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203t%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203t%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203t%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203t%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz203t%2F5.png?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:28:16.000Z"
+    },
+    {
+      "id": "e2e00acf-910b-11ef-a964-d99045a67454",
+      "sku": "z20r",
+      "name": "Z20R V2 Glass Door Lock",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz20r%2F1%20.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz20r%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz20r%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz20r%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz20r%2FThumbs.db?alt=media\"]",
+      "price": 16000,
+      "isActive": true,
+      "categoryId": 2,
+      "subcategoryId": 7,
+      "created": "2024-10-19T10:29:28.000Z"
+    },
+    {
+      "id": "e2e00b10-910b-11ef-a964-d99045a67454",
+      "sku": "z213",
+      "name": "Z 213",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz213%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz213%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz213%2F3.png?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:29:39.000Z"
+    },
+    {
+      "id": "e2e00b48-910b-11ef-a964-d99045a67454",
+      "sku": "z300ac",
+      "name": "Z300AC (Cloud Supported)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz300ac%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz300ac%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz300ac%2F3.png?alt=media\"]",
+      "description": "Authentication Method: 0, User Capacity: 0, Transaction Capacity: 0, Color: 0, Display: 0, Fingerprint Sensor: 0, Communication: 0, FAR & FRR: 0, Voice Indication: 0, Operating Voltage: 0, Access Control: 0, Fingerprint Angle: 0, Data Push: 0, Connection Interface: 0, LED Indication: 0",
+      "price": 0,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 4,
+      "created": "2024-10-19T10:29:46.000Z"
+    },
+    {
+      "id": "e2e00c01-910b-11ef-a964-d99045a67454",
+      "sku": "z305w",
+      "name": "Z 305W",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz305w%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz305w%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz305w%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz305w%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz305w%2F5.png?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:30:04.000Z"
+    },
+    {
+      "id": "e2e00c3e-910b-11ef-a964-d99045a67454",
+      "sku": "z33id",
+      "name": "Z33",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz33id%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz33id%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz33id%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz33id%2F4.png?alt=media\"]",
+      "description": "Authentication Method: 0, User Capacity: 0, Color: 0, Card Type: 0, Input/Output Ports: 0, Fingerprint Sensor: 0, Door Opening Time: 0, LED: 0, Operating Voltage: 0, Card Reading Range: 0, Short-Circuit Protection Time: 0",
+      "price": 3399,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 6,
+      "created": "2024-10-19T10:30:16.000Z"
+    },
+    {
+      "id": "e2e00c7a-910b-11ef-a964-d99045a67454",
+      "sku": "z500v2",
+      "name": "Z500V2 Face Recognition Attendance System With Payroll Software",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz500v2%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz500v2%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz500v2%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz500v2%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz500v2%2F5.png?alt=media\"]",
+      "price": 15000,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 3,
+      "created": "2024-10-19T10:30:35.000Z"
+    },
+    {
+      "id": "e2e00d56-910b-11ef-a964-d99045a67454",
+      "sku": "z619",
+      "name": "Z619 Face Based Attendance Cum Access Control",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz619%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz619%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz619%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz619%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz619%2F5.png?alt=media\"]",
+      "price": 12000,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 2,
+      "created": "2024-10-19T10:30:58.000Z"
+    },
+    {
+      "id": "e2e00d96-910b-11ef-a964-d99045a67454",
+      "sku": "z6n",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz6n%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz6n%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz6n%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz6n%2F4.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz6n%2F5.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz6n%2F6.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz6n%2F7.jpg?alt=media\"]",
+      "isActive": true,
+      "created": "2024-10-19T10:31:15.000Z"
+    },
+    {
+      "id": "e2e00e93-910b-11ef-a964-d99045a67454",
+      "sku": "z70r",
+      "name": "Z70R",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F8.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2F9.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz70r%2FThumbs.db?alt=media\"]",
+      "description": "User Capacity: 200, Verification Mode: 1, Voice Indication: Doorbell and Display Highly Performance Fingerprint Sensor, USB Emergency Power Interface (5-6V) 4 x 1.5V alkaline Batteries Suitable for glass door thickness 8-12 mm, Door Gap Required: 0.8 - 1 cm, Low Voltage Alarm: < 4.2V, Working Temperature: -20Ã‚Â°C ~ +60Ã‚Â°C, Working Humidity: < 93%",
+      "price": 20999,
+      "isActive": true,
+      "categoryId": 2,
+      "subcategoryId": 7,
+      "created": "2024-10-19T10:31:41.000Z"
+    },
+    {
+      "id": "e2e00fb4-910b-11ef-a964-d99045a67454",
+      "sku": "z900",
+      "name": "Z900 Face With Fingerprint Time Attendance And Professional Access Control",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz900%2F1.png?alt=media\"]",
+      "price": 13550,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 2,
+      "created": "2024-10-19T10:31:45.000Z"
+    },
+    {
+      "id": "e2e00fe4-910b-11ef-a964-d99045a67454",
+      "sku": "z901",
+      "name": "Z901",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901%2F1.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901%2F2.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901%2F4.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901%2F5.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901%2F6.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901%2FThumbs.db?alt=media\"]",
+      "description": "Authentication Method: Face, Card, Password and Combinations, Face Capacity: 1500 User, Card Capacity: 1500 Card Templates, Transaction Capacity: 1,50,000 Transactions,  Display: 3.5 Touch Display, Camera: 2 MP HD Camera , Voice Indication: Yes,   Operating Voltage: DC 9V-12V (Under 1.5A), Data Push: Yes, Access Control: Yes, Professional,  Identification Time: <1 Sec, Face Technology: Dynamic Face Recognition Technology recognize up to3 persons Simultaneously,  Working Mode: Day and Night,  Communication: USB, TCP/IP, Wi-Fi,   Battery Backup: No,   Face Identification Range: 0,   Humidity: 0,   Temperature: 0,   User Validity: 0,   Dimensions: 0",
+      "price": 21999,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 1,
+      "created": "2024-10-19T10:32:04.000Z"
+    },
+    {
+      "id": "e2e01128-910b-11ef-a964-d99045a67454",
+      "sku": "z901-mini",
+      "name": "Z901 Mini",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F8.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2F9.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz901-mini%2FThumbs.db?alt=media\"]",
+      "description": "Authentication Method: Face, Card, Password and Combinations, Face Capacity: 1500 User, Card Capacity: 1500 Card Templates, Transaction Capacity: 1,50,000 Transactions, Display: 3.5 Touch Display, Camera: 2 MP HD Camera , Communication:USB, TCP/IP, Wi-Fi, Data Push: Yes, Voice Indication: Yes, Operating Voltage: DC 9V-12V (Under 1.5A), Access Control: Yes, Professional, Identification Time: <1 Sec, Face Technology: Dynamic Face Recognition Technology recognize up to3 persons Simultaneously, Working Mode: Day and Night, Battery Backup: Yes Inbuilt(Upto 150 Minutes), Face Identification Range: Upto 1.5 Mtr, Humidity: 20% ~ 80% , Temperature: -10 C ~ 60 C, User Validity: Yes, Configurable, Dimensions: 110 x 110 x 70 mm",
+      "price": 24999,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 1,
+      "created": "2024-10-19T10:32:32.000Z"
+    },
+    {
+      "id": "e2e01226-910b-11ef-a964-d99045a67454",
+      "sku": "z902n",
+      "name": "Z902N",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz902n%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fz902n%2F3.PNG?alt=media\"]",
+      "description": "Authentication Method: 0, Face Capacity: 0,    Card Capacity: 0,    Transaction Capacity: 0,    Display: 0,    Camera: 0,   Voice Indication: 0,   Operating Voltage: 0,   Data Push: 0,  Access Control: 0,       Identification Time: 0,    Face Technology: 0,    Working Mode: 0,    Communication: 0,    Battery Backup: 0,  Face Identification Range: 0,   Humidity: 0, Temperature: 0, User Validity: 0,  Dimensions: 0",
+      "price": 33550,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 1,
+      "created": "2024-10-19T10:32:38.000Z"
+    },
+    {
+      "id": "e2e0128a-910b-11ef-a964-d99045a67454",
+      "sku": "zl-braket-for-em-lock",
+      "name": "ZL Bracket for EM Lock (600lbs)",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fzl-braket-for-em-lock%2FThumbs.db?alt=media\"]",
+      "price": 1000,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 13,
+      "created": "2024-10-19T10:32:56.000Z"
+    },
+    {
+      "id": "e2e012f1-910b-11ef-a964-d99045a67454",
+      "sku": "drop-bolt-lock",
+      "name": "Surface Mount Drop Bolt Lock",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock%2FThumbs.db?alt=media\"]",
+      "price": 2500,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T09:52:50.000Z"
+    },
+    {
+      "id": "e2e014bb-910b-11ef-a964-d99045a67454",
+      "sku": "305cb",
+      "name": "Z305CB Fingerprint Attendance Device",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F3.jpg?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2F305cb%2FThumbs.db?alt=media\"]",
+      "price": 8000,
+      "isActive": true,
+      "categoryId": 1,
+      "subcategoryId": 5,
+      "created": "2024-10-19T09:50:50.000Z"
+    },
+    {
+      "id": "e2e01528-910b-11ef-a964-d99045a67454",
+      "sku": "drop-bolt-lock-fully-glass",
+      "name": "Drop Bolt Lock for Fully Glass Door",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-fully-glass%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-fully-glass%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-fully-glass%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-fully-glass%2F4.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-fully-glass%2F5.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-fully-glass%2F6.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-fully-glass%2F7.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fdrop-bolt-lock-fully-glass%2FThumbs.db?alt=media\"]",
+      "price": 3500,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 12,
+      "created": "2024-10-19T09:54:55.000Z"
+    },
+    {
+      "id": "e2e015ea-910b-11ef-a964-d99045a67454",
+      "sku": "clampshell-thick-card",
+      "name": "Team Office Clampshell Proximity Thick Cards",
+      "images": "[\"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fclampshell-thick-card%2F1.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fclampshell-thick-card%2F2.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fclampshell-thick-card%2F3.png?alt=media\", \"https://firebasestorage.googleapis.com/v0/b/teamoffice-28b46.appspot.com/o/product_images%2Fclampshell-thick-card%2F4.png?alt=media\"]",
+      "price": 25,
+      "isActive": true,
+      "categoryId": 4,
+      "subcategoryId": 15,
+      "created": "2024-10-19T09:51:44.000Z"
+    },
+    {
+      "sku": "z500v2wz",
+      "name": "Z500V2 Face Recognition Attendance System With Payroll Software",
+      "isActive": true,
+      "categoryId": 7,
+      "subcategoryId": 18
+    }
+  ]
+}

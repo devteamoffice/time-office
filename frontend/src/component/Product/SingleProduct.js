@@ -1,18 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { FaHeart } from "react-icons/fa";
 import placeholder from "../../assets/images/placeholder.png";
+import { FaHeart } from "react-icons/fa";
 import { handleAddToCart } from "../../containers/Cart/actions";
-
+import { updateWishlist } from "../../containers/WishList/actions";
 const SingleProduct = ({ products }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart?.cartItems || []);
+  const wishlistItems = useSelector((state) => state.wishlist?.wishlist || []);
 
+  // Function to handle adding products to the cart
   const addToCart = (product) => {
     const itemInCart = cartItems.find((item) => item._id === product._id);
     const quantity = itemInCart ? itemInCart.quantity + 1 : 1;
     dispatch(handleAddToCart({ ...product, quantity }));
+  };
+
+  // Function to handle updating the wishlist
+  const handleWishlistUpdate = (product) => {
+    const isInWishlist = wishlistItems.some((item) => item._id === product._id);
+    if (!isInWishlist) {
+      dispatch(updateWishlist(product));
+    }
   };
 
   return (
@@ -27,9 +37,12 @@ const SingleProduct = ({ products }) => {
         }
 
         const itemInCart = cartItems.find((item) => item._id === product._id);
+        const isInWishlist = wishlistItems.some(
+          (item) => item._id === product._id
+        );
 
         return (
-          <div key={product._id} className="col-md-6 col-xl-3">
+          <div key={product.id} className="col-md-6 col-xl-3">
             <div className="card">
               <div className="card-body bg-light-subtle rounded-bottom">
                 {imageUrl ? (
@@ -49,7 +62,7 @@ const SingleProduct = ({ products }) => {
 
               <div className="card-body item-body bg-light-subtle rounded-bottom">
                 <Link
-                  to={`/product/${product._id}`}
+                  to={`/product/${product.id}`}
                   className="item-link d-flex flex-column h-100"
                 >
                   <a className="text-dark fw-medium fs-16">{product.name}</a>
@@ -74,7 +87,8 @@ const SingleProduct = ({ products }) => {
                       </li>
                     </ul>
                     <p className="mb-0 fw-medium fs-15 text-dark">
-                      4.5 <span className="text-muted fs-13">(55 Review)</span>
+                      4.5
+                      <span className="text-muted fs-13">(55 Review)</span>
                     </p>
                   </div>
                 </div>
@@ -95,12 +109,21 @@ const SingleProduct = ({ products }) => {
                       : "Add to Cart"}
                   </button>
                 </div>
+
                 <span className="position-absolute top-0 end-0 p-3">
                   <button
                     type="button"
-                    className="btn btn-soft-danger avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle"
+                    className={`btn ${
+                      isInWishlist ? "btn-danger" : "btn-soft-danger"
+                    } avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle`}
+                    onClick={() => handleWishlistUpdate(product)}
                   >
-                    <FaHeart style={{ fontSize: "48px", color: "red" }} />
+                    <FaHeart
+                      style={{
+                        fontSize: "48px",
+                        color: isInWishlist ? "red" : "gray",
+                      }}
+                    />
                   </button>
                 </span>
               </div>

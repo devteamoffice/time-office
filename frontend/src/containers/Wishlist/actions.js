@@ -14,7 +14,7 @@ import { API_URL } from "../../constants";
 export const updateWishlist = (isLiked, productId) => {
   return async (dispatch, getState) => {
     try {
-      if (getState().authentication.IsAuthenticated === true) {
+      if (getState().authentication.isAuthenticated === true) {
         const response = await axios.post(`${API_URL}/wishlist`, {
           isLiked,
           product: productId,
