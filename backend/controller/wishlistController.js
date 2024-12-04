@@ -65,7 +65,7 @@ exports.getWishlist = async (req, res) => {
       include: {
         model: Product,
         as: "product", // Assuming this association is defined in your model
-        attributes: ["id", "name", "slug", "price", "imageUrl"],
+        attributes: ["id", "name", "slug", "price", "images"],
       },
       order: [["updated", "DESC"]],
     });

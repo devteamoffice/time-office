@@ -11,14 +11,14 @@ const PersonalDetails = () => {
           <div class="col-lg-6">
             <form>
               <div class="mb-3">
-                <label for="first-name" class="form-label">
-                  First Name
+                <label for="name" class="form-label">
+                  Name
                 </label>
                 <input
                   type="text"
-                  id="first-name"
+                  id="name"
                   class="form-control"
-                  placeholder="First name"
+                  placeholder="Name"
                 />
               </div>
             </form>
@@ -26,14 +26,14 @@ const PersonalDetails = () => {
           <div class="col-lg-6">
             <form>
               <div class="mb-3">
-                <label for="last-name" class="form-label">
-                  Last Name
+                <label for="username" class="form-label">
+                  UserName
                 </label>
                 <input
                   type="text"
-                  id="last-name"
+                  id="username"
                   class="form-control"
-                  placeholder="Last name"
+                  placeholder="Username"
                 />
               </div>
             </form>
@@ -41,12 +41,12 @@ const PersonalDetails = () => {
           <div class="col-lg-6">
             <form>
               <div class="mb-3">
-                <label for="your-email" class="form-label">
-                  Your Email
+                <label for="email" class="form-label">
+                  Email
                 </label>
                 <input
                   type="email"
-                  id="your-email"
+                  id="email"
                   class="form-control"
                   placeholder="Email"
                 />
@@ -56,13 +56,13 @@ const PersonalDetails = () => {
           <div class="col-lg-6">
             <form>
               <div class="mb-3">
-                <label for="your-number" class="form-label">
+                <label for="number" class="form-label">
                   Phone number
                 </label>
                 <input
                   type="number"
-                  id="your-number"
-                  name="your-number"
+                  id="number"
+                  name="number"
                   class="form-control"
                   placeholder="Number"
                 />

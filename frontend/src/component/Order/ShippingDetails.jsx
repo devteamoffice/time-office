@@ -1,22 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { Country, State, City } from "country-state-city";
 
 const ShippingDetails = () => {
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  // Fetch the list of countries
+  const countryList = Country.getAllCountries();
+
+  // Fetch the list of states for the selected country
+  const stateList = selectedCountry
+    ? State.getStatesOfCountry(selectedCountry)
+    : [];
+
+  // Fetch the list of cities for the selected state
+  const cityList = selectedState
+    ? City.getCitiesOfState(selectedCountry, selectedState)
+    : [];
+
   return (
-    <div class="row">
-      <div class="col-lg-3">
-        <h4 class="card-title">Shipping Details</h4>
+    <div className="row">
+      <div className="col-lg-3">
+        <h4 className="card-title">Shipping Details</h4>
       </div>
-      <div class="col-lg-9">
-        <div class="row">
-          <div class="col-lg-12">
-            <h5 class="mb-4">Shipping Address :</h5>
+      <div className="col-lg-9">
+        <div className="row">
+          <div className="col-lg-12">
+            <h5 className="mb-4">Shipping Address :</h5>
             <form>
-              <div class="mb-3">
-                <label for="your-address" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="your-address" className="form-label">
                   Full Address
                 </label>
                 <textarea
-                  class="form-control"
+                  className="form-control"
                   id="your-address"
                   rows="3"
                   placeholder="Enter address"
@@ -24,112 +42,85 @@ const ShippingDetails = () => {
               </div>
             </form>
           </div>
-          <div class="col-lg-4">
+          <div className="col-lg-4">
             <form>
-              <div class="mb-3">
-                <label for="your-zipcode" class="form-label">
-                  Zip-Code
-                </label>
-                <input
-                  type="number"
-                  id="your-zipcode"
-                  class="form-control"
-                  placeholder="zip-code"
-                />
-              </div>
-            </form>
-          </div>
-
-          <div class="col-lg-4">
-            <form>
-              <label for="choices-city" class="form-label">
-                City
-              </label>
-              <select
-                class="form-control"
-                id="choices-city"
-                data-choices
-                data-choices-groups
-                data-placeholder="Select City"
-                name="choices-city"
-              >
-                <option value="">Choose a city</option>
-                <optgroup label="UK">
-                  <option value="London">London</option>
-                  <option value="Manchester">Manchester</option>
-                  <option value="Liverpool">Liverpool</option>
-                </optgroup>
-                <optgroup label="FR">
-                  <option value="Paris">Paris</option>
-                  <option value="Lyon">Lyon</option>
-                  <option value="Marseille">Marseille</option>
-                </optgroup>
-                <optgroup label="DE" disabled>
-                  <option value="Hamburg">Hamburg</option>
-                  <option value="Munich">Munich</option>
-                  <option value="Berlin">Berlin</option>
-                </optgroup>
-                <optgroup label="US">
-                  <option value="New York">New York</option>
-                  <option value="Washington" disabled>
-                    Washington
-                  </option>
-                  <option value="Michigan">Michigan</option>
-                </optgroup>
-                <optgroup label="SP">
-                  <option value="Madrid">Madrid</option>
-                  <option value="Barcelona">Barcelona</option>
-                  <option value="Malaga">Malaga</option>
-                </optgroup>
-                <optgroup label="CA">
-                  <option value="Montreal">Montreal</option>
-                  <option value="Toronto">Toronto</option>
-                  <option value="Vancouver">Vancouver</option>
-                </optgroup>
-              </select>
-            </form>
-          </div>
-          <div class="col-lg-4">
-            <form>
-              <label for="choices-country" class="form-label">
+              <label htmlFor="choices-country" className="form-label">
                 Country
               </label>
               <select
-                class="form-control"
+                className="form-control"
                 id="choices-country"
-                data-choices
-                data-choices-groups
-                data-placeholder="Select Country"
-                name="choices-country"
+                value={selectedCountry}
+                onChange={(e) => {
+                  setSelectedCountry(e.target.value);
+                  setSelectedState(""); // Reset state and city on country change
+                  setSelectedCity("");
+                }}
               >
                 <option value="">Choose a country</option>
-                <optgroup label="">
-                  <option value="">United Kingdom</option>
-                  <option value="Fran">France</option>
-                  <option value="Netherlands">Netherlands</option>
-                  <option value="U.S.A">U.S.A</option>
-                  <option value="Denmark">Denmark</option>
-                  <option value="Canada">Canada</option>
-                  <option value="Australia">Australia</option>
-                  <option value="India">India</option>
-                  <option value="Germany">Germany</option>
-                  <option value="Spain">Spain</option>
-                  <option value="United Arab Emirates">
-                    United Arab Emirates
+                {countryList.map((country) => (
+                  <option key={country.isoCode} value={country.isoCode}>
+                    {country.name}
                   </option>
-                </optgroup>
+                ))}
+              </select>
+            </form>
+          </div>
+          <div className="col-lg-4">
+            <form>
+              <label htmlFor="choices-state" className="form-label">
+                State
+              </label>
+              <select
+                className="form-control"
+                id="choices-state"
+                value={selectedState}
+                onChange={(e) => {
+                  setSelectedState(e.target.value);
+                  setSelectedCity(""); // Reset city on state change
+                }}
+                disabled={!selectedCountry}
+              >
+                <option value="">Choose a state</option>
+                {stateList.map((state) => (
+                  <option key={state.isoCode} value={state.isoCode}>
+                    {state.name}
+                  </option>
+                ))}
+              </select>
+            </form>
+          </div>
+          <div className="col-lg-4">
+            <form>
+              <label htmlFor="choices-city" className="form-label">
+                City
+              </label>
+              <select
+                className="form-control"
+                id="choices-city"
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+                disabled={!selectedState}
+              >
+                <option value="">Choose a city</option>
+                {cityList.map((city) => (
+                  <option key={city.name} value={city.name}>
+                    {city.name}
+                  </option>
+                ))}
               </select>
             </form>
           </div>
         </div>
-        <div class="mt-2">
-          <a href="#!" class="link-primary fw-medium">
+        <div className="mt-2">
+          <a href="#!" className="link-primary fw-medium">
             + Add New Billing Address
           </a>
         </div>
-
-        <h5 class="my-4">Shipping Method :</h5>
-        <div class="row gy-2">
+        <h5 className="my-4">Shipping Method :</h5>
+        <div className="row gy-2">
+          {/* Shipping options */}
+          {/* Replace hardcoded values with your dynamic data if needed */}
           <div class="col-lg-6">
             <div class="form-check form-checkbox-primary ps-0">
               <label for="shipping-1" class="w-100 mb-2">

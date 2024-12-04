@@ -1,72 +1,68 @@
-/*
- *
- * WishList
- *
- */
-
-import React from "react";
-
-import { connect } from "react-redux";
-
+import React, { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
-
 import SubPage from "../../component/Manager/SubPage";
 import NotFound from "../../component/Common/NotFound";
 import LoadingIndicator from "../../component/Common/LoadingIndicator";
 import Pagination from "../../component/Extras/Pagination";
 import WishList from "../../component/Wishlist/Wishlist";
-class Wishlist extends React.PureComponent {
-  componentDidMount() {
-    this.props.fetchWishlist();
-  }
+import { AuthContext } from "../../context/Socket/AuthContext";
+const Wishlist = () => {
+  const { userId } = useContext(AuthContext); // Get userId from AuthContext
+  const dispatch = useDispatch();
 
-  render() {
-    const { wishlist, isLoading, updateWishlist } = this.props;
+  // Redux state selectors
+  const wishlist = useSelector((state) => state.wishlist?.wishlist || []);
+  const isLoading = useSelector((state) => state.wishlist?.isLoading || false);
 
-    const displayWishlist = wishlist.length > 0;
+  // Fetch wishlist when component mounts
+  useEffect(() => {
+    if (userId) {
+      dispatch(actions.fetchWishlist(userId)); // Dispatch fetchWishlist action with userId
+    }
+  }, [userId, dispatch]);
 
-    return (
-      <div class="col-lg-9">
-        <div class="card bg-light-subtle">
-          <div class="card-header border-0">
-            <div class="row justify-content-between align-items-center">
-              <div class="col-lg-6">
-                <ol class="breadcrumb mb-0">
-                  <li class="breadcrumb-item fw-medium">
-                    <a href="javascript: void(0);" class="text-dark">
-                      Categories
-                    </a>
-                  </li>
-                  <li class="breadcrumb-item active">All Product</li>
-                </ol>
-                <p class="mb-0 text-muted">
-                  Showing all <span class="text-dark fw-semibold">5,786</span>{" "}
-                  items results
-                </p>
-              </div>
+  const displayWishlist = wishlist.length > 0;
+
+  return (
+    <div className="col-lg-9">
+      <div className="card bg-light-subtle">
+        <div className="card-header border-0">
+          <div className="row justify-content-between align-items-center">
+            <div className="col-lg-6">
+              <ol className="breadcrumb mb-0">
+                <li className="breadcrumb-item fw-medium">
+                  <a href="javascript: void(0);" className="text-dark">
+                    Wishlist
+                  </a>
+                </li>
+                <li className="breadcrumb-item active">Store</li>
+              </ol>
+              <p className="mb-0 text-muted">
+                Showing all <span className="text-dark fw-semibold">5,786</span>{" "}
+                items results
+              </p>
             </div>
           </div>
         </div>
-        <div class="row">
-          <SubPage title={"Your Wishlist"} isMenuOpen={null}>
-            {isLoading && <LoadingIndicator />}
-            {displayWishlist && (
-              <WishList wishlist={wishlist} updateWishlist={updateWishlist} />
-            )}
-            {!isLoading && !displayWishlist && (
-              <NotFound message="You have no items in your wishlist yet." />
-            )}
-          </SubPage>
-        </div>
-        <Pagination />
       </div>
-    );
-  }
-}
+      <div className="row">
+        <SubPage title={"Your Wishlist"} isMenuOpen={null}>
+          {isLoading && <LoadingIndicator />}
+          {displayWishlist && (
+            <WishList
+              wishlist={wishlist}
+              updateWishlist={actions.updateWishlist}
+            />
+          )}
+          {!isLoading && !displayWishlist && (
+            <NotFound message="You have no items in your wishlist yet." />
+          )}
+        </SubPage>
+      </div>
+      <Pagination />
+    </div>
+  );
+};
 
-const mapStateToProps = (state) => ({
-  wishlist: state.wishlist?.wishlist || [], // Fallback to an empty array
-  isLoading: state.wishlist?.isLoading || false,
-});
-
-export default connect(mapStateToProps, actions)(Wishlist);
+export default Wishlist;

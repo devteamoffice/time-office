@@ -164,7 +164,7 @@ const NavbarN = (id) => {
                       </div>
                     </li>
                     <li class="list-inline-item me-4">
-                      <a class="hdr-heart" href="/u/:id/wishlist">
+                      <a class="hdr-heart" href={`/u/${user?.id}/wishlist`}>
                         <i
                           class="fa-solid fa-heart"
                           style={{ fontSize: "30px" }}
@@ -295,13 +295,19 @@ const NavbarN = (id) => {
                           <>
                             <h6 className="dropdown-header">Welcome User!</h6>
                             <li>
-                              <a className="dropdown-item" href={`/u/${id}`}>
+                              <a
+                                className="dropdown-item"
+                                href={`/u/${user?.id}`}
+                              >
                                 <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
                                 Profile
                               </a>
                             </li>
                             <li>
-                              <a className="dropdown-item" href="/u/:id/orders">
+                              <a
+                                className="dropdown-item"
+                                href={`/u/${user?.id}/orders`}
+                              >
                                 <i className="bx bx-message-dots text-muted fs-18 align-middle me-1"></i>
                                 Your Orders
                               </a>
@@ -355,7 +361,7 @@ const NavbarN = (id) => {
                   </li>
 
                   <li class="list-inline-item">
-                    <a class="hdr-heart" href="/u/:id/wishlist">
+                    <a class="hdr-heart" href={`/u/${user?.id}/wishlist`}>
                       <i
                         class="fa-solid fa-heart"
                         style={{ fontSize: "30px" }}
