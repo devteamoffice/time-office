@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const couponRouter = require("../controller/couponController");
-const auth = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 
 router.post("/add", auth, couponRouter.create);
 router.get("/", auth, couponRouter.list);

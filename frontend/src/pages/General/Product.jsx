@@ -10,44 +10,39 @@ const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [data, setData] = useState([]); // Holds all products data
-  const [filteredData, setFilteredData] = useState([]); // Holds filtered products data
+  const [data, setData] = useState([]); // All products
+  const [filteredData, setFilteredData] = useState([]); // Filtered products
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategorySlug, setSelectedCategorySlug] = useState("");
 
-  const itemsPerPage = 20;
+  const itemsPerPage = 20; // Items per page
 
-  // Function to get the category slug from URL query params
+  // Get category slug from query parameters
   const getCategorySlugFromQuery = () => {
     const params = new URLSearchParams(location.search);
-    return params.get("cate"); // Get the 'cate' parameter from the query string
+    return params.get("cate");
   };
 
-  // Fetch products on page load or when the category slug changes
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const slug = getCategorySlugFromQuery(); // Get slug from URL
-        setSelectedCategorySlug(slug); // Update state with the slug
+        const slug = getCategorySlugFromQuery();
+        setSelectedCategorySlug(slug);
 
-        // Fetch all products if no search results are available
         if (!slug && (!location.state || !location.state.searchResult)) {
           const response = await axios.get(`${API_URL}/product`);
           const products = response.data.products || [];
           setData(products);
-          setFilteredData(products); // Show all products initially
+          setFilteredData(products);
         } else if (location.state && location.state.searchResult) {
-          // If search results are available from the location state
           setData(location.state.searchResult);
           setFilteredData(location.state.searchResult);
         } else if (slug) {
-          // Fetch filtered products based on category slug
           const response = await axios.get(
             `${API_URL}/product/filter/${encodeURIComponent(slug)}`
           );
-
           const filteredProducts = response.data.products || [];
-          setFilteredData(filteredProducts); // Update filtered data
+          setFilteredData(filteredProducts);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -55,47 +50,40 @@ const Product = () => {
     };
 
     fetchProducts();
-  }, [location.search]); // Re-run when the query parameters change (like category slug)
+  }, [location.search]);
 
-  // Toggle filter visibility
   const handleFill = () => {
     setIsFilterVisible(!isFilterVisible);
   };
 
-  // Filter products based on category slug
   const handleFilter = async (slug) => {
-    setSelectedCategorySlug(slug); // Set the selected category slug
-
+    setSelectedCategorySlug(slug);
     if (slug) {
       try {
         const response = await axios.get(
           `${API_URL}/product/filter/${encodeURIComponent(slug)}`
         );
-
         const filteredProducts = response.data.products || [];
-        setFilteredData(filteredProducts); // Update filtered products
-        setCurrentPage(1); // Reset to page 1 when applying filter
-
-        // Update the URL to reflect the selected category slug
+        setFilteredData(filteredProducts);
+        setCurrentPage(1); // Reset to page 1
         navigate(`/store?cate=${slug}`);
       } catch (error) {
         console.error("Error filtering products:", error);
-        setFilteredData([]); // Show empty list if filter fails
+        setFilteredData([]);
       }
     } else {
-      setFilteredData(data); // Show all products if no category is selected
-      navigate("/store"); // Reset to the store page with no category
+      setFilteredData(data);
+      navigate("/store");
     }
   };
 
-  // Handle pagination changes
   const totalItems = filteredData.length || 0;
-  const pageCount = Math.ceil(totalItems / itemsPerPage); // Calculate page count
+  const pageCount = Math.ceil(totalItems / itemsPerPage);
   const handlePageChange = (page) => {
+    console.log("Page Change to:", page); // Debugging
     setCurrentPage(page);
   };
 
-  // Slice the products for the current page
   const displayedItems = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -103,7 +91,6 @@ const Product = () => {
 
   return (
     <div className="page-content">
-      {/* Start Container Fluid */}
       <div className="container-xxl">
         <div className="row">
           {isFilterVisible && (
@@ -112,7 +99,6 @@ const Product = () => {
               handleFilter={handleFilter}
             />
           )}
-
           <div className={isFilterVisible ? "col-lg-9" : "col-lg-12"}>
             <div className="card bg-light-subtle">
               <div className="card-header border-0">
@@ -150,16 +136,15 @@ const Product = () => {
             </div>
             <div className="row">
               <SingleProduct
-                products={displayedItems} // Pass the sliced products to SingleProduct
+                products={displayedItems} // Display paginated items
                 currentPage={currentPage}
                 itemNo={itemsPerPage}
               />
             </div>
-            {/* Pagination Component */}
             <Pagination
-              pageCount={pageCount} // Pass page count
-              currentPage={currentPage} // Pass current page
-              onPageChange={handlePageChange} // Handle page change
+              pageCount={pageCount} // Total number of pages
+              currentPage={currentPage}
+              onPageChange={handlePageChange} // Pagination handler
             />
           </div>
         </div>

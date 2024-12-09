@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const auth = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 const role = require("../middleware/role");
 const multer = require("multer");
 const { ROLES } = require("../constants");

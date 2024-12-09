@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Op } = require("sequelize"); // Make sure Op is included
 const sequelize = require("../config/database"); // Assuming you have a database configuration file
 const slugify = require("slugify");
 const Subcategory = require("./subCategory");
@@ -47,8 +47,6 @@ const Category = sequelize.define(
   }
 );
 
-// Subcategory Model
-
 // Category and Subcategory association
 Category.hasMany(Subcategory, {
   foreignKey: "categoryId",
@@ -66,5 +64,28 @@ Subcategory.hasMany(Product, {
 Product.belongsTo(Subcategory, {
   foreignKey: "subcategoryId",
 });
+
+// Add dynamic fields for product and subcategory counts
+Category.prototype.productCount = async function () {
+  const products = await Product.count({
+    where: {
+      subcategoryId: {
+        [Op.in]: sequelize.literal(
+          `(SELECT id FROM subcategories WHERE categoryId = ${this.id})`
+        ),
+      },
+    },
+  });
+  return products;
+};
+
+Category.prototype.subcategoryCount = async function () {
+  const subcategories = await Subcategory.count({
+    where: {
+      categoryId: this.id,
+    },
+  });
+  return subcategories;
+};
 
 module.exports = { Category };

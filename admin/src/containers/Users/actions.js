@@ -21,16 +21,14 @@ export const fetchUsers = (page) => {
     try {
       dispatch(setUserLoading(true));
 
-      const token = getState().auth?.token;
+      const token = localStorage.getItem("token");
+      console.log(token);
       if (!token) {
         throw new Error("Authorization token not found");
       }
 
       const response = await axios.get(`${API_URL}/user`, {
-        params: {
-          page: page ?? 1,
-          limit: 20,
-        },
+        params: { page: page ?? 1, limit: 20 },
         headers: {
           Authorization: `Bearer ${token}`,
         },

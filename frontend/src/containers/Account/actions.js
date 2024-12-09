@@ -7,7 +7,7 @@
 import { toast } from "react-toastify"; // Updated import statement
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 import axios from "axios";
-
+import { jwtDecode as jwt_decode } from "jwt-decode";
 import {
   ACCOUNT_CHANGE,
   FETCH_PROFILE,
@@ -46,9 +46,16 @@ export const fetchProfile = () => async (dispatch) => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token found in localStorage.");
 
+    // Decode and check token expiration
+    const decodedToken = jwt_decode(token.replace("Bearer ", ""));
+    if (decodedToken.exp * 1000 < Date.now()) {
+      throw new Error("Token expired. Please login again.");
+    }
+
+    // Fetch user profile
     const { data } = await axios.get(`${API_URL}/user/me`, {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
 

@@ -1,34 +1,44 @@
-// Bring in Models & Utils
-const Cart = require("../models/cart");
-const Product = require("../models/product");
+const { Cart, Product } = require("../models"); // Assuming models are exported here
+const sequelize = require("sequelize"); // To use SQL functions
 
-const store = require("../utils/store");
-
+// Add a new cart
 exports.addToCart = async (req, res) => {
   try {
-    const user = req.user._id;
-    const items = req.body.products;
+    const userId = req.user.id; // Assuming user is attached to the request object
+    const items = req.body.products; // Products should be an array of { productId, quantity }
 
     if (!items || !Array.isArray(items)) {
       return res.status(400).json({ error: "Invalid product list." });
     }
 
-    const products = store.caculateItemsSalesTax(items);
+    // Calculate items and their tax (custom logic, if needed)
+    const products = items.map((item) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+    }));
 
-    const cart = new Cart({ user, products });
-    const cartDoc = await cart.save();
+    // Create the cart
+    const cart = await Cart.create({ userId });
 
-    try {
-      decreaseQuantity(products);
-    } catch (err) {
-      console.error("Error updating inventory:", err);
-      return res.status(500).json({ error: "Failed to update inventory." });
-    }
+    // Add products to the cart (assumes many-to-many or through relationship)
+    await Promise.all(
+      products.map(async (item) => {
+        const product = await Product.findByPk(item.productId);
+        if (!product)
+          throw new Error(`Product with ID ${item.productId} not found`);
+        await cart.addProduct(product, {
+          through: { quantity: item.quantity },
+        });
+      })
+    );
+
+    // Decrease inventory quantities
+    await decreaseQuantity(products);
 
     res.status(200).json({
       success: true,
-      cartId: cartDoc.id,
-      cart: cartDoc, // Optional: Include cart details
+      cartId: cart.id,
+      cart,
     });
   } catch (error) {
     console.error("Error adding to cart:", error);
@@ -36,15 +46,17 @@ exports.addToCart = async (req, res) => {
   }
 };
 
+// Delete a cart
 exports.deleteCart = async (req, res) => {
   try {
-    const cart = await Cart.findById(req.params.cartId);
+    const cartId = req.params.cartId;
 
+    const cart = await Cart.findByPk(cartId);
     if (!cart) {
       return res.status(404).json({ error: "Cart not found." });
     }
 
-    await cart.deleteOne();
+    await cart.destroy();
 
     res.status(200).json({
       success: true,
@@ -56,25 +68,31 @@ exports.deleteCart = async (req, res) => {
   }
 };
 
+// Add an item to the cart
 exports.addItemToCart = async (req, res) => {
   try {
-    const product = req.body.product;
+    const cartId = req.params.cartId;
+    const { productId, quantity } = req.body;
 
-    if (!product || !product.product || !product.quantity) {
+    if (!productId || !quantity) {
       return res.status(400).json({ error: "Invalid product details." });
     }
 
-    const query = { _id: req.params.cartId };
-
-    const cart = await Cart.findOneAndUpdate(
-      query,
-      { $push: { products: product } },
-      { new: true }
-    );
-
+    const cart = await Cart.findByPk(cartId);
     if (!cart) {
       return res.status(404).json({ error: "Cart not found." });
     }
+
+    const product = await Product.findByPk(productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found." });
+    }
+
+    // Add product to cart with quantity
+    await cart.addProduct(product, { through: { quantity } });
+
+    // Decrease inventory quantity
+    await decreaseQuantity([{ productId, quantity }]);
 
     res.status(200).json({
       success: true,
@@ -86,20 +104,24 @@ exports.addItemToCart = async (req, res) => {
   }
 };
 
-exports.deleteItemToCart = async (req, res) => {
+// Remove an item from the cart
+exports.deleteItemFromCart = async (req, res) => {
   try {
-    const query = { _id: req.params.cartId };
-    const product = { product: req.params.productId };
+    const cartId = req.params.cartId;
+    const productId = req.params.productId;
 
-    const cart = await Cart.findOneAndUpdate(
-      query,
-      { $pull: { products: product } },
-      { new: true }
-    );
-
+    const cart = await Cart.findByPk(cartId);
     if (!cart) {
       return res.status(404).json({ error: "Cart not found." });
     }
+
+    // Remove product from cart (through association)
+    const product = await Product.findByPk(productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found." });
+    }
+
+    await cart.removeProduct(product);
 
     res.status(200).json({
       success: true,
@@ -111,16 +133,26 @@ exports.deleteItemToCart = async (req, res) => {
   }
 };
 
+// Helper function to decrease inventory
 const decreaseQuantity = async (products) => {
   try {
-    const bulkOptions = products.map((item) => ({
-      updateOne: {
-        filter: { _id: item.product },
-        update: { $inc: { quantity: -item.quantity } },
-      },
-    }));
+    await Promise.all(
+      products.map(async (item) => {
+        const product = await Product.findByPk(item.productId);
+        if (!product)
+          throw new Error(`Product with ID ${item.productId} not found`);
+        if (product.quantity < item.quantity) {
+          throw new Error(
+            `Insufficient stock for product ID ${item.productId}`
+          );
+        }
 
-    await Product.bulkWrite(bulkOptions);
+        await Product.update(
+          { quantity: sequelize.literal(`quantity - ${item.quantity}`) },
+          { where: { id: item.productId } }
+        );
+      })
+    );
   } catch (error) {
     console.error("Error decreasing inventory:", error);
     throw new Error("Failed to update inventory.");

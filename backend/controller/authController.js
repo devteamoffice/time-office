@@ -9,41 +9,37 @@ const { EMAIL_PROVIDER, JWT_COOKIE } = require("../constants");
 
 const { secret, tokenLife } = keys.jwt;
 
+const { generateToken } = require("../middleware/auth");
+
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res
         .status(400)
         .json({ error: "Email and password are required." });
     }
 
-    // Check if user exists
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
 
-    // Check if the provider is email
     if (user.provider !== EMAIL_PROVIDER.Email) {
       return res.status(400).json({
         error: `This email is already in use with the ${user.provider} provider.`,
       });
     }
 
-    // Verify password
     const passwordMatches = await bcrypt.compare(password, user.password);
     if (!passwordMatches) {
       return res.status(401).json({ error: "Incorrect password." });
     }
 
-    // Generate JWT token (Consistent payload structure with 'role' included)
-    const payload = { id: user.id, role: user.role, email: user.email }; // Include 'role' here
-    const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
+    // Generate JWT token using the utility function
+    const token = generateToken(user);
 
-    // Return user details and token
     res.status(200).json({
       success: true,
       token: `Bearer ${token}`,
@@ -65,17 +61,13 @@ exports.register = async (req, res) => {
   try {
     const { email, name, username, password } = req.body;
 
-    // Validate input fields
     if (!email || !name || !username || !password) {
       return res.status(400).json({
         error: "All fields (email, name, username, password) are required.",
       });
     }
 
-    // Check if user already exists
-    const existingUser = await User.findOne({
-      where: { email },
-    });
+    const existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
       return res
@@ -83,22 +75,17 @@ exports.register = async (req, res) => {
         .json({ error: "That email address is already in use." });
     }
 
-    // Create new user
     const user = new User({ email, password, name, username });
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(user.password, salt);
     user.password = hash;
 
-    // Save user to database
     const registeredUser = await user.save();
 
-    // Generate JWT token (Consistent payload structure with 'role' included)
-    const payload = { id: registeredUser.id, role: registeredUser.role }; // Include 'role' here
-    const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
+    // Generate JWT token using the utility function
+    const token = generateToken(registeredUser);
 
-    // Respond with success
     res.status(200).json({
       success: true,
       token: `Bearer ${token}`,

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const auth = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 const mailgun = require("../services/mailgun");
 const store = require("../utils/store");
 const orderController = require("../controller/orderController");

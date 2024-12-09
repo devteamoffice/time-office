@@ -52,7 +52,27 @@ const CategoryItem = ({ category }) => {
             <p className="text-dark fw-medium fs-15 mb-0">{category.name}</p>
           </div>
         </td>
+        <td>
+          <div className="d-flex align-items-center gap-2">
+            <p className="text-dark fw-medium fs-15 mb-0">{category.slug}</p>
+          </div>
+        </td>
+
         <td>{category.isActive ? "Active" : "Inactive"}</td>
+        <td>
+          <div className="d-flex align-items-center gap-2">
+            <p className="text-dark fw-medium fs-15 mb-0">
+              {category.productCount}
+            </p>
+          </div>
+        </td>
+        <td>
+          <div className="d-flex align-items-center gap-2">
+            <p className="text-dark fw-medium fs-15 mb-0">
+              {category.subcategoryCount}
+            </p>
+          </div>
+        </td>
         <td>
           {category.created
             ? new Date(category.created).toLocaleDateString()

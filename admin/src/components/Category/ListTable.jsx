@@ -41,7 +41,10 @@ const ListTable = () => {
             </div>
           </th>
           <th>Categories</th>
+          <th>Slug</th>
           <th>State</th>
+          <th>Product Count</th>
+          <th>SubCategory Count</th>
           <th>Created</th>
           <th>Action</th>
         </tr>

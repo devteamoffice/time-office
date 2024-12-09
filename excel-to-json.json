@@ -839,7 +839,7 @@
     {
       "sku": "z500v2wz",
       "name": "Z500V2 Face Recognition Attendance System With Payroll Software",
-      "isActive": true,
+      "isActive": false,
       "categoryId": 7,
       "subcategoryId": 18
     }

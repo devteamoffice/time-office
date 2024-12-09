@@ -5,6 +5,7 @@ import {
   CLEAR_AUTH,
 } from "../../containers/Authentication/constants";
 import { jwtDecode as jwt_decode } from "jwt-decode";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -14,7 +15,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (token) {
       try {
         setIsAuthenticated(true);

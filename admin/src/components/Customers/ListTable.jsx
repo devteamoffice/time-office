@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CustomerItem from "./CustomerItem";
 import { fetchUsers } from "../../containers/Users/actions";
+
 const ListTable = () => {
   const dispatch = useDispatch();
+
+  // Assuming users are stored in state.users
   const { users, isLoading, error } = useSelector((state) => state.users);
 
   useEffect(() => {
@@ -47,6 +50,7 @@ const ListTable = () => {
             <td colSpan="9">{error}</td>
           </tr>
         ) : (
+          users &&
           users.map((user) => <CustomerItem key={user.id} user={user} />)
         )}
       </tbody>

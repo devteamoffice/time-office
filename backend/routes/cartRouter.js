@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 const cartController = require("../controller/cartController");
 
 router.post("/add", auth, cartController.addToCart);
@@ -9,7 +9,7 @@ router.post("/add/:cartId", auth, cartController.addItemToCart);
 router.delete(
   "/delete/:cartId/:productId",
   auth,
-  cartController.deleteItemToCart
+  cartController.deleteItemFromCart
 );
 
 module.exports = router;

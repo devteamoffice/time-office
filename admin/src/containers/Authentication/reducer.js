@@ -3,6 +3,7 @@ import { SET_AUTH, CLEAR_AUTH } from "./constants";
 const initialState = {
   authenticated: false,
   isLoading: false,
+  token: null,
 };
 
 const authenticationReducer = (state = initialState, action) => {
