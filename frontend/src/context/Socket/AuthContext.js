@@ -5,78 +5,79 @@ import {
   CLEAR_AUTH,
 } from "../../containers/Authentication/constants";
 import { jwtDecode as jwt_decode } from "jwt-decode";
-import { API_URL } from "../../constants";
-import axios from "axios";
+import api from "./api";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Keep this name consistent
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Track loading state
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const tokenWithoutBearer = token.replace("Bearer ", "");
-        const decodedUser = jwt_decode(tokenWithoutBearer);
-
-        if (decodedUser.id) {
-          setUser(decodedUser);
-          setIsAuthenticated(true); // Set state here when token is valid
-          dispatch({ type: SET_AUTH });
-        } else {
-          console.error("ID not found in token payload.");
-          logout();
-        }
-      } catch (error) {
-        console.error("Token decoding error:", error);
-        logout();
+    const initializeAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setIsLoading(false);
+        return;
       }
-    } else {
-      setIsLoading(false); // Stop loading if no token
-    }
+
+      try {
+        const decodedUser = jwt_decode(token.replace("Bearer ", ""));
+        if (decodedUser.exp * 1000 < Date.now()) {
+          throw new Error("Token expired.");
+        }
+
+        setUser(decodedUser);
+        setIsAuthenticated(true);
+        dispatch({ type: SET_AUTH });
+
+        await fetchUserDetails();
+      } catch (error) {
+        console.error("Auth initialization error:", error.message);
+        logout();
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    initializeAuth();
   }, [dispatch]);
 
-  const fetchUserDetails = async (userId) => {
+  const fetchUserDetails = async () => {
     try {
-      const response = await axios.get(`${API_URL}/user/me`);
-      const userData = await response.data;
-
-      setUser((prevUser) => ({
-        ...prevUser,
-        name: userData.name,
-        username: userData.username,
-        email: userData.email,
-        phone: userData.phone,
-      }));
+      const { data: userData } = await api.get(`/user/me`);
+      setUser((prevUser) => ({ ...prevUser, ...userData }));
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      console.error("Error fetching user details:", error.message);
+      if (error.response?.status === 401) logout();
     }
   };
 
-  const login = (token) => {
-    localStorage.setItem("token", token);
-    const decodedToken = jwt_decode(token.replace("Bearer ", ""));
+  const login = async (token) => {
+    try {
+      localStorage.setItem("token", `Bearer ${token}`);
+      const decodedToken = jwt_decode(token);
 
-    const userDetails = {
-      id: decodedToken.id,
-      role: decodedToken.role,
-    };
+      if (decodedToken.exp * 1000 < Date.now()) {
+        throw new Error("Token expired.");
+      }
 
-    setUser(userDetails);
-    setIsAuthenticated(true); // Ensure it's set to true when logged in
-    dispatch({ type: SET_AUTH });
+      setUser(decodedToken);
+      setIsAuthenticated(true);
+      dispatch({ type: SET_AUTH });
 
-    // Fetch additional details
-    fetchUserDetails(decodedToken.id);
+      await fetchUserDetails();
+    } catch (error) {
+      console.error("Login error:", error.message);
+      logout();
+    }
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    setIsAuthenticated(false); // Set to false when logged out
+    setIsAuthenticated(false);
     setUser(null);
     dispatch({ type: CLEAR_AUTH });
   };

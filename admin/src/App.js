@@ -8,7 +8,8 @@ import Router from "./router/Router";
 import "./assets/css/app.min.css";
 import { FutureProvider } from "./Context";
 import { AuthProvider } from "./context/Socket/AuthContext";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <AuthProvider>
@@ -22,6 +23,15 @@ function App() {
         </div>
 
         <Footer />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+          pauseOnFocusLoss
+        />
       </div>
     </AuthProvider>
   );

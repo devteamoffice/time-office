@@ -97,7 +97,12 @@ const setupDB = async () => {
       "\x1b[32m%s\x1b[0m",
       "✓ Category and Product associations defined with unique alias!"
     );
-
+    Subcategory.hasMany(Product, { foreignKey: "subcategoryId" });
+    Product.belongsTo(Subcategory, { foreignKey: "subcategoryId" });
+    console.log(
+      "\x1b[32m%s\x1b[0m",
+      "✓ SubCategory and Product associations defined with unique alias!"
+    );
     // Sync the models with the database (do not alter foreign keys every time)
     await sequelize.sync({ force: false }); // Change to { force: true } if you want to drop existing tables
     console.log("\x1b[32m%s\x1b[0m", "✓ Database tables synced!"); // Success message for syncing

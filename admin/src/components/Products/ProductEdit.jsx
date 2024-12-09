@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { fetchProduct, updateProduct } from "../../containers/Product/actions";
 import { fetchCategories } from "../../containers/Category/actions";
 import ProductEditCard from "./ProductEditCard";
-const ProductEdit = () => {
+function ProductEdit() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const ProductEdit = () => {
   const [price, setPrice] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sku, setSKU] = useState("");
-
+  const [error, setError] = useState(null);
   const product = useSelector((state) => state.product.product);
   const categories = useSelector((state) => state.product.categories);
 
@@ -29,11 +29,17 @@ const ProductEdit = () => {
       try {
         await dispatch(fetchProduct(id));
         await dispatch(fetchCategories());
-      } catch (error) {
-        console.error("Failed to fetch product or categories:", error);
+      } catch (err) {
+        console.error("Failed to fetch product or categories:", err);
+        setError("Failed to load data. Please try again.");
         toast.error("An error occurred while loading data");
       }
     };
+
+    // Render fallback UI
+    if (error) {
+      return <div className="alert alert-danger">{error}</div>;
+    }
 
     fetchData();
   }, [dispatch, id]);
@@ -343,6 +349,6 @@ const ProductEdit = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ProductEdit;

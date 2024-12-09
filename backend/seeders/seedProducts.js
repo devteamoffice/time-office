@@ -1,9 +1,5 @@
-const { Category } = require("../models/category");
-const { Subcategory } = require("../models/subCategory");
 const Product = require("../models/product");
 const productsJson = require("../db.json");
-const fs = require("fs");
-const path = require("path");
 const { bucket } = require("../utils/firebaseConfig");
 
 const doesFileExistInFirebase = async (filePath) => {
@@ -19,109 +15,122 @@ const doesFileExistInFirebase = async (filePath) => {
 
 const fetchImageUrls = async (sku, maxImages = 4) => {
   const imageUrls = [];
-
   for (let i = 1; i <= maxImages; i++) {
     const imagePath = `product_images/${sku}/${i}.jpg`;
     const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${
       bucket.name
     }/o/${encodeURIComponent(imagePath)}?alt=media`;
-
     if (await doesFileExistInFirebase(imagePath)) {
       imageUrls.push(downloadUrl);
     }
-
-    if (imageUrls.length >= maxImages) {
-      break;
-    }
+    if (imageUrls.length >= maxImages) break;
   }
-
   return imageUrls;
 };
 
-const addOrUpdateCategory = async (categoryName) => {
-  let category = await Category.findOne({
-    where: { name: categoryName },
-    attributes: ["id", "name", "isActive", "updated", "created"],
-  });
+const handleMissingFields = (productData) => {
+  const {
+    sku,
+    name,
+    price = 0,
+    description = null,
+    isActive = true,
+    subcategoryId = null,
+    categoryId = null,
+    brand = null,
+    images = null,
+  } = productData;
 
-  if (!category) {
-    category = await Category.create({ name: categoryName });
-    console.log(`Category "${categoryName}" created successfully.`);
-  }
-  return category;
-};
+  // Dynamically add default values for missing fields
+  const product = {
+    sku,
+    name,
+    price: parseFloat(price.toString().replace(/,/g, "")),
+    description: description || null,
+    isActive: isActive ? 1 : 0, // Ensure active is a valid boolean (1 or 0)
+    subcategoryId: subcategoryId || null,
+    categoryId: categoryId || null,
+    brand: brand || null,
+    images: images || null,
+  };
 
-const addOrUpdateSubcategory = async (subcategoryName, categoryId) => {
-  let subcategory = await Subcategory.findOne({
-    where: { name: subcategoryName, categoryId },
-  });
-  if (!subcategory) {
-    subcategory = await Subcategory.create({
-      name: subcategoryName,
-      categoryId,
-    });
-    console.log(`Subcategory "${subcategoryName}" created successfully.`);
-  }
-  return subcategory;
-};
-
-const uploadProductImages = async () => {
-  const { categories } = productsJson;
-
-  for (const categoryData of categories) {
-    const category = await addOrUpdateCategory(categoryData.name);
-
-    for (const subcategoryData of categoryData.subcategories) {
-      const subcategory = await addOrUpdateSubcategory(
-        subcategoryData.name,
-        category.id
-      );
-
-      for (const productData of subcategoryData.products) {
-        const sku = productData.sku;
-
-        if (!sku) {
-          console.warn(`Skipping product with missing SKU.`);
-          continue;
-        }
-
-        const imageUrls = await fetchImageUrls(sku);
-        await saveToMySQL(sku, imageUrls, subcategory.id, productData);
-      }
-    }
-  }
-  console.log("All product images and data processed.");
+  return product;
 };
 
 const saveToMySQL = async (sku, imageUrls, subcategoryId, productData) => {
   try {
-    const { name, price, description } = productData; // Extract fields from productData
-    let product = await Product.findOne({ where: { sku } });
+    // Handle missing fields dynamically
+    const product = handleMissingFields(productData);
 
-    if (product) {
-      // Update existing product
-      product.name = name;
-      product.price = parseFloat(price.replace(/,/g, "")); // Parse price to float
-      product.description = description;
-      product.images = imageUrls;
-      product.subcategoryId = subcategoryId;
-      await product.save();
-      console.log(`Product ${sku} updated successfully.`);
-    } else {
-      // Create a new product
-      await Product.create({
-        sku,
-        name,
-        price: parseFloat(price.replace(/,/g, "")), // Parse price to float
-        description,
-        images: imageUrls,
-        subcategoryId,
+    let existingProduct = null;
+
+    if (productData.id) {
+      // Update existing product if it has an ID
+      existingProduct = await Product.findOne({
+        where: { id: productData.id },
       });
-      console.log(`Product ${sku} created successfully.`);
+      if (existingProduct) {
+        existingProduct.name = product.name || existingProduct.name;
+        existingProduct.price = product.price || existingProduct.price;
+        existingProduct.description =
+          product.description || existingProduct.description;
+        existingProduct.images = imageUrls.length
+          ? imageUrls
+          : existingProduct.images;
+        existingProduct.isActive = product.isActive;
+        existingProduct.subcategoryId =
+          product.subcategoryId || existingProduct.subcategoryId;
+        existingProduct.categoryId =
+          product.categoryId || existingProduct.categoryId;
+        existingProduct.brand = product.brand || existingProduct.brand;
+        await existingProduct.save();
+        console.log(`Product with ID "${productData.id}" updated.`);
+      } else {
+        console.warn(`Product with ID "${productData.id}" not found.`);
+      }
+    } else {
+      // Create a new product if no ID exists
+      await Product.create({
+        ...product,
+        images: imageUrls,
+      });
+      console.log(`Product with SKU "${sku}" created.`);
     }
   } catch (error) {
-    console.error(`Error saving product ${sku} to MySQL:`, error);
+    console.error(`Error saving product "${sku}":`, error);
   }
 };
 
-uploadProductImages().catch(console.error);
+const seedProducts = async () => {
+  try {
+    for (const productData of productsJson.products) {
+      const { sku, subcategoryId } = productData;
+
+      if (!sku || !subcategoryId) {
+        console.warn(`Skipping product with missing SKU or subcategoryId.`);
+        continue;
+      }
+
+      // Fetch images from Firebase storage
+      const imageUrls = productData.images
+        ? JSON.parse(productData.images)
+        : [];
+      if (imageUrls.length === 0) {
+        // Fetch images if they aren't provided
+        const fetchedImageUrls = await fetchImageUrls(sku);
+        if (fetchedImageUrls.length === 0) {
+          console.warn(`No images found for product "${sku}".`);
+        } else {
+          imageUrls.push(...fetchedImageUrls);
+        }
+      }
+
+      await saveToMySQL(sku, imageUrls, subcategoryId, productData);
+    }
+    console.log("Product seeding completed.");
+  } catch (error) {
+    console.error("Error in product seeding:", error);
+  }
+};
+
+seedProducts();

@@ -5,42 +5,46 @@ import axios from "axios";
 import { API_URL } from "../../constants";
 import { useContext } from "react";
 import { AuthContext } from "../../context/Socket/AuthContext";
-const ProfileWrapper = ({ id }) => {
-  // Use AuthContext for authentication
-  const { isAuthenticated, user } = useContext(AuthContext);
+import { useParams } from "react-router-dom";
+const ProfileWrapper = () => {
+  const { id } = useParams(); // Get the 'id' from the URL parameters
+  const { isAuthenticated, user } = useContext(AuthContext); // Access authentication context
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the user profile directly from the API only if authenticated
+    // Fetch the user profile only if authenticated and id is present
     const fetchUserProfile = async () => {
-      if (isAuthenticated) {
+      if (isAuthenticated && user?.token) {
         try {
-          const response = await axios.get(`${API_URL}/user/me`, {
+          const response = await axios.get(`${API_URL}/user/${id}`, {
             headers: {
-              Authorization: `Bearer ${user.token}`, // Adjust based on your token structure
+              Authorization: user.token.startsWith("Bearer ")
+                ? user.token
+                : `Bearer ${user.token}`,
             },
           });
           setUserProfile(response.data);
         } catch (error) {
-          console.error("Error fetching user profile:", error);
+          console.error("Error fetching user profile:", error.message);
         } finally {
           setLoading(false);
         }
       } else {
+        console.warn("User not authenticated or token missing.");
         setLoading(false);
       }
     };
 
     fetchUserProfile();
-  }, [id, isAuthenticated]);
+  }, [id, isAuthenticated, user?.token]); // Add dependencies for 'id' and 'user.token'
 
   if (loading) {
-    return <p>Loading...</p>; // Loading indicator while profile is fetched
+    return <p>Loading...</p>;
   }
 
   if (!userProfile) {
-    return <p>Error loading profile data.</p>; // Error handling if profile data is missing
+    return <p>Error loading profile data.</p>;
   }
   return (
     <div class="row">
