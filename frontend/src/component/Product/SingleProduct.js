@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import placeholder from "../../assets/images/placeholder.png";
 import { FaHeart } from "react-icons/fa";
 import { handleAddToCart } from "../../containers/Cart/actions";
-import { updateWishlist } from "../../containers/WishList/actions";
+import { updateWishlist } from "../../containers/Wishlist/actions";
 const SingleProduct = ({ products }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart?.cartItems || []);

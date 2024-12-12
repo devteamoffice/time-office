@@ -18,7 +18,7 @@ import ShippingDelivery from "../pages/General/ShippingDelivery";
 import MyAccount from "../component/Account/MyAccount";
 import Orders from "../component/Account/Orders";
 import Address from "../component/Account/Address";
-import Wishlist from "../containers/WishList";
+import Wishlist from "../containers/Wishlist";
 import OrderDetails from "../pages/OrderDetail";
 import ProductDetails from "../pages/ProductDetails";
 import Blogs from "../pages/General/Blogs";

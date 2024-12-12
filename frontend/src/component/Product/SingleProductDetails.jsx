@@ -9,7 +9,7 @@ import { fetchProduct } from "../../containers/Product/actions";
 import {
   fetchWishlist,
   updateWishlist,
-} from "../../containers/WishList/actions";
+} from "../../containers/Wishlist/actions";
 import AddToCartButton from "../Cart/AddToCartButton";
 import { API_URL } from "../../constants";
 import axios from "axios";
