@@ -41,20 +41,23 @@ const handleMissingFields = (productData) => {
     images = null,
   } = productData;
 
-  // Dynamically add default values for missing fields
-  const product = {
+  // Check for critical missing fields
+  // if (!name) {
+  //   console.warn(`Product "${sku}" is missing a name. Skipping update.`);
+  //   return null; // Skip this product
+  // }
+
+  return {
     sku,
     name,
     price: parseFloat(price.toString().replace(/,/g, "")),
-    description: description || null,
-    isActive: isActive ? 1 : 0, // Ensure active is a valid boolean (1 or 0)
-    subcategoryId: subcategoryId || null,
-    categoryId: categoryId || null,
-    brand: brand || null,
-    images: images || null,
+    description,
+    isActive: isActive ? 1 : 0, // Normalize boolean to 1/0
+    subcategoryId,
+    categoryId,
+    brand,
+    images,
   };
-
-  return product;
 };
 
 const saveToMySQL = async (sku, imageUrls, subcategoryId, productData) => {

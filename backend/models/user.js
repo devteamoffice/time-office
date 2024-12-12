@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const sequelize = require("../config/database");
 const { ROLES, EMAIL_PROVIDER } = require("../constants");
-const Role = require("./role");
+const Role = require("./roles");
 // Function to generate a unique hexadecimal ID
 const generateHexId = () => {
   return [...Array(16)]

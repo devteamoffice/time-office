@@ -7,7 +7,7 @@ const CategoryAdd = () => {
 
   const [categoryTitle, setCategoryTitle] = useState("");
   const [isActive, setIsActive] = useState("");
-
+  const [categorySlug, setCategorySlug] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -23,12 +23,17 @@ const CategoryAdd = () => {
 
     // Dispatch the action with form data
     dispatch(
-      addCategory({ name: categoryTitle, isActive: isActive === "True" })
+      addCategory({
+        name: categoryTitle,
+        isActive: isActive === "True",
+        categorySlug,
+      })
     );
 
     // Reset form fields
     setCategoryTitle("");
     setIsActive("");
+    setCategorySlug("");
   };
 
   return (
@@ -55,6 +60,19 @@ const CategoryAdd = () => {
                         placeholder="Enter Title"
                         value={categoryTitle}
                         onChange={(e) => setCategoryTitle(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="category-slug" className="form-label">
+                        Category Slug
+                      </label>
+                      <input
+                        type="text"
+                        id="category-slug"
+                        className="form-control"
+                        placeholder="Enter Slug"
+                        value={categorySlug}
+                        onChange={(e) => setCategorySlug(e.target.value)}
                       />
                     </div>
                   </div>

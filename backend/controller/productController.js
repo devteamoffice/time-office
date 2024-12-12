@@ -60,6 +60,25 @@ exports.filterProductsByCategory = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+exports.filterByActive = async (req, res) => {
+  try {
+    // Fetch all active products
+    const activeProducts = await Product.findAll({
+      where: { isActive: true }, // Filtering only active products
+    });
+
+    console.log(`Active products found: ${activeProducts.length}`);
+
+    if (!activeProducts.length) {
+      return res.status(404).json({ message: "No active products found" });
+    }
+
+    return res.status(200).json({ products: activeProducts });
+  } catch (error) {
+    console.error("Error fetching active products:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 exports.fetchAllProducts = async (req, res) => {
   try {

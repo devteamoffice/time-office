@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database"); // Adjust path if needed
-const Role = require("./role"); // Ensure the Role model is defined to associate with
+const Role = require("./roles"); // Ensure the Role model is defined to associate with
 
 const Permission = sequelize.define("Permission", {
   roleId: {

@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const md5 = require("md5");
-const { Coupon } = require("../models/coupons"); // Adjust the path to your Sequelize models
+const Coupon = require("../models/coupons"); // Adjust the path to your Sequelize models
 
 const cleanUpCoupon = (coupon) => {
   // Remove unnecessary Sequelize metadata

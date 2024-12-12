@@ -1,6 +1,8 @@
 import React from "react";
 import Navigation from "../../components/Common/Navigation";
 import Actions from "../../components/Common/Actions";
+import CouponItem from "../../components/Coupons/CouponItem";
+import Export from "../../components/Common/Export";
 
 const Coupons = () => {
   return (
@@ -303,29 +305,7 @@ const Coupons = () => {
               <div>
                 <h4 class="card-title">All Product List</h4>
               </div>
-              <div class="dropdown">
-                <a
-                  href="#"
-                  class="dropdown-toggle btn btn-sm btn-outline-light rounded"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  This Month
-                </a>
-                <div class="dropdown-menu dropdown-menu-end">
-                  <a href="#!" class="dropdown-item">
-                    Download
-                  </a>
-
-                  <a href="#!" class="dropdown-item">
-                    Export
-                  </a>
-
-                  <a href="#!" class="dropdown-item">
-                    Import
-                  </a>
-                </div>
-              </div>
+              <Export />
             </div>
             <div>
               <div class="table-responsive">
@@ -356,52 +336,7 @@ const Coupons = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        <div class="form-check">
-                          <input
-                            type="checkbox"
-                            class="form-check-input"
-                            id="customCheck2"
-                          />
-                          <label class="form-check-label" for="customCheck2">
-                            &nbsp;
-                          </label>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="d-flex align-items-center gap-2">
-                          <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-                            <img
-                              src="assets/images/product/p-1.png"
-                              alt=""
-                              class="avatar-md"
-                            />
-                          </div>
-                          <div>
-                            <a href="#!" class="text-dark fw-medium fs-15">
-                              Black T-shirt
-                            </a>
-                            <p class="text-muted mb-0 mt-1 fs-13">
-                              <span>Fashion</span>
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>$80.00</td>
-                      <td>$20.00</td>
-                      <td>FASHION123</td>
-                      <td>12 May 2023</td>
-                      <td>12 Jun 2023</td>
-                      <td>
-                        <span class="badge text-success bg-success-subtle fs-12">
-                          <i class="bx bx-check-double"></i>Active
-                        </span>
-                      </td>
-                      <td>
-                        <Actions />
-                      </td>
-                    </tr>
+                    <CouponItem />
                   </tbody>
                 </table>
               </div>

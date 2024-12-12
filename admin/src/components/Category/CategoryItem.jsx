@@ -11,7 +11,7 @@ const CategoryItem = ({ category }) => {
   const handleDelete = async () => {
     if (selectedCategory) {
       try {
-        await axios.delete(`${API_URL}/category/${selectedCategory.id}`);
+        await axios.delete(`${API_URL}/category/delete/${selectedCategory.id}`);
         setSelectedCategory((prev) =>
           prev.filter((category) => category.id !== selectedCategory.id)
         );

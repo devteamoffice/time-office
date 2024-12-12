@@ -12,8 +12,8 @@ const SubCategoryList = () => {
             <div class="card-header d-flex justify-content-between align-items-center gap-1">
               <h4 class="card-title flex-grow-1">All Categories List</h4>
 
-              <a href="product-add.html" class="btn btn-sm btn-primary">
-                Add Product
+              <a href="/subcategory/add" class="btn btn-sm btn-primary">
+                Add SubCategory
               </a>
 
               <div class="dropdown">

@@ -5,7 +5,7 @@ import ProductFilter from "../../component/Product/ProductFilter";
 import SingleProduct from "../../component/Product/SingleProduct";
 import axios from "axios";
 import { API_URL } from "../../constants"; // Ensure API_URL points to http://localhost:4000/api
-
+import Navigation from "../../component/Extras/Pagination";
 const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -141,9 +141,9 @@ const Product = () => {
                 itemNo={itemsPerPage}
               />
             </div>
-            <Pagination
-              pageCount={pageCount} // Total number of pages
-              currentPage={currentPage}
+            <Navigation
+              totalItems={filteredData.length}
+              itemNo={itemsPerPage}
               onPageChange={handlePageChange} // Pagination handler
             />
           </div>

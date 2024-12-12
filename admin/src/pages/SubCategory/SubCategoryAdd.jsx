@@ -1,237 +1,166 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { API_URL } from "../../constants";
 
 const SubCategoryAdd = () => {
-  return (
-    <div class="container-xxl">
-      <div class="row">
-        <div class="col-xl-3 col-lg-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="bg-light text-center rounded bg-light">
-                <img
-                  src="assets/images/product/p-1.png"
-                  alt=""
-                  class="avatar-xxl"
-                />
-              </div>
-              <div class="mt-3">
-                <h4>Fashion Men , Women & Kid's</h4>
-                <div class="row">
-                  <div class="col-lg-4 col-4">
-                    <p class="mb-1 mt-2">Created By :</p>
-                    <h5 class="mb-0">Seller</h5>
-                  </div>
-                  <div class="col-lg-4 col-4">
-                    <p class="mb-1 mt-2">Stock :</p>
-                    <h5 class="mb-0">46233</h5>
-                  </div>
-                  <div class="col-lg-4 col-4">
-                    <p class="mb-1 mt-2">ID :</p>
-                    <h5 class="mb-0">FS16276</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer border-top">
-              <div class="row g-2">
-                <div class="col-lg-6">
-                  <a href="#!" class="btn btn-outline-secondary w-100">
-                    Create Category
-                  </a>
-                </div>
-                <div class="col-lg-6">
-                  <a href="#!" class="btn btn-primary w-100">
-                    Cancel
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  const [title, setTitle] = useState("");
+  const [isActive, setIsActive] = useState(false);
+  const [categoryId, setCategoryId] = useState(""); // Changed from category to categoryId
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
 
-        <div class="col-xl-9 col-lg-8 ">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Add Thumbnail Photo</h4>
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/category/`);
+        if (response.status === 200) {
+          // Ensure response.data is an array before setting the state
+          if (Array.isArray(response.data.categories)) {
+            setCategories(response.data.categories);
+          } else {
+            toast.error("Fetched data is not in expected array format.");
+          }
+        }
+      } catch (error) {
+        toast.error("Failed to fetch categories");
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const payload = {
+      name: title,
+      isActive,
+      categoryId, // Using categoryId instead of category
+    };
+
+    try {
+      const response = await axios.post(`${API_URL}/subcategory/`, payload);
+      if (response.status === 200 || response.status === 201) {
+        toast.success("Subcategory added successfully!", {
+          position: "top-right",
+        });
+        // Reset form fields
+        setTitle("");
+        setIsActive(false);
+        setCategoryId(""); // Reset categoryId after submission
+      } else {
+        toast.error("Failed to add subcategory!", { position: "top-right" });
+      }
+    } catch (error) {
+      toast.error(
+        `Error: ${error.response?.data?.message || "Something went wrong"}`,
+        { position: "top-right" }
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="container-xxl">
+      <div className="row">
+        <div className="col-xl-9 col-lg-8">
+          <div className="card">
+            <div className="card-header">
+              <h4 className="card-title">Add Subcategory</h4>
             </div>
-            <div class="card-body">
-              <form
-                action="https://techzaa.getappui.com/"
-                method="post"
-                class="dropzone"
-                id="myAwesomeDropzone"
-                data-plugin="dropzone"
-                data-previews-container="#file-previews"
-                data-upload-preview-template="#uploadPreviewTemplate"
-              >
-                <div class="fallback">
-                  <input name="file" type="file" multiple />
+            <div className="card-body">
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  {/* Title */}
+                  <div className="col-lg-6">
+                    <div className="mb-3">
+                      <label htmlFor="subcategory-title" className="form-label">
+                        Title
+                      </label>
+                      <input
+                        type="text"
+                        id="subcategory-title"
+                        className="form-control"
+                        placeholder="Enter Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* IsActive */}
+                  <div className="col-lg-6">
+                    <div className="mb-3">
+                      <label htmlFor="is-active" className="form-label">
+                        Is Active
+                      </label>
+                      <select
+                        id="is-active"
+                        className="form-control"
+                        value={isActive}
+                        onChange={(e) => setIsActive(e.target.value === "true")}
+                        required
+                      >
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Category */}
+                  <div className="col-lg-6">
+                    <div className="mb-3">
+                      <select
+                        id="category"
+                        className="form-control"
+                        value={categoryId} // Changed value to categoryId
+                        onChange={(e) => setCategoryId(e.target.value)} // Updated handler to set categoryId
+                        required
+                      >
+                        <option value="">Select Category</option>
+                        {Array.isArray(categories) &&
+                          categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                              {cat.name}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <div class="dz-message needsclick">
-                  <i class="bx bx-cloud-upload fs-48 text-primary"></i>
-                  <h3 class="mt-4">
-                    Drop your images here, or{" "}
-                    <span class="text-primary">click to browse</span>
-                  </h3>
-                  <span class="text-muted fs-13">
-                    1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are
-                    allowed
-                  </span>
+
+                {/* Submit and Reset Buttons */}
+                <div className="p-3 bg-light rounded">
+                  <div className="row justify-content-end g-2">
+                    <div className="col-lg-3">
+                      <button
+                        type="submit"
+                        className="btn btn-primary w-100"
+                        disabled={loading}
+                      >
+                        {loading ? "Submitting..." : "Add Subcategory"}
+                      </button>
+                    </div>
+                    <div className="col-lg-3">
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary w-100"
+                        onClick={() => {
+                          setTitle("");
+                          setIsActive(false);
+                          setCategoryId(""); // Reset categoryId on reset
+                        }}
+                      >
+                        Reset
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </form>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">General Information</h4>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-6">
-                  <form>
-                    <div class="mb-3">
-                      <label for="category-title" class="form-label">
-                        Category Title
-                      </label>
-                      <input
-                        type="text"
-                        id="category-title"
-                        class="form-control"
-                        placeholder="Enter Title"
-                      />
-                    </div>
-                  </form>
-                </div>
-
-                <div class="col-lg-6">
-                  <form>
-                    <label for="crater" class="form-label">
-                      Created By
-                    </label>
-                    <select
-                      class="form-control"
-                      id="crater"
-                      data-choices
-                      data-choices-groups
-                      data-placeholder="Select Crater"
-                    >
-                      <option value="">Select Crater</option>
-                      <option value="Seller">Seller</option>
-                      <option value="Admin">Admin</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </form>
-                </div>
-                <div class="col-lg-6">
-                  <form>
-                    <div class="mb-3">
-                      <label for="product-stock" class="form-label">
-                        Stock
-                      </label>
-                      <input
-                        type="number"
-                        id="product-stock"
-                        class="form-control"
-                        placeholder="Quantity"
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div class="col-lg-6">
-                  <form>
-                    <div class="mb-3">
-                      <label for="product-id" class="form-label">
-                        Tag ID
-                      </label>
-                      <input
-                        type="number"
-                        id="product-id"
-                        class="form-control"
-                        placeholder="#******"
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div class="col-lg-12">
-                  <div class="mb-0">
-                    <label for="description" class="form-label">
-                      Description
-                    </label>
-                    <textarea
-                      class="form-control bg-light-subtle"
-                      id="description"
-                      rows="7"
-                      placeholder="Type description"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Meta Options</h4>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-6">
-                  <form>
-                    <div class="mb-3">
-                      <label for="meta-title" class="form-label">
-                        Meta Title
-                      </label>
-                      <input
-                        type="text"
-                        id="meta-title"
-                        class="form-control"
-                        placeholder="Enter Title"
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div class="col-lg-6">
-                  <form>
-                    <div class="mb-3">
-                      <label for="meta-tag" class="form-label">
-                        Meta Tag Keyword
-                      </label>
-                      <input
-                        type="text"
-                        id="meta-tag"
-                        class="form-control"
-                        placeholder="Enter word"
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div class="col-lg-12">
-                  <div class="mb-0">
-                    <label for="description" class="form-label">
-                      Description
-                    </label>
-                    <textarea
-                      class="form-control bg-light-subtle"
-                      id="description"
-                      rows="4"
-                      placeholder="Type description"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="p-3 bg-light mb-3 rounded">
-            <div class="row justify-content-end g-2">
-              <div class="col-lg-2">
-                <a href="#!" class="btn btn-outline-secondary w-100">
-                  Save Change
-                </a>
-              </div>
-              <div class="col-lg-2">
-                <a href="#!" class="btn btn-primary w-100">
-                  Cancel
-                </a>
-              </div>
             </div>
           </div>
         </div>

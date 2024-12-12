@@ -24,6 +24,7 @@ const discountRoutes = require("./routes/discountRouter");
 const wishlistRoutes = require("./routes/wishlistRouter");
 const subCategoryRoutes = require("./routes/subCateogoryRouter");
 const adminRoutes = require("./routes/adminRouter");
+const rolesRoutes = require("./routes/rolesRouter");
 const { port } = keys;
 const app = express();
 
@@ -43,6 +44,7 @@ setupDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/roles", rolesRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/address", addressRoutes);
 app.use("/api/newsletter", newsletterRoutes);

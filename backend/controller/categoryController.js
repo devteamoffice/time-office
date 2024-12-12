@@ -4,21 +4,30 @@ const store = require("../utils/store");
 const slugify = require("slugify"); // Ensure this is installed
 
 exports.addCategory = async (req, res) => {
-  const { name, products, isActive } = req.body;
+  const { name, slug, isActive } = req.body;
 
+  // Validate required fields
   if (!name) {
     return res.status(400).json({ error: "You must enter a name." });
   }
 
-  try {
-    // Generate slug if not provided
-    const slug = req.body.slug || slugify(name, { lower: true, strict: true });
+  if (!slug) {
+    return res.status(400).json({ error: "You must enter an slug." });
+  }
 
+  if (typeof isActive !== "boolean") {
+    return res.status(400).json({
+      error:
+        "You must specify the active status (isActive should be a boolean).",
+    });
+  }
+
+  try {
+    // Create the category using the provided slug (not generating a slug)
     const category = await Category.create({
       name,
-      slug,
+      slug, // slug as the unique identifier
       isActive,
-      products, // Assumes a relation exists with products
     });
 
     res.status(201).json({

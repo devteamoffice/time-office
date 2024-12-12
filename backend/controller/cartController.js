@@ -1,6 +1,6 @@
-const { Cart, Product } = require("../models"); // Assuming models are exported here
+const Cart = require("../models/cart"); // Assuming models are exported here
 const sequelize = require("sequelize"); // To use SQL functions
-
+const Product = require("../models/product");
 // Add a new cart
 exports.addToCart = async (req, res) => {
   try {

@@ -21,7 +21,7 @@ router.post(
   upload.single("image"),
   productController.addProduct
 );
-
+router.get("/filter/isActive", productController.filterByActive);
 // In your routes file
 router.get("/filter/:slug", productController.filterProductsByCategory);
 router.get("/", productController.fetchAllProducts);

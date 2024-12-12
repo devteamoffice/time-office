@@ -2,7 +2,7 @@
 const Permission = require("../models/permission");
 require("dotenv").config();
 const sequelize = require("../config/database");
-const Role = require("../models/role");
+const Role = require("../models/roles");
 const User = require("../models/user");
 const Address = require("../models/address");
 const Merchant = require("../models/merchant");
@@ -30,7 +30,10 @@ const setupDB = async () => {
       "\x1b[32m%s\x1b[0m",
       "✓ User and Address associations defined!"
     );
-
+    // Define Role-User association
+    Role.hasMany(User, { foreignKey: "roleId", as: "users" });
+    User.belongsTo(Role, { foreignKey: "roleId", as: "role" });
+    console.log("\x1b[32m%s\x1b[0m", "✓ Role and User associations defined!");
     // User and Cart associations
     User.hasMany(Cart, { foreignKey: "userId", as: "carts" });
     Cart.belongsTo(User, { foreignKey: "userId", as: "user" });

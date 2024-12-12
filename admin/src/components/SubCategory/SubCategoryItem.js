@@ -15,19 +15,21 @@ const SubCategoryItem = () => {
     if (selectedSubCategory) {
       try {
         await axios.delete(`${API_URL}/subcategory/${selectedSubCategory.id}`);
-        setSelectedSubCategory((prev) =>
+        // Filter out the deleted subcategory from the state
+        setSubcategories((prev) =>
           prev.filter(
             (subcategory) => subcategory.id !== selectedSubCategory.id
           )
         );
       } catch (error) {
-        console.log("Error deleteing subcategory:", error);
+        console.log("Error deleting subcategory:", error);
       } finally {
         setSelectedSubCategory(null);
         setModalVisible(false);
       }
     }
   };
+
   useEffect(() => {
     const fetchAllSubCategories = async () => {
       try {

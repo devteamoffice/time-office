@@ -1,4 +1,4 @@
-const { Address } = require("../models"); // Assuming Address is a Sequelize model
+const Address = require("../models/address"); // Assuming Address is a Sequelize model
 
 exports.addAddress = async (req, res) => {
   try {
