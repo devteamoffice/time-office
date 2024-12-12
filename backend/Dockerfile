@@ -1,5 +1,5 @@
-# Use official Node.js 14 as base image
-FROM node:16.20.2-buster-slim
+# Use official Node.js 18 as base image
+FROM node:18-buster-slim
 
 # Set working directory
 WORKDIR /usr/src/app
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Start the server
-CMD [ "npm", "start" ]
+CMD ["npm", "start"]
