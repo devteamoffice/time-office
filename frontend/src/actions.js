@@ -6,7 +6,7 @@
 
 import { bindActionCreators } from "redux";
 import * as authentication from "./containers/Authentication/actions";
-import * as homepage from "./containers/Homepage/actions";
+// import * as homepage from "./containers/Homepage/actions";
 import * as signup from "./containers/Signup/actions";
 import * as login from "./containers/Login/actions";
 import * as forgotPassword from "./containers/ForgotPassword/actions";
@@ -34,7 +34,7 @@ export default function mapDispatchToProps(dispatch) {
     {
       // ...application,
       ...authentication,
-      ...homepage,
+      // ...homepage,
       ...signup,
       ...login,
       ...forgotPassword,
