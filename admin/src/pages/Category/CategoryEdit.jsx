@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { API_URL } from "../../constants";
 
-const CategoryAdd = () => {
+const CategoryEdit = () => {
   const [categoryTitle, setCategoryTitle] = useState("");
   const [isActive, setIsActive] = useState("");
   const [categorySlug, setCategorySlug] = useState("");
@@ -21,33 +20,21 @@ const CategoryAdd = () => {
       return;
     }
 
-    // Prepare data for API
+    // Prepare the data for the API
     const categoryData = {
       name: categoryTitle,
       isActive: isActive === "True",
-      slug: categorySlug,
     };
 
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("Authentication token is missing!");
-        return;
-      }
-
-      const response = await axios.post(
-        `${API_URL}/category/add`,
-        categoryData,
-        {
-          headers: {
-            Authorization: `${token}`,
-            "Content-Type": "application/json", // Explicitly set content type
-          },
-        }
+      // Make an API call to update the category
+      const response = await axios.put(
+        `/api/categories/${categorySlug}`,
+        categoryData
       );
 
-      alert("Category added successfully!");
+      alert("Category updated successfully!");
       console.log("Response:", response.data);
 
       // Reset form fields
@@ -56,12 +43,10 @@ const CategoryAdd = () => {
       setCategorySlug("");
     } catch (error) {
       console.error(
-        "Error adding category:",
+        "Error updating category:",
         error.response?.data?.message || error.message
       );
-      alert(
-        `Failed to add the category! ${error.response?.data?.message || ""}`
-      );
+      alert("Failed to update the category!");
     } finally {
       setLoading(false);
     }
@@ -73,7 +58,7 @@ const CategoryAdd = () => {
         <div className="col-xl-9 col-lg-8">
           <div className="card">
             <div className="card-header">
-              <h4 className="card-title">Add New Category</h4>
+              <h4 className="card-title">Edit Category</h4>
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
@@ -164,4 +149,4 @@ const CategoryAdd = () => {
   );
 };
 
-export default CategoryAdd;
+export default CategoryEdit;

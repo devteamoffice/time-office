@@ -17,11 +17,10 @@ const ProfileWrapper = () => {
     const fetchUserProfile = async () => {
       if (isAuthenticated && user?.token) {
         try {
+          const token = localStorage.getItem("token");
           const response = await axios.get(`${API_URL}/user/${id}`, {
             headers: {
-              Authorization: user.token.startsWith("Bearer ")
-                ? user.token
-                : `Bearer ${user.token}`,
+              Authorization: `${token}`,
             },
           });
           setUserProfile(response.data);

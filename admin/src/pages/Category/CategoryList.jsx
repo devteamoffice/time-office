@@ -33,7 +33,7 @@ const CategoryList = () => {
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center gap-1">
               <h4 className="card-title flex-grow-1">All Categories List</h4>
-              <a href="/add" className="btn btn-sm btn-primary">
+              <a href="/category/add" className="btn btn-sm btn-primary">
                 Add Category
               </a>
               <div className="dropdown">

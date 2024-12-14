@@ -3,15 +3,20 @@ import { useSelector, useDispatch } from "react-redux";
 import CustomerItem from "./CustomerItem";
 import { fetchUsers } from "../../containers/Users/actions";
 
-const ListTable = () => {
+const ListTable = ({ currentPage, itemNo }) => {
   const dispatch = useDispatch();
 
-  // Assuming users are stored in state.users
+  // Access users, loading, and error state from Redux
   const { users, isLoading, error } = useSelector((state) => state.users);
 
+  // Fetch users on component mount
   useEffect(() => {
-    dispatch(fetchUsers()); // Fetch users when the component mounts
+    dispatch(fetchUsers());
   }, [dispatch]);
+
+  // Calculate paginated users
+  const startIndex = (currentPage - 1) * itemNo;
+  const paginatedUsers = users.slice(startIndex, startIndex + itemNo);
 
   return (
     <table className="table align-middle mb-0 table-hover table-centered">
@@ -49,9 +54,14 @@ const ListTable = () => {
           <tr>
             <td colSpan="9">{error}</td>
           </tr>
+        ) : paginatedUsers.length > 0 ? (
+          paginatedUsers.map((user) => (
+            <CustomerItem key={user.id} user={user} />
+          ))
         ) : (
-          users &&
-          users.map((user) => <CustomerItem key={user.id} user={user} />)
+          <tr>
+            <td colSpan="9">No users found.</td>
+          </tr>
         )}
       </tbody>
     </table>

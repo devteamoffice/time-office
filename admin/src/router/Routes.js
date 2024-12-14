@@ -21,6 +21,7 @@ import ReviewList from "../pages/Reviews/ReviewList";
 import Roles from "../pages/Roles/Roles";
 import RolesAdd from "../pages/Roles/RolesAdd";
 import SubCategoryAdd from "../pages/SubCategory/SubCategoryAdd";
+import SubCategoryEdit from "../pages/SubCategory/SubCategoryEdit";
 import SubCategoryList from "../pages/SubCategory/SubCategoryList";
 export const publicRoutes = [
   { path: "/", element: Dashboard },
@@ -31,6 +32,7 @@ export const publicRoutes = [
   { path: "/category/list", element: CategoryList },
   { path: "/subcategory/add", element: SubCategoryAdd },
   { path: "/subcategory/list", element: SubCategoryList },
+  { path: "/subcategory/:id/edit", element: SubCategoryEdit },
   { path: "/category/add", element: CategoryAdd },
   { path: "/orders/list", element: OrderList },
   { path: "/orders/invoices", element: OrderInvoice },

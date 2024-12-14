@@ -28,75 +28,69 @@ const fetchImageUrls = async (sku, maxImages = 4) => {
   return imageUrls;
 };
 
-const handleMissingFields = (productData) => {
-  const {
-    sku,
-    name,
-    price = 0,
-    description = null,
-    isActive = true,
-    subcategoryId = null,
-    categoryId = null,
-    brand = null,
-    images = null,
-  } = productData;
-
-  // Check for critical missing fields
-  // if (!name) {
-  //   console.warn(`Product "${sku}" is missing a name. Skipping update.`);
-  //   return null; // Skip this product
-  // }
-
-  return {
-    sku,
-    name,
-    price: parseFloat(price.toString().replace(/,/g, "")),
-    description,
-    isActive: isActive ? 1 : 0, // Normalize boolean to 1/0
-    subcategoryId,
-    categoryId,
-    brand,
-    images,
-  };
-};
-
 const saveToMySQL = async (sku, imageUrls, subcategoryId, productData) => {
   try {
-    // Handle missing fields dynamically
-    const product = handleMissingFields(productData);
+    const {
+      id,
+      name,
+      price = 0,
+      description = null,
+      isActive = true,
+      categoryId = null,
+      brand = null,
+    } = productData;
+
+    // Ensure that price is a valid number
+    const parsedPrice = isNaN(price)
+      ? 0
+      : parseFloat(price.toString().replace(/,/g, ""));
+
+    // Set isActive to 1 for true or 0 for false
+    const isActiveValue = isActive ? 1 : 0;
+
+    // Prepare the data object
+    const product = {
+      sku,
+      name,
+      price: parsedPrice,
+      description,
+      isActive: isActiveValue, // Store as 1 or 0
+      subcategoryId,
+      categoryId,
+      brand,
+      images: imageUrls,
+    };
 
     let existingProduct = null;
 
-    if (productData.id) {
+    if (id) {
       // Update existing product if it has an ID
       existingProduct = await Product.findOne({
-        where: { id: productData.id },
+        where: { id },
       });
       if (existingProduct) {
-        existingProduct.name = product.name || existingProduct.name;
-        existingProduct.price = product.price || existingProduct.price;
+        // Update fields that are provided
+        existingProduct.name = name || existingProduct.name;
+        existingProduct.price = parsedPrice || existingProduct.price;
         existingProduct.description =
-          product.description || existingProduct.description;
+          description || existingProduct.description;
         existingProduct.images = imageUrls.length
           ? imageUrls
           : existingProduct.images;
-        existingProduct.isActive = product.isActive;
+        existingProduct.isActive = isActiveValue; // Update isActive as 1 or 0
         existingProduct.subcategoryId =
-          product.subcategoryId || existingProduct.subcategoryId;
-        existingProduct.categoryId =
-          product.categoryId || existingProduct.categoryId;
-        existingProduct.brand = product.brand || existingProduct.brand;
+          subcategoryId || existingProduct.subcategoryId;
+        existingProduct.categoryId = categoryId || existingProduct.categoryId;
+        existingProduct.brand = brand || existingProduct.brand;
+
         await existingProduct.save();
-        console.log(`Product with ID "${productData.id}" updated.`);
+        console.log(`Product with ID "${id}" updated.`);
       } else {
-        console.warn(`Product with ID "${productData.id}" not found.`);
+        console.warn(`Product with ID "${id}" not found.`);
       }
     } else {
       // Create a new product if no ID exists
-      await Product.create({
-        ...product,
-        images: imageUrls,
-      });
+      await Product.create(product);
       console.log(`Product with SKU "${sku}" created.`);
     }
   } catch (error) {
@@ -109,25 +103,28 @@ const seedProducts = async () => {
     for (const productData of productsJson.products) {
       const { sku, subcategoryId } = productData;
 
-      if (!sku || !subcategoryId) {
-        console.warn(`Skipping product with missing SKU or subcategoryId.`);
-        continue;
+      // If SKU or subcategoryId is missing, log it and still try to insert the product
+      if (!sku) {
+        console.warn(`Product with missing SKU found.`);
+      }
+      if (!subcategoryId) {
+        console.warn(`Product with missing subcategoryId found.`);
       }
 
-      // Fetch images from Firebase storage
+      // Fetch images from Firebase storage if not provided
       const imageUrls = productData.images
         ? JSON.parse(productData.images)
         : [];
       if (imageUrls.length === 0) {
-        // Fetch images if they aren't provided
-        const fetchedImageUrls = await fetchImageUrls(sku);
+        const fetchedImageUrls = await fetchImageUrls(sku || "default"); // Default to "default" for missing SKU
         if (fetchedImageUrls.length === 0) {
-          console.warn(`No images found for product "${sku}".`);
+          console.warn(`No images found for product "${sku || "default"}".`);
         } else {
           imageUrls.push(...fetchedImageUrls);
         }
       }
 
+      // Call saveToMySQL for each product
       await saveToMySQL(sku, imageUrls, subcategoryId, productData);
     }
     console.log("Product seeding completed.");

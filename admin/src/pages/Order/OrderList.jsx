@@ -1,5 +1,6 @@
 import React from "react";
 import Navigation from "../../components/Common/Navigation";
+import OrderItem from "../../components/Orders/OrderItem";
 
 const OrderList = () => {
   return (
@@ -219,53 +220,7 @@ const OrderList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>#583488/80</td>
-                      <td>Apr 23 , 2024</td>
-                      <td>
-                        <a href="#!" class="link-primary fw-medium">
-                          Gail C. Anderson
-                        </a>
-                      </td>
-                      <td> Normal</td>
-                      <td> $1,230.00</td>
-                      <td>
-                        {" "}
-                        <span class="badge bg-light text-dark  px-2 py-1 fs-13">
-                          Unpaid
-                        </span>
-                      </td>
-                      <td> 4</td>
-                      <td> -</td>
-                      <td>
-                        {" "}
-                        <span class="badge border border-secondary text-secondary  px-2 py-1 fs-13">
-                          Draft
-                        </span>
-                      </td>
-                      <td>
-                        <div class="d-flex gap-2">
-                          <a href="#!" class="btn btn-light btn-sm">
-                            <iconify-icon
-                              icon="solar:eye-broken"
-                              class="align-middle fs-18"
-                            ></iconify-icon>
-                          </a>
-                          <a href="#!" class="btn btn-soft-primary btn-sm">
-                            <iconify-icon
-                              icon="solar:pen-2-broken"
-                              class="align-middle fs-18"
-                            ></iconify-icon>
-                          </a>
-                          <a href="#!" class="btn btn-soft-danger btn-sm">
-                            <iconify-icon
-                              icon="solar:trash-bin-minimalistic-2-broken"
-                              class="align-middle fs-18"
-                            ></iconify-icon>
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
+                    <OrderItem />
                   </tbody>
                 </table>
               </div>

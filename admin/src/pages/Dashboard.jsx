@@ -8,8 +8,6 @@ const Dashboard = () => {
     <div class="container-fluid">
       <StatsRow />
 
-      <Conversions />
-
       <RecentOrders />
     </div>
   );

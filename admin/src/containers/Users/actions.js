@@ -30,7 +30,7 @@ export const fetchUsers = (page) => {
       const response = await axios.get(`${API_URL}/user`, {
         params: { page: page ?? 1, limit: 20 },
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
       });
 

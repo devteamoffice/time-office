@@ -1,28 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Actions from "../Common/Actions";
-import { useState } from "react";
-import { API_URL } from "../../constants";
 import DeleteModal from "../Common/DeleteModal";
+import { API_URL } from "../../constants";
 import axios from "axios";
+
 const RoleItem = ({ role }) => {
-  const [selectedRole, setSelectedRole] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleDelete = async () => {
-    if (selectedRole) {
-      try {
-        await axios.delete(`${API_URL}/admin/users/${selectedRole.id}`);
-        setSelectedRole((prev) =>
-          prev.filter((role) => role.id !== selectedRole.id)
-        );
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setSelectedRole(null);
-        setModalVisible(false);
-      }
+    try {
+      await axios.delete(`${API_URL}/admin/users/${role.user_id}`);
+    } catch (error) {
+      console.error("Error deleting role:", error);
+    } finally {
+      setModalVisible(false);
     }
   };
+
   return (
     <>
       <DeleteModal
@@ -33,36 +27,18 @@ const RoleItem = ({ role }) => {
         itemType="role"
       />
       <tr>
-        <td>{role.roleName}</td>
-        <td>{role.email}</td>
-        <td>{role.password}</td>
-
+        <td>{role.role_id}</td>
+        <td>{role.username}</td>
         <td>
-          {" "}
-          <span class="badge bg-light-subtle text-muted border py-1 px-2">
-            {role.tag}
-          </span>{" "}
+          <span className="badge bg-light-subtle text-muted border py-1 px-2">
+            {role.role_name}
+          </span>
         </td>
-
-        <td>
-          <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              role="switch"
-              value={role.status}
-              id="flexSwitchCheckChecked1"
-              checked
-            />
-          </div>
-        </td>
+        <td>{role.isAdmin ? "Yes" : "No"}</td>
         <td>
           <Actions
-            name={role.roleName}
-            deleteAction={() => {
-              setSelectedRole(role); // Set the selected product for deletion
-              setModalVisible(true); // Show the modal
-            }}
+            name={role.role_name}
+            deleteAction={() => setModalVisible(true)}
           />
         </td>
       </tr>

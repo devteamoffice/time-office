@@ -1,173 +1,117 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { API_URL } from "../../constants";
 const StatsRow = () => {
-  return (
-    <div class="row">
-      <div class="col-xxl-5">
-        <div class="row">
-          <div class="col-12">
-            <div class="alert alert-primary text-truncate mb-3" role="alert">
-              We regret to inform you that our server is currently experiencing
-              technical difficulties.
-            </div>
-          </div>
+  const [stats, setStats] = useState({
+    orders: 0,
+    products: 0,
+    returns: 0,
+    cancellations: 0,
+  });
 
-          <div class="col-md-6">
-            <div class="card overflow-hidden">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="avatar-md bg-soft-primary rounded">
-                      <iconify-icon
-                        icon="solar:cart-5-bold-duotone"
-                        class="avatar-title fs-32 text-primary"
-                      ></iconify-icon>
-                    </div>
-                  </div>
-                  <div class="col-6 text-end">
-                    <p class="text-muted mb-0 text-truncate">Total Orders</p>
-                    <h3 class="text-dark mt-1 mb-0">13, 647</h3>
-                  </div>
+  const fetchStats = async () => {
+    try {
+      // Replace with your actual base API URL
+
+      // Fetching data from different endpoints
+      const productsResponse = await axios.get(`${API_URL}/product`);
+      const ordersResponse = await axios.get(`${API_URL}/orders`);
+      const returnsResponse = await axios.get(`${API_URL}/orders`, {
+        params: { status: "return" },
+      });
+      const cancellationsResponse = await axios.get(`${API_URL}/orders`, {
+        params: { status: "cancel" },
+      });
+
+      // Updating stats state
+      setStats({
+        products: productsResponse.data.products || 0,
+        orders: ordersResponse.data.totalOrders || 0,
+        returns: returnsResponse.data.totalReturns || 0,
+        cancellations: cancellationsResponse.data.totalCancellations || 0,
+      });
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  return (
+    <div className="row">
+      {/* Orders */}
+      <div className="col-md-3">
+        <div className="card overflow-hidden">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-6">
+                <div className="avatar-md bg-soft-primary rounded">
+                  <i className="bx bx-cart avatar-title fs-24 text-primary"></i>
                 </div>
               </div>
-              <div class="card-footer py-2 bg-light bg-opacity-50">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span class="text-success">
-                      {" "}
-                      <i class="bx bxs-up-arrow fs-12"></i> 2.3%
-                    </span>
-                    <span class="text-muted ms-1 fs-12">Last Week</span>
-                  </div>
-                  <a href="#!" class="text-reset fw-semibold fs-12">
-                    View More
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card overflow-hidden">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="avatar-md bg-soft-primary rounded">
-                      <i class="bx bx-award avatar-title fs-24 text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="col-6 text-end">
-                    <p class="text-muted mb-0 text-truncate">New Leads</p>
-                    <h3 class="text-dark mt-1 mb-0">9, 526</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer py-2 bg-light bg-opacity-50">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span class="text-success">
-                      {" "}
-                      <i class="bx bxs-up-arrow fs-12"></i> 8.1%
-                    </span>
-                    <span class="text-muted ms-1 fs-12">Last Month</span>
-                  </div>
-                  <a href="#!" class="text-reset fw-semibold fs-12">
-                    View More
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card overflow-hidden">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="avatar-md bg-soft-primary rounded">
-                      <i class="bx bxs-backpack avatar-title fs-24 text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="col-6 text-end">
-                    <p class="text-muted mb-0 text-truncate">Deals</p>
-                    <h3 class="text-dark mt-1 mb-0">976</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer py-2 bg-light bg-opacity-50">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span class="text-danger">
-                      {" "}
-                      <i class="bx bxs-down-arrow fs-12"></i> 0.3%
-                    </span>
-                    <span class="text-muted ms-1 fs-12">Last Month</span>
-                  </div>
-                  <a href="#!" class="text-reset fw-semibold fs-12">
-                    View More
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card overflow-hidden">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="avatar-md bg-soft-primary rounded">
-                      <i class="bx bx-dollar-circle avatar-title text-primary fs-24"></i>
-                    </div>
-                  </div>
-                  <div class="col-6 text-end">
-                    <p class="text-muted mb-0 text-truncate">Booked Revenue</p>
-                    <h3 class="text-dark mt-1 mb-0">$123.6k</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer py-2 bg-light bg-opacity-50">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span class="text-danger">
-                      {" "}
-                      <i class="bx bxs-down-arrow fs-12"></i> 10.6%
-                    </span>
-                    <span class="text-muted ms-1 fs-12">Last Month</span>
-                  </div>
-                  <a href="#!" class="text-reset fw-semibold fs-12">
-                    View More
-                  </a>
-                </div>
+              <div className="col-6 text-end">
+                <p className="text-muted mb-0 text-truncate">Orders</p>
+                <h3 className="text-dark mt-1 mb-0">{stats.orders}</h3>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-xxl-7">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-              <h4 class="card-title">Performance</h4>
-              <div>
-                <button type="button" class="btn btn-sm btn-outline-light">
-                  ALL
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-light">
-                  1M
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-light">
-                  6M
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-light active"
-                >
-                  1Y
-                </button>
+      {/* Products */}
+      <div className="col-md-3">
+        <div className="card overflow-hidden">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-6">
+                <div className="avatar-md bg-soft-primary rounded">
+                  <i className="bx bx-package avatar-title fs-24 text-primary"></i>
+                </div>
+              </div>
+              <div className="col-6 text-end">
+                <p className="text-muted mb-0 text-truncate">Products</p>
+                <h3 className="text-dark mt-1 mb-0">{stats.products}</h3>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div dir="ltr">
-              <div id="dash-performance-chart" class="apex-charts"></div>
+      {/* Returns */}
+      <div className="col-md-3">
+        <div className="card overflow-hidden">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-6">
+                <div className="avatar-md bg-soft-primary rounded">
+                  <i className="bx bx-refresh avatar-title fs-24 text-primary"></i>
+                </div>
+              </div>
+              <div className="col-6 text-end">
+                <p className="text-muted mb-0 text-truncate">Returns</p>
+                <h3 className="text-dark mt-1 mb-0">{stats.returns}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Cancellations */}
+      <div className="col-md-3">
+        <div className="card overflow-hidden">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-6">
+                <div className="avatar-md bg-soft-primary rounded">
+                  <i className="bx bx-x-circle avatar-title fs-24 text-primary"></i>
+                </div>
+              </div>
+              <div className="col-6 text-end">
+                <p className="text-muted mb-0 text-truncate">Cancellations</p>
+                <h3 className="text-dark mt-1 mb-0">{stats.cancellations}</h3>
+              </div>
             </div>
           </div>
         </div>
