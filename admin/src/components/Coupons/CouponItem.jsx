@@ -104,11 +104,10 @@ const CouponItem = () => {
           <td>
             <Actions
               id={coupon.id}
-              code={coupon.code}
+              name={coupon.code}
               viewUrl={`${SOCKET_URL}/cart?coupon=${coupon.code}`}
               editUrl={`/coupons/${coupon.id}/edit`}
               deleteAction={() => {
-                setSelectedCoupon(coupon);
                 setModalVisible(true);
               }}
             />

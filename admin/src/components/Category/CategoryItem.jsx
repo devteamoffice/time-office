@@ -4,23 +4,24 @@ import axios from "axios";
 import { API_URL } from "../../constants";
 import DeleteModal from "../Common/DeleteModal";
 import { SOCKET_URL } from "../../constants";
-const CategoryItem = ({ category }) => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+const CategoryItem = ({ category, onDelete }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleDelete = async () => {
-    if (selectedCategory) {
-      try {
-        await axios.delete(`${API_URL}/category/delete/${selectedCategory.id}`);
-        setSelectedCategory((prev) =>
-          prev.filter((category) => category.id !== selectedCategory.id)
-        );
-      } catch (error) {
-        console.error("Error deleting category:", error);
-      } finally {
-        setSelectedCategory(null);
-        setModalVisible(false);
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`${API_URL}/category/delete/${category.id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      if (onDelete) {
+        onDelete(category.id); // Inform the parent to update the list
       }
+    } catch (error) {
+      console.error("Error deleting category:", error);
+    } finally {
+      setModalVisible(false);
     }
   };
 
@@ -30,7 +31,7 @@ const CategoryItem = ({ category }) => {
         onConfirm={handleDelete}
         onCancel={() => setModalVisible(false)}
         isVisible={modalVisible}
-        item={selectedCategory}
+        item={category}
         itemType="category"
       />
       <tr>
@@ -82,12 +83,9 @@ const CategoryItem = ({ category }) => {
           <Actions
             id={category.id}
             name={category.name}
-            viewUrl={`${SOCKET_URL}/products?category=${category.name}`}
+            viewUrl={`${SOCKET_URL}/products?category=${category.slug}`}
             editUrl={`/category/${category.id}/edit`}
-            deleteAction={() => {
-              setSelectedCategory(category); // Set the selected product for deletion
-              setModalVisible(true); // Show the modal
-            }}
+            deleteAction={() => setModalVisible(true)}
           />
         </td>
       </tr>
