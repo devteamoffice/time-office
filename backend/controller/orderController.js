@@ -1,24 +1,45 @@
 const { Op } = require("sequelize");
-
-// Bring in Models & Utils
 const Order = require("../models/order");
 const Cart = require("../models/cart");
 const Product = require("../models/product");
-
+const User = require("../models/user"); // Assuming you have a User model
 const mailgun = require("../services/mailgun");
 const store = require("../utils/store");
+const shiprocket = require("../services/shiprocket"); // Assuming a service for Shiprocket API
 const { ROLES, CART_ITEM_STATUS } = require("../constants");
+
+// Helper function to generate the custom order number
+const generateOrderNumber = () => {
+  const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+  const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  return `Order#${randomStr}-${dateStr}`;
+};
 
 exports.addOrder = async (req, res) => {
   try {
     const cart = req.body.cartId;
     const total = req.body.total;
-    const user = req.user._id;
+    const userId = req.user._id;
+    const paymentMode = await shiprocket.getPaymentMode(); // Fetch payment mode from Shiprocket API
+
+    // Fetch user details for the customer name
+    const userDoc = await User.findById(userId);
+    if (!userDoc) {
+      return res.status(404).json({
+        error: "User not found.",
+      });
+    }
+
+    const customerName = userDoc.name;
+    const orderNumber = generateOrderNumber();
 
     const order = new Order({
       cart,
-      user,
+      user: userId,
       total,
+      orderNumber,
+      paymentMode,
+      customerName,
     });
 
     const orderDoc = await order.save();
@@ -32,25 +53,31 @@ exports.addOrder = async (req, res) => {
 
     const newOrder = {
       _id: orderDoc._id,
+      orderNumber: orderDoc.orderNumber,
       created: orderDoc.created,
       user: orderDoc.user,
       total: orderDoc.total,
+      paymentMode: orderDoc.paymentMode,
+      customerName: orderDoc.customerName,
       products: cartDoc.products,
     };
 
-    await mailgun.sendEmail(order.user.email, "order-confirmation", newOrder);
+    await mailgun.sendEmail(userDoc.email, "order-confirmation", newOrder);
 
     res.status(200).json({
       success: true,
       message: `Your order has been placed successfully!`,
-      order: { _id: orderDoc._id },
+      order: { _id: orderDoc._id, orderNumber: orderDoc.orderNumber },
     });
   } catch (error) {
+    console.error("Add order error:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
   }
 };
+
+// The rest of the functions remain unchanged unless modifications are specifically required.
 
 exports.searchOrders = async (req, res) => {
   try {

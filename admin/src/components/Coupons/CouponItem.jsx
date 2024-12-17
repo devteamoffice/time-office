@@ -1,45 +1,121 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Actions from "../Common/Actions";
+import axios from "axios";
+import { API_URL, SOCKET_URL } from "../../constants";
+import DeleteModal from "../Common/DeleteModal";
+
 const CouponItem = () => {
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [coupons, setCoupons] = useState([]);
+  const handleDelete = async () => {
+    if (selectedCoupon) {
+      try {
+        await axios.delete(`${API_URL}/coupons/delete/${selectedCoupon.id}`);
+        selectedCoupon((prev) =>
+          prev.filter((coupon) => coupon.id !== selectedCoupon.id)
+        );
+      } catch (error) {
+        console.error("Error deleting coupon:", error);
+      } finally {
+        setSelectedCoupon(null);
+        setModalVisible(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchCoupons = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${API_URL}/coupons`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+        setCoupons(response.data);
+      } catch (error) {
+        console.error("Error fetching coupons:", error);
+      }
+    };
+
+    fetchCoupons();
+  }, []);
+
   return (
-    <tr>
-      <td>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="customCheck2" />
-          <label class="form-check-label" for="customCheck2">
-            &nbsp;
-          </label>
-        </div>
-      </td>
-      <td>
-        <div class="d-flex align-items-center gap-2">
-          <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-            <img src="assets/images/product/p-1.png" alt="" class="avatar-md" />
-          </div>
-          <div>
-            <a href="#!" class="text-dark fw-medium fs-15">
-              Black T-shirt
-            </a>
-            <p class="text-muted mb-0 mt-1 fs-13">
-              <span>Fashion</span>
-            </p>
-          </div>
-        </div>
-      </td>
-      <td>$80.00</td>
-      <td>$20.00</td>
-      <td>FASHION123</td>
-      <td>12 May 2023</td>
-      <td>12 Jun 2023</td>
-      <td>
-        <span class="badge text-success bg-success-subtle fs-12">
-          <i class="bx bx-check-double"></i>Active
-        </span>
-      </td>
-      <td>
-        <Actions />
-      </td>
-    </tr>
+    <>
+      <DeleteModal
+        onConfirm={handleDelete}
+        onCancel={() => setModalVisible(false)}
+        isVisible={modalVisible}
+        item={selectedCoupon}
+        itemType="coupon"
+      />
+      {coupons.map((coupon) => (
+        <tr key={coupon.id}>
+          <td>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id={`check-${coupon.id}`}
+              />
+              <label
+                className="form-check-label"
+                htmlFor={`check-${coupon.id}`}
+              >
+                &nbsp;
+              </label>
+            </div>
+          </td>
+          <td>{coupon.code}</td>
+          <td>{coupon.email || "-"}</td>
+          <td>{coupon.max_redemptions || "-"}</td>
+          <td>
+            <span
+              className={`badge fs-12 ${
+                coupon.status === "active"
+                  ? "text-success bg-success-subtle"
+                  : "text-danger bg-danger-subtle"
+              }`}
+            >
+              {coupon.status}
+            </span>
+          </td>
+          <td>{coupon.discount_type}</td>
+          <td>{coupon.discount_value}</td>
+          <td>
+            {coupon.start_date
+              ? new Date(coupon.start_date).toLocaleDateString()
+              : "-"}
+          </td>
+          <td>
+            {coupon.end_date
+              ? new Date(coupon.end_date).toLocaleDateString()
+              : "-"}
+          </td>
+          <td>
+            {Array.isArray(coupon.applicable_products) &&
+            coupon.applicable_products.length > 0
+              ? coupon.applicable_products.join(", ")
+              : "All Products"}
+          </td>
+
+          <td>
+            <Actions
+              id={coupon.id}
+              code={coupon.code}
+              viewUrl={`${SOCKET_URL}/cart?coupon=${coupon.code}`}
+              editUrl={`/coupons/${coupon.id}/edit`}
+              deleteAction={() => {
+                setSelectedCoupon(coupon);
+                setModalVisible(true);
+              }}
+            />
+          </td>
+        </tr>
+      ))}
+    </>
   );
 };
 

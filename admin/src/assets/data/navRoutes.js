@@ -115,9 +115,9 @@ const navRoutes = [
         link: "/reviews",
       },
       {
-        text: "User",
+        text: "Profile",
         icon: <FaUser />,
-        link: "/u/:id",
+        link: (id) => `/u/${id}`,
       },
       {
         text: "Settings",

@@ -2,66 +2,57 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
 const Coupon = sequelize.define(
-  "Coupon",
+  "Coupon", // Model Name
   {
     created: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    // Qualifiers:
+    // Coupon Code
     code: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: true,
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: true,
       validate: {
         isEmail: true,
       },
     },
     // Constraints:
-    duration: {
-      type: DataTypes.STRING,
-      defaultValue: "once",
-    },
-    duration_in_months: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    redeem_by: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
     max_redemptions: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    times_redeemed: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
+    status: {
+      type: DataTypes.ENUM("active", "inactive", "future_plan"),
+      defaultValue: "active",
     },
-    // Reward:
-    percent_off: {
+    discount_type: {
+      type: DataTypes.ENUM("percentage", "fixed_amount", "free_shipping"),
+      allowNull: false,
+    },
+    discount_value: {
       type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    start_date: {
+      type: DataTypes.DATE,
       allowNull: true,
     },
-    amount_off: {
-      type: DataTypes.FLOAT,
+    end_date: {
+      type: DataTypes.DATE,
       allowNull: true,
     },
-    currency: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    metadata: {
-      type: DataTypes.JSON,
+    applicable_products: {
+      type: DataTypes.JSON, // Array of Product IDs
       allowNull: true,
     },
   },
   {
+    tableName: "coupons", // Explicit table name
     timestamps: false,
   }
 );

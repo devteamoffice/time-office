@@ -32,6 +32,16 @@ const Order = sequelize.define(
       type: DataTypes.FLOAT, // Float is used here to represent the total price
       defaultValue: 0,
     },
+    orderNumber: {
+      type: DataTypes.STRING(20), // To store a custom order number
+      allowNull: false,
+      unique: true, // Ensures the order number is unique
+    },
+    paymentMode: {
+      type: DataTypes.STRING(10), // Payment mode (e.g., COD, Prepaid)
+      allowNull: false,
+      defaultValue: "COD",
+    },
     updated: {
       type: DataTypes.DATE,
       allowNull: true,

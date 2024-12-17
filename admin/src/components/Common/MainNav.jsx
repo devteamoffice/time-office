@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import navRoutes from "../../assets/data/navRoutes";
 import { MdDoubleArrow } from "react-icons/md";
 import logo from "../../assets/images/Logo.png";
-import { Link } from "react-router-dom";
-const MainNav = () => {
+
+const MainNav = ({ userId }) => {
   return (
     <div className="main-nav">
       <div className="logo-box">
@@ -11,12 +12,12 @@ const MainNav = () => {
           <img src={logo} className="logo-sm" alt="logo sm" />
           <img src={logo} className="logo-lg" alt="logo dark" />
         </a>
-
         <a href="/" className="logo-light">
           <img src={logo} className="logo-sm" alt="logo sm" />
           <img src={logo} className="logo-lg" alt="logo light" />
         </a>
       </div>
+
       <button
         type="button"
         className="button-sm-hover"
@@ -24,6 +25,7 @@ const MainNav = () => {
       >
         <MdDoubleArrow className="button-sm-hover-icon" />
       </button>
+
       <div className="scrollbar" data-simplebar>
         <ul className="navbar-nav" id="navbar-nav">
           {navRoutes.map((section, index) => (
@@ -32,12 +34,23 @@ const MainNav = () => {
               {section.items &&
                 section.items.map((item, idx) => (
                   <li className="nav-item" key={idx}>
-                    <a className="nav-link" href={item.link}>
-                      <span className="nav-icon">{item.icon}</span>
-                      <span className="nav-text"> {item.text} </span>
-                    </a>
+                    {typeof item.link === "function" ? (
+                      <Link
+                        className="nav-link"
+                        to={item.link(userId)} // Call the function here with userId
+                      >
+                        <span className="nav-icon">{item.icon}</span>
+                        <span className="nav-text"> {item.text} </span>
+                      </Link>
+                    ) : (
+                      <a className="nav-link" href={item.link}>
+                        <span className="nav-icon">{item.icon}</span>
+                        <span className="nav-text"> {item.text} </span>
+                      </a>
+                    )}
                   </li>
                 ))}
+
               {section.submenu && (
                 <li className="nav-item">
                   <a

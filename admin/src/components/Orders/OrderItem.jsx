@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
-const API_URL = "https://your-api-url.com/orders"; // Replace with your API URL
+import React from "react";
 
 const OrderItem = ({ order, onDelete }) => {
   return (
@@ -67,5 +64,4 @@ const OrderItem = ({ order, onDelete }) => {
     </tr>
   );
 };
-
 export default OrderItem;

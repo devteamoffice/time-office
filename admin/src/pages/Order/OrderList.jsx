@@ -1,8 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../components/Common/Navigation";
 import OrderItem from "../../components/Orders/OrderItem";
+import axios from "axios";
+import { API_URL } from "../../constants";
 
 const OrderList = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve token from localStorage
+        const response = await axios.get(`${API_URL}/orders`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          },
+        });
+        setOrders(response.data.orders); // Adjust based on your API response structure
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const handleDelete = async (orderId) => {
+    try {
+      const token = localStorage.getItem("TOKEN"); // Retrieve token from localStorage
+      await axios.delete(`${API_URL}/${orderId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+        },
+      });
+      setOrders((prevOrders) =>
+        prevOrders.filter((order) => order.id !== orderId)
+      );
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
+  if (loading) {
+    return <p>Loading orders...</p>;
+  }
+
   return (
     <div class="container-xxl">
       <div class="row">
@@ -220,7 +265,13 @@ const OrderList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <OrderItem />
+                    {orders.map((order) => (
+                      <OrderItem
+                        key={order.id}
+                        order={order}
+                        onDelete={handleDelete}
+                      />
+                    ))}
                   </tbody>
                 </table>
               </div>
