@@ -5,7 +5,7 @@ const Product = require("../models/product");
 const User = require("../models/user"); // Assuming you have a User model
 const mailgun = require("../services/mailgun");
 const store = require("../utils/store");
-const shiprocket = require("../services/shiprocket"); // Assuming a service for Shiprocket API
+const shiprocket = require("../services/shipRocket"); // Assuming a service for Shiprocket API
 const { ROLES, CART_ITEM_STATUS } = require("../constants");
 
 // Helper function to generate the custom order number
