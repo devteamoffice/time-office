@@ -24,11 +24,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const decodedUser = jwt_decode(token.replace("Bearer ", ""));
-        if (decodedUser.exp * 1000 < Date.now()) {
-          throw new Error("Token expired.");
-        }
-
+        const decodedUser = decodeAndValidateToken(token);
         setUser(decodedUser);
         setIsAuthenticated(true);
         dispatch({ type: SET_AUTH });
@@ -45,6 +41,19 @@ export const AuthProvider = ({ children }) => {
     initializeAuth();
   }, [dispatch]);
 
+  const decodeAndValidateToken = (token) => {
+    try {
+      const decodedToken = jwt_decode(token);
+      if (decodedToken.exp * 1000 < Date.now()) {
+        throw new Error("Token expired.");
+      }
+      return decodedToken;
+    } catch (error) {
+      console.error("Token validation error:", error.message);
+      throw error;
+    }
+  };
+
   const fetchUserDetails = async () => {
     try {
       const { data: userData } = await api.get(`/user/me`);
@@ -57,12 +66,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (token) => {
     try {
-      localStorage.setItem("token", `Bearer ${token}`);
-      const decodedToken = jwt_decode(token);
-
-      if (decodedToken.exp * 1000 < Date.now()) {
-        throw new Error("Token expired.");
-      }
+      localStorage.setItem("token", token); // Save token without "Bearer"
+      const decodedToken = decodeAndValidateToken(token);
 
       setUser(decodedToken);
       setIsAuthenticated(true);

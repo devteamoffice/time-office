@@ -14,7 +14,7 @@ const OrderList = () => {
         const token = localStorage.getItem("token"); // Retrieve token from localStorage
         const response = await axios.get(`${API_URL}/orders`, {
           headers: {
-            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+            Authorization: `${token}`, // Add the token to the Authorization header
           },
         });
         setOrders(response.data.orders); // Adjust based on your API response structure

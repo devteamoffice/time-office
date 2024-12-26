@@ -70,7 +70,7 @@ const CustomerItem = ({ user }) => {
           <Actions
             id={user.id}
             name={user.name}
-            viewUrl={`${SOCKET_URL}/u/${user.id}`}
+            viewUrl={`/customer/${user.id}`}
             editUrl={`/customer/${user.id}/edit`}
             deleteAction={() => {
               setSelectedUser(user);

@@ -9,7 +9,7 @@ import {
 import avatar from "../../assets/images/users/avatar-1.jpg";
 import { AuthContext } from "../../context/Socket/AuthContext";
 
-const Header = () => {
+const Header = ({ pageName }) => {
   const { isAuthenticated, login, logout, user } = useContext(AuthContext);
 
   return (
@@ -25,7 +25,7 @@ const Header = () => {
             {isAuthenticated && (
               <div className="topbar-item">
                 <h4 className="fw-bold topbar-button pe-none text-uppercase mb-0">
-                  Welcome!
+                  {pageName}
                 </h4>
               </div>
             )}

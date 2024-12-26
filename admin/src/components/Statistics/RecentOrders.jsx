@@ -1,6 +1,51 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import OrderItem from "../../components/Orders/OrderItem";
+import axios from "axios";
+import { API_URL } from "../../constants";
 const RecentOrders = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve token from localStorage
+        const response = await axios.get(`${API_URL}/orders`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          },
+        });
+        setOrders(response.data.orders); // Adjust based on your API response structure
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const handleDelete = async (orderId) => {
+    try {
+      const token = localStorage.getItem("TOKEN"); // Retrieve token from localStorage
+      await axios.delete(`${API_URL}/${orderId}`, {
+        headers: {
+          Authorization: `${token}`, // Add the token to the Authorization header
+        },
+      });
+      setOrders((prevOrders) =>
+        prevOrders.filter((order) => order.id !== orderId)
+      );
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
+  if (loading) {
+    return <p>Loading orders...</p>;
+  }
+
   return (
     <div class="row">
       <div class="col">
@@ -20,133 +65,26 @@ const RecentOrders = () => {
               <thead class="bg-light bg-opacity-50">
                 <tr>
                   <th class="ps-3">Order ID.</th>
-                  <th>Date</th>
-                  <th>Product</th>
-                  <th>Customer Name</th>
-                  <th>Email ID</th>
-                  <th>Phone No.</th>
-                  <th>Address</th>
-                  <th>Payment Type</th>
-                  <th>Status</th>
+                  <th>Created at</th>
+                  <th>Customer</th>
+                  <th>Priority</th>
+                  <th>Total</th>
+                  <th>Payment Status</th>
+                  <th>Items</th>
+                  <th>Delivery Number</th>
+                  <th>Order Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <td class="ps-3">
-                    <a href="order-detail.html">#RB5625</a>
-                  </td>
-                  <td>29 April 2024</td>
-                  <td>
-                    <img
-                      src="assets/images/products/product-1(1).png"
-                      alt="product-1(1)"
-                      class="img-fluid avatar-sm"
-                    />
-                  </td>
-                  <td>
-                    <a href="#!">Anna M. Hines</a>
-                  </td>
-                  <td>anna.hines@mail.com</td>
-                  <td>(+1)-555-1564-261</td>
-                  <td>Burr Ridge/Illinois</td>
-                  <td>Credit Card</td>
-                  <td>
-                    <i class="bx bxs-circle text-success me-1"></i>Completed
-                  </td>
-                </tr>
-                <tr>
-                  <td class="ps-3">
-                    <a href="order-detail.html">#RB9652</a>
-                  </td>
-                  <td>25 April 2024</td>
-                  <td>
-                    <img
-                      src="assets/images/products/product-4.png"
-                      alt="product-4"
-                      class="img-fluid avatar-sm"
-                    />
-                  </td>
-                  <td>
-                    <a href="#!">Judith H. Fritsche</a>
-                  </td>
-                  <td>judith.fritsche.com</td>
-                  <td>(+57)-305-5579-759</td>
-                  <td>SULLIVAN/Kentucky</td>
-                  <td>Credit Card</td>
-                  <td>
-                    <i class="bx bxs-circle text-success me-1"></i>Completed
-                  </td>
-                </tr>
-                <tr>
-                  <td class="ps-3">
-                    <a href="order-detail.html">#RB5984</a>
-                  </td>
-                  <td>25 April 2024</td>
-                  <td>
-                    <img
-                      src="assets/images/products/product-5.png"
-                      alt="product-5"
-                      class="img-fluid avatar-sm"
-                    />
-                  </td>
-                  <td>
-                    <a href="#!">Peter T. Smith</a>
-                  </td>
-                  <td>peter.smith@mail.com</td>
-                  <td>(+33)-655-5187-93</td>
-                  <td>Yreka/California</td>
-                  <td>Pay Pal</td>
-                  <td>
-                    <i class="bx bxs-circle text-success me-1"></i>Completed
-                  </td>
-                </tr>
-                <tr>
-                  <td class="ps-3">
-                    <a href="order-detail.html">#RB3625</a>
-                  </td>
-                  <td>21 April 2024</td>
-                  <td>
-                    <img
-                      src="assets/images/products/product-6.png"
-                      alt="product-6"
-                      class="img-fluid avatar-sm"
-                    />
-                  </td>
-                  <td>
-                    <a href="#!">Emmanuel J. Delcid</a>
-                  </td>
-                  <td>emmanuel.delicid@mail.com</td>
-                  <td>(+30)-693-5553-637</td>
-                  <td>Atlanta/Georgia</td>
-                  <td>Pay Pal</td>
-                  <td>
-                    <i class="bx bxs-circle text-primary me-1"></i>Processing
-                  </td>
-                </tr>
-                <tr>
-                  <td class="ps-3">
-                    <a href="order-detail.html">#RB8652</a>
-                  </td>
-                  <td>18 April 2024</td>
-                  <td>
-                    <img
-                      src="assets/images/products/product-1(2).png"
-                      alt="product-1(2)"
-                      class="img-fluid avatar-sm"
-                    />
-                  </td>
-                  <td>
-                    <a href="#!">William J. Cook</a>
-                  </td>
-                  <td>william.cook@mail.com</td>
-                  <td>(+91)-855-5446-150</td>
-                  <td>Rosenberg/Texas</td>
-                  <td>Credit Card</td>
-                  <td>
-                    <i class="bx bxs-circle text-primary me-1"></i>Processing
-                  </td>
-                </tr>
+                {orders.map((order) => (
+                  <OrderItem
+                    key={order.id}
+                    order={order}
+                    onDelete={handleDelete}
+                  />
+                ))}
               </tbody>
             </table>
           </div>

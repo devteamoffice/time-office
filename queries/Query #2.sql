@@ -1,2 +1,5 @@
-ALTER TABLE `orders` 
-ADD COLUMN `orderNumber` VARCHAR(20) NOT NULL UNIQUE AFTER `total`;
+ALTER TABLE `carts`
+  ADD CONSTRAINT `fk_user_cart`
+  FOREIGN KEY (`userId`)
+  REFERENCES `users` (`id`)
+  ON DELETE CASCADE;

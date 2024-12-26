@@ -5,30 +5,45 @@ import { toast } from "react-toastify";
 import { fetchProduct, updateProduct } from "../../containers/Product/actions";
 import { fetchCategories } from "../../containers/Category/actions";
 import ProductEditCard from "./ProductEditCard";
+import axios from "axios";
+import { API_URL } from "../../constants";
 function ProductEdit() {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [productName, setProductName] = useState("");
   const [brand, setBrand] = useState("");
-  const [weight, setWeight] = useState("");
   const [description, setDescription] = useState("");
   const [slug, setSlug] = useState("");
-  const [tagNumber, setTagNumber] = useState("");
-  const [stock, setStock] = useState(0);
   const [price, setPrice] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sku, setSKU] = useState("");
+  const [isActive, setIsActive] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
-  const product = useSelector((state) => state.product.product);
-  const categories = useSelector((state) => state.product.categories);
 
+  // Fetch product and categories
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProductAndCategories = async () => {
       try {
-        await dispatch(fetchProduct(id));
-        await dispatch(fetchCategories());
+        // Fetch product details
+        const productResponse = await axios.get(`${API_URL}/product/${id}`);
+        const productData = productResponse.data.product;
+
+        // Fetch categories
+        const categoriesResponse = await axios.get(`${API_URL}/category`);
+        const categoriesData = categoriesResponse.data.categories;
+
+        // Set state
+        setProductName(productData.name || "");
+        setBrand(productData.brand || "");
+        setDescription(productData.description || "");
+        setIsActive(productData.isActive || false);
+        setPrice(productData.price || 0);
+        setSelectedCategory(productData.category || "");
+        setSKU(productData.sku || "");
+        setSlug(productData.slug || "");
+        setCategories(categoriesData);
       } catch (err) {
         console.error("Failed to fetch product or categories:", err);
         setError("Failed to load data. Please try again.");
@@ -36,45 +51,44 @@ function ProductEdit() {
       }
     };
 
-    // Render fallback UI
-    if (error) {
-      return <div className="alert alert-danger">{error}</div>;
-    }
+    fetchProductAndCategories();
+  }, [id]);
 
-    fetchData();
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (product) {
-      setProductName(product.name || "");
-      setBrand(product.brand || "");
-      setWeight(product.weight || "");
-      setDescription(product.description || "");
-      setTagNumber(product.tagNumber || "");
-      setStock(product.stock || 0);
-      setPrice(product.price || 0);
-      setSelectedCategory(product.category || "");
-      setSKU(product.sku || "");
-      setSlug(product.slug || "");
-    }
-  }, [product]);
-
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     const updatedProduct = {
       name: productName,
       brand,
-      weight,
+      isActive,
       description,
-      tagNumber,
-      stock,
       price,
       category: selectedCategory,
       sku,
       slug,
     };
 
-    dispatch(updateProduct(updatedProduct, id, navigate));
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Authentication token is missing!");
+        return;
+      }
+      await axios.put(`${API_URL}/product/${id}`, updatedProduct, {
+        headers: {
+          Authorization: `${token}`,
+          "Content-Type": "application/json", // Explicitly set content type
+        },
+      });
+      toast.success("Product updated successfully!");
+      navigate("/products");
+    } catch (err) {
+      console.error("Failed to update product:", err);
+      toast.error("An error occurred while updating the product.");
+    }
   };
+
+  if (error) {
+    return <div className="alert alert-danger">{error}</div>;
+  }
 
   return (
     <div class="row">
@@ -211,6 +225,22 @@ function ProductEdit() {
                   </div>
                 </form>
               </div>
+              <div className="col-lg-4">
+                <div className="mb-3">
+                  <label htmlFor="is-active" className="form-label">
+                    Is Active
+                  </label>
+                  <select
+                    className="form-control"
+                    id="is-active"
+                    value={isActive ? "true" : "false"}
+                    onChange={(e) => setIsActive(e.target.value === "true")}
+                  >
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
             <div class="row">
@@ -239,44 +269,12 @@ function ProductEdit() {
                   <textarea
                     class="form-control bg-light-subtle"
                     id="slug"
-                    rows="7"
+                    rows="2"
                     placeholder="Short description about the product"
                     value={slug}
                     onChange={(e) => setSlug(e.target.value)}
                   ></textarea>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-4">
-                <form>
-                  <div class="mb-3">
-                    <label htmlFor="product-id" class="form-label">
-                      Tag Number
-                    </label>
-                    <input
-                      type="number"
-                      id="product-id"
-                      class="form-control"
-                      placeholder="#******"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <div class="mb-3">
-                    <label htmlFor="product-stock" class="form-label">
-                      Stock
-                    </label>
-                    <input
-                      type="number"
-                      id="product-stock"
-                      class="form-control"
-                      placeholder="Quantity"
-                    />
-                  </div>
-                </form>
               </div>
             </div>
           </div>

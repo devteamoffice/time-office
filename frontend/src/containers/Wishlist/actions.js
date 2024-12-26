@@ -12,13 +12,24 @@ import handleError from "../../utils/error";
 import { API_URL } from "../../constants";
 
 export const updateWishlist = (isLiked, productId) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
-      if (getState().authentication.isAuthenticated === true) {
-        const response = await axios.post(`${API_URL}/wishlist`, {
-          isLiked,
-          product: productId,
-        });
+      // Retrieve token from localStorage
+      const token = localStorage.getItem("authToken");
+
+      if (token) {
+        const response = await axios.post(
+          `${API_URL}/wishlist`,
+          {
+            isLiked,
+            product: productId,
+          },
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
 
         if (response.data.success === true) {
           toast.success(response.data.message, {
@@ -52,7 +63,7 @@ export const updateWishlist = (isLiked, productId) => {
 
 // Fetch wishlist API
 export const fetchWishlist = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
       dispatch({ type: SET_WISHLIST_LOADING, payload: true });
 

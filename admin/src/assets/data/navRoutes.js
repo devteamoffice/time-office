@@ -93,10 +93,7 @@ const navRoutes = [
   {
     title: "Customers",
     icon: <AiOutlineCustomerService />,
-    submenu: [
-      { text: "List", link: "/customer/list" },
-      { text: "All Users", link: "/customer/users" },
-    ],
+    submenu: [{ text: "List", link: "/customer/list" }],
   },
   {
     title: "Coupons",
@@ -107,13 +104,16 @@ const navRoutes = [
     ],
   },
   {
+    title: "Reviews",
+    icon: <MdReviews />,
+    submenu: [
+      { text: "List", link: "/reviews/list" },
+      { text: "Add", link: "/reviews/add" },
+    ],
+  },
+  {
     title: "Other",
     items: [
-      {
-        text: "Reviews",
-        icon: <MdReviews />,
-        link: "/reviews",
-      },
       {
         text: "Profile",
         icon: <FaUser />,

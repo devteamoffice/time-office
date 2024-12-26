@@ -29,7 +29,7 @@ router.get("/:id", productController.fetchProductById);
 router.put(
   "/:id",
   auth,
-  role.check(ROLES.Admin, ROLES.Merchant),
+  // role.check(ROLES.Admin, ROLES.Merchant),
   productController.updateProduct
 );
 router.put(

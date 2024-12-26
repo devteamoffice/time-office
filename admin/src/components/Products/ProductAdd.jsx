@@ -14,6 +14,7 @@ const ProductAdd = () => {
     name: "",
     category: "",
     sku: "",
+    slug: "",
     isActive: "",
     description: "",
     price: "",
@@ -196,6 +197,23 @@ const ProductAdd = () => {
                     <option value="true">True</option>
                     <option value="false">False</option>
                   </select>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="mb-3">
+                    <label htmlFor="slug" className="form-label">
+                      Slug
+                    </label>
+                    <textarea
+                      id="slug"
+                      className="form-control bg-light-subtle"
+                      rows="2"
+                      placeholder="Product Slug"
+                      value={formData.slug}
+                      onChange={handleChange}
+                    ></textarea>
+                  </div>
                 </div>
               </div>
               <div className="row">

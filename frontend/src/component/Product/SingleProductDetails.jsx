@@ -130,13 +130,13 @@ const SingleProductDetails = () => {
                 </div>
                 <div className="col-lg-2">
                   <button
-                    type="button"
-                    onClick={handleWishlistClick}
                     className={`btn ${
-                      isWishlisted ? "btn-danger" : "btn-soft-danger"
-                    } d-inline-flex align-items-center justify-content-center fs-20 rounded w-100`}
+                      isWishlisted ? "btn-danger" : "btn-outline-primary"
+                    }`}
+                    onClick={handleWishlistClick}
                   >
                     {isWishlisted ? <FaHeart /> : <FaRegHeart />}
+                    {/* {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"} */}
                   </button>
                 </div>
               </div>
@@ -202,8 +202,7 @@ const SingleProductDetails = () => {
 
               <h4 className="text-dark fw-medium">Description :</h4>
               <p className="text-muted">
-                {product?.description ||
-                  "Default product description goes here."}{" "}
+                {product?.slug || "NO Slug Found."}{" "}
                 <a href="#!" className="link-primary">
                   Read more
                 </a>

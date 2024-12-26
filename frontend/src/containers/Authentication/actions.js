@@ -15,6 +15,7 @@ export const clearAuth = () => {
 export const checkAuth = () => {
   return async (dispatch) => {
     const token = localStorage.getItem("token");
+    console.log(token);
     if (token) {
       try {
         const decoded = jwt_decode(token.replace("Bearer ", ""));

@@ -1,18 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SingleProductDetails from "../component/Product/SingleProductDetails";
 import ProductReviews from "../component/Reviews/ProductReviews";
 import { FaShippingFast } from "react-icons/fa";
-import { RiDiscountPercentFill } from "react-icons/ri";
-import { FaGift } from "react-icons/fa6";
-import { RiCustomerServiceFill } from "react-icons/ri";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { MdDiscount } from "react-icons/md";
+import { API_URL } from "../constants";
+import { FaGift } from "react-icons/fa";
+import { RiCustomerService2Line } from "react-icons/ri";
 const ProductDetails = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/product/${id}`);
+        setProduct(response.data.product);
+        console.log(response.data.product);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching product:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductData();
+  }, [id]);
+
+  if (loading) return <p>Loading product details...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <div className="container">
-      <div class="wrapper">
-        <div class="page-content">
-          {/* Start Container Fluid */}
-          <div class="container-xxl">
-            <SingleProductDetails />
+      <div className="wrapper">
+        <div className="page-content">
+          <div className="container-xxl">
+            <SingleProductDetails product={product} />
             <div class="row">
               <div class="col-lg-12">
                 <div class="card bg-light-subtle">
@@ -35,7 +62,7 @@ const ProductDetails = () => {
                       <div class="col-lg-3">
                         <div class="d-flex align-items-center gap-3">
                           <div class="avatar bg-light d-flex align-items-center justify-content-center rounded">
-                            <RiDiscountPercentFill />
+                            <MdDiscount />
                           </div>
 
                           <div>
@@ -63,7 +90,7 @@ const ProductDetails = () => {
                       <div class="col-lg-3">
                         <div class="d-flex align-items-center gap-3">
                           <div class="avatar bg-light d-flex align-items-center justify-content-center rounded">
-                            <RiCustomerServiceFill />
+                            <RiCustomerService2Line />
                           </div>
 
                           <div>
@@ -79,99 +106,27 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">Items Detail</h4>
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="card">
+                  <div className="card-header">
+                    <h4 className="card-title"> Product Description</h4>
                   </div>
-                  <div class="card-body">
-                    <div class="">
-                      <ul class="d-flex flex-column gap-2 list-unstyled fs-14 text-muted mb-0">
-                        <li>
-                          <span class="fw-medium text-dark">
-                            Product Dimensions
-                          </span>
-                          <span class="mx-2">:</span>53.3 x 40.6 x 6.4 cm; 500
-                          Grams
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">
-                            Date First Available
-                          </span>
-                          <span class="mx-2">:</span>22 September 2023
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">Department</span>
-                          <span class="mx-2">:</span>Men
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">Manufacturer </span>
-                          <span class="mx-2">:</span>Greensboro, NC 27401
-                          Prospa-Pal
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">ASIN</span>
-                          <span class="mx-2">:</span>B0CJMML118
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">
-                            Item model number
-                          </span>
-                          <span class="mx-2">:</span> 1137AZ
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">
-                            Country of Origin
-                          </span>
-                          <span class="mx-2">:</span>U.S.A
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">Manufacturer </span>
-                          <span class="mx-2">:</span>Suite 941 89157 Baumbach
-                          Views, Gilbertmouth, TX 31542-2135
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">Packer </span>
-                          <span class="mx-2">:</span>Apt. 726 80915 Hung Stream,
-                          Rowetown, WV 44364
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">Importer</span>
-                          <span class="mx-2">:</span>Apt. 726 80915 Hung Stream,
-                          Rowetown, WV 44364
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">Item Weight</span>
-                          <span class="mx-2">:</span>500 g
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">
-                            Item Dimensions LxWxH
-                          </span>
-                          <span class="mx-2">:</span>53.3 x 40.6 x 6.4
-                          Centimeters
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">Generic Name</span>
-                          <span class="mx-2">:</span>T-Shirt
-                        </li>
-                        <li>
-                          <span class="fw-medium text-dark">
-                            Best Sellers Rank
-                          </span>
-                          <span class="mx-2">:</span>#13 in Clothing &
-                          Accessories
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="mt-3">
+                  <div className="card-body">
+                    <ul className="d-flex flex-column gap-2 list-unstyled fs-14 text-muted mb-0">
+                      <li>
+                        <span className="fw-medium text-dark">
+                          {product?.description || "No description available."}
+                        </span>
+                      </li>
+                    </ul>
+                    <div className="mt-3">
                       <a
                         href="#!"
-                        class="link-primary text-decoration-underline link-offset-2"
+                        className="link-primary text-decoration-underline link-offset-2"
                       >
                         View More Details{" "}
-                        <i class="bx bx-arrow-to-right align-middle fs-16"></i>
+                        <i className="bx bx-arrow-to-right align-middle fs-16"></i>
                       </a>
                     </div>
                   </div>

@@ -57,10 +57,10 @@ export const login = () => {
         draggable: true,
       });
 
-      localStorage.setItem("token", response.data.token);
+      const token = localStorage.setItem("token", response.data.token);
 
       setToken(response.data.token);
-
+      console.log(token);
       dispatch(setAuth());
       dispatch({ type: LOGIN_RESET });
     } catch (error) {

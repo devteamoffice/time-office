@@ -6,6 +6,7 @@ import SingleProduct from "../../component/Product/SingleProduct";
 import axios from "axios";
 import { API_URL } from "../../constants"; // Ensure API_URL points to http://localhost:4000/api
 import Navigation from "../../component/Extras/Pagination";
+
 const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Product = () => {
   const [filteredData, setFilteredData] = useState([]); // Filtered products
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategorySlug, setSelectedCategorySlug] = useState("");
+  const [isFiltered, setIsFiltered] = useState(false); // Tracks if a filter is applied
 
   const itemsPerPage = 20; // Items per page
 
@@ -34,15 +36,18 @@ const Product = () => {
           const products = response.data.products || [];
           setData(products);
           setFilteredData(products);
+          setIsFiltered(false); // No filter applied
         } else if (location.state && location.state.searchResult) {
           setData(location.state.searchResult);
           setFilteredData(location.state.searchResult);
+          setIsFiltered(false); // No filter applied
         } else if (slug) {
           const response = await axios.get(
             `${API_URL}/product/filter/${encodeURIComponent(slug)}`
           );
           const filteredProducts = response.data.products || [];
           setFilteredData(filteredProducts);
+          setIsFiltered(true); // Filter applied
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -53,7 +58,16 @@ const Product = () => {
   }, [location.search]);
 
   const handleFill = () => {
-    setIsFilterVisible(!isFilterVisible);
+    if (isFiltered) {
+      // Clear filters and reset to default state
+      setFilteredData(data);
+      setSelectedCategorySlug("");
+      setIsFiltered(false);
+      navigate("/store"); // Reset URL to default
+    } else {
+      // Toggle filter visibility
+      setIsFilterVisible(!isFilterVisible);
+    }
   };
 
   const handleFilter = async (slug) => {
@@ -66,6 +80,7 @@ const Product = () => {
         const filteredProducts = response.data.products || [];
         setFilteredData(filteredProducts);
         setCurrentPage(1); // Reset to page 1
+        setIsFiltered(true); // Filter applied
         navigate(`/store?cate=${slug}`);
       } catch (error) {
         console.error("Error filtering products:", error);
@@ -73,6 +88,7 @@ const Product = () => {
       }
     } else {
       setFilteredData(data);
+      setIsFiltered(false); // No filter applied
       navigate("/store");
     }
   };
@@ -80,7 +96,6 @@ const Product = () => {
   const totalItems = filteredData.length || 0;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
   const handlePageChange = (page) => {
-    console.log("Page Change to:", page); // Debugging
     setCurrentPage(page);
   };
 
@@ -127,7 +142,12 @@ const Product = () => {
                         className="btn btn-outline-secondary me-1"
                         onClick={handleFill}
                       >
-                        <i className="bx bx-filter-alt me-1"></i> Filters
+                        <i
+                          className={`bx ${
+                            isFiltered ? "bx-refresh" : "bx-filter-alt"
+                          } me-1`}
+                        ></i>{" "}
+                        {isFiltered ? "Clear" : "Filters"}
                       </button>
                     </div>
                   </div>

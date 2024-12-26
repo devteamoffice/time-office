@@ -4,8 +4,8 @@
  *
  */
 
-import { toast } from "react-toastify"; // Updated import statement
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { jwtDecode as jwt_decode } from "jwt-decode";
 import {
@@ -17,13 +17,11 @@ import {
 import handleError from "../../utils/error";
 import { API_URL } from "../../constants";
 import { LOGOUT } from "../Authentication/constants";
-export const accountChange = (name, value) => {
-  let formData = {};
-  formData[name] = value;
 
+export const accountChange = (name, value) => {
   return {
     type: ACCOUNT_CHANGE,
-    payload: formData,
+    payload: { [name]: value },
   };
 };
 
@@ -41,22 +39,17 @@ export const setProfileLoading = (value) => {
 };
 
 export const fetchProfile = () => async (dispatch) => {
-  dispatch({ type: SET_PROFILE_LOADING, payload: true });
+  dispatch(setProfileLoading(true));
+
   try {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token found in localStorage.");
-
-    // Decode and check token expiration
-    const decodedToken = jwt_decode(token.replace("Bearer ", ""));
-    if (decodedToken.exp * 1000 < Date.now()) {
-      throw new Error("Token expired. Please login again.");
-    }
+    console.log(token);
+    // Decode and validate the token
 
     // Fetch user profile
     const { data } = await axios.get(`${API_URL}/user/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `${token}` },
     });
 
     dispatch({ type: FETCH_PROFILE, payload: data });
@@ -64,13 +57,17 @@ export const fetchProfile = () => async (dispatch) => {
     console.error("Profile fetch error:", error.response || error.message);
     handleError(error, dispatch); // Custom error handler
   } finally {
-    dispatch({ type: SET_PROFILE_LOADING, payload: false });
+    dispatch(setProfileLoading(false));
   }
 };
 
 export const updateProfile = (profile) => async (dispatch) => {
   try {
-    await axios.put(`${API_URL}/user`, profile);
+    await axios.put(`${API_URL}/user`, profile, {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    });
     toast.success("Profile updated successfully!");
   } catch (error) {
     handleError(error);

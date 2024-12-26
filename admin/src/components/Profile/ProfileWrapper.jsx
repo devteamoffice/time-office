@@ -11,15 +11,16 @@ const ProfileWrapper = () => {
   const { isAuthenticated, user } = useContext(AuthContext); // Access authentication context
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("token");
-  console.log(token);
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       if (isAuthenticated && user?.token) {
         try {
+          const token = localStorage.getItem("token");
+          console.log(token);
           const response = await axios.get(`${API_URL}/user/me`, {
             headers: {
-              Authorization: `${user?.token}`, // Use user?.token directly
+              Authorization: `${token}`, // Use user?.token directly
             },
           });
           setUserProfile(response.data);

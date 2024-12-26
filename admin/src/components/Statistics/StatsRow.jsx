@@ -11,8 +11,6 @@ const StatsRow = () => {
 
   const fetchStats = async () => {
     try {
-      // Replace with your actual base API URL
-
       // Fetching data from different endpoints
       const productsResponse = await axios.get(`${API_URL}/product`);
       const ordersResponse = await axios.get(`${API_URL}/orders`);
@@ -23,9 +21,12 @@ const StatsRow = () => {
         params: { status: "cancel" },
       });
 
+      // Extract product count from the response
+      const totalProducts = productsResponse.data.products?.length || 0;
+      console.log(totalProducts);
       // Updating stats state
       setStats({
-        products: productsResponse.data.products || 0,
+        products: totalProducts,
         orders: ordersResponse.data.totalOrders || 0,
         returns: returnsResponse.data.totalReturns || 0,
         cancellations: cancellationsResponse.data.totalCancellations || 0,
@@ -34,7 +35,7 @@ const StatsRow = () => {
       console.error("Error fetching stats:", error);
     }
   };
-
+  console.log(stats.products);
   useEffect(() => {
     fetchStats();
   }, []);

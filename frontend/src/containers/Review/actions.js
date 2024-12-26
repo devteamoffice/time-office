@@ -172,10 +172,15 @@ export const addProductReview = () => {
       }
 
       const sanitizedReview = santizeFields(newReview);
-
+      const token = localStorage.getItem("token");
       const response = await axios.post(
         `${API_URL}/review/add`,
-        sanitizedReview
+        sanitizedReview,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
       );
 
       if (response.data.success === true) {
