@@ -3,19 +3,21 @@ const { ROLES } = require("../constants"); // Define roles like ROLES.Admin, ROL
 const role = {
   check: (requiredRole) => (req, res, next) => {
     try {
-      // Ensure the `req.user` exists from the `auth` middleware
       if (!req.user || !req.user.role) {
+        console.log("Role check failed: User or role is undefined.");
         return res.status(403).json({ error: "User role is not defined." });
       }
 
-      // Check if the user has the required role
+      console.log("User role:", req.user.role, "Required role:", requiredRole);
+
       if (req.user.role !== requiredRole) {
-        return res
-          .status(403)
-          .json({ error: "Access forbidden: insufficient permissions." });
+        console.log("Access forbidden: Insufficient permissions.");
+        return res.status(403).json({
+          error: "Access forbidden: insufficient permissions.",
+        });
       }
 
-      next(); // User has the required role, proceed to the next middleware/controller
+      next();
     } catch (error) {
       console.error("Error in role middleware:", error);
       res

@@ -473,6 +473,22 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
+exports.getProductCount = async (req, res) => {
+  try {
+    const productCount = await Product.count(); // Count all products
+    res.status(200).json({
+      message: "Product count retrieved successfully.",
+      count: productCount,
+    });
+  } catch (error) {
+    console.error("Error fetching product count:", error);
+    res.status(500).json({
+      error:
+        "An internal server error occurred while retrieving product count.",
+    });
+  }
+};
+
 exports.updateProductActive = async (req, res) => {
   try {
     const productId = req.params.id;

@@ -66,12 +66,11 @@ exports.fetchUsers = async (req, res) => {
   }
 };
 
-// Use auth middleware and update getProfile function
 exports.getProfile = async (req, res) => {
   try {
     const userId = req.user.id; // Retrieve user ID from decoded token
 
-    // Find the user by primary key, excluding the password
+    // Fetch user details, excluding sensitive fields like password
     const userDoc = await User.findByPk(userId, {
       attributes: { exclude: ["password"] },
     });

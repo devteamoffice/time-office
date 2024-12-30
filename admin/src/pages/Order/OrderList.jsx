@@ -30,10 +30,10 @@ const OrderList = () => {
 
   const handleDelete = async (orderId) => {
     try {
-      const token = localStorage.getItem("TOKEN"); // Retrieve token from localStorage
+      const token = localStorage.getItem("token"); // Retrieve token from localStorage
       await axios.delete(`${API_URL}/${orderId}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          Authorization: `${token}`, // Add the token to the Authorization header
         },
       });
       setOrders((prevOrders) =>

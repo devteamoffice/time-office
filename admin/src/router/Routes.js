@@ -17,6 +17,7 @@ import ProductList from "../pages/Product/ProductList";
 import ProductsAdd from "../pages/Product/ProductsAdd";
 import Warehouse from "../pages/Product/Warehouse";
 import Profile from "../pages/Profile/Profile";
+import ReviewAdd from "../pages/Reviews/ReviewAdd";
 import ReviewList from "../pages/Reviews/ReviewList";
 import Roles from "../pages/Roles/Roles";
 import RolesAdd from "../pages/Roles/RolesAdd";
@@ -60,4 +61,5 @@ export const publicRoutes = [
   { path: "/login", element: Login, name: "Login" },
   { path: "/u/:id", element: Profile, name: "User Profile" },
   { path: "/reviews/list", element: ReviewList, name: "Reviews" },
+  { path: "/reviews/add", element: ReviewAdd, name: "Add Reviews" },
 ];

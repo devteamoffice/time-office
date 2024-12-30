@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants";
+
 const StatsRow = () => {
   const [stats, setStats] = useState({
     orders: 0,
@@ -9,37 +10,33 @@ const StatsRow = () => {
     cancellations: 0,
   });
 
-  const fetchStats = async () => {
-    try {
-      // Fetching data from different endpoints
-      const productsResponse = await axios.get(`${API_URL}/product`);
-      const ordersResponse = await axios.get(`${API_URL}/orders`);
-      const returnsResponse = await axios.get(`${API_URL}/orders`, {
-        params: { status: "return" },
-      });
-      const cancellationsResponse = await axios.get(`${API_URL}/orders`, {
-        params: { status: "cancel" },
-      });
-
-      // Extract product count from the response
-      const totalProducts = productsResponse.data.products?.length || 0;
-      console.log(totalProducts);
-      // Updating stats state
-      setStats({
-        products: totalProducts,
-        orders: ordersResponse.data.totalOrders || 0,
-        returns: returnsResponse.data.totalReturns || 0,
-        cancellations: cancellationsResponse.data.totalCancellations || 0,
-      });
-    } catch (error) {
-      console.error("Error fetching stats:", error);
-    }
-  };
-  console.log(stats.products);
   useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const productResponse = await axios.get(`${API_URL}/product/count`);
+        const orderResponse = await axios.get(`${API_URL}/orders`);
+        const returnResponse = await axios.get(`${API_URL}/orders`, {
+          params: { status: "return" },
+        });
+        const cancellationResponse = await axios.get(`${API_URL}/orders`, {
+          params: { status: "cancel" },
+        });
+
+        // Update stats with the correct response structure
+        setStats({
+          products: productResponse.data.count || 0, // Use the count directly
+          orders: orderResponse.data.totalOrders || 0,
+          returns: returnResponse.data.totalReturns || 0,
+          cancellations: cancellationResponse.data.totalCancellations || 0,
+        });
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      }
+    };
+
     fetchStats();
   }, []);
-
+  console.log(stats.products);
   return (
     <div className="row">
       {/* Orders */}

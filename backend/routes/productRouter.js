@@ -13,6 +13,7 @@ router.get("/item/:slug", productController.fetchProductSlug);
 router.get("/list/search/:name", productController.fetchProductName);
 router.get("/list", productController.fetchStoreProducts);
 router.get("/list/select", auth, productController.listSelect);
+router.get("/count", productController.getProductCount);
 router.get("/search/:name", productController.searchProducts);
 router.post(
   "/add",

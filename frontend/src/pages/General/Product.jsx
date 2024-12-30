@@ -31,21 +31,31 @@ const Product = () => {
         const slug = getCategorySlugFromQuery();
         setSelectedCategorySlug(slug);
 
+        let response;
         if (!slug && (!location.state || !location.state.searchResult)) {
-          const response = await axios.get(`${API_URL}/product`);
-          const products = response.data.products || [];
+          response = await axios.get(`${API_URL}/product`);
+          let products = response.data.products || [];
+          // Filter out inactive products
+          products = products.filter((product) => product.isActive === true);
           setData(products);
           setFilteredData(products);
           setIsFiltered(false); // No filter applied
         } else if (location.state && location.state.searchResult) {
-          setData(location.state.searchResult);
-          setFilteredData(location.state.searchResult);
+          const searchResults = location.state.searchResult.filter(
+            (product) => product.isActive === true
+          );
+          setData(searchResults);
+          setFilteredData(searchResults);
           setIsFiltered(false); // No filter applied
         } else if (slug) {
-          const response = await axios.get(
+          response = await axios.get(
             `${API_URL}/product/filter/${encodeURIComponent(slug)}`
           );
-          const filteredProducts = response.data.products || [];
+          let filteredProducts = response.data.products || [];
+          // Filter out inactive products
+          filteredProducts = filteredProducts.filter(
+            (product) => product.isActive === true
+          );
           setFilteredData(filteredProducts);
           setIsFiltered(true); // Filter applied
         }
@@ -77,7 +87,11 @@ const Product = () => {
         const response = await axios.get(
           `${API_URL}/product/filter/${encodeURIComponent(slug)}`
         );
-        const filteredProducts = response.data.products || [];
+        let filteredProducts = response.data.products || [];
+        // Filter out inactive products
+        filteredProducts = filteredProducts.filter(
+          (product) => product.isActive === true
+        );
         setFilteredData(filteredProducts);
         setCurrentPage(1); // Reset to page 1
         setIsFiltered(true); // Filter applied

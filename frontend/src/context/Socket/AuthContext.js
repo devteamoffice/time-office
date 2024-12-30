@@ -6,6 +6,7 @@ import {
 } from "../../containers/Authentication/constants";
 import { jwtDecode as jwt_decode } from "jwt-decode";
 import api from "./api";
+import { API_URL } from "../../constants";
 
 export const AuthContext = createContext();
 
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       const token = localStorage.getItem("token");
+      console.log(token);
       if (!token) {
         setIsLoading(false);
         return;
@@ -56,7 +58,17 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserDetails = async () => {
     try {
-      const { data: userData } = await api.get(`/user/me`);
+      const token = localStorage.getItem("token");
+      const { data: userData } = await api.get(
+        `${API_URL}/user/me`,
+        {
+          headers: {
+            Authorization: `${token}`, // Add 'Bearer' prefix
+            "Content-Type": "application/json",
+          },
+        },
+        console.log(token)
+      );
       setUser((prevUser) => ({ ...prevUser, ...userData }));
     } catch (error) {
       console.error("Error fetching user details:", error.message);

@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const sequelize = require("../config/database"); // Assuming you have a database configuration file
 const { CART_ITEM_STATUS } = require("../constants");
 
@@ -6,7 +6,7 @@ const CartItem = sequelize.define(
   "CartItem",
   {
     productId: {
-      type: DataTypes.INTEGER, // Assuming Product ID is an integer
+      type: Sequelize.UUID, // or whatever type you use for productId
       references: {
         model: "Products", // Name of the Product table
         key: "id",
@@ -14,24 +14,24 @@ const CartItem = sequelize.define(
       allowNull: false,
     },
     quantity: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     purchasePrice: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
+      type: Sequelize.FLOAT,
+      allowNull: false,
     },
     totalPrice: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
+      type: Sequelize.FLOAT,
+      allowNull: false,
     },
     priceWithTax: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
+      type: Sequelize.FLOAT,
+      allowNull: false,
     },
     totalTax: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
+      type: Sequelize.FLOAT,
+      allowNull: false,
     },
     status: {
       type: DataTypes.ENUM(

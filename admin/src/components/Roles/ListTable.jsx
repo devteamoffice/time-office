@@ -20,7 +20,7 @@ const ListTable = () => {
             Authorization: `${token}`,
           },
         });
-
+        console.log(token);
         setRoles(response.data); // Update based on API response structure
       } catch (error) {
         setError("Failed to fetch roles. Please try again.");

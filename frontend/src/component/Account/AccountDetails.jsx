@@ -1,31 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import avatar from "../../assets/images/avatar.jpg";
 import { FaFileDownload } from "react-icons/fa";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProfile, updateProfile } from "../../containers/Account/actions";
 import Address from "./Address";
 import { AuthContext } from "../../context/Socket/AuthContext";
-import { useContext } from "react";
-import { jwtDecode as jwt_decode } from "jwt-decode"; // Import the jwt_decode function
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from "../../constants";
+
 const AccountDetails = () => {
-  const dispatch = useDispatch();
-  const { user, isAuthenticated } = React.useContext(AuthContext);
+  const [userData, setUserData] = useState(null); // State to hold user data
+  const { token, isAuthenticated, user } = useContext(AuthContext);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(fetchProfile()); // Fetch profile if authenticated
-    } else {
-      console.warn("User is not authenticated.");
-    }
-  }, [dispatch, isAuthenticated]);
+    const fetchUserDetails = async () => {
+      if (!isAuthenticated || !token) {
+        toast.warn("User is not authenticated or token is missing.");
+        return;
+      }
 
-  const handleProfileUpdate = (updatedProfileData) => {
-    dispatch(updateProfile(updatedProfileData));
-  };
+      try {
+        const response = await axios.get(`${API_URL}/user/me`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+
+        setUserData(response.data.user);
+        toast.success("User details fetched successfully!");
+      } catch (error) {
+        console.error("Failed to fetch user details:", error);
+        toast.error("Failed to fetch user details. Please try again.");
+      }
+    };
+
+    fetchUserDetails();
+  }, [isAuthenticated, token]);
 
   if (!isAuthenticated) {
     return <div>You need to log in to view this page.</div>;
+  }
+
+  if (!userData) {
+    return <div>Loading...</div>;
   }
   return (
     <div className="col-lg-4">

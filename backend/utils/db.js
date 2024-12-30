@@ -1,4 +1,3 @@
-// db.js (Database setup)
 const Permission = require("../models/permission");
 require("dotenv").config();
 const sequelize = require("../config/database");
@@ -19,9 +18,9 @@ const setupDB = async () => {
   try {
     // Test the MySQL connection using Sequelize
     await sequelize.authenticate();
-    console.log("\x1b[32m%s\x1b[0m", "✓ MySQL Connected!"); // Green color for success message
+    console.log("\x1b[32m%s\x1b[0m", "✓ MySQL Connected!");
 
-    // Define associations between models within the setupDB function
+    // Define associations between models
 
     // User and Address associations
     User.hasMany(Address, { foreignKey: "userId", as: "addresses" });
@@ -30,10 +29,12 @@ const setupDB = async () => {
       "\x1b[32m%s\x1b[0m",
       "✓ User and Address associations defined!"
     );
-    // Define Role-User association
+
+    // Role-User association
     Role.hasMany(User, { foreignKey: "roleId", as: "users" });
     User.belongsTo(Role, { foreignKey: "roleId", as: "role" });
     console.log("\x1b[32m%s\x1b[0m", "✓ Role and User associations defined!");
+
     // User and Cart associations
     User.hasMany(Cart, { foreignKey: "userId", as: "carts" });
     Cart.belongsTo(User, { foreignKey: "userId", as: "user" });
@@ -73,10 +74,10 @@ const setupDB = async () => {
       "✓ User and Wishlist associations defined!"
     );
 
-    // Category and Subcategory association with unique alias
+    // Category and Subcategory association
     Category.hasMany(Subcategory, {
       foreignKey: "categoryId",
-      as: "subcategories", // Alias for Category -> Subcategory association
+      as: "subcategories",
     });
     Subcategory.belongsTo(Category, {
       foreignKey: "categoryId",
@@ -87,34 +88,37 @@ const setupDB = async () => {
       "✓ Category and Subcategory associations defined!"
     );
 
-    // Category and Product association with unique alias
+    // Category and Product association
     Category.hasMany(Product, {
       foreignKey: "categoryId",
-      as: "categoryProducts", // Alias for Category -> Product association
+      as: "categoryProducts",
     });
     Product.belongsTo(Category, {
       foreignKey: "categoryId",
-      as: "productCategory", // Alias for Product -> Category association
+      as: "productCategory",
     });
     console.log(
       "\x1b[32m%s\x1b[0m",
-      "✓ Category and Product associations defined with unique alias!"
+      "✓ Category and Product associations defined!"
     );
+
+    // Subcategory and Product association
     Subcategory.hasMany(Product, { foreignKey: "subcategoryId" });
     Product.belongsTo(Subcategory, { foreignKey: "subcategoryId" });
     console.log(
       "\x1b[32m%s\x1b[0m",
-      "✓ SubCategory and Product associations defined with unique alias!"
+      "✓ Subcategory and Product associations defined!"
     );
-    // Sync the models with the database (do not alter foreign keys every time)
-    await sequelize.sync({ force: false }); // Change to { force: true } if you want to drop existing tables
-    console.log("\x1b[32m%s\x1b[0m", "✓ Database tables synced!"); // Success message for syncing
+
+    // Sync models with the database
+    await sequelize.sync({ force: false }); // Use force: true for development
+    console.log("\x1b[32m%s\x1b[0m", "✓ Database tables synced!");
   } catch (error) {
     console.log(
       "\x1b[31m%s\x1b[0m",
       "✗ Unable to connect to the database:",
       error
-    ); // Red color for error message
+    );
     return null;
   }
 };

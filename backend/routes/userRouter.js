@@ -5,6 +5,11 @@ const role = require("../middleware/role");
 const userController = require("../controller/userController");
 const { ROLES } = require("../constants");
 
+// General user routes
+router.get("/me", auth, userController.getProfile); // Get current user's profile
+router.put("/", auth, userController.updateProfile); // Update current user's profile
+router.get("/", auth, userController.fetchUsers);
+
 // Admin-specific routes
 router.get("/search", auth, role.check(ROLES.Admin), userController.searchUser);
 router.get(
@@ -25,10 +30,5 @@ router.delete(
   role.check(ROLES.Admin),
   userController.deleteUser
 );
-
-// General user routes
-router.get("/", auth, userController.fetchUsers);
-router.get("/me", auth, userController.getProfile); // Get current user's profile
-router.put("/", auth, userController.updateProfile); // Update current user's profile
 
 module.exports = router;

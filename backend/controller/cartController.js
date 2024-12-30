@@ -1,8 +1,11 @@
 const sequelize = require("sequelize");
 const { Op } = sequelize;
-const { Cart, Product, Order, User } = require("../models"); // Assume all models are exported from a central file
 const mailgun = require("../services/mailgun");
-
+const Cart = require("../models/cart");
+const Product = require("../models/product");
+const Order = require("../models/order");
+const User = require("../models/user");
+const CartItem = require("../models/cartitem");
 exports.addOrder = async (req, res) => {
   const t = await sequelize.Transaction();
   try {
@@ -70,29 +73,52 @@ exports.addToCart = async (req, res) => {
       return res.status(400).json({ error: "Invalid product list." });
     }
 
-    // Calculate items and their tax (custom logic, if needed)
-    const products = items.map((item) => ({
-      productId: item.productId,
-      quantity: item.quantity,
-    }));
+    // Log the request for debugging
+    console.log("User ID:", userId);
+    console.log("Products:", items);
+
+    const products = await Promise.all(
+      items.map(async (item) => {
+        const product = await Product.findByPk(item.productId);
+        if (!product) {
+          throw new Error(`Product with ID ${item.productId} not found`);
+        }
+
+        // Calculate price details
+        const purchasePrice = product.price; // Assuming price is available in product
+        const totalPrice = purchasePrice * item.quantity;
+        const priceWithTax = totalPrice * (1 + product.taxRate); // Assuming taxRate is available in product
+        const totalTax = priceWithTax - totalPrice;
+
+        // Create cart item
+        const cartItem = await CartItem.create({
+          productId: item.productId,
+          quantity: item.quantity,
+          purchasePrice,
+          totalPrice,
+          priceWithTax,
+          totalTax,
+          status: "Not processed",
+        });
+
+        return cartItem; // Return the created CartItem
+      })
+    );
 
     // Create the cart
     const cart = await Cart.create({ userId });
 
-    // Add products to the cart (assumes many-to-many or through relationship)
+    // Add products to the cart (assuming through relationship)
     await Promise.all(
-      products.map(async (item) => {
-        const product = await Product.findByPk(item.productId);
-        if (!product)
-          throw new Error(`Product with ID ${item.productId} not found`);
-        await cart.addProduct(product, {
-          through: { quantity: item.quantity },
+      products.map(async (cartItem) => {
+        await cart.addProduct(cartItem, {
+          through: { quantity: cartItem.quantity },
         });
       })
     );
 
     // Decrease inventory quantities
-    await decreaseQuantity(products);
+    await decreaseQuantity(items);
 
     res.status(200).json({
       success: true,
@@ -100,8 +126,10 @@ exports.addToCart = async (req, res) => {
       cart,
     });
   } catch (error) {
-    console.error("Error adding to cart:", error);
-    res.status(500).json({ error: "Your request could not be processed." });
+    console.error("Error adding to cart:", error.message);
+    res.status(500).json({
+      error: error.message || "Your request could not be processed.",
+    });
   }
 };
 

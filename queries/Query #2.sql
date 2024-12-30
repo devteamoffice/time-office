@@ -1,5 +1,3 @@
-ALTER TABLE `carts`
-  ADD CONSTRAINT `fk_user_cart`
-  FOREIGN KEY (`userId`)
-  REFERENCES `users` (`id`)
-  ON DELETE CASCADE;
+UPDATE users u
+JOIN roles r ON u.id = r.user_id
+SET u.role = r.role_name;
