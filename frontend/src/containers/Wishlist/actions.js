@@ -15,7 +15,7 @@ export const updateWishlist = (isLiked, productId) => {
   return async (dispatch) => {
     try {
       // Retrieve token from localStorage
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem("token");
 
       if (token) {
         const response = await axios.post(

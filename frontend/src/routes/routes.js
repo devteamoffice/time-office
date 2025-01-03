@@ -15,7 +15,7 @@ import Invoice from "../pages/Invoice";
 import TermCondition from "../pages/General/TermCondition";
 import CancellationRefundPolicy from "../pages/General/CancelationRefund";
 import ShippingDelivery from "../pages/General/ShippingDelivery";
-import MyAccount from "../component/Account/MyAccount";
+
 import Orders from "../component/Account/Orders";
 import Address from "../component/Account/Address";
 import Wishlist from "../containers/Wishlist";

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { addProduct } from "../../containers/Product/actions";
-import { fetchCategories } from "../../containers/Category/actions";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "../../constants";
+
 const ProductAdd = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
-  const categories = useSelector((state) => state.product.categories || []);
+  const { productId } = useParams();
+
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -21,6 +18,48 @@ const ProductAdd = () => {
     discount: "",
     tax: "",
   });
+  const [categories, setCategories] = useState([]);
+  const [images, setImages] = useState([]);
+  const [error, setError] = useState(null);
+
+  // Fetch categories and product details
+  useEffect(() => {
+    // Fetch categories
+    axios
+      .get(`${API_URL}/category`)
+      .then((response) => {
+        setCategories(response.data.categories || []);
+      })
+      .catch((err) => {
+        console.error("Error fetching categories:", err);
+        setError("Failed to fetch categories.");
+      });
+
+    // If editing an existing product
+    if (productId) {
+      axios
+        .get(`${API_URL}/product/${productId}`)
+        .then((response) => {
+          const product = response.data;
+          setFormData({
+            name: product.name || "",
+            category: product.category || "",
+            sku: product.sku || "",
+            slug: product.slug || "",
+            isActive: product.isActive ? "true" : "false",
+            description: product.description || "",
+            price: product.price || "",
+            discount: product.discount || "",
+            tax: product.tax || "",
+          });
+          setImages(product.images || []);
+        })
+        .catch((err) => {
+          console.error("Error fetching product details:", err);
+          setError("Failed to fetch product details.");
+        });
+    }
+  }, [productId]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -29,48 +68,72 @@ const ProductAdd = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addProduct(formData));
-    navigate("/"); // Use navigate here after dispatch
-  };
+    const token = localStorage.getItem("token");
+    const action = productId
+      ? axios.put(`${API_URL}/product/${productId}`, formData, {
+          headers: { Authorization: `${token}` },
+        })
+      : axios.post(`${API_URL}/product/add`, formData, {
+          headers: { Authorization: `${token}` },
+        });
 
+    action
+      .then(() => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error("Error saving product:", err);
+        setError("Failed to save product.");
+      });
+  };
   return (
     <div className="row">
+      {error && <div className="alert alert-danger">{error}</div>}
+
+      {/* Product Card */}
       <div className="col-xl-3 col-lg-4">
         <div className="card">
           <div className="card-body">
-            <img
-              src="assets/images/product/p-1.png"
-              alt=""
-              className="img-fluid rounded bg-light"
-            />
+            {images.length > 0 ? (
+              <div className="carousel">
+                {images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img.url}
+                    alt={`Product Image ${index + 1}`}
+                    className="img-fluid rounded bg-light"
+                  />
+                ))}
+              </div>
+            ) : (
+              <img
+                src="assets/images/product/placeholder.png"
+                alt="Placeholder"
+                className="img-fluid rounded bg-light"
+              />
+            )}
             <div className="mt-3">
-              <h4>
-                Men Black Slim Fit T-shirt
-                <span className="fs-14 text-muted ms-1">(Fashion)</span>
-              </h4>
-              <h5 className="text-dark fw-medium mt-3">Price :</h5>
+              <h4>{formData.name || "Product Name"}</h4>
+              <h5 className="text-dark fw-medium mt-3">Price:</h5>
               <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
                 <span className="text-muted text-decoration-line-through">
-                  $100
+                  {formData.discount
+                    ? `$${(
+                        formData.price *
+                        (1 + formData.discount / 100)
+                      ).toFixed(2)}`
+                    : ""}
                 </span>{" "}
-                $80 <small className="text-muted"> (30% Off)</small>
+                ${formData.price}{" "}
+                {formData.discount && (
+                  <small className="text-muted">
+                    ({formData.discount}% Off)
+                  </small>
+                )}
               </h4>
-              {/* Sizes */}
-              <div className="mt-3">
-                <h5 className="text-dark fw-medium">Size :</h5>
-                <div className="d-flex flex-wrap gap-2">
-                  {/* Size checkboxes */}
-                </div>
-              </div>
-              {/* Colors */}
-              <div className="mt-3">
-                <h5 className="text-dark fw-medium">Colors :</h5>
-                <div className="d-flex flex-wrap gap-2">
-                  {/* Color checkboxes */}
-                </div>
-              </div>
             </div>
           </div>
+
           <div className="card-footer bg-light-subtle">
             <div className="row g-2">
               <div className="col-lg-6">

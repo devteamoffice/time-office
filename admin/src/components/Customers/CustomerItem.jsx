@@ -59,7 +59,7 @@ const CustomerItem = ({ user }) => {
         <td>{user.name}</td>
         <td>{user.username}</td>
         <td>{user.email}</td>
-        <td>{user.phoneNo}</td>
+        <td>{user.phoneNumber}</td>
         <td>{user.role}</td>
         <td>
           {user.createdAt
@@ -90,7 +90,7 @@ CustomerItem.propTypes = {
     name: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    phoneNo: PropTypes.string,
+    phoneNumber: PropTypes.string,
     role: PropTypes.string.isRequired,
     createdAt: PropTypes.string,
   }).isRequired,

@@ -1,42 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProfile } from "../../containers/Account/actions";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../constants";
-import { useContext } from "react";
-import { AuthContext } from "../../context/Socket/AuthContext";
-import { useParams } from "react-router-dom";
+import avatar from "../../assets/images/users/avatar-1.jpg";
 const ProfileWrapper = () => {
   const { id } = useParams(); // Get the 'id' from the URL parameters
-  const { isAuthenticated, user } = useContext(AuthContext); // Access authentication context
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      if (isAuthenticated && user?.token) {
+      const token = localStorage.getItem("token"); // Get the token from localStorage
+      if (token) {
         try {
-          const token = localStorage.getItem("token");
-          console.log(token);
           const response = await axios.get(`${API_URL}/user/me`, {
             headers: {
-              Authorization: `${token}`, // Use user?.token directly
+              Authorization: `${token}`, // Use the token
             },
           });
-          setUserProfile(response.data);
+          setUserProfile(response.data.user);
         } catch (error) {
           console.error("Error fetching user profile:", error.message);
         } finally {
           setLoading(false);
         }
       } else {
-        console.warn("User not authenticated or token missing.");
+        console.warn("Token is missing in localStorage.");
         setLoading(false);
       }
     };
 
     fetchUserProfile();
-  }, [id, isAuthenticated, user?.token]);
+  }, [id]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -45,229 +40,105 @@ const ProfileWrapper = () => {
   if (!userProfile) {
     return <p>Error loading profile data.</p>;
   }
+
   return (
-    <div class="row">
-      <div class="col-xl-9 col-lg-8">
-        <div class="card overflow-hidden">
-          <div class="card-body">
-            <div class="bg-primary profile-bg rounded-top position-relative mx-n3 mt-n3">
+    <div className="row">
+      <div className="col-xl-9 col-lg-8">
+        <div className="card overflow-hidden">
+          <div className="card-body">
+            <div className="bg-primary profile-bg rounded-top position-relative mx-n3 mt-n3">
               <img
-                src={userProfile.avatar || "assets/images/users/avatar-1.jpg"}
+                src={userProfile.avatar || avatar}
                 alt=""
-                class="avatar-xl border border-light border-3 rounded-circle position-absolute top-100 start-0 translate-middle ms-5"
+                className="avatar-xl border border-light border-3 rounded-circle position-absolute top-100 start-0 translate-middle ms-5"
               />
             </div>
-            <div class="mt-5 d-flex flex-wrap align-items-center justify-content-between">
+            <div className="mt-5 d-flex flex-wrap align-items-center justify-content-between">
               <div>
-                <h4 class="mb-1">
+                <h4 className="mb-1">
                   {userProfile.name}{" "}
-                  <i class="bx bxs-badge-check text-success align-middle"></i>
+                  <i className="bx bxs-badge-check text-success align-middle"></i>
                 </h4>
-                <p class="mb-0">{userProfile.role || "Project Head Manager"}</p>
+                <p className="mb-0">
+                  {userProfile.role || "Project Head Manager"}
+                </p>
               </div>
-              <div class="d-flex align-items-center gap-2 my-2 my-lg-0">
-                <a href="#!" class="btn btn-info">
-                  <i class="bx bx-message-dots"></i> Message
+              <div className="d-flex align-items-center gap-2 my-2 my-lg-0">
+                <a href="#!" className="btn btn-info">
+                  <i className="bx bx-message-dots"></i> Message
                 </a>
-                <a href="#!" class="btn btn-outline-primary">
-                  <i class="bx bx-plus"></i> Follow
+                <a href="#!" className="btn btn-outline-primary">
+                  <i className="bx bx-plus"></i> Follow
                 </a>
-                <div class="dropdown">
+                <div className="dropdown">
                   <a
                     href="#"
-                    class="dropdown-toggle arrow-none card-drop"
+                    className="dropdown-toggle arrow-none card-drop"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
                     <iconify-icon
                       icon="solar:menu-dots-bold"
-                      class="fs-20 align-middle text-muted"
+                      className="fs-20 align-middle text-muted"
                     ></iconify-icon>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-end">
-                    <a href="javascript:void(0);" class="dropdown-item">
+                  <div className="dropdown-menu dropdown-menu-end">
+                    <a href="#!" className="dropdown-item">
                       Download
                     </a>
-
-                    <a href="javascript:void(0);" class="dropdown-item">
+                    <a href="#!" className="dropdown-item">
                       Export
                     </a>
-
-                    <a href="javascript:void(0);" class="dropdown-item">
+                    <a href="#!" className="dropdown-item">
                       Import
                     </a>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row mt-3 gy-2">
-              <div class="col-lg-2 col-6">
-                <div class="d-flex align-items-center gap-2 border-end">
-                  <div class="">
-                    <iconify-icon
-                      icon="solar:clock-circle-bold-duotone"
-                      class="fs-28 text-primary"
-                    ></iconify-icon>
-                  </div>
+            <div className="row mt-3 gy-2">
+              <div className="col-lg-2 col-6">
+                <div className="d-flex align-items-center gap-2 border-end">
+                  <iconify-icon
+                    icon="solar:clock-circle-bold-duotone"
+                    className="fs-28 text-primary"
+                  ></iconify-icon>
                   <div>
-                    <h5 class="mb-1">{userProfile.experience || "3+ Years"}</h5>
-                    <p class="mb-0">Experience</p>
+                    <h5 className="mb-1">
+                      {userProfile.experience || "3+ Years"}
+                    </h5>
+                    <p className="mb-0">Experience</p>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-2 col-6">
-                <div class="d-flex align-items-center gap-2 border-end">
-                  <div class="">
-                    <iconify-icon
-                      icon="solar:cup-star-bold-duotone"
-                      class="fs-28 text-primary"
-                    ></iconify-icon>
-                  </div>
-                  <div>
-                    <h5 class="mb-1">5 Certificate</h5>
-                    <p class="mb-0">Achieved</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-6">
-                <div class="d-flex align-items-center gap-2">
-                  <div class="">
-                    <iconify-icon
-                      icon="solar:notebook-bold-duotone"
-                      class="fs-28 text-primary"
-                    ></iconify-icon>
-                  </div>
-                  <div>
-                    <h5 class="mb-1">2 Internship</h5>
-                    <p class="mb-0">Completed</p>
-                  </div>
-                </div>
-              </div>
+              {/* Add other sections as needed */}
             </div>
           </div>
         </div>
       </div>
-      <div class="col-xl-3 col-lg-4">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Personal Information</h4>
+      <div className="col-xl-3 col-lg-4">
+        <div className="card">
+          <div className="card-header">
+            <h4 className="card-title">Personal Information</h4>
           </div>
-          <div class="card-body">
-            <div class="">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="avatar-sm bg-light d-flex align-items-center justify-content-center rounded">
-                  <iconify-icon
-                    icon="solar:backpack-bold-duotone"
-                    class="fs-20 text-secondary"
-                  ></iconify-icon>
-                </div>
-                <p class="mb-0 fs-14">Project Head Manager</p>
-              </div>
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="avatar-sm bg-light d-flex align-items-center justify-content-center rounded">
-                  <iconify-icon
-                    icon="solar:square-academic-cap-2-bold-duotone"
-                    class="fs-20 text-secondary"
-                  ></iconify-icon>
-                </div>
-                <p class="mb-0 fs-14">
-                  Went to{" "}
-                  <span class="text-dark fw-semibold">
-                    Oxford International
-                  </span>
-                </p>
-              </div>
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="avatar-sm bg-light d-flex align-items-center justify-content-center rounded">
-                  <iconify-icon
-                    icon="solar:map-point-bold-duotone"
-                    class="fs-20 text-secondary"
-                  ></iconify-icon>
-                </div>
-                <p class="mb-0 fs-14">
-                  Lives in{" "}
-                  <span class="text-dark fw-semibold">
-                    Pittsburgh, PA 15212
-                  </span>
-                </p>
-              </div>
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="avatar-sm bg-light d-flex align-items-center justify-content-center rounded">
-                  <iconify-icon
-                    icon="solar:users-group-rounded-bold-duotone"
-                    class="fs-20 text-secondary"
-                  ></iconify-icon>
-                </div>
-                <p class="mb-0 fs-14">
-                  Followed by{" "}
-                  <span class="text-dark fw-semibold">16.6k People</span>
-                </p>
-              </div>
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="avatar-sm bg-light d-flex align-items-center justify-content-center rounded">
-                  <iconify-icon
-                    icon="solar:letter-bold-duotone"
-                    class="fs-20 text-secondary"
-                  ></iconify-icon>
-                </div>
-                <p class="mb-0 fs-14">
+          <div className="card-body">
+            <div>
+              <div className="d-flex align-items-center gap-2 mb-2">
+                <iconify-icon
+                  icon="solar:letter-bold-duotone"
+                  className="fs-20 text-secondary"
+                ></iconify-icon>
+                <p className="mb-0 fs-14">
                   Email{" "}
                   <a
                     href={`mailto:${userProfile.email}`}
-                    class="text-primary fw-semibold"
+                    className="text-primary fw-semibold"
                   >
                     {userProfile.email}
                   </a>
                 </p>
               </div>
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="avatar-sm bg-light d-flex align-items-center justify-content-center rounded">
-                  <iconify-icon
-                    icon="solar:link-bold-duotone"
-                    class="fs-20 text-secondary"
-                  ></iconify-icon>
-                </div>
-                <p class="mb-0 fs-14">
-                  Website{" "}
-                  <a href="#!" class="text-primary fw-semibold">
-                    www.larkon.co
-                  </a>
-                </p>
-              </div>
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="avatar-sm bg-light d-flex align-items-center justify-content-center rounded">
-                  <iconify-icon
-                    icon="solar:global-bold-duotone"
-                    class="fs-20 text-secondary"
-                  ></iconify-icon>
-                </div>
-                <p class="mb-0 fs-14">
-                  Language{" "}
-                  <span class="text-dark fw-semibold">
-                    English , Spanish , German
-                  </span>
-                </p>
-              </div>
-
-              <div class="d-flex align-items-center gap-2">
-                <div class="avatar-sm bg-light d-flex align-items-center justify-content-center rounded">
-                  <iconify-icon
-                    icon="solar:check-circle-bold-duotone"
-                    class="fs-20 text-secondary"
-                  ></iconify-icon>
-                </div>
-                <p class="mb-0 fs-14">
-                  Status{" "}
-                  <span class="badge bg-success-subtle text-success ms-1">
-                    Active
-                  </span>
-                </p>
-              </div>
-              <div class="mt-2">
-                <a href="#!" class="text-primary">
-                  View More
-                </a>
-              </div>
+              {/* Add more personal info sections as needed */}
             </div>
           </div>
         </div>

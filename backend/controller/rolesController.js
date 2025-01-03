@@ -6,10 +6,10 @@ const { ROLES } = require("../constants/index"); // Ensure ROLES contains valid 
  */
 exports.assignRole = async (req, res) => {
   try {
-    const { userId, roleName, username, isAdmin } = req.body;
+    const { userId, role_name, username, isAdmin } = req.body;
 
-    // Validate roleName
-    if (!Object.values(ROLES).includes(roleName)) {
+    // Validate role_name
+    if (!Object.values(ROLES).includes(role_name)) {
       return res
         .status(400)
         .json({ message: "Invalid role name. Please use a predefined role." });
@@ -28,7 +28,7 @@ exports.assignRole = async (req, res) => {
     // Assign role
     const newRole = await Role.create({
       userId,
-      roleName,
+      role_name,
       username,
       isAdmin,
     });
@@ -98,10 +98,10 @@ exports.deleteRole = async (req, res) => {
 exports.updateRole = async (req, res) => {
   try {
     const { roleId } = req.params;
-    const { roleName, isAdmin } = req.body;
+    const { role_name, isAdmin } = req.body;
 
-    // Validate roleName if provided
-    if (roleName && !Object.values(ROLES).includes(roleName)) {
+    // Validate role_name if provided
+    if (role_name && !Object.values(ROLES).includes(role_name)) {
       return res
         .status(400)
         .json({ message: "Invalid role name. Please use a predefined role." });
@@ -119,7 +119,7 @@ exports.updateRole = async (req, res) => {
 
     // Update the role
     const updatedRole = await Role.update(
-      { roleName, isAdmin },
+      { role_name, isAdmin },
       { where: { roleId }, returning: true }
     );
 
@@ -130,6 +130,40 @@ exports.updateRole = async (req, res) => {
     return res
       .status(200)
       .json({ message: "Role updated successfully.", data: updatedRole[1][0] });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Internal Server Error.", error: error.message });
+  }
+};
+/**
+ * Get all users with a specific role.
+ */
+exports.getUsersByRole = async (req, res) => {
+  try {
+    const { role_name } = req.params;
+
+    // Validate role_name
+    if (!Object.values(ROLES).includes(role_name)) {
+      return res
+        .status(400)
+        .json({ message: "Invalid role name. Please use a predefined role." });
+    }
+
+    // Find users with the specified role
+    const usersWithRole = await Role.findAll({
+      where: { role_name },
+    });
+
+    if (!usersWithRole.length) {
+      return res.status(404).json({ message: "No users found for this role." });
+    }
+
+    return res.status(200).json({
+      message: "Users retrieved successfully.",
+      data: usersWithRole,
+    });
   } catch (error) {
     console.error(error);
     return res

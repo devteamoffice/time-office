@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 const Product = require("../models/product");
 const Brand = require("../models/brand");
 const { Category } = require("../models/category");
-const { uploadToFirebase } = require("../utils/uploadToFirebase"); // Assuming a utility function for Firebase upload
+const { uploadImagesToFirebase } = require("../utils/productImages"); // Assuming a utility function for Firebase upload
 // const { s3Upload } = require("../utils/storage");
 const {
   getStoreProductsQuery,
@@ -310,6 +310,7 @@ exports.listSelect = async (req, res) => {
   }
 };
 
+// Add Product Function
 exports.addProduct = async (req, res) => {
   try {
     const {
@@ -339,12 +340,9 @@ exports.addProduct = async (req, res) => {
     }
 
     // Handle image upload and format the image URLs
-    const images = [];
+    let images = [];
     if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        const imageUrl = await uploadToFirebase(file); // Function to upload to Firebase
-        images.push(imageUrl);
-      }
+      images = await uploadImagesToFirebase(sku, req.files);
     }
 
     // Create product object

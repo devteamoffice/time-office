@@ -1,3 +1,6 @@
-UPDATE users u
-JOIN roles r ON u.id = r.user_id
-SET u.role = r.role_name;
+UPDATE users
+SET 
+    name = 'Dhruv Verma',
+    username = 'dhruvermafz'
+WHERE 
+    id = 'bb1d36af-95ea-11ef-814d-8c067b553b28';

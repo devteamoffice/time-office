@@ -44,7 +44,7 @@ const Header = ({ pageName }) => {
 
             {isAuthenticated ? (
               <>
-                <div className="dropdown topbar-item">
+                {/* <div className="dropdown topbar-item">
                   <button
                     type="button"
                     className="topbar-button position-relative"
@@ -58,7 +58,6 @@ const Header = ({ pageName }) => {
                       3<span className="visually-hidden">unread messages</span>
                     </span>
                   </button>
-                  {/* Notifications Dropdown */}
                 </div>
 
                 <div className="topbar-item d-none d-md-flex">
@@ -72,7 +71,7 @@ const Header = ({ pageName }) => {
                   >
                     <MdSettings className="fs-24 align-middle" />
                   </button>
-                </div>
+                </div> */}
 
                 <div className="dropdown topbar-item">
                   <a

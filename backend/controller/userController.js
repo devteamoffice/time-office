@@ -10,8 +10,8 @@ exports.searchUser = async (req, res) => {
     const users = await User.findAll({
       where: {
         [Sequelize.Op.or]: [
-          { firstName: { [Sequelize.Op.like]: regex } },
-          { lastName: { [Sequelize.Op.like]: regex } },
+          { name: { [Sequelize.Op.like]: regex } },
+          { username: { [Sequelize.Op.like]: regex } },
           { email: { [Sequelize.Op.like]: regex } },
         ],
       },
