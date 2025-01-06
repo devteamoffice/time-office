@@ -1,4 +1,3 @@
-import ProductAdd from "../components/Products/ProductAdd";
 import Attributes from "../pages/Attributes/Attributes";
 import AttributesAdd from "../pages/Attributes/AttributesAdd";
 import Login from "../pages/Auth/Login";
@@ -12,17 +11,23 @@ import Dashboard from "../pages/Dashboard";
 import OrderInvoice from "../pages/Order/OrderInvoice";
 import OrderList from "../pages/Order/OrderList";
 import OrderReturns from "../pages/Order/OrderReturns";
+import ProductEdit from "../pages/Product/ProductEdit";
 import ProductList from "../pages/Product/ProductList";
+import ProductsAdd from "../pages/Product/ProductsAdd";
 import Warehouse from "../pages/Product/Warehouse";
 import Roles from "../pages/Roles/Roles";
 import RolesAdd from "../pages/Roles/RolesAdd";
-
+import SubCategoryAdd from "../pages/SubCategory/SubCategoryAdd";
+import SubCategoryList from "../pages/SubCategory/SubCategoryList";
 export const publicRoutes = [
   { path: "/", element: Dashboard },
   { path: "/product/list", element: ProductList },
-  { path: "/product/add", element: ProductAdd },
+  { path: "/product/add", element: ProductsAdd },
+  { path: "/product/:id/edit", element: ProductEdit },
   { path: "product/warehouse", element: Warehouse },
   { path: "/category/list", element: CategoryList },
+  { path: "/subcategory/add", element: SubCategoryAdd },
+  { path: "/subcategory/list", element: SubCategoryList },
   { path: "/category/add", element: CategoryAdd },
   { path: "/orders/list", element: OrderList },
   { path: "/orders/invoices", element: OrderInvoice },
@@ -36,12 +41,4 @@ export const publicRoutes = [
   { path: "/customer/list", element: Customers },
   { path: "/customer/:id", element: CustomerDetails },
   { path: "/login", element: Login },
-];
-
-export const extraRoutes = [
-  { path: "/reviews" },
-  { path: "/u/:id" },
-  { path: "/settings" },
-  { path: "/blogs/list" },
-  { path: "/blogs/add" },
 ];

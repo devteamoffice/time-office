@@ -49,6 +49,14 @@ const navRoutes = [
     ],
   },
   {
+    title: "SubCategory",
+    icon: <FaClipboardList />,
+    submenu: [
+      { text: "List", link: "/subcategory/list" },
+      { text: "Create", link: "/subcategory/add" },
+    ],
+  },
+  {
     title: "Orders",
     icon: <FaShoppingBag />,
     submenu: [
@@ -85,7 +93,10 @@ const navRoutes = [
   {
     title: "Customers",
     icon: <AiOutlineCustomerService />,
-    submenu: [{ text: "List", link: "/customer/list" }],
+    submenu: [
+      { text: "List", link: "/customer/list" },
+      { text: "All Users", link: "/customer/users" },
+    ],
   },
   {
     title: "Coupons",
