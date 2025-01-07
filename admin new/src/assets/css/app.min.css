@@ -18436,8 +18436,14 @@ html[data-menu-size=sm-hover-active] .main-nav .button-sm-hover .button-sm-hover
   transition: all 0.3s ease-in-out;
 }
 
-html[data-menu-size=hidden] .main-nav {
-  margin-left: calc(var(--bs-main-nav-width) * -0);
+html[data-menu-size="hidden"] .main-nav {
+  margin-left: calc(var(--bs-main-nav-width) * -1);
+  /* Hidden state */
+}
+
+html[data-menu-size="default"] .main-nav {
+  margin-left: calc(var(--bs-main-nav-width) * 0);
+  /* Default/visible state */
 }
 
 html[data-menu-size=hidden] .page-content {
@@ -18470,6 +18476,48 @@ html[data-menu-color=brand] .main-nav .logo-box .logo-dark {
   -webkit-transform: rotate(270deg);
   transform: rotate(270deg);
 }
+
+
+/* mainnav toggle  */
+/* Default Sidebar Style */
+.main-nav.sidebar-open {
+  width: 250px;
+  /* Default width */
+  transition: width 0.3s ease;
+}
+
+.main-nav.sidebar-closed {
+  width: 150 !important;
+  /* Reduced width when collapsed */
+  transition: width 0.3s ease;
+}
+
+/* Hide Text when Sidebar is Collapsed */
+.main-nav.sidebar-closed .nav-text {
+  display: none;
+  /* Hide text */
+}
+
+/* Center Align Icons */
+.main-nav .nav-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Initial state (default) */
+.rotate-close {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Rotated state (menu open) */
+.rotate-open {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease-in-out;
+}
+
 
 .page-title-box {
   padding-bottom: 1.5rem;
