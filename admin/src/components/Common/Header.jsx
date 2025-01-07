@@ -1,16 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
   MdDarkMode,
   MdCircleNotifications,
   MdSettings,
   MdSearch,
+  MdDoubleArrow,
 } from "react-icons/md";
 import avatar from "../../assets/images/users/avatar-1.jpg";
 import { AuthContext } from "../../context/Socket/AuthContext";
 
 const Header = ({ pageName }) => {
   const { isAuthenticated, login, logout, user } = useContext(AuthContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleSidebarToggle = () => {
+    const htmlElement = document.documentElement;
+    const currentMenuSize = htmlElement.getAttribute("data-menu-size");
+
+    if (currentMenuSize === "hidden") {
+      htmlElement.setAttribute("data-menu-size", "default");
+      setIsMenuOpen(true);
+    } else {
+      htmlElement.setAttribute("data-menu-size", "hidden");
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <header className="topbar">
@@ -18,8 +33,17 @@ const Header = ({ pageName }) => {
         <div className="navbar-header">
           <div className="d-flex align-items-center">
             <div className="topbar-item">
-              <button type="button" className="button-toggle-menu me-2">
-                <GiHamburgerMenu className="fs-24 align-middle" />
+              <button
+                type="button"
+                className="button-toggle-menu me-2"
+                onClick={handleSidebarToggle}
+              >
+                <MdDoubleArrow
+                  className={`button-sm-hover-icon ${
+                    isMenuOpen ? "rotate-open" : "rotate-close"
+                  }`}
+                  style={{ fontSize: "32px" }}
+                />
               </button>
             </div>
             {isAuthenticated && (
@@ -44,7 +68,7 @@ const Header = ({ pageName }) => {
 
             {isAuthenticated ? (
               <>
-                {/* <div className="dropdown topbar-item">
+                <div className="dropdown topbar-item">
                   <button
                     type="button"
                     className="topbar-button position-relative"
@@ -58,6 +82,7 @@ const Header = ({ pageName }) => {
                       3<span className="visually-hidden">unread messages</span>
                     </span>
                   </button>
+                  {/* Notifications Dropdown */}
                 </div>
 
                 <div className="topbar-item d-none d-md-flex">
@@ -71,7 +96,7 @@ const Header = ({ pageName }) => {
                   >
                     <MdSettings className="fs-24 align-middle" />
                   </button>
-                </div> */}
+                </div>
 
                 <div className="dropdown topbar-item">
                   <a

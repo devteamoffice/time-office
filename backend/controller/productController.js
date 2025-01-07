@@ -1,5 +1,6 @@
 const multer = require("multer");
-const Sequelize = require("sequelize");
+const { Sequelize, Op } = require("sequelize");
+
 // Bring in Models & Utils
 const Product = require("../models/product");
 const Brand = require("../models/brand");
@@ -12,7 +13,7 @@ const {
 } = require("../utils/queries");
 
 const checkAuth = require("../utils/auth");
-
+const slugify = require("slugify"); // Import slugify for generating slugs
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
@@ -444,28 +445,69 @@ exports.fetchProductById = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   try {
     const productId = req.params.id;
-    const update = req.body.product;
-    const query = { _id: productId };
-    const { sku, slug } = req.body.product;
 
-    const foundProduct = await Product.findOne({
-      $or: [{ slug }, { sku }],
+    // Ensure request body contains the product data
+    if (!req.body || !req.body.product) {
+      return res.status(400).json({ error: "Product data is required." });
+    }
+
+    const { sku, slug, name, price, isActive, description, images } =
+      req.body.product;
+
+    // Validate slug
+    let validatedSlug = slug;
+    if (!slug || typeof slug !== "string") {
+      if (!name) {
+        return res
+          .status(400)
+          .json({ error: "Either slug or name is required." });
+      }
+      validatedSlug = slugify(name, { lower: true });
+    }
+
+    // Check if SKU or slug already exists for another product
+    const existingProduct = await Product.findOne({
+      where: {
+        [Op.or]: [{ sku }, { slug: validatedSlug }],
+        id: { [Op.ne]: productId },
+      },
     });
 
-    if (foundProduct && foundProduct._id != productId) {
+    if (existingProduct) {
       return res.status(400).json({ error: "Sku or slug is already in use." });
     }
 
-    await Product.findOneAndUpdate(query, update, {
-      new: true,
-    });
+    // Update the product
+    const [updatedRows] = await Product.update(
+      {
+        sku,
+        slug: validatedSlug,
+        name,
+        price,
+        isActive,
+        description,
+        images: JSON.stringify(images), // Assuming images is a JSON object/array
+      },
+      {
+        where: { id: productId },
+      }
+    );
+
+    if (updatedRows === 0) {
+      return res.status(404).json({ error: "Product not found." });
+    }
+
+    // Fetch the updated product
+    const updatedProduct = await Product.findByPk(productId);
 
     res.status(200).json({
       success: true,
       message: "Product has been updated successfully!",
+      product: updatedProduct,
     });
   } catch (error) {
-    res.status(400).json({
+    console.error("Error updating product:", error);
+    res.status(500).json({
       error: "Your request could not be processed. Please try again.",
     });
   }

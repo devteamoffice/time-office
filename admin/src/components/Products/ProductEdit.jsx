@@ -79,7 +79,7 @@ function ProductEdit() {
         },
       });
       toast.success("Product updated successfully!");
-      navigate("/products");
+      navigate("/product");
     } catch (err) {
       console.error("Failed to update product:", err);
       toast.error("An error occurred while updating the product.");

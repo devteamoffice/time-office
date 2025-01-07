@@ -72,7 +72,7 @@ const AccountDetails = () => {
               </p>
               <p className="fs-15 mb-0 mt-1">
                 <span className="text-dark fw-semibold">Phone : </span>{" "}
-                {userData.phone || "N/A"}
+                {userData.phoneNumber || "N/A"}
               </p>
             </div>
           </div>

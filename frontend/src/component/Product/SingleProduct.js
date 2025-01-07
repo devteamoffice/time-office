@@ -5,6 +5,7 @@ import placeholder from "../../assets/images/placeholder.png";
 import { FaHeart } from "react-icons/fa";
 import { handleAddToCart } from "../../containers/Cart/actions";
 import { updateWishlist } from "../../containers/Wishlist/actions";
+
 const SingleProduct = ({ products }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart?.cartItems || []);
@@ -20,9 +21,9 @@ const SingleProduct = ({ products }) => {
   // Function to handle updating the wishlist
   const handleWishlistUpdate = (product) => {
     const isInWishlist = wishlistItems.some((item) => item._id === product._id);
-    if (!isInWishlist) {
-      dispatch(updateWishlist(product));
-    }
+    // Toggle the isLiked state
+    const isLiked = isInWishlist ? 0 : 1; // If it's in the wishlist, un-like, else like
+    dispatch(updateWishlist(isLiked, product._id));
   };
 
   return (
@@ -87,8 +88,7 @@ const SingleProduct = ({ products }) => {
                       </li>
                     </ul>
                     <p className="mb-0 fw-medium fs-15 text-dark">
-                      4.5
-                      <span className="text-muted fs-13">(55 Review)</span>
+                      4.5 <span className="text-muted fs-13">(55 Review)</span>
                     </p>
                   </div>
                 </div>
