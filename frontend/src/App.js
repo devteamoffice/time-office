@@ -11,29 +11,22 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [showContent, setShowContent] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { isAuthenticated, user } = useContext(AuthContext);
 
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
+    AOS.init({ duration: 1000, once: true });
 
-    const timer = setTimeout(() => {
-      setShowContent(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 1000);
+    // Simulate loading delay
+    const timer = setTimeout(() => setIsLoading(false), 1000);
 
-    // Log the JWT token and decoded user ID (only in development mode)
+    // Decode token for user details in development
     const token = localStorage.getItem("token");
     if (token && process.env.NODE_ENV === "development") {
       console.log("JWT Token:", token);
-
-      // Decode the token to get the user ID
       try {
         const decodedToken = jwtDecode(token);
-        console.log("User ID:", user?.id); // Adjust according to your token's payload structure
+        console.log("Decoded Token:", decodedToken); // Ensure proper structure
       } catch (error) {
         console.error("Invalid JWT token:", error);
       }
@@ -45,9 +38,12 @@ function App() {
   return (
     <>
       <NavbarN />
-      {showContent && <Router isAuthenticated={isAuthenticated} />}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <Router isAuthenticated={isAuthenticated} />
+      )}
       <Footer />
-      {/* Add ToastContainer here */}
       <ToastContainer
         position="top-right"
         autoClose={3000}

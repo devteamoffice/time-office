@@ -1,28 +1,18 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { publicRoutes, adminRoutes } from "./routes";
-// import { AuthContext } from "../context/AuthContext";
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { publicRoutes } from "./routes";
 
 const Router = () => {
-  // const { user } = useContext(AuthContext);
-
   const renderRoutes = (routes) => {
-    return routes.map(({ path, element: Element }, index) => (
-      <Route key={index} path={path} element={<Element />} />
+    return routes.map(({ path, element }, index) => (
+      <Route key={index} path={path} element={element} />
     ));
   };
 
   return (
     <Routes>
       {renderRoutes(publicRoutes)}
-
-      {/* {user && user.role === "admin" && renderRoutes(adminRoutes)}
-
-        {user && user.role !== "admin" && (
-          <Route path="/admin/*" element={<Navigate to="/" />} />
-        )}
-
-        {!user && <Route path="/admin/*" element={<Navigate to="/login" />} />} */}
+      <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
   );
 };

@@ -3,40 +3,46 @@ import axios from "axios";
 import { API_URL } from "../../constants";
 
 const StatsRow = () => {
-  const [stats, setStats] = useState({
-    orders: 0,
-    products: 0,
-    returns: 0,
-    cancellations: 0,
-  });
+  const [products, setProducts] = useState(0);
+  const [orders, setOrders] = useState(0);
+  const [returns, setReturns] = useState(0);
+  const [cancellations, setCancellations] = useState(0);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const productResponse = await axios.get(`${API_URL}/product/count`);
-        const orderResponse = await axios.get(`${API_URL}/orders`);
-        const returnResponse = await axios.get(`${API_URL}/orders`, {
-          params: { status: "return" },
-        });
-        const cancellationResponse = await axios.get(`${API_URL}/orders`, {
-          params: { status: "cancel" },
-        });
+        const productResponse = await axios.get(`${API_URL}/product`);
+        const orderResponse = await axios.get(`${API_URL}/orders/count`);
+        const returnResponse = await axios.get(
+          `${API_URL}/orders/status/return`
+        );
+        const cancellationResponse = await axios.get(
+          `${API_URL}/orders/status/cancel`
+        );
 
-        // Update stats with the correct response structure
-        setStats({
-          products: productResponse.data.count || 0, // Use the count directly
-          orders: orderResponse.data.totalOrders || 0,
-          returns: returnResponse.data.totalReturns || 0,
-          cancellations: cancellationResponse.data.totalCancellations || 0,
-        });
+        console.log("StatsRow Component Mounted");
+        console.log("Product API Response:", productResponse.data);
+        console.log("Order API Response:", orderResponse.data);
+        console.log("Return API Response:", returnResponse.data);
+        console.log("Cancellation API Response:", cancellationResponse.data);
+
+        setProducts(productResponse.data.length || 0);
+        setOrders(orderResponse.data.totalOrders || 0);
+        setReturns(returnResponse.data.totalReturns || 0);
+        setCancellations(cancellationResponse.data.totalCancellations || 0);
       } catch (error) {
         console.error("Error fetching stats:", error);
       }
     };
 
     fetchStats();
-  }, []);
-  console.log(stats.products);
+  }, []); // Make sure the array is empty for a single execution
+
+  console.log("Products:", products);
+  console.log("Orders:", orders);
+  console.log("Returns:", returns);
+  console.log("Cancellations:", cancellations);
+
   return (
     <div className="row">
       {/* Orders */}
@@ -51,7 +57,7 @@ const StatsRow = () => {
               </div>
               <div className="col-6 text-end">
                 <p className="text-muted mb-0 text-truncate">Orders</p>
-                <h3 className="text-dark mt-1 mb-0">{stats.orders}</h3>
+                <h3 className="text-dark mt-1 mb-0">{orders}</h3>
               </div>
             </div>
           </div>
@@ -70,7 +76,7 @@ const StatsRow = () => {
               </div>
               <div className="col-6 text-end">
                 <p className="text-muted mb-0 text-truncate">Products</p>
-                <h3 className="text-dark mt-1 mb-0">{stats.products}</h3>
+                <h3 className="text-dark mt-1 mb-0">{products}</h3>
               </div>
             </div>
           </div>
@@ -89,7 +95,7 @@ const StatsRow = () => {
               </div>
               <div className="col-6 text-end">
                 <p className="text-muted mb-0 text-truncate">Returns</p>
-                <h3 className="text-dark mt-1 mb-0">{stats.returns}</h3>
+                <h3 className="text-dark mt-1 mb-0">{returns}</h3>
               </div>
             </div>
           </div>
@@ -108,7 +114,7 @@ const StatsRow = () => {
               </div>
               <div className="col-6 text-end">
                 <p className="text-muted mb-0 text-truncate">Cancellations</p>
-                <h3 className="text-dark mt-1 mb-0">{stats.cancellations}</h3>
+                <h3 className="text-dark mt-1 mb-0">{cancellations}</h3>
               </div>
             </div>
           </div>

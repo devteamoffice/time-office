@@ -4,42 +4,31 @@ const slugify = require("slugify");
 const { v4: uuidv4 } = require("uuid");
 const crypto = require("crypto");
 
-// Product Model
 const Product = sequelize.define(
   "Product",
   {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(64),
       primaryKey: true,
       unique: true,
-      allowNull: false, // Ensure this is not null
+      allowNull: false,
       defaultValue: () => {
-        // Generating a UUID and then encoding it with a hashed format
         return crypto.createHash("sha256").update(uuidv4()).digest("hex");
       },
     },
     sku: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: true,
       unique: true,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: true,
-      trim: true,
     },
     slug: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(200), // Set to 120 based on the schema change
+      allowNull: true,
       unique: true,
-      set(value) {
-        const slugValue = slugify(this.name, {
-          lower: true,
-          strict: true,
-          locale: "en",
-          trim: true,
-        }).substring(0, 120);
-        this.setDataValue("slug", slugValue);
-      },
     },
     images: {
       type: DataTypes.JSON,
@@ -48,7 +37,6 @@ const Product = sequelize.define(
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
-      trim: true,
     },
     price: {
       type: DataTypes.FLOAT,
@@ -58,7 +46,7 @@ const Product = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: "Brands", // Name of the Brand table
+        model: "Brands",
         key: "id",
       },
     },

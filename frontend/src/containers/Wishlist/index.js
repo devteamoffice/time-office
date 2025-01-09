@@ -1,33 +1,55 @@
-import React, { useContext, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/Socket/AuthContext";
 import SubPage from "../../component/Manager/SubPage";
 import NotFound from "../../component/Common/NotFound";
 import LoadingIndicator from "../../component/Common/LoadingIndicator";
 import Pagination from "../../component/Extras/Pagination";
 import ProductFilter from "../../component/Product/ProductFilter";
 import SingleProduct from "../../component/Product/SingleProduct";
-import { AuthContext } from "../../context/Socket/AuthContext";
-import { fetchWishlist } from "./actions";
+import axios from "axios";
+import { API_URL } from "../../constants";
 
 const Wishlist = () => {
-  const { userId } = useContext(AuthContext); // Get userId from AuthContext
-  const dispatch = useDispatch();
-
-  // Redux state selectors
-  const wishlist = useSelector((state) => state.wishlist?.wishlist || []);
-  const isLoading = useSelector((state) => state.wishlist?.isLoading || false);
+  const { user, isAuthenticated } = useContext(AuthContext);
+  const [wishlist, setWishlist] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchWishlist()); // Fetch wishlist on component mount
+    if (!isAuthenticated || !user?.id) {
+      setError("User is not authenticated or user ID is missing.");
+      setIsLoading(false);
+      return;
     }
-  }, [userId, dispatch]);
+
+    const fetchWishlist = async () => {
+      try {
+        setIsLoading(true);
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${API_URL}/wishlist`, {
+          params: { userId: user.id }, // Use `user.id` as the user ID
+          headers: {
+            Authorization: `${token}`, // Ensure Bearer prefix if required
+          },
+        });
+
+        console.log("Fetched Wishlist:", response.data);
+        setWishlist(response.data.products || []); // Fallback to an empty array
+      } catch (err) {
+        console.error("Error fetching wishlist:", err);
+        setError("Failed to fetch wishlist. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchWishlist();
+  }, [isAuthenticated, user?.id]);
 
   return (
     <div className="container-xxl">
       <div className="row">
         <ProductFilter />
-
         <div className="col-lg-9">
           <div className="card bg-light-subtle">
             <div className="card-header border-0">
@@ -53,8 +75,9 @@ const Wishlist = () => {
             </div>
           </div>
 
-          <SubPage title={"Your Wishlist"} isMenuOpen={null}>
+          <SubPage title="Your Wishlist" isMenuOpen={null}>
             {isLoading && <LoadingIndicator />}
+            {!isLoading && error && <NotFound message={error} />}
             {!isLoading && wishlist.length > 0 && (
               <SingleProduct products={wishlist} />
             )}

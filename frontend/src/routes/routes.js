@@ -31,44 +31,45 @@ import Settings from "../pages/General/Settings";
 import AccountSetupPage from "../pages/AccountSetup";
 export const publicRoutes = [
   // Error Pages
-  { path: "/500", element: Error505Page },
-  { path: "/404", element: Error404Page },
-  { path: "/comingsoon", element: ComingSoon },
+  { path: "/500", element: <Error505Page /> },
+  { path: "/404", element: <Error404Page /> },
+  { path: "/comingsoon", element: <ComingSoon /> },
 
   // User Authentication
-  { path: "/signin", element: SignIn },
-  { path: "/reset-password", element: ResetPassword },
-  { path: "/signup", element: SignUp },
+  { path: "/signin", element: <SignIn /> },
+  { path: "/reset-password", element: <ResetPassword /> },
+  { path: "/signup", element: <SignUp /> },
 
   // Policies
-  { path: "/privacy-policy", element: PrivacyPolicy },
-  { path: "/terms-and-conditions", element: TermCondition },
-  { path: "/refund-policy", element: CancellationRefundPolicy },
-  { path: "/shipping-policy", element: ShippingDelivery },
+  { path: "/privacy-policy", element: <PrivacyPolicy /> },
+  { path: "/terms-and-conditions", element: <TermCondition /> },
+  { path: "/refund-policy", element: <CancellationRefundPolicy /> },
+  { path: "/shipping-policy", element: <ShippingDelivery /> },
 
   // Product Pages
-  { path: "/store", element: Product },
-  { path: "/product/:id", element: ProductDetails },
-  { path: "/orders/:id", element: OrderDetails },
-  { path: "/order/:id/checkout", element: Checkout },
-  { path: "/order/:id/invoice", element: Invoice },
-  { path: "/order/:id/payment=confirmation", element: PaymentConfirmation },
-  { path: "/order/:id/payment=failure", element: PaymetFailure },
+  { path: "/store", element: <Product /> },
+  { path: "/product/:id", element: <ProductDetails /> },
+  { path: "/orders/:id", element: <OrderDetails /> },
+  { path: "/order/:id/checkout", element: <Checkout /> },
+  { path: "/order/:id/invoice", element: <Invoice /> },
+  { path: "/order/:id/payment=confirmation", element: <PaymentConfirmation /> },
+  { path: "/order/:id/payment=failure", element: <PaymetFailure /> },
 
   // User Account
-  { path: "/u/:id", element: Account },
-  { path: "/u/:id/orders", element: Orders },
-  { path: "/u/:id/orders/:orderId", element: OrderDetails },
-  { path: "/u/:id/address", element: Address },
-  { path: "/u/:id/wishlist", element: Wishlist },
-  { path: "/settings", element: Settings },
-  { path: "/account_setup", element: AccountSetupPage },
+  { path: "/u/:id", element: <Account /> },
+  { path: "/u/:id/orders", element: <Orders /> },
+  { path: "/u/:id/orders/:orderId", element: <OrderDetails /> },
+  { path: "/u/:id/address", element: <Address /> },
+  { path: "/u/:id/wishlist", element: <Wishlist /> },
+  { path: "/settings", element: <Settings /> },
+  { path: "/account_setup", element: <AccountSetupPage /> },
+
   // General Pages
-  { path: "/", element: Home },
-  { path: "/contact", element: ContactPage },
-  { path: "/aboutus", element: AboutUs },
-  { path: "/blogs", element: Blogs },
-  { path: "/cart", element: Cart },
-  { path: "/faqs", element: Faqs },
-  { path: "/pricing", element: Pricing },
+  { path: "/", element: <Home /> },
+  { path: "/contact", element: <ContactPage /> },
+  { path: "/aboutus", element: <AboutUs /> },
+  { path: "/blogs", element: <Blogs /> },
+  { path: "/cart", element: <Cart /> },
+  { path: "/faqs", element: <Faqs /> },
+  { path: "/pricing", element: <Pricing /> },
 ];

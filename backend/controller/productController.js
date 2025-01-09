@@ -446,69 +446,84 @@ exports.updateProduct = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    // Ensure request body contains the product data
-    if (!req.body || !req.body.product) {
-      return res.status(400).json({ error: "Product data is required." });
+    // Validate that the product ID is provided
+    if (!productId) {
+      return res.status(400).json({ error: "Product ID is required." });
     }
 
-    const { sku, slug, name, price, isActive, description, images } =
-      req.body.product;
+    const { categoryId, subcategoryId, slug, images, ...otherFields } =
+      req.body;
 
-    // Validate slug
-    let validatedSlug = slug;
-    if (!slug || typeof slug !== "string") {
-      if (!name) {
-        return res
-          .status(400)
-          .json({ error: "Either slug or name is required." });
+    // If slug is provided, overwrite it
+    if (slug) {
+      otherFields.slug = slug;
+    }
+
+    // Check for duplicate SKU or slug in other products
+    if (otherFields.sku || otherFields.slug) {
+      const duplicateProduct = await Product.findOne({
+        where: {
+          [Op.or]: [{ sku: otherFields.sku }, { slug: otherFields.slug }],
+          id: { [Op.ne]: productId }, // Exclude current product
+        },
+      });
+
+      if (duplicateProduct) {
+        return res.status(400).json({
+          error: "SKU or slug is already in use by another product.",
+        });
       }
-      validatedSlug = slugify(name, { lower: true });
     }
 
-    // Check if SKU or slug already exists for another product
-    const existingProduct = await Product.findOne({
-      where: {
-        [Op.or]: [{ sku }, { slug: validatedSlug }],
-        id: { [Op.ne]: productId },
-      },
+    // Prepare the updated fields
+    const updateData = {
+      ...otherFields,
+      categoryId,
+      subcategoryId,
+      // Ensure images are stored as a valid JSON array (not as string)
+      images: images ? JSON.stringify(images) : null, // Ensure valid JSON string, allow NULL for images
+    };
+
+    // Remove undefined fields to avoid overwriting with null
+    Object.keys(updateData).forEach((key) => {
+      if (updateData[key] === undefined) delete updateData[key];
     });
 
-    if (existingProduct) {
-      return res.status(400).json({ error: "Sku or slug is already in use." });
+    // Fetch the product to ensure it exists
+    const product = await Product.findByPk(productId);
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found." });
     }
 
     // Update the product
-    const [updatedRows] = await Product.update(
-      {
-        sku,
-        slug: validatedSlug,
-        name,
-        price,
-        isActive,
-        description,
-        images: JSON.stringify(images), // Assuming images is a JSON object/array
-      },
-      {
-        where: { id: productId },
-      }
-    );
+    const [updatedRows] = await Product.update(updateData, {
+      where: { id: productId },
+    });
 
     if (updatedRows === 0) {
-      return res.status(404).json({ error: "Product not found." });
+      return res.status(400).json({
+        error: "No fields were updated. Ensure changes were made.",
+      });
     }
 
     // Fetch the updated product
     const updatedProduct = await Product.findByPk(productId);
 
-    res.status(200).json({
+    // Parse the images field back to JSON for consistent response
+    if (updatedProduct.images) {
+      updatedProduct.images = JSON.parse(updatedProduct.images);
+    }
+
+    return res.status(200).json({
       success: true,
-      message: "Product has been updated successfully!",
+      message: "Product updated successfully!",
       product: updatedProduct,
     });
   } catch (error) {
     console.error("Error updating product:", error);
-    res.status(500).json({
-      error: "Your request could not be processed. Please try again.",
+    return res.status(500).json({
+      error: "An error occurred while updating the product.",
     });
   }
 };
