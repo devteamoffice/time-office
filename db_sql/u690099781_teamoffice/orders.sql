@@ -27,8 +27,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `orderNumber` (`orderNumber`),
   KEY `cartId` (`cartId`),
-  KEY `userId` (`userId`),
-  CONSTRAINT `fk_cart_id` FOREIGN KEY (`cartId`) REFERENCES `carts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `userId` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table u690099781_teamoffice.orders: ~0 rows (approximately)

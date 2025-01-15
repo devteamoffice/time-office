@@ -1,23 +1,48 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { handleAddToCart } from "../../containers/Cart/actions";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { API_URL } from "../../constants";
 
 const AddToCartButton = ({ product }) => {
-  const dispatch = useDispatch();
+  const [cartItems, setCartItems] = useState([]);
+  const token = localStorage.getItem("token"); // Assume token is stored in localStorage
 
-  // Get cart items from the Redux store
-  const cartItems = useSelector((state) => state.cart?.cartItems || []);
-
-  // Calculate the cart count
-  const cartCount = cartItems.length;
-
-  // Check if the product is already in the cart
-  const itemInCart = cartItems.find((item) => item._id === product._id);
-
-  const addToCart = () => {
-    const quantity = itemInCart ? itemInCart.quantity + 1 : 1;
-    dispatch(handleAddToCart({ ...product, quantity }));
+  const fetchCartItems = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/cart`, {
+        headers: { Authorization: `${token}` },
+      });
+      setCartItems(response.data.cartItems || []);
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
   };
+
+  const addToCart = async () => {
+    try {
+      const itemInCart = cartItems.find((item) => item.id === product.id); // Ensure consistency with `product.id`
+      const quantity = itemInCart ? itemInCart.quantity + 1 : 1;
+
+      const response = await axios.post(
+        `${API_URL}/cart/add/`,
+        { productId: product.id, quantity }, // Ensure productId matches API expectations
+        {
+          headers: { Authorization: `${token}` },
+        }
+      );
+
+      setCartItems(response.data.cartItems || []);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchCartItems();
+    }
+  }, [token]);
+
+  const itemInCart = cartItems.find((item) => item.id === product.id); // Consistency with product.id
 
   return (
     <button onClick={addToCart} className="btn btn-primary">

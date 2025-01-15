@@ -1,22 +1,14 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const sequelize = require("../config/database");
 const { ROLES, EMAIL_PROVIDER } = require("../constants");
-const Role = require("./roles");
-// Function to generate a unique hexadecimal ID
-const generateHexId = () => {
-  return [...Array(16)]
-    .map(() => Math.floor(Math.random() * 16).toString(16))
-    .join("");
-};
 
 const User = sequelize.define(
   "User",
   {
     id: {
-      type: DataTypes.STRING, // Change to STRING for hex code
+      type: DataTypes.UUID,
+      defaultValue: Sequelize.UUIDV4, // Auto-generate UUID
       primaryKey: true,
-      allowNull: false,
-      defaultValue: generateHexId, // Generate a hex ID by default
     },
     email: {
       type: DataTypes.STRING,
@@ -67,7 +59,6 @@ const User = sequelize.define(
       allowNull: false,
       defaultValue: ROLES.Member,
     },
-
     resetPasswordToken: {
       type: DataTypes.STRING,
       allowNull: true,

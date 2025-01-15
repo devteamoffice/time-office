@@ -1,53 +1,78 @@
-const { DataTypes, Sequelize } = require("sequelize");
-const sequelize = require("../config/database"); // Assuming you have a database configuration file
-const { CART_ITEM_STATUS } = require("../constants");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
+const Product = require("./product"); // Assuming you have a Product model
 
 const CartItem = sequelize.define(
   "CartItem",
   {
-    productId: {
-      type: Sequelize.UUID, // or whatever type you use for productId
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    cartId: {
+      type: DataTypes.UUID,
+      allowNull: false,
       references: {
-        model: "Products", // Name of the Product table
+        model: "Carts", // Refers to the Cart model
         key: "id",
       },
+    },
+    productId: {
+      type: DataTypes.UUID,
       allowNull: false,
+      references: {
+        model: "Products", // Refers to the Product model
+        key: "id",
+      },
     },
     quantity: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 1,
     },
     purchasePrice: {
-      type: Sequelize.FLOAT,
-      allowNull: false,
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      defaultValue: 0,
     },
     totalPrice: {
-      type: Sequelize.FLOAT,
-      allowNull: false,
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      defaultValue: 0,
     },
     priceWithTax: {
-      type: Sequelize.FLOAT,
-      allowNull: false,
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      defaultValue: 0,
     },
     totalTax: {
-      type: Sequelize.FLOAT,
-      allowNull: false,
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      defaultValue: 0,
     },
     status: {
       type: DataTypes.ENUM(
-        CART_ITEM_STATUS.Not_processed,
-        CART_ITEM_STATUS.Processing,
-        CART_ITEM_STATUS.Shipped,
-        CART_ITEM_STATUS.Delivered,
-        CART_ITEM_STATUS.Cancelled
+        "NOT_PROCESSED",
+        "PROCESSING",
+        "SHIPPED",
+        "DELIVERED",
+        "CANCELLED"
       ),
-      defaultValue: CART_ITEM_STATUS.Not_processed,
+      allowNull: true,
+      defaultValue: "NOT_PROCESSED",
     },
   },
   {
-    tableName: "cart_items",
-    timestamps: false, // Disable automatic timestamp fields (createdAt, updatedAt)
+    tableName: "cart_items", // Matches the table name
+    timestamps: false, // Automatically manages `createdAt` and `updatedAt`
   }
 );
+
+// Define associations
+CartItem.belongsTo(Product, {
+  foreignKey: "productId", // Assumes a CartItem has a `productId` column
+  as: "product", // Alias for the association when eager loading
+});
 
 module.exports = CartItem;

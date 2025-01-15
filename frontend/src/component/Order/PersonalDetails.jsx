@@ -1,73 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { API_URL } from "../../constants";
 
 const PersonalDetails = () => {
+  const [userDetails, setUserDetails] = useState(null);
+
+  useEffect(() => {
+    // Replace with your actual API URL and logic for fetching the user data
+    const fetchUserDetails = async () => {
+      const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+      try {
+        const response = await axios.get(`${API_URL}/user/me`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+        setUserDetails(response.data.user);
+      } catch (error) {
+        console.error("Failed to fetch user details", error);
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
+
+  if (!userDetails) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div class="row">
-      <div class="col-lg-3">
-        <h4 class="card-title">Personal Details</h4>
+    <div className="row">
+      <div className="col-lg-3">
+        <h4 className="card-title">Personal Details</h4>
       </div>
-      <div class="col-lg-9">
-        <div class="row">
-          <div class="col-lg-6">
-            <form>
-              <div class="mb-3">
-                <label for="name" class="form-label">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  class="form-control"
-                  placeholder="Name"
-                />
-              </div>
-            </form>
+      <div className="col-lg-9">
+        <div className="row">
+          <div className="col-lg-6">
+            <div className="mb-3">
+              <label className="form-label">Name</label>
+              <span className="form-control">{userDetails.name}</span>
+            </div>
           </div>
-          <div class="col-lg-6">
-            <form>
-              <div class="mb-3">
-                <label for="username" class="form-label">
-                  UserName
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  class="form-control"
-                  placeholder="Username"
-                />
-              </div>
-            </form>
+          <div className="col-lg-6">
+            <div className="mb-3">
+              <label className="form-label">UserName</label>
+              <span className="form-control">{userDetails.username}</span>
+            </div>
           </div>
-          <div class="col-lg-6">
-            <form>
-              <div class="mb-3">
-                <label for="email" class="form-label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  class="form-control"
-                  placeholder="Email"
-                />
-              </div>
-            </form>
+          <div className="col-lg-6">
+            <div className="mb-3">
+              <label className="form-label">Email</label>
+              <span className="form-control">{userDetails.email}</span>
+            </div>
           </div>
-          <div class="col-lg-6">
-            <form>
-              <div class="mb-3">
-                <label for="number" class="form-label">
-                  Phone number
-                </label>
-                <input
-                  type="number"
-                  id="number"
-                  name="number"
-                  class="form-control"
-                  placeholder="Number"
-                />
-              </div>
-            </form>
+          <div className="col-lg-6">
+            <div className="mb-3">
+              <label className="form-label">Phone Number</label>
+              <span className="form-control">{userDetails.phone}</span>
+            </div>
           </div>
         </div>
       </div>

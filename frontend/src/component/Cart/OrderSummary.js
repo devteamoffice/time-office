@@ -1,82 +1,112 @@
 import React from "react";
+import { FaClipboardList } from "react-icons/fa6";
+import { RiTicketLine } from "react-icons/ri";
+import { MdOutlineBikeScooter } from "react-icons/md";
+import { RiCalculatorFill } from "react-icons/ri";
+const OrderSummary = ({
+  cartItems, // List of cart items
+  discount, // Discount applied to the order
+  deliveryCharge, // Delivery charge for the order
+  estimatedDelivery, // Estimated delivery date (optional)
+}) => {
+  // Calculate Sub Total (sum of all item total prices)
+  const subTotal = cartItems.reduce(
+    (total, item) => total + item.totalPrice,
+    0
+  );
 
-const OrderSummary = () => {
+  // Calculate Tax (18% of Sub Total)
+  const tax = subTotal * 0.18;
+
+  // Calculate Total Price (Sub Total + Tax - Discount + Delivery Charge)
+  const totalPrice = subTotal + tax - discount + deliveryCharge;
+
   return (
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Order Summary</h4>
+    <div className="card">
+      <div className="card-header">
+        <h4 className="card-title">Order Summary</h4>
       </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table mb-0">
+      <div className="card-body">
+        <div className="table-responsive">
+          <table className="table mb-0">
             <tbody>
+              {/* Sub Total */}
               <tr>
-                <td class="px-0">
-                  <p class="d-flex mb-0 align-items-center gap-1">
-                    <iconify-icon icon="solar:clipboard-text-broken"></iconify-icon>{" "}
-                    Sub Total :{" "}
+                <td className="px-0">
+                  <p className="d-flex mb-0 align-items-center gap-1">
+                    <FaClipboardList className="align-middle" />
+                    Sub Total :
                   </p>
                 </td>
-                <td class="text-end text-dark fw-medium px-0">$777.00</td>
+                <td className="text-end text-dark fw-medium px-0">
+                  Rs {subTotal.toFixed(2)}
+                </td>
               </tr>
+
+              {/* Discount */}
               <tr>
-                <td class="px-0">
-                  <p class="d-flex mb-0 align-items-center gap-1">
-                    <iconify-icon
-                      icon="solar:ticket-broken"
-                      class="align-middle"
-                    ></iconify-icon>{" "}
-                    Discount :{" "}
+                <td className="px-0">
+                  <p className="d-flex mb-0 align-items-center gap-1">
+                    <RiTicketLine className="align-middle" />
+                    Discount :
                   </p>
                 </td>
-                <td class="text-end text-dark fw-medium px-0">-$60.00</td>
+                <td className="text-end text-dark fw-medium px-0">
+                  -Rs {discount.toFixed(2)}
+                </td>
               </tr>
+
+              {/* Delivery Charge */}
               <tr>
-                <td class="px-0">
-                  <p class="d-flex mb-0 align-items-center gap-1">
-                    <iconify-icon
-                      icon="solar:kick-scooter-broken"
-                      class="align-middle"
-                    ></iconify-icon>{" "}
-                    Delivery Charge :{" "}
+                <td className="px-0">
+                  <p className="d-flex mb-0 align-items-center gap-1">
+                    <MdOutlineBikeScooter className="align-middle" />
+                    Delivery Charge :
                   </p>
                 </td>
-                <td class="text-end text-dark fw-medium px-0">$00.00</td>
+                <td className="text-end text-dark fw-medium px-0">
+                  Rs {deliveryCharge.toFixed(2)}
+                </td>
               </tr>
+
+              {/* Estimated Tax */}
               <tr>
-                <td class="px-0">
-                  <p class="d-flex mb-0 align-items-center gap-1">
-                    <iconify-icon
-                      icon="solar:calculator-minimalistic-broken"
-                      class="align-middle"
-                    ></iconify-icon>{" "}
-                    Estimated Tax (15.5%) :{" "}
+                <td className="px-0">
+                  <p className="d-flex mb-0 align-items-center gap-1">
+                    <RiCalculatorFill className="align-middle" />
+                    Estimated Tax (18%) :
                   </p>
                 </td>
-                <td class="text-end text-dark fw-medium px-0">$20.00</td>
+                <td className="text-end text-dark fw-medium px-0">
+                  Rs {tax.toFixed(2)}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="card-footer bg-light-subtle border-top">
-        <div class="d-flex align-items-center justify-content-between">
+
+      <div className="card-footer bg-light-subtle border-top">
+        <div className="d-flex align-items-center justify-content-between">
           <div>
-            <p class="fw-medium text-dark mb-0">Total Amount</p>
+            <p className="fw-medium text-dark mb-0">Total Amount</p>
           </div>
           <div>
-            <p class="fw-medium text-dark mb-0">$737.00</p>
+            <p className="fw-medium text-dark mb-0">
+              Rs {totalPrice.toFixed(2)}
+            </p>
           </div>
         </div>
-        <div class="alert alert-warning alert-icon mt-3 mb-0" role="alert">
-          <div class="d-flex align-items-center">
-            <div class="avatar-sm rounded bg-warning d-flex justify-content-center align-items-center fs-22 me-2 flex-shrink-0">
-              <iconify-icon
-                icon="solar:kick-scooter-broken"
-                class="align-middle text-white"
-              ></iconify-icon>
+
+        {/* Delivery Info */}
+        <div className="alert alert-warning alert-icon mt-3 mb-0" role="alert">
+          <div className="d-flex align-items-center">
+            <div className="avatar-sm rounded bg-warning d-flex justify-content-center align-items-center fs-22 me-2 flex-shrink-0">
+              <MdOutlineBikeScooter />
             </div>
-            <div class="flex-grow-1">Estimated Delivery by 25 April, 2024</div>
+            <div className="flex-grow-1">
+              Estimated Delivery by {estimatedDelivery}
+            </div>
           </div>
         </div>
       </div>

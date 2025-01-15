@@ -1,4 +1,3 @@
-// controllers/subcategoryController.js
 const Subcategory = require("../models/subCategory");
 
 exports.createSubcategory = async (req, res) => {
@@ -17,7 +16,11 @@ exports.createSubcategory = async (req, res) => {
 
 exports.getSubcategories = async (req, res) => {
   try {
-    const subcategories = await Subcategory.findAll();
+    const { categoryId } = req.query;
+
+    const filter = categoryId ? { where: { categoryId } } : {};
+    const subcategories = await Subcategory.findAll(filter);
+
     res.status(200).json(subcategories);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch subcategories." });

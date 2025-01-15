@@ -1,20 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Row, Col } from "reactstrap";
-import Checkbox from "../../Common/Checkbox";
-import Input from "../../Common/Input";
-import Button from "../../Common/Button";
-import { addAddress as addAddressAction } from "../../../containers/Address/actions";
-
+import { Country, State, City } from "country-state-city"; // Import the package
+import Button from "../../Common/Button"; // Assuming Button is a custom component
+import Input from "../../Common/Input"; // Assuming Input is a custom component
+import { API_URL } from "../../../constants";
+import axios from "axios";
 const AddAddress = (props) => {
-  const { addressFormData, formErrors, addressChange } = props;
+  const { addressFormData, formErrors, addressChange, editMode, onSave } =
+    props;
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    const countryList = Country.getAllCountries(); // Get all countries
+    setCountries(countryList); // Set the countries state
+  }, []);
+
+  const handleCountryChange = (e) => {
+    const country = e.target.value;
+    addressChange("country", country);
+    const stateList = State.getStatesOfCountry(country); // Get states based on selected country
+    setStates(stateList);
+    setCities([]); // Clear cities when country changes
+  };
+
+  const handleStateChange = (e) => {
+    const state = e.target.value;
+    addressChange("state", state);
+    const cityList = City.getCitiesOfState(addressFormData.country, state); // Get cities based on selected state
+    setCities(cityList);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(addAddressAction(navigate)); // Dispatch addAddress with navigate
+    try {
+      const url = editMode
+        ? `${API_URL}/address/${addressFormData.id}`
+        : `${API_URL}/address`;
+      const method = editMode ? "put" : "post";
+
+      const response = await axios({
+        method,
+        url,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: addressFormData,
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        onSave(); // Trigger callback to refresh address list
+      } else {
+        throw new Error("Failed to save the address.");
+      }
+    } catch (err) {
+      console.error("Error saving address:", err.message);
+    }
   };
 
   return (
@@ -61,14 +104,14 @@ const AddAddress = (props) => {
                 className="form-control"
                 value={addressFormData.city}
                 id="choices-city"
-                onChange={(e) => addressChange("city", e.target.value)}
+                onChange={handleStateChange}
               >
                 <option value="">Choose a city</option>
-                <optgroup label="UK">
-                  <option value="London">London</option>
-                  <option value="Manchester">Manchester</option>
-                  <option value="Liverpool">Liverpool</option>
-                </optgroup>
+                {cities.map((city) => (
+                  <option key={city.id} value={city.name}>
+                    {city.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="col-lg-4">
@@ -79,14 +122,14 @@ const AddAddress = (props) => {
                 className="form-control"
                 value={addressFormData.state}
                 id="choices-state"
-                onChange={(e) => addressChange("state", e.target.value)}
+                onChange={handleStateChange}
               >
                 <option value="">Choose a State</option>
-                <optgroup label="UK">
-                  <option value="London">London</option>
-                  <option value="Manchester">Manchester</option>
-                  <option value="Liverpool">Liverpool</option>
-                </optgroup>
+                {states.map((state) => (
+                  <option key={state.id} value={state.name}>
+                    {state.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="col-lg-4">
@@ -97,18 +140,19 @@ const AddAddress = (props) => {
                 className="form-control"
                 id="choices-country"
                 value={addressFormData.country}
-                onChange={(e) => addressChange("country", e.target.value)}
+                onChange={handleCountryChange}
               >
                 <option value="">Choose a country</option>
-                <optgroup label="">
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="France">France</option>
-                </optgroup>
+                {countries.map((country) => (
+                  <option key={country.isoCode} value={country.isoCode}>
+                    {country.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="col-lg-4">
               <label htmlFor="choices-default" className="form-label">
-                As Default?
+                Set as Default?
               </label>
               <input
                 type="checkbox"
@@ -119,9 +163,12 @@ const AddAddress = (props) => {
               />
             </div>
           </div>
-          {/* form fields go here as in your original component */}
+
           <div className="add-address-actions mt-4">
-            <Button type="submit" text="Add Address" />
+            <Button
+              type="submit"
+              text={editMode ? "Update Address" : "Add Address"}
+            />
           </div>
         </form>
       </div>

@@ -36,7 +36,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `email_2` (`email`),
   UNIQUE KEY `email_3` (`email`),
-  KEY `merchantId` (`merchantId`)
+  UNIQUE KEY `id` (`id`),
+  KEY `merchantId` (`merchantId`),
+  KEY `idx_userId` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table u690099781_teamoffice.users: ~5 rows (approximately)

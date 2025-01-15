@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   CONSTRAINT `max_redemptions_check` CHECK (`max_redemptions` >= 10 and `max_redemptions` <= 1000)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table u690099781_teamoffice.coupons: ~3 rows (approximately)
+-- Dumping data for table u690099781_teamoffice.coupons: ~2 rows (approximately)
 INSERT INTO `coupons` (`id`, `created`, `code`, `email`, `max_redemptions`, `status`, `start_date`, `end_date`, `discount_type`, `discount_value`, `applicable_products`) VALUES
 	(1, NULL, 'SAVE10', NULL, 100, 'active', '2024-06-01 00:00:00', '2024-06-30 00:00:00', 'percentage', 10, NULL),
 	(2, '2024-12-17 04:51:25', 'SAVE12', NULL, 100, 'future_plan', '2025-01-01 00:00:00', '2025-01-30 00:00:00', 'percentage', 10, NULL),

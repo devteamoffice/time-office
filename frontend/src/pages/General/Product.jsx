@@ -4,116 +4,103 @@ import Pagination from "../../component/Common/Pagination";
 import ProductFilter from "../../component/Product/ProductFilter";
 import SingleProduct from "../../component/Product/SingleProduct";
 import axios from "axios";
-import { API_URL } from "../../constants"; // Ensure API_URL points to http://localhost:4000/api
-import Navigation from "../../component/Extras/Pagination";
+import { API_URL } from "../../constants";
 
 const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  // States
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [data, setData] = useState([]); // All products
-  const [filteredData, setFilteredData] = useState([]); // Filtered products
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategorySlug, setSelectedCategorySlug] = useState("");
-  const [isFiltered, setIsFiltered] = useState(false); // Tracks if a filter is applied
+  const [categorySlug, setCategorySlug] = useState("");
+  const [isFiltered, setIsFiltered] = useState(false);
 
-  const itemsPerPage = 20; // Items per page
+  const itemsPerPage = 20;
 
-  // Get category slug from query parameters
-  const getCategorySlugFromQuery = () => {
-    const params = new URLSearchParams(location.search);
-    return params.get("cate");
+  // Helper: Fetch products from the API
+  const fetchProducts = async (endpoint) => {
+    try {
+      const response = await axios.get(endpoint);
+      console.log("Fetched products:", response.data);
+      const activeProducts = response.data.products.filter((p) => p.isActive);
+      return activeProducts;
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      return [];
+    }
   };
 
+  // Load products based on query or search
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const slug = getCategorySlugFromQuery();
-        setSelectedCategorySlug(slug);
+    const loadProducts = async () => {
+      const params = new URLSearchParams(location.search);
+      const slug = params.get("cate"); // Category filter
+      const searchQuery = params.get("name"); // Search query
 
-        let response;
-        if (!slug && (!location.state || !location.state.searchResult)) {
-          response = await axios.get(`${API_URL}/product`);
-          let products = response.data.products || [];
-          // Filter out inactive products
-          products = products.filter((product) => product.isActive === true);
-          setData(products);
-          setFilteredData(products);
-          setIsFiltered(false); // No filter applied
-        } else if (location.state && location.state.searchResult) {
-          const searchResults = location.state.searchResult.filter(
-            (product) => product.isActive === true
-          );
-          setData(searchResults);
-          setFilteredData(searchResults);
-          setIsFiltered(false); // No filter applied
-        } else if (slug) {
-          response = await axios.get(
-            `${API_URL}/product/filter/${encodeURIComponent(slug)}`
-          );
-          let filteredProducts = response.data.products || [];
-          // Filter out inactive products
-          filteredProducts = filteredProducts.filter(
-            (product) => product.isActive === true
-          );
-          setFilteredData(filteredProducts);
-          setIsFiltered(true); // Filter applied
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
+      let endpoint = `${API_URL}/product`;
+
+      // If category filter is present, apply category filter
+      if (slug) {
+        endpoint = `${API_URL}/product/filter/${encodeURIComponent(slug)}`;
+        setCategorySlug(slug);
+        setIsFiltered(true);
+      } else {
+        setCategorySlug(""); // Clear category if not filtering by category
+        setIsFiltered(false);
       }
+
+      // If search query is present, apply search filter
+      if (searchQuery) {
+        const searchResults = location.state?.searchResult || [];
+        const filteredSearchResults = searchResults.filter((product) =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setProducts(filteredSearchResults);
+        setFilteredProducts(filteredSearchResults);
+        return;
+      }
+
+      // Fetch products if no specific category or search filter
+      const fetchedProducts = await fetchProducts(endpoint);
+      setProducts(fetchedProducts);
+      setFilteredProducts(fetchedProducts);
     };
 
-    fetchProducts();
-  }, [location.search]);
+    loadProducts();
+  }, [location.search, location.state]);
 
-  const handleFill = () => {
+  // Toggle filter visibility or clear filters
+  const handleFilterToggle = () => {
     if (isFiltered) {
-      // Clear filters and reset to default state
-      setFilteredData(data);
-      setSelectedCategorySlug("");
+      setFilteredProducts(products);
+      setCategorySlug("");
       setIsFiltered(false);
-      navigate("/store"); // Reset URL to default
-    } else {
-      // Toggle filter visibility
-      setIsFilterVisible(!isFilterVisible);
-    }
-  };
-
-  const handleFilter = async (slug) => {
-    setSelectedCategorySlug(slug);
-    if (slug) {
-      try {
-        const response = await axios.get(
-          `${API_URL}/product/filter/${encodeURIComponent(slug)}`
-        );
-        let filteredProducts = response.data.products || [];
-        // Filter out inactive products
-        filteredProducts = filteredProducts.filter(
-          (product) => product.isActive === true
-        );
-        setFilteredData(filteredProducts);
-        setCurrentPage(1); // Reset to page 1
-        setIsFiltered(true); // Filter applied
-        navigate(`/store?cate=${slug}`);
-      } catch (error) {
-        console.error("Error filtering products:", error);
-        setFilteredData([]);
-      }
-    } else {
-      setFilteredData(data);
-      setIsFiltered(false); // No filter applied
       navigate("/store");
+    } else {
+      setIsFilterVisible((prev) => !prev);
     }
   };
 
-  const totalItems = filteredData.length || 0;
-  const pageCount = Math.ceil(totalItems / itemsPerPage);
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+  // Handle filtering by category
+  const handleFilter = async (slug) => {
+    setCategorySlug(slug);
+    const filteredProducts = await fetchProducts(
+      `${API_URL}/product/filter/${encodeURIComponent(slug)}`
+    );
+    setFilteredProducts(filteredProducts);
+    setIsFiltered(true);
+    setCurrentPage(1);
+    navigate(`/store?cate=${slug}`);
   };
 
-  const displayedItems = filteredData.slice(
+  // Calculate total pages for pagination
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+  // Handle pagination
+  const displayedItems = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -135,50 +122,43 @@ const Product = () => {
                   <div className="col-lg-6">
                     <ol className="breadcrumb mb-0">
                       <li className="breadcrumb-item fw-medium">
-                        <a href="javascript: void(0);" className="text-dark">
-                          {selectedCategorySlug || "All Categories"}
+                        <a href="javascript:void(0);" className="text-dark">
+                          {categorySlug || "All Categories"}
                         </a>
                       </li>
                       <li className="breadcrumb-item active">Store</li>
                     </ol>
                     <p className="mb-0 text-muted">
-                      Showing all{" "}
+                      Showing{" "}
                       <span className="text-dark fw-semibold">
-                        {totalItems}
+                        {filteredProducts.length}
                       </span>{" "}
-                      items results
+                      items
                     </p>
                   </div>
-                  <div className="col-lg-6">
-                    <div className="text-md-end mt-3 mt-md-0">
-                      <button
-                        type="button"
-                        className="btn btn-outline-secondary me-1"
-                        onClick={handleFill}
-                      >
-                        <i
-                          className={`bx ${
-                            isFiltered ? "bx-refresh" : "bx-filter-alt"
-                          } me-1`}
-                        ></i>{" "}
-                        {isFiltered ? "Clear" : "Filters"}
-                      </button>
-                    </div>
+                  <div className="col-lg-6 text-md-end mt-3 mt-md-0">
+                    <button
+                      type="button"
+                      className="btn btn-outline-secondary"
+                      onClick={handleFilterToggle}
+                    >
+                      <i
+                        className={`bx ${
+                          isFiltered ? "bx-refresh" : "bx-filter-alt"
+                        } me-1`}
+                      ></i>{" "}
+                      {isFiltered ? "Clear Filters" : "Filters"}
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
             <div className="row">
-              <SingleProduct
-                products={displayedItems} // Display paginated items
-                currentPage={currentPage}
-                itemNo={itemsPerPage}
-              />
+              <SingleProduct products={displayedItems} />
             </div>
-            <Navigation
-              totalItems={filteredData.length}
-              itemNo={itemsPerPage}
-              onPageChange={handlePageChange} // Pagination handler
+            <Pagination
+              totalPages={totalPages} // Pass the calculated totalPages
+              onPagination={setCurrentPage}
             />
           </div>
         </div>

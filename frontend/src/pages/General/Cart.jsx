@@ -1,17 +1,58 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { connect } from "react-redux";
 import OrderSummary from "../../component/Cart/OrderSummary";
 import HaveACode from "../../component/Cart/HaveACode";
 import CartItem from "../../component/Cart/CartItem";
 import { BagIcon } from "../../component/Common/Icon";
+import { API_URL } from "../../constants";
+import axios from "axios";
 import mapDispatchToProps from "../../actions";
+import { AuthContext } from "../../context/Socket/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const Cart = ({
-  cartItems = [], // Ensure cartItems defaults to an empty array
-  handleRemoveFromCart,
-  handleShopping,
-  handleCheckout,
-}) => {
+const Cart = ({ handleRemoveFromCart, handleShopping, handleCheckout }) => {
+  const { user } = useContext(AuthContext);
+  const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const [cartId, setCartId] = useState(null); // New state for cartId
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  const fetchCartItems = async () => {
+    if (!user?.id) return;
+
+    try {
+      const response = await axios.get(`${API_URL}/cart/`, {
+        headers: { Authorization: `${token}` },
+      });
+
+      const cart = response.data.cart;
+      setCartItems(cart.cart_items || []);
+      setCartTotal(cart.total || 0);
+      setCartId(cart.id); // Set cartId from response
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCartItems();
+  }, [user]);
+
+  const handleContinueShopping = () => {
+    navigate("/store");
+  };
+
+  const handleCheckoutClick = () => {
+    if (cartId) {
+      navigate(`/order/${cartId}/checkout`); // Navigate with cartId
+    } else {
+      console.error("Cart ID not found!");
+    }
+  };
+
   return (
     <div className="page-content">
       <div className="container-xxl">
@@ -24,7 +65,7 @@ const Cart = ({
               <button
                 className="ms-auto text-white fs-14 text-decoration-underline btn btn-link"
                 onClick={() =>
-                  cartItems.forEach((item) => handleRemoveFromCart(item._id))
+                  cartItems.forEach((item) => handleRemoveFromCart(item.id))
                 }
               >
                 Clear cart
@@ -49,12 +90,20 @@ const Cart = ({
           </div>
           <div className="col-lg-4">
             <HaveACode />
-            <OrderSummary />
+            <OrderSummary
+              cartItems={cartItems}
+              discount={discount}
+              deliveryCharge={deliveryCharge}
+              estimatedDelivery="25 April, 2024"
+            />
             <div className="main-btn my-4 text-end">
-              <button className="btn btn-primary" onClick={handleShopping}>
+              <button
+                className="btn btn-primary"
+                onClick={handleContinueShopping}
+              >
                 Continue Shopping
               </button>
-              <button className="btn btn-success" onClick={handleCheckout}>
+              <button className="btn btn-success" onClick={handleCheckoutClick}>
                 Buy Now
               </button>
             </div>
@@ -66,8 +115,8 @@ const Cart = ({
 };
 
 const mapStateToProps = (state) => ({
-  cartItems: state.cart?.cartItems || [], // Default to empty array
-  cartTotal: state.cart?.cartTotal || 0, // Default to 0
+  cartItems: state.cart?.cartItems || [],
+  cartTotal: state.cart?.cartTotal || 0,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

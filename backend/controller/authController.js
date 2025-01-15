@@ -58,8 +58,17 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
+  const { email, name, username, password } = req.body;
   try {
-    const { email, name, username, password } = req.body;
+    // Log the request body
+    console.log("Request Body:", req.body);
+
+    // Validate request body
+    if (!req.body || typeof req.body !== "object") {
+      return res.status(400).json({
+        error: "Invalid request body. Please provide all required fields.",
+      });
+    }
 
     if (!email || !name || !username || !password) {
       return res.status(400).json({
@@ -70,9 +79,9 @@ exports.register = async (req, res) => {
     const existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ error: "That email address is already in use." });
+      return res.status(400).json({
+        error: "That email address is already in use.",
+      });
     }
 
     const user = new User({ email, password, name, username });
@@ -81,9 +90,17 @@ exports.register = async (req, res) => {
     const hash = await bcrypt.hash(user.password, salt);
     user.password = hash;
 
-    const registeredUser = await user.save();
+    console.log("Saving user:", user);
 
-    // Generate JWT token using the utility function
+    const registeredUser = await User.create({
+      email,
+      password: hash, // Use the hashed password directly here
+      name,
+      username,
+    });
+
+    console.log("User saved successfully:", registeredUser);
+
     const token = generateToken(registeredUser);
 
     res.status(200).json({
@@ -98,10 +115,10 @@ exports.register = async (req, res) => {
       },
     });
   } catch (error) {
+    console.error("Error during user registration:", error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });
-    console.log(error);
   }
 };
 

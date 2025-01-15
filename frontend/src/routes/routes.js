@@ -49,11 +49,11 @@ export const publicRoutes = [
   // Product Pages
   { path: "/store", element: <Product /> },
   { path: "/product/:id", element: <ProductDetails /> },
-  { path: "/orders/:id", element: <OrderDetails /> },
+  { path: "/order/:id", element: <OrderDetails /> },
   { path: "/order/:id/checkout", element: <Checkout /> },
   { path: "/order/:id/invoice", element: <Invoice /> },
-  { path: "/order/:id/payment=confirmation", element: <PaymentConfirmation /> },
-  { path: "/order/:id/payment=failure", element: <PaymetFailure /> },
+  // { path: "/order/:id/payment=confirmation", element: <PaymentConfirmation /> },
+  // { path: "/order/:id/payment=failure", element: <PaymetFailure /> },
 
   // User Account
   { path: "/u/:id", element: <Account /> },

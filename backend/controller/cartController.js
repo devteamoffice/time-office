@@ -1,3 +1,4 @@
+const db = require("../config/database");
 const sequelize = require("sequelize");
 const { Op } = sequelize;
 const mailgun = require("../services/mailgun");
@@ -6,23 +7,28 @@ const Product = require("../models/product");
 const Order = require("../models/order");
 const User = require("../models/user");
 const CartItem = require("../models/cartitem");
-exports.addOrder = async (req, res) => {
-  const t = await sequelize.Transaction();
-  try {
-    const { cartId } = req.body;
-    const userId = req.user.id;
 
-    const cart = await Cart.findByPk(cartId, {
+const razorpay = require("../services/razorpay"); // Import Razorpay configuration
+
+exports.addOrder = async (req, res) => {
+  const t = await db.transaction(); // Start a transaction
+  try {
+    const { cartId } = req.body; // Only cartId is used now
+    const userId = req.user ? req.user.id : null;
+
+    if (!userId) {
+      return res.status(400).json({ error: "User is not authenticated." });
+    }
+
+    // Get the cart associated with the logged-in user
+    const cart = await Cart.findOne({
+      where: { id: cartId, userId },
       include: [{ model: Product, through: { attributes: ["quantity"] } }],
-      transaction: t,
+      transaction: t, // Use the transaction here
     });
 
     if (!cart) {
       return res.status(404).json({ error: "Cart not found." });
-    }
-
-    if (cart.userId !== userId) {
-      return res.status(403).json({ error: "Unauthorized access to cart." });
     }
 
     const total = cart.Products.reduce(
@@ -30,13 +36,28 @@ exports.addOrder = async (req, res) => {
       0
     );
 
+    // Create a Razorpay order
+    const razorpayOrder = await razorpay.orders.create({
+      amount: total * 100, // Razorpay expects amount in paise
+      currency: "INR",
+      receipt: `order_${Date.now()}`,
+      payment_capture: 1, // Automatically capture the payment
+    });
+
     const orderNumber = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     const order = await Order.create(
-      { userId, cartId: cart.id, total, orderNumber },
-      { transaction: t }
+      {
+        userId,
+        cartId: cart.id,
+        total,
+        orderNumber,
+        razorpayOrderId: razorpayOrder.id,
+      },
+      { transaction: t } // Use the transaction here as well
     );
 
-    const user = await User.findByPk(userId, { transaction: t });
+    let user = userId ? await User.findByPk(userId, { transaction: t }) : null;
+
     if (user) {
       await mailgun.sendEmail(user.email, "Order Confirmation", {
         orderNumber,
@@ -49,16 +70,22 @@ exports.addOrder = async (req, res) => {
       });
     }
 
-    await cart.destroy({ transaction: t });
-    await t.commit();
+    await cart.destroy({ transaction: t }); // Use the transaction here as well
+    await t.commit(); // Commit the transaction
 
     return res.status(200).json({
       success: true,
       message: "Order placed successfully.",
-      order: { id: order.id, orderNumber, total },
+      order: {
+        id: order.id,
+        orderNumber,
+        total,
+        razorpayOrderId: razorpayOrder.id, // Include Razorpay Order ID
+        razorpayPaymentUrl: razorpayOrder.short_url, // Razorpay payment link
+      },
     });
   } catch (error) {
-    await t.rollback();
+    await t.rollback(); // Rollback the transaction in case of an error
     console.error("Error placing order:", error);
     return res.status(500).json({ error: "Could not place the order." });
   }
@@ -66,74 +93,107 @@ exports.addOrder = async (req, res) => {
 
 exports.addToCart = async (req, res) => {
   try {
-    const userId = req.user.id; // Assuming user is attached to the request object
-    const items = req.body.products; // Products should be an array of { productId, quantity }
+    const userId = req.user.id; // Now the userId is accessible from the token
+    const items = req.body.products || []; // Array of { productId, quantity }
+    const productId = req.body.productId; // For single item addition
+    const quantity = req.body.quantity; // For single item addition
 
-    if (!items || !Array.isArray(items)) {
-      return res.status(400).json({ error: "Invalid product list." });
+    let totalCartPrice = 0;
+    let cart = await Cart.findOne({
+      where: { userId },
+      include: [
+        {
+          model: CartItem,
+          as: "cart_items",
+          attributes: [
+            "productId",
+            "quantity",
+            "purchasePrice",
+            "totalPrice",
+            "priceWithTax",
+            "totalTax",
+            "status",
+            "cartId",
+          ],
+        },
+      ],
+    });
+
+    // If cart doesn't exist, create a new one
+    if (!cart) {
+      cart = await Cart.create({ userId });
     }
 
-    // Log the request for debugging
-    console.log("User ID:", userId);
-    console.log("Products:", items);
-
-    const products = await Promise.all(
-      items.map(async (item) => {
+    // Handle adding multiple items to the cart
+    if (items.length > 0) {
+      for (let item of items) {
         const product = await Product.findByPk(item.productId);
         if (!product) {
-          throw new Error(`Product with ID ${item.productId} not found`);
+          return res
+            .status(404)
+            .json({ error: `Product ${item.productId} not found.` });
         }
 
-        // Calculate price details
-        const purchasePrice = product.price; // Assuming price is available in product
+        const purchasePrice = product.price;
         const totalPrice = purchasePrice * item.quantity;
-        const priceWithTax = totalPrice * (1 + product.taxRate); // Assuming taxRate is available in product
+        const priceWithTax = totalPrice * (1 + product.taxRate);
         const totalTax = priceWithTax - totalPrice;
 
-        // Create cart item
-        const cartItem = await CartItem.create({
+        // Create CartItem for each product, setting cartId as cart.id
+        await CartItem.create({
           productId: item.productId,
           quantity: item.quantity,
           purchasePrice,
           totalPrice,
           priceWithTax,
           totalTax,
-          status: "Not processed",
+          cartId: cart.id, // Use cart.id instead of userId
         });
 
-        return cartItem; // Return the created CartItem
-      })
-    );
+        totalCartPrice += totalPrice; // Sum the total price for the cart
+      }
+    }
 
-    // Create the cart
-    const cart = await Cart.create({ userId });
+    // Handle adding a single item to the cart
+    if (productId && quantity) {
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        return res.status(404).json({ error: "Product not found." });
+      }
 
-    // Add products to the cart (assuming through relationship)
-    await Promise.all(
-      products.map(async (cartItem) => {
-        await cart.addProduct(cartItem, {
-          through: { quantity: cartItem.quantity },
-        });
-      })
-    );
+      const purchasePrice = product.price;
+      const totalPrice = purchasePrice * quantity;
+      const priceWithTax = totalPrice * (1 + product.taxRate);
+      const totalTax = priceWithTax - totalPrice;
 
-    // Decrease inventory quantities
-    await decreaseQuantity(items);
+      // Create CartItem for the product, setting cartId as cart.id
+      await CartItem.create({
+        productId,
+        quantity,
+        purchasePrice,
+        totalPrice,
+        priceWithTax,
+        totalTax,
+        cartId: cart.id, // Use cart.id instead of userId
+      });
+
+      totalCartPrice += totalPrice; // Add to the total price for the cart
+    }
+
+    // Update total in the cart, if needed
+    await cart.update({ total: totalCartPrice });
 
     res.status(200).json({
       success: true,
-      cartId: cart.id,
-      cart,
+      cartId: cart.id, // Return cart.id instead of userId
+      total: totalCartPrice,
     });
   } catch (error) {
-    console.error("Error adding to cart:", error.message);
-    res.status(500).json({
-      error: error.message || "Your request could not be processed.",
-    });
+    console.error("Error adding to cart:", error);
+    res.status(500).json({ error: "Failed to add items to cart." });
   }
 };
 
-// Delete a cart
 exports.deleteCart = async (req, res) => {
   try {
     const cartId = req.params.cartId;
@@ -155,43 +215,6 @@ exports.deleteCart = async (req, res) => {
   }
 };
 
-// Add an item to the cart
-exports.addItemToCart = async (req, res) => {
-  try {
-    const cartId = req.params.cartId;
-    const { productId, quantity } = req.body;
-
-    if (!productId || !quantity) {
-      return res.status(400).json({ error: "Invalid product details." });
-    }
-
-    const cart = await Cart.findByPk(cartId);
-    if (!cart) {
-      return res.status(404).json({ error: "Cart not found." });
-    }
-
-    const product = await Product.findByPk(productId);
-    if (!product) {
-      return res.status(404).json({ error: "Product not found." });
-    }
-
-    // Add product to cart with quantity
-    await cart.addProduct(product, { through: { quantity } });
-
-    // Decrease inventory quantity
-    await decreaseQuantity([{ productId, quantity }]);
-
-    res.status(200).json({
-      success: true,
-      cart,
-    });
-  } catch (error) {
-    console.error("Error adding item to cart:", error);
-    res.status(500).json({ error: "Your request could not be processed." });
-  }
-};
-
-// Remove an item from the cart
 exports.deleteItemFromCart = async (req, res) => {
   try {
     const cartId = req.params.cartId;
@@ -221,7 +244,7 @@ exports.deleteItemFromCart = async (req, res) => {
 };
 
 // Helper function to decrease inventory
-const decreaseQuantity = async (products) => {
+exports.decreaseQuantity = async (products) => {
   try {
     await Promise.all(
       products.map(async (item) => {
@@ -243,5 +266,37 @@ const decreaseQuantity = async (products) => {
   } catch (error) {
     console.error("Error decreasing inventory:", error);
     throw new Error("Failed to update inventory.");
+  }
+};
+
+exports.getCartItems = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming user is available after authentication
+
+    // Find the user's cart and include the associated cart items and products
+    const cart = await Cart.findOne({
+      where: { userId: userId },
+      include: [
+        {
+          model: CartItem,
+          as: "cart_items", // Alias for the association in the Cart model
+          include: [
+            {
+              model: Product,
+              as: "product", // Correct alias for the Product model in the CartItem
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found" });
+    }
+
+    res.status(200).json({ cart });
+  } catch (error) {
+    console.error("Error fetching cart items:", error);
+    res.status(500).json({ error: "Error fetching cart items" });
   }
 };

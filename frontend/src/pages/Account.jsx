@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
-import { FaFileInvoice } from "react-icons/fa6";
-import { RiOrderPlayFill } from "react-icons/ri";
-import { FaMoneyBill1Wave } from "react-icons/fa6";
+
 import AccountDetails from "../component/Account/AccountDetails";
 import { AuthContext } from "../context/Socket/AuthContext";
+import Address from "../component/Account/Address";
+import AccountStats from "../component/Account/AccountStats";
 const Account = () => {
   const { isAuthenticated, login, logout, user } = useContext(AuthContext);
 
@@ -14,66 +14,7 @@ const Account = () => {
         {user ? <AccountDetails user={user} /> : <p>Loading...</p>}
 
         <div class="col-lg-8">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <h4 class="card-title mb-2 d-flex align-items-center gap-2">
-                        Total Invoice
-                      </h4>
-                      <p class="text-muted fw-medium fs-22 mb-0">234</p>
-                    </div>
-                    <div>
-                      <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                        <FaFileInvoice />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <h4 class="card-title mb-2 d-flex align-items-center gap-2">
-                        Total Order
-                      </h4>
-                      <p class="text-muted fw-medium fs-22 mb-0">219</p>
-                    </div>
-                    <div>
-                      <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                        <RiOrderPlayFill />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <h4 class="card-title mb-2 d-flex align-items-center gap-2">
-                        Total Expense
-                      </h4>
-                      <p class="text-muted fw-medium fs-22 mb-0">$2,189</p>
-                    </div>
-                    <div>
-                      <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                        <FaMoneyBill1Wave />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AccountStats />
 
           <div class="card">
             <div class="card-header">
@@ -208,28 +149,7 @@ const Account = () => {
           </div>
           <div class="row">
             <div class="col-lg-6">
-              <div class="card">
-                <div class="card-body text-center">
-                  <img
-                    src="assets/images/user-profile.png"
-                    alt=""
-                    class="img-fluid"
-                  />
-                  <h4>
-                    <i class="bx bxs-coin-stack text-primary"></i> 3,764{" "}
-                    <span class="text-muted fw-medium">Points Earned</span>{" "}
-                  </h4>
-                  <p class="mb-0">Collect reward points with each purchase.</p>
-                </div>
-                <div class="card-footer border-top gap-1 hstack">
-                  <a href="#!" class="btn btn-primary w-100">
-                    Earn Point
-                  </a>
-                  <a href="#!" class="btn btn-light w-100">
-                    View Items
-                  </a>
-                </div>
-              </div>
+              <Address />
             </div>
             <div class="col-lg-6">
               <div class="card">

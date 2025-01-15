@@ -11,9 +11,7 @@ const AccountStep1 = () => {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const token = localStorage.getItem("authToken");
-
+  const token = localStorage.getItem("token");
   // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {

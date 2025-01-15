@@ -30,12 +30,12 @@ const CategoryEdit = () => {
       setLoading(true);
       // Make an API call to update the category
       const response = await axios.put(
-        `/api/categories/${categorySlug}`,
+        `/api/category/${categorySlug}`,
         categoryData
       );
 
       alert("Category updated successfully!");
-      console.log("Response:", response.data);
+      console.log("Response:", response.data.category);
 
       // Reset form fields
       setCategoryTitle("");

@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table u690099781_teamoffice.categories: ~7 rows (approximately)
 INSERT INTO `categories` (`id`, `name`, `slug`, `isActive`, `updated`, `created`) VALUES

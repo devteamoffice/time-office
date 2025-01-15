@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Country, State, City } from "country-state-city";
+import axios from "axios";
+import { AuthContext } from "../../context/Socket/AuthContext";
+import { API_URL } from "../../constants";
 
 const ShippingDetails = () => {
+  const { user } = useContext(AuthContext); // Get user from AuthContext
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [zipCode, setZipCode] = useState(""); // State to hold the zip code
+  const [address, setAddress] = useState(""); // State to hold the full address
+  const token = localStorage.getItem("token"); // Retrieve token from localStorage
 
   // Fetch the list of countries
   const countryList = Country.getAllCountries();
@@ -18,6 +25,38 @@ const ShippingDetails = () => {
   const cityList = selectedState
     ? City.getCitiesOfState(selectedCountry, selectedState)
     : [];
+
+  // Fetch address from API
+  const fetchAddress = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/address`, {
+        headers: { Authorization: `${token}` }, // Pass token in headers
+      });
+
+      console.log("API response:", response.data); // Debug log the response
+
+      const addresses = response.data?.addresses || [];
+      // Find the default address (or the first one if no default is set)
+      const defaultAddress =
+        addresses.find((addr) => addr.isDefault) || addresses[0] || {};
+
+      const { country, state, city, address, zipCode } = defaultAddress;
+
+      // Set address details
+      setSelectedCountry(country || "");
+      setSelectedState(state || "");
+      setSelectedCity(city || "");
+      setAddress(address || "");
+      setZipCode(zipCode || "");
+    } catch (error) {
+      console.error("Error fetching address:", error);
+    }
+  };
+
+  // Fetch the address on component mount
+  useEffect(() => {
+    if (user?.id) fetchAddress();
+  }, [user]);
 
   return (
     <div className="row">
@@ -38,6 +77,8 @@ const ShippingDetails = () => {
                   id="your-address"
                   rows="3"
                   placeholder="Enter address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)} // Update address on change
                 ></textarea>
               </div>
             </form>
@@ -53,8 +94,9 @@ const ShippingDetails = () => {
                 value={selectedCountry}
                 onChange={(e) => {
                   setSelectedCountry(e.target.value);
-                  setSelectedState(""); // Reset state and city on country change
+                  setSelectedState("");
                   setSelectedCity("");
+                  setZipCode("");
                 }}
               >
                 <option value="">Choose a country</option>
@@ -77,7 +119,8 @@ const ShippingDetails = () => {
                 value={selectedState}
                 onChange={(e) => {
                   setSelectedState(e.target.value);
-                  setSelectedCity(""); // Reset city on state change
+                  setSelectedCity("");
+                  setZipCode("");
                 }}
                 disabled={!selectedCountry}
               >
@@ -111,151 +154,26 @@ const ShippingDetails = () => {
               </select>
             </form>
           </div>
+          <div className="col-lg-4">
+            <form>
+              <label htmlFor="zip-code" className="form-label">
+                Zip Code
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="zip-code"
+                placeholder="Enter zip code"
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
+              />
+            </form>
+          </div>
         </div>
         <div className="mt-2">
           <a href="#!" className="link-primary fw-medium">
             + Add New Billing Address
           </a>
-        </div>
-        <h5 className="my-4">Shipping Method :</h5>
-        <div className="row gy-2">
-          {/* Shipping options */}
-          {/* Replace hardcoded values with your dynamic data if needed */}
-          <div class="col-lg-6">
-            <div class="form-check form-checkbox-primary ps-0">
-              <label for="shipping-1" class="w-100 mb-2">
-                <div class="d-flex align-items-center p-2 rounded gap-2 border">
-                  <div class="d-flex align-items-center gap-2">
-                    <div class="rounded-3 bg-light avatar-md d-flex align-items-center justify-content-center">
-                      <img
-                        src="assets/images/brands/dhl.png"
-                        alt=""
-                        class="avatar rounded"
-                      />
-                    </div>
-                    <div>
-                      <h5 class="text-dark fw-medium">DHL Fast Services</h5>
-                      <p class="mb-0 text-dark">
-                        Delivery -
-                        <span class="text-muted fw-normal">Today</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="ms-auto">
-                    <p class="mb-2">$10.00</p>
-                    <input
-                      class="form-check-input float-end"
-                      type="radio"
-                      name="shipping"
-                      id="shipping-1"
-                    />
-                  </div>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="form-check form-checkbox-primary ps-0">
-              <label for="shipping-2" class="w-100">
-                <div class="d-flex align-items-center p-2 rounded gap-2 border">
-                  <div class="d-flex align-items-center gap-2">
-                    <div class="rounded-3 bg-light avatar-md d-flex align-items-center justify-content-center">
-                      <img
-                        src="assets/images/brands/fedex.png"
-                        alt=""
-                        class="avatar rounded"
-                      />
-                    </div>
-                    <div>
-                      <h5 class="text-dark fw-medium">FedEx Services</h5>
-                      <p class="mb-0 text-dark">
-                        Delivery -
-                        <span class="text-muted fw-normal">Today</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="ms-auto">
-                    <p class="mb-2">$10.00</p>
-                    <input
-                      class="form-check-input float-end"
-                      type="radio"
-                      name="shipping"
-                      id="shipping-2"
-                    />
-                  </div>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="form-check form-checkbox-primary ps-0">
-              <label for="shipping-3" class="w-100">
-                <div class="d-flex align-items-center p-2 rounded gap-2 border">
-                  <div class="d-flex align-items-center gap-2">
-                    <div class="rounded-3 bg-light avatar-md d-flex align-items-center justify-content-center">
-                      <img
-                        src="assets/images/brands/ups.png"
-                        alt=""
-                        class="avatar rounded"
-                      />
-                    </div>
-                    <div>
-                      <h5 class="text-dark fw-medium">UPS Services</h5>
-                      <p class="mb-0 text-dark">
-                        Delivery -
-                        <span class="text-muted fw-normal">Tomorrow</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="ms-auto">
-                    <p class="mb-2">$8.00</p>
-                    <input
-                      class="form-check-input float-end"
-                      type="radio"
-                      name="shipping"
-                      id="shipping-3"
-                    />
-                  </div>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="form-check form-checkbox-primary ps-0">
-              <label for="shipping-4" class="w-100">
-                <div class="d-flex align-items-center p-2 rounded gap-2 border">
-                  <div class="d-flex align-items-center gap-2">
-                    <div class="rounded-3 bg-light avatar-md d-flex align-items-center justify-content-center">
-                      <iconify-icon
-                        icon="solar:box-bold-duotone"
-                        class="fs-36 text-warning"
-                      ></iconify-icon>
-                    </div>
-                    <div>
-                      <h5 class="text-dark fw-medium">Our Courier Services</h5>
-                      <p class="mb-0 text-dark">
-                        Delivery -
-                        <span class="text-muted fw-normal">25 Apr 2024</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="ms-auto">
-                    <p class="mb-2">$0.00</p>
-                    <input
-                      class="form-check-input float-end"
-                      type="radio"
-                      name="shipping"
-                      id="shipping-4"
-                      checked
-                    />
-                  </div>
-                </div>
-              </label>
-            </div>
-          </div>
         </div>
       </div>
     </div>

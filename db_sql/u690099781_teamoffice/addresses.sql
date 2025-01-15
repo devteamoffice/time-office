@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   KEY `userId` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table u690099781_teamoffice.addresses: ~2 rows (approximately)
+-- Dumping data for table u690099781_teamoffice.addresses: ~1 rows (approximately)
 INSERT INTO `addresses` (`id`, `userId`, `address`, `city`, `state`, `country`, `zipCode`, `isDefault`, `updated`, `created`) VALUES
 	('', '0', '123 Main Street', 'Rohtak', 'Haryana', 'India', '124001', 1, NULL, '2024-12-30 05:34:32'),
 	('71656be3-c670-11ef-bf55-f4393e8d0a8a', 'bb1d36af-95ea-11ef-814d-8c067b553b28', '123 Main Street', 'Rohtaksss', 'Haryana', 'India', '124001', 1, NULL, '2024-12-30 05:37:28');

@@ -318,7 +318,7 @@ exports.addProduct = async (req, res) => {
       sku,
       name,
       description,
-      quantity,
+
       price,
       taxable,
       isActive,
@@ -328,9 +328,9 @@ exports.addProduct = async (req, res) => {
     } = req.body;
 
     // Validate required fields
-    if (!sku || !name || !description || !quantity || !price) {
+    if (!sku || !name || !description || !price) {
       return res.status(400).json({
-        error: "SKU, name, description, quantity, and price are required.",
+        error: "SKU, name, description, and price are required.",
       });
     }
 
@@ -351,7 +351,7 @@ exports.addProduct = async (req, res) => {
       sku,
       name,
       description,
-      quantity,
+
       price,
       taxable: taxable || false,
       isActive: isActive || true,

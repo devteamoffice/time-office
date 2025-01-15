@@ -16,21 +16,19 @@
 
 -- Dumping structure for table u690099781_teamoffice.carts
 CREATE TABLE IF NOT EXISTS `carts` (
-  `id` char(36) NOT NULL,
-  `userId` char(36) DEFAULT NULL,
-  `updated` datetime DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total` decimal(10,2) NOT NULL DEFAULT 0.00,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  KEY `userId` (`userId`)
+  KEY `userId` (`userId`),
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table u690099781_teamoffice.carts: ~2 rows (approximately)
-INSERT INTO `carts` (`id`, `userId`, `updated`, `created`, `total`, `createdAt`, `updatedAt`) VALUES
-	('dbafda53-c67c-11ef-bf55-f4393e8d0a8a', '0', NULL, '2024-12-30 05:47:12', 0.00, '2024-12-30 05:49:14', '2024-12-30 07:08:23'),
-	('dbafdb91-c67c-11ef-bf55-f4393e8d0a8a', '0', NULL, '2024-12-30 06:55:01', 0.00, '2024-12-30 06:57:03', '2024-12-30 07:08:23');
+-- Dumping data for table u690099781_teamoffice.carts: ~1 rows (approximately)
+INSERT INTO `carts` (`id`, `userId`, `total`, `createdAt`, `updatedAt`) VALUES
+	('4f71e559-7db8-42d2-92b5-cc54dd901757', 'bb1d36af-95ea-11ef-814d-8c067b553b28', 16000.00, '2025-01-15 04:25:14', '2025-01-15 08:42:12');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

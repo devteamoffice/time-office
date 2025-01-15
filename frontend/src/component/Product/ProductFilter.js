@@ -6,7 +6,7 @@ const ProductFilter = ({ handleFilter }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // const [selectedCategory, setSelectedCategory] = useState("");
+  const [priceRange, setPriceRange] = useState(""); // State for selected price range
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -26,8 +26,13 @@ const ProductFilter = ({ handleFilter }) => {
     fetchCategories();
   }, []);
 
-  const handleCategoryChange = (category) => {
-    handleFilter(category);
+  const handleCategoryChange = (categorySlug) => {
+    handleFilter(categorySlug, priceRange); // Pass the category slug and selected price range to handleFilter
+  };
+
+  const handlePriceChange = (range) => {
+    setPriceRange(range);
+    handleFilter(null, range); // Only pass price range if category isn't selected
   };
 
   return (
@@ -69,8 +74,8 @@ const ProductFilter = ({ handleFilter }) => {
                     className="form-check-input"
                     id={`category-${category.id}`}
                     name="category"
-                    value={category.name}
-                    onChange={() => handleCategoryChange(category.name)}
+                    value={category.slug}
+                    onChange={() => handleCategoryChange(category.slug)}
                   />
                   <label
                     className="form-check-label"
@@ -99,87 +104,68 @@ const ProductFilter = ({ handleFilter }) => {
               <div className="categories-list d-flex flex-column gap-2 mt-2">
                 <div className="form-check">
                   <input
-                    type="checkbox"
+                    type="radio"
                     className="form-check-input"
-                    id="all-price"
+                    id="price-all"
+                    name="price"
+                    value="all"
+                    onChange={() => handlePriceChange("")}
                   />
-                  <label className="form-check-label" for="all-price">
+                  <label className="form-check-label" htmlFor="price-all">
                     All Price
                   </label>
                 </div>
                 <div className="form-check">
                   <input
-                    type="checkbox"
+                    type="radio"
                     className="form-check-input"
                     id="price-1"
+                    name="price"
+                    value="0-1000"
+                    onChange={() => handlePriceChange("0-1000")}
                   />
-                  <label className="form-check-label" for="price-1">
-                    Below $200 (145)
+                  <label className="form-check-label" htmlFor="price-1">
+                    $0 - $1000
                   </label>
                 </div>
-
                 <div className="form-check">
                   <input
-                    type="checkbox"
+                    type="radio"
                     className="form-check-input"
                     id="price-2"
+                    name="price"
+                    value="1000-5000"
+                    onChange={() => handlePriceChange("1000-5000")}
                   />
-                  <label className="form-check-label" for="price-2">
-                    $200 - $500 (1,885)
+                  <label className="form-check-label" htmlFor="price-2">
+                    $1000 - $5000
                   </label>
                 </div>
                 <div className="form-check">
                   <input
-                    type="checkbox"
+                    type="radio"
                     className="form-check-input"
                     id="price-3"
+                    name="price"
+                    value="5000-10000"
+                    onChange={() => handlePriceChange("5000-10000")}
                   />
-                  <label className="form-check-label" for="price-3">
-                    $500 - $800 (2,276)
+                  <label className="form-check-label" htmlFor="price-3">
+                    $5000 - $10000
                   </label>
                 </div>
                 <div className="form-check">
                   <input
-                    type="checkbox"
+                    type="radio"
                     className="form-check-input"
                     id="price-4"
+                    name="price"
+                    value="10000-above"
+                    onChange={() => handlePriceChange("10000-above")}
                   />
-                  <label className="form-check-label" for="price-4">
-                    $800 - $1000 (12,676)
+                  <label className="form-check-label" htmlFor="price-4">
+                    $10000 and above
                   </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="price-5"
-                  />
-                  <label className="form-check-label" for="price-5">
-                    $1000 - $1100 (13,123)
-                  </label>
-                </div>
-                <h5 className="text-dark fw-medium mt-3">
-                  Custom Price Range :
-                </h5>
-                <div
-                  id="product-price-range"
-                  data-slider-size="md"
-                  className=""
-                ></div>
-                <div className="formCost d-flex gap-2 align-items-center mt-2">
-                  <input
-                    className="form-control form-control-sm text-center"
-                    type="text"
-                    id="minCost"
-                    value="0"
-                  />
-                  <span className="fw-semibold text-muted">to</span>
-                  <input
-                    className="form-control form-control-sm text-center"
-                    type="text"
-                    id="maxCost"
-                    value="1000"
-                  />
                 </div>
               </div>
             </div>
@@ -206,7 +192,7 @@ const ProductFilter = ({ handleFilter }) => {
                     name="rating-number"
                     id="rate-1"
                   />
-                  <label className="form-check-label" for="rate-1">
+                  <label className="form-check-label" htmlFor="rate-1">
                     1 <i className="bx bxs-star text-warning"></i> & Above (437)
                   </label>
                 </div>
@@ -217,7 +203,7 @@ const ProductFilter = ({ handleFilter }) => {
                     name="rating-number"
                     id="rate-2"
                   />
-                  <label className="form-check-label" for="rate-2">
+                  <label className="form-check-label" htmlFor="rate-2">
                     2 <i className="bx bxs-star text-warning"></i> & Above (657)
                   </label>
                 </div>
@@ -228,7 +214,7 @@ const ProductFilter = ({ handleFilter }) => {
                     name="rating-number"
                     id="rate-3"
                   />
-                  <label className="form-check-label" for="rate-3">
+                  <label className="form-check-label" htmlFor="rate-3">
                     3 <i className="bx bxs-star text-warning"></i> & Above
                     (1,897)
                   </label>
@@ -240,7 +226,7 @@ const ProductFilter = ({ handleFilter }) => {
                     name="rating-number"
                     id="rate-4"
                   />
-                  <label className="form-check-label" for="rate-4">
+                  <label className="form-check-label" htmlFor="rate-4">
                     4 <i className="bx bxs-star text-warning"></i> & Above
                     (3,571)
                   </label>

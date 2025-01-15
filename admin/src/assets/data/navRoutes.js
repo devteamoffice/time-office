@@ -65,22 +65,22 @@ const navRoutes = [
       { text: "Invoice", link: "/orders/invoice" },
     ],
   },
-  {
-    title: "Blogs",
-    icon: <FaBlog />,
-    submenu: [
-      { text: "List", link: "/blogs/list" },
-      { text: "Create", link: "/blogs/add" },
-    ],
-  },
-  {
-    title: "Attributes",
-    icon: <MdAttribution />,
-    submenu: [
-      { text: "List", link: "/attributes/list" },
-      { text: "Create", link: "/attributes/add" },
-    ],
-  },
+  // {
+  //   title: "Blogs",
+  //   icon: <FaBlog />,
+  //   submenu: [
+  //     { text: "List", link: "/blogs/list" },
+  //     { text: "Create", link: "/blogs/add" },
+  //   ],
+  // },
+  // {
+  //   title: "Attributes",
+  //   icon: <MdAttribution />,
+  //   submenu: [
+  //     { text: "List", link: "/attributes/list" },
+  //     { text: "Create", link: "/attributes/add" },
+  //   ],
+  // },
 
   {
     title: "Roles",
@@ -114,11 +114,11 @@ const navRoutes = [
   {
     title: "Other",
     items: [
-      {
-        text: "Profile",
-        icon: <FaUser />,
-        link: (id) => `/u/${id}`,
-      },
+      // {
+      //   text: "Profile",
+      //   icon: <FaUser />,
+      //   link: (id) => `/u/${id}`,
+      // },
       {
         text: "Settings",
         icon: <FaCog />,

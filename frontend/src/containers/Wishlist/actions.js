@@ -35,7 +35,7 @@ export const updateWishlist = (isLiked, productId) => async (dispatch) => {
       { isLiked, product: productId },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
       }
     );
@@ -68,7 +68,7 @@ export const fetchWishlist = () => async (dispatch) => {
 
     const response = await axios.get(`${API_URL}/wishlist/`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `${token}`,
       },
     });
 

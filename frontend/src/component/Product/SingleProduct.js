@@ -1,30 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import placeholder from "../../assets/images/placeholder.png";
+import axios from "axios";
 import { FaHeart } from "react-icons/fa";
-import { handleAddToCart } from "../../containers/Cart/actions";
-import { updateWishlist } from "../../containers/Wishlist/actions";
+import { API_URL } from "../../constants";
+import AddToCartButton from "../Cart/AddToCartButton";
+import placeholder from "../../assets/images/placeholder.png";
 
 const SingleProduct = ({ products }) => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart?.cartItems || []);
-  const wishlistItems = useSelector((state) => state.wishlist?.wishlist || []);
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const token = localStorage.getItem("token");
 
-  // Function to handle adding products to the cart
-  const addToCart = (product) => {
-    const itemInCart = cartItems.find((item) => item._id === product._id);
-    const quantity = itemInCart ? itemInCart.quantity + 1 : 1;
-    dispatch(handleAddToCart({ ...product, quantity }));
+  // Fetch wishlist items
+  const fetchWishlistItems = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/wishlist`, {
+        headers: { Authorization: `${token}` },
+      });
+      setWishlistItems(
+        Array.isArray(response.data.products) ? response.data.products : []
+      );
+    } catch (error) {
+      console.error("Error fetching wishlist items:", error);
+    }
   };
 
-  // Function to handle updating the wishlist
-  const handleWishlistUpdate = (product) => {
-    const isInWishlist = wishlistItems.some((item) => item._id === product._id);
-    // Toggle the isLiked state
-    const isLiked = isInWishlist ? 0 : 1; // If it's in the wishlist, un-like, else like
-    dispatch(updateWishlist(isLiked, product._id));
+  // Handle add/remove wishlist actions
+  const handleWishlistUpdate = async (product) => {
+    try {
+      const isInWishlist = wishlistItems.some((item) => item.id === product.id);
+
+      if (isInWishlist) {
+        await axios.delete(`${API_URL}/wishlist/${product.id}`, {
+          headers: { Authorization: `${token}` },
+        });
+        setWishlistItems((prev) =>
+          prev.filter((item) => item.id !== product.id)
+        );
+      } else {
+        const response = await axios.post(
+          `${API_URL}/wishlist`,
+          { productIds: [product.id], isLiked: true },
+          {
+            headers: { Authorization: `${token}` },
+          }
+        );
+        setWishlistItems(
+          Array.isArray(response.data.products) ? response.data.products : []
+        );
+      }
+    } catch (error) {
+      console.error("Error updating wishlist:", error);
+    }
   };
+
+  useEffect(() => {
+    if (token) {
+      fetchWishlistItems();
+    }
+  }, [token]);
 
   return (
     <div className="row">
@@ -37,9 +70,8 @@ const SingleProduct = ({ products }) => {
           console.error("Error parsing images JSON:", error);
         }
 
-        const itemInCart = cartItems.find((item) => item._id === product._id);
         const isInWishlist = wishlistItems.some(
-          (item) => item._id === product._id
+          (item) => item.id === product.id
         );
 
         return (
@@ -66,32 +98,10 @@ const SingleProduct = ({ products }) => {
                   to={`/product/${product.id}`}
                   className="item-link d-flex flex-column h-100"
                 >
-                  <a className="text-dark fw-medium fs-16">{product.name}</a>
+                  <span className="text-dark fw-medium fs-16">
+                    {product.name}
+                  </span>
                 </Link>
-                <div className="my-1">
-                  <div className="d-flex gap-2 align-items-center">
-                    <ul className="d-flex text-warning m-0 fs-18 list-unstyled">
-                      <li>
-                        <i className="bx bxs-star"></i>
-                      </li>
-                      <li>
-                        <i className="bx bxs-star"></i>
-                      </li>
-                      <li>
-                        <i className="bx bxs-star"></i>
-                      </li>
-                      <li>
-                        <i className="bx bxs-star"></i>
-                      </li>
-                      <li>
-                        <i className="bx bxs-star-half"></i>
-                      </li>
-                    </ul>
-                    <p className="mb-0 fw-medium fs-15 text-dark">
-                      4.5 <span className="text-muted fs-13">(55 Review)</span>
-                    </p>
-                  </div>
-                </div>
                 <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
                   <span className="text-muted text-decoration-line-through">
                     Rs {product.discount}
@@ -100,14 +110,7 @@ const SingleProduct = ({ products }) => {
                   <small className="text-muted">(30% Off)</small>
                 </h4>
                 <div className="mt-3">
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="btn btn-primary"
-                  >
-                    {itemInCart
-                      ? `Add More (${itemInCart.quantity})`
-                      : "Add to Cart"}
-                  </button>
+                  <AddToCartButton product={product} />
                 </div>
 
                 <span className="position-absolute top-0 end-0 p-3">

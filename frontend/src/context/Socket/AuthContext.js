@@ -4,10 +4,9 @@ import {
   SET_AUTH,
   CLEAR_AUTH,
 } from "../../containers/Authentication/constants";
-import { jwtDecode as jwt_decode } from "jwt-decode";
 import api from "./api";
 import { API_URL } from "../../constants";
-
+import { jwtDecode as jwt_decode } from "jwt-decode";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -19,7 +18,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       const token = localStorage.getItem("token");
-      console.log(token);
       if (!token) {
         setIsLoading(false);
         return;
@@ -30,8 +28,7 @@ export const AuthProvider = ({ children }) => {
         setUser(decodedUser);
         setIsAuthenticated(true);
         dispatch({ type: SET_AUTH });
-
-        await fetchUserDetails();
+        await fetchUserDetails(token);
       } catch (error) {
         console.error("Auth initialization error:", error.message);
         logout();
@@ -56,19 +53,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const fetchUserDetails = async () => {
+  const fetchUserDetails = async (token) => {
     try {
-      const token = localStorage.getItem("token");
-      const { data: userData } = await api.get(
-        `${API_URL}/user/me`,
-        {
-          headers: {
-            Authorization: `${token}`, // Add 'Bearer' prefix
-            "Content-Type": "application/json",
-          },
+      const { data: userData } = await api.get(`${API_URL}/user/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        console.log(token)
-      );
+      });
       setUser((prevUser) => ({ ...prevUser, ...userData }));
     } catch (error) {
       console.error("Error fetching user details:", error.message);
@@ -78,14 +70,14 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (token) => {
     try {
-      localStorage.setItem("token", token); // Save token without "Bearer"
+      localStorage.setItem("token", token);
       const decodedToken = decodeAndValidateToken(token);
 
       setUser(decodedToken);
       setIsAuthenticated(true);
       dispatch({ type: SET_AUTH });
 
-      await fetchUserDetails();
+      await fetchUserDetails(token);
     } catch (error) {
       console.error("Login error:", error.message);
       logout();
@@ -101,9 +93,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, isLoading, login, logout }}
+      value={{
+        isAuthenticated,
+        user,
+        isLoading,
+        login,
+        logout,
+      }}
     >
-      {children}
+      {!isLoading && children}
     </AuthContext.Provider>
   );
 };

@@ -3,6 +3,7 @@ import Attributes from "../pages/Attributes/Attributes";
 import AttributesAdd from "../pages/Attributes/AttributesAdd";
 import Login from "../pages/Auth/Login";
 import CategoryAdd from "../pages/Category/CategoryAdd";
+import CategoryEdit from "../pages/Category/CategoryEdit";
 import CategoryList from "../pages/Category/CategoryList";
 import Coupons from "../pages/Coupons/Coupons";
 import CouponsAdd from "../pages/Coupons/CouponsAdd";
@@ -47,6 +48,7 @@ export const publicRoutes = [
     name: "Edit Subcategory",
   },
   { path: "/category/add", element: CategoryAdd, name: "Add Category" },
+  { path: "/category/:id/edit", element: CategoryEdit, name: "Edit Category" },
   { path: "/orders/list", element: OrderList, name: "Order List" },
   { path: "/orders/invoices", element: OrderInvoice, name: "Order Invoice" },
   { path: "/orders/returns", element: OrderReturns, name: "Order Returns" },

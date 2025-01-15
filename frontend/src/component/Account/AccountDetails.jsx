@@ -212,7 +212,6 @@ const AccountDetails = () => {
           )}
         </div>
       </div>
-      <Address />
     </div>
   );
 };

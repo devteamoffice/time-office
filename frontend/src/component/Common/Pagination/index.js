@@ -1,11 +1,9 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 
-const Pagination = (props) => {
-  const { totalPages, onPagination } = props;
-
+const Pagination = ({ totalPages, onPagination }) => {
   const handlePageClick = (event) => {
-    onPagination("pagination", event.selected + 1);
+    onPagination(event.selected + 1); // Corrected: page is 0-indexed, so add 1
   };
 
   return (
@@ -16,7 +14,7 @@ const Pagination = (props) => {
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={2}
-        pageCount={totalPages} // The total number of pages.
+        pageCount={totalPages} // Uses totalPages prop
         containerClassName={"pagination justify-content-end mb-0"}
         activeClassName={"active"}
         pageClassName={"page-item"}
@@ -28,7 +26,6 @@ const Pagination = (props) => {
         breakLinkClassName={"page-link"}
         disabledClassName={"disabled"}
         breakClassName={"break-me"}
-        renderOnZeroPageCount={null}
       />
     </div>
   );

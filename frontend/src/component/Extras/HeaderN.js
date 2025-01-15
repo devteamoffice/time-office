@@ -14,20 +14,24 @@ import {
   fetchCategories,
   fetchStoreCategories,
 } from "../../containers/Category/actions";
-const NavbarN = (id) => {
+import axios from "axios"; // For API calls
+import { API_URL } from "../../constants";
+const NavbarN = () => {
   const { isAuthenticated, login, logout, user } = useContext(AuthContext);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [categories, setCategories] = useState([]);
-  const cartItems = useSelector((state) => state.cart?.cartItems?.length || 0);
+  const [cartItems, setCartItems] = useState(0); // Local state for cart items count
+  const [wishlistItems, setWishlistItems] = useState(0); // Local state for wishlist items count
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
   const handleSearch = () => {
     setIsSearchVisible(!isSearchVisible); // Toggle search input visibility
   };
 
   const handleClick = () => {
-    // alert("Click Working");
     window.scrollTo(0, 0);
   };
+
   useEffect(() => {
     const loadCategories = async () => {
       const categories = await dispatch(fetchCategories());
@@ -36,6 +40,34 @@ const NavbarN = (id) => {
 
     loadCategories();
   }, [dispatch]);
+
+  // Fetch cart and wishlist items count from APIs
+  useEffect(() => {
+    const fetchCartItemsCount = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/cart`, {
+          headers: { Authorization: `${token}` },
+        }); // Replace with your API URL
+        setCartItems(response.data.cartItemsCount); // Adjust according to API response
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+
+    const fetchWishlistItemsCount = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/wishlist`, {
+          headers: { Authorization: `${token}` },
+        }); // Replace with your API URL
+        setWishlistItems(response.data.wishlistItemsCount); // Adjust according to API response
+      } catch (error) {
+        console.error("Error fetching wishlist items:", error);
+      }
+    };
+
+    fetchCartItemsCount();
+    fetchWishlistItemsCount();
+  }, []);
 
   // Hide search bar when scrolling
   useEffect(() => {
@@ -49,18 +81,16 @@ const NavbarN = (id) => {
       window.removeEventListener("scroll", handleScroll); // Clean up the event listener
     };
   }, []);
+
   return (
     <>
       <div
         className="container-fluid"
         style={{ maxWidth: "100%", padding: "0", backgroundColor: "white" }}
       >
-        {/* // Header top */}
         <HeaderTop />
         <hr className="handle_hr" />
-
-        <div className="bottomNav ">
-          {/* Center Header */}
+        <div className="bottomNav">
           <div className="container d-none d-lg-block py-lg-3">
             <div className="row align-items-center justify-content-center">
               <div className="col-md-3">
@@ -139,7 +169,7 @@ const NavbarN = (id) => {
                                 <a
                                   className="dropdown-item text-danger"
                                   href="#"
-                                  onClick={logout} // Logout user
+                                  onClick={logout}
                                 >
                                   <i className="bx bx-log-out fs-18 align-middle me-1"></i>
                                   Logout
@@ -163,17 +193,22 @@ const NavbarN = (id) => {
                         </ul>
                       </div>
                     </li>
-                    <li class="list-inline-item me-4">
-                      <a class="hdr-heart" href={`/u/${user?.id}/wishlist`}>
+                    <li className="list-inline-item me-4">
+                      <a className="hdr-heart" href={`/u/${user?.id}/wishlist`}>
                         <i
-                          class="fa-solid fa-heart"
+                          className="fa-solid fa-heart"
                           style={{ fontSize: "30px" }}
-                        ></i>
+                        >
+                          {wishlistItems > 0 && (
+                            <span className="wishlist-count">
+                              {wishlistItems}
+                            </span>
+                          )}
+                        </i>
                       </a>
                     </li>
-
-                    <li class="list-inline-item">
-                      <a class="hdr-shopping" href="/cart">
+                    <li className="list-inline-item">
+                      <a className="hdr-shopping" href="/cart">
                         <CartIcon cartItems={cartItems} />
                       </a>
                     </li>
@@ -183,15 +218,10 @@ const NavbarN = (id) => {
             </div>
           </div>
           <hr className="handle_hr" />
-          {/* Bottom  Navbar */}
-          <nav class="navbar navbar-expand-lg navbar-light py-1">
-            <div class="container-fluid">
-              {/* <a class="navbar-brand" href="#">
-            Navbar
-          </a> */}
-
+          <nav className="navbar navbar-expand-lg navbar-light py-1">
+            <div className="container-fluid">
               <button
-                class="navbar-toggler"
+                className="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
@@ -199,21 +229,21 @@ const NavbarN = (id) => {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <span class="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"></span>
               </button>
               <div
-                class="collapse navbar-collapse   "
+                className="collapse navbar-collapse"
                 id="navbarSupportedContent"
               >
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center w-100 ">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center w-100 ">
+                  <li className="nav-item">
+                    <a className="nav-link active" aria-current="page" href="/">
                       Home
                     </a>
                   </li>
-                  <li class="nav-item dropdown">
+                  <li className="nav-item dropdown">
                     <a
-                      class="nav-link dropdown-toggle"
+                      className="nav-link dropdown-toggle"
                       href="#"
                       id="navbarDropdown"
                       role="button"
@@ -238,146 +268,33 @@ const NavbarN = (id) => {
                       ))}
                     </ul>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/store">
+                  <li className="nav-item">
+                    <a className="nav-link" href="/store">
                       Our Store
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/aboutus">
+                  <li className="nav-item">
+                    <a className="nav-link" href="/aboutus">
                       About
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/contact">
+                  <li className="nav-item">
+                    <a className="nav-link" href="/contact">
                       Contact us
                     </a>
                   </li>
                 </ul>
-
-                <form class="d-flex d-lg-none">
+                <form className="d-flex d-lg-none">
                   <input
-                    class="form-control me-2"
+                    className="form-control me-2"
                     type="search"
                     placeholder="Search"
                     aria-label="Search"
                   />
-                  <button class="btn btn-outline-success" type="submit">
+                  <button className="btn btn-outline-success" type="submit">
                     Search
                   </button>
                 </form>
-              </div>
-              <div className=" navbar-brand cart_icon d-lg-none">
-                <ul>
-                  <li className="list-inline-item">
-                    <div className="dropdown">
-                      <a
-                        className="hdr-user dropdown-toggle"
-                        href="#"
-                        role="button"
-                        id="userDropdown"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <img
-                          className="rounded-circle"
-                          width="32"
-                          src={avatar}
-                          style={{ fontSize: "30px" }}
-                          alt="User Avatar"
-                        />
-                      </a>
-                      <ul
-                        className="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="userDropdown"
-                      >
-                        {isAuthenticated ? (
-                          <>
-                            <h6 className="dropdown-header">Welcome User!</h6>
-                            <li>
-                              <a
-                                className="dropdown-item"
-                                href={`/u/${user?.id}`}
-                              >
-                                <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
-                                Profile
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                className="dropdown-item"
-                                href={`/u/${user?.id}/orders`}
-                              >
-                                <i className="bx bx-message-dots text-muted fs-18 align-middle me-1"></i>
-                                Your Orders
-                              </a>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="/pricing">
-                                <i className="bx bx-wallet text-muted fs-18 align-middle me-1"></i>
-                                Pricing
-                              </a>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="/faqs">
-                                <i className="bx bx-help-circle text-muted fs-18 align-middle me-1"></i>
-                                Help
-                              </a>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="/settings">
-                                <i className="bx bx-lock text-muted fs-18 align-middle me-1"></i>
-                                Settings
-                              </a>
-                            </li>
-                            <div className="dropdown-divider my-1"></div>
-                            <li>
-                              <a
-                                className="dropdown-item text-danger"
-                                href="#"
-                                onClick={logout} // Logout user
-                              >
-                                <i className="bx bx-log-out fs-18 align-middle me-1"></i>
-                                Logout
-                              </a>
-                            </li>
-                          </>
-                        ) : (
-                          <>
-                            <li>
-                              <a className="dropdown-item" href="/signin">
-                                Sign In
-                              </a>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="/signup">
-                                Sign Up
-                              </a>
-                            </li>
-                          </>
-                        )}
-                      </ul>
-                    </div>
-                  </li>
-
-                  <li class="list-inline-item">
-                    <a class="hdr-heart" href={`/u/${user?.id}/wishlist`}>
-                      <i
-                        class="fa-solid fa-heart"
-                        style={{ fontSize: "30px" }}
-                      ></i>
-                    </a>
-                  </li>
-
-                  <li class="list-inline-item">
-                    <a class="hdr-shopping" href="/cart">
-                      <i
-                        class="fa-solid fa-cart-shopping"
-                        style={{ fontSize: "30px" }}
-                      ></i>
-                    </a>
-                  </li>
-                </ul>
               </div>
             </div>
           </nav>

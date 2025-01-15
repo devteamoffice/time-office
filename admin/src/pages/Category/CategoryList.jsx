@@ -3,24 +3,29 @@ import Navigation from "../../components/Common/Navigation";
 import ListTable from "../../components/Category/ListTable";
 import axios from "axios";
 import { API_URL } from "../../constants";
+import Export from "../../components/Common/Export";
 
 const CategoryList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(0); // Initialize with 0
+  const [totalItems, setTotalItems] = useState(0);
+  const [categories, setCategories] = useState([]); // Store category data
   const itemNo = 10; // Items per page
 
   useEffect(() => {
-    const fetchCategoryCount = async () => {
+    const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${API_URL}/category/list`);
+        const response = await axios.get(
+          `${API_URL}/category/list?page=${currentPage}&limit=${itemNo}`
+        );
+        setCategories(response.data.categories); // Assuming backend returns { categories: [] }
         setTotalItems(response.data.totalItems); // Assuming backend returns { totalItems: number }
       } catch (error) {
-        console.error("Error fetching category count:", error);
+        console.error("Error fetching categories:", error);
       }
     };
 
-    fetchCategoryCount();
-  }, []);
+    fetchCategories();
+  }, [currentPage]); // Refetch data when page changes
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -36,31 +41,11 @@ const CategoryList = () => {
               <a href="/category/add" className="btn btn-sm btn-primary">
                 Add Category
               </a>
-              <div className="dropdown">
-                <a
-                  href="#"
-                  className="dropdown-toggle btn btn-sm btn-outline-light"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  This Month
-                </a>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a href="#!" className="dropdown-item">
-                    Download
-                  </a>
-                  <a href="#!" className="dropdown-item">
-                    Export
-                  </a>
-                  <a href="#!" className="dropdown-item">
-                    Import
-                  </a>
-                </div>
-              </div>
+              <Export tableData={categories} fileName="categories_list" />
             </div>
             <div>
               <div className="table-responsive">
-                <ListTable />
+                <ListTable categories={categories} />
               </div>
             </div>
             <div className="card-footer border-top">

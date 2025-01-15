@@ -1,37 +1,39 @@
-import React, { useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { signupChange, subscribeChange } from "../../containers/Signup/actions";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/images/team_office_logo_13.png";
-import img from "../../assets/images/access-control-solution.jpg";
-import TermsAndConditionsModal from "../../component/Modals/Terms&Condition";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../context/Socket/AuthContext";
 import axios from "axios";
 import { API_URL } from "../../constants";
-
+import img from "../../assets/images/access-control-solution.jpg";
 const SignUp = () => {
   const { login } = useContext(AuthContext);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const signupFormData = useSelector((state) => state.signup.signupFormData);
-  const isSubmitting = useSelector((state) => state.signup.isSubmitting);
-  const formErrors = useSelector((state) => state.signup.formErrors);
-  const isSubscribed = useSelector((state) => state.signup.isSubscribed);
+  const [signupFormData, setSignupFormData] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+  });
 
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Handle form field changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    dispatch(signupChange(name, value));
+    setSignupFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleCheckboxChange = () => {
-    dispatch(subscribeChange());
+    setIsSubscribed((prevState) => !prevState);
   };
 
   const handleSubmit = async (e) => {
@@ -48,7 +50,7 @@ const SignUp = () => {
     try {
       const response = await axios.post(`${API_URL}/auth/register`, {
         name: signupFormData.name,
-        username: signupFormData.username, // Include username in request
+        username: signupFormData.username,
         email: signupFormData.email,
         password: signupFormData.password,
         isSubscribed,
@@ -78,11 +80,9 @@ const SignUp = () => {
               <div className="col-lg-6 py-lg-5">
                 <div className="d-flex flex-column h-100 justify-content-center">
                   <h2 className="fw-bold fs-24">Sign Up</h2>
-
                   <p className="text-muted mt-1 mb-4">
                     New to our platform? Sign up now! It only takes a minute.
                   </p>
-
                   <div className="mb-5">
                     <form
                       className="authentication-form"
@@ -100,14 +100,13 @@ const SignUp = () => {
                               name="name"
                               className="form-control"
                               placeholder="Enter your name"
-                              value={signupFormData.name || ""}
+                              value={signupFormData.name}
                               onChange={handleInputChange}
                             />
                             {formErrors.name && (
                               <p className="text-danger">{formErrors.name}</p>
                             )}
                           </div>
-
                           <div className="col-md-6">
                             <label className="form-label" htmlFor="username">
                               Username
@@ -118,7 +117,7 @@ const SignUp = () => {
                               name="username"
                               className="form-control"
                               placeholder="Choose a username"
-                              value={signupFormData.username || ""}
+                              value={signupFormData.username}
                               onChange={handleInputChange}
                             />
                             {formErrors.username && (
@@ -140,7 +139,7 @@ const SignUp = () => {
                           name="email"
                           className="form-control"
                           placeholder="Enter your email"
-                          value={signupFormData.email || ""}
+                          value={signupFormData.email}
                           onChange={handleInputChange}
                         />
                         {formErrors.email && (
@@ -159,7 +158,7 @@ const SignUp = () => {
                             name="password"
                             className="form-control"
                             placeholder="Enter your password"
-                            value={signupFormData.password || ""}
+                            value={signupFormData.password}
                             onChange={handleInputChange}
                           />
                           <button

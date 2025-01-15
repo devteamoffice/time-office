@@ -25,8 +25,8 @@ const Home = () => {
 
       {/* <OurClinets /> */}
       <OurClientScroll />
-      <Insights />
-      <Recent />
+      {/* <Insights />
+      <Recent /> */}
     </>
   );
 };

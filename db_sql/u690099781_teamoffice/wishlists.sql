@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `wishlists` (
 
 -- Dumping data for table u690099781_teamoffice.wishlists: ~2 rows (approximately)
 INSERT INTO `wishlists` (`id`, `userId`, `productIds`, `isLiked`, `updated`, `created`) VALUES
-	('5e7e4e5a-cc0d-11ef-bf55-f4393e8d0a8a', 'bb1d36af-95ea-11ef-814d-8c067b553b28', '["e2dfeeeb-910b-11ef-a964-d99045a67454"]', 1, '2025-01-06 09:05:26', '2025-01-06 09:05:26'),
+	('5e7e4e5a-cc0d-11ef-bf55-f4393e8d0a8a', 'bb1d36af-95ea-11ef-814d-8c067b553b28', '["e2dfeeeb-910b-11ef-a964-d99045a67454","e2dffc46-910b-11ef-a964-d99045a67454","e2dff09f-910b-11ef-a964-d99045a67454"]', 1, '2025-01-15 08:40:29', '2025-01-06 09:05:26'),
 	('f77f896d-0cbe-437c-af16-00b9acb685f1', 'bb1d45f4-95ea-11ef-814d-8c067b553b28', '["e2dfeeeb-910b-11ef-a964-d99045a67454","e2dff34a-910b-11ef-a964-d99045a67454"]', 1, '2025-01-06 09:58:58', '2025-01-06 09:38:26');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;

@@ -3,10 +3,21 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../constants";
 import avatar from "../../assets/images/users/avatar-1.jpg";
+
+// Import icons from react-icons
+import {
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaUsers,
+} from "react-icons/fa";
+import { BsFillCalendarCheckFill, BsFillPersonFill } from "react-icons/bs";
+
 const ProfileWrapper = () => {
   const { id } = useParams(); // Get the 'id' from the URL parameters
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [address, setAddress] = useState(null); // Assuming you fetch address too
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -19,6 +30,7 @@ const ProfileWrapper = () => {
             },
           });
           setUserProfile(response.data.user);
+          setAddress(response.data.user.address); // Assuming address is part of the user profile response
         } catch (error) {
           console.error("Error fetching user profile:", error.message);
         } finally {
@@ -49,7 +61,7 @@ const ProfileWrapper = () => {
             <div className="bg-primary profile-bg rounded-top position-relative mx-n3 mt-n3">
               <img
                 src={userProfile.avatar || avatar}
-                alt=""
+                alt="Avatar"
                 className="avatar-xl border border-light border-3 rounded-circle position-absolute top-100 start-0 translate-middle ms-5"
               />
             </div>
@@ -77,10 +89,7 @@ const ProfileWrapper = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    <iconify-icon
-                      icon="solar:menu-dots-bold"
-                      className="fs-20 align-middle text-muted"
-                    ></iconify-icon>
+                    <i className="fs-20 align-middle text-muted">...</i>
                   </a>
                   <div className="dropdown-menu dropdown-menu-end">
                     <a href="#!" className="dropdown-item">
@@ -99,10 +108,7 @@ const ProfileWrapper = () => {
             <div className="row mt-3 gy-2">
               <div className="col-lg-2 col-6">
                 <div className="d-flex align-items-center gap-2 border-end">
-                  <iconify-icon
-                    icon="solar:clock-circle-bold-duotone"
-                    className="fs-28 text-primary"
-                  ></iconify-icon>
+                  <BsFillCalendarCheckFill className="fs-28 text-primary" />
                   <div>
                     <h5 className="mb-1">
                       {userProfile.experience || "3+ Years"}
@@ -124,10 +130,17 @@ const ProfileWrapper = () => {
           <div className="card-body">
             <div>
               <div className="d-flex align-items-center gap-2 mb-2">
-                <iconify-icon
-                  icon="solar:letter-bold-duotone"
-                  className="fs-20 text-secondary"
-                ></iconify-icon>
+                <FaPhoneAlt className="fs-20 text-secondary" />
+                <p className="mb-0 fs-14">
+                  Phone No.{" "}
+                  <span className="text-dark fw-semibold">
+                    {userProfile.phoneNumber}
+                  </span>
+                </p>
+              </div>
+
+              <div className="d-flex align-items-center gap-2 mb-2">
+                <FaEnvelope className="fs-20 text-secondary" />
                 <p className="mb-0 fs-14">
                   Email{" "}
                   <a
@@ -138,7 +151,26 @@ const ProfileWrapper = () => {
                   </a>
                 </p>
               </div>
-              {/* Add more personal info sections as needed */}
+
+              <div className="d-flex align-items-center gap-2 mb-2">
+                <FaUsers className="fs-20 text-secondary" />
+                <p className="mb-0 fs-14">
+                  Role{" "}
+                  <span className="text-dark fw-semibold">
+                    {userProfile.role}
+                  </span>
+                </p>
+              </div>
+
+              <div className="d-flex align-items-center gap-2">
+                <i className="fs-20 text-secondary">✓</i>
+                <p className="mb-0 fs-14">
+                  Status{" "}
+                  <span className="badge bg-success-subtle text-success ms-1">
+                    Active
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

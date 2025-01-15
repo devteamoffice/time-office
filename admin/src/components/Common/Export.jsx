@@ -1,7 +1,8 @@
 import React from "react";
 import * as XLSX from "xlsx";
-const Export = () => {
-  const handleExport = ({ tableData, fileName = "table_data" }) => {
+
+const Export = ({ tableData, fileName = "table_data" }) => {
+  const handleExport = () => {
     if (!tableData || tableData.length === 0) {
       alert("No data available to export.");
       return;
@@ -17,18 +18,23 @@ const Export = () => {
     // Generate an Excel file and trigger download
     XLSX.writeFile(workbook, `${fileName}.xlsx`);
   };
+
   return (
-    <div class="dropdown">
+    <div className="dropdown">
       <a
         href="#"
-        class="dropdown-toggle btn btn-sm btn-outline-light rounded"
+        className="dropdown-toggle btn btn-sm btn-outline-light rounded"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
         Export
       </a>
-      <div class="dropdown-menu dropdown-menu-end">
-        <a href="#!" class="dropdown-item">
+      <div className="dropdown-menu dropdown-menu-end">
+        <a
+          href="#!"
+          className="dropdown-item"
+          onClick={handleExport} // Call the export function on click
+        >
           Export to Excel
         </a>
       </div>

@@ -10,6 +10,7 @@ const ProductAdd = () => {
   const [formData, setFormData] = useState({
     name: "",
     category: "",
+    subcategory: "",
     sku: "",
     slug: "",
     isActive: "",
@@ -18,6 +19,8 @@ const ProductAdd = () => {
     discount: "",
     tax: "",
   });
+  const [subcategories, setSubcategories] = useState([]);
+
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
   const [error, setError] = useState(null);
@@ -60,6 +63,24 @@ const ProductAdd = () => {
         });
     }
   }, [productId]);
+  useEffect(() => {
+    if (formData.category) {
+      axios
+        .get(`${API_URL}/subcategory?categoryId=${formData.category.id}`) // Pass category ID as a query parameter
+        .then((response) => {
+          setSubcategories(response.data.subcategories || []);
+        })
+        .catch((err) => {
+          console.error("Error fetching subcategories:", err);
+          setSubcategories([]); // Clear subcategories if there's an error
+        });
+    } else {
+      setSubcategories([]); // Clear subcategories if no category is selected
+    }
+
+    // Reset subcategory field if the category changes
+    setFormData((prevData) => ({ ...prevData, subcategory: "" }));
+  }, [formData.category]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -227,10 +248,30 @@ const ProductAdd = () => {
                       </option>
                     ))}
                   </select>
-                </div>
+                </div>{" "}
               </div>
 
               <div className="row">
+                <div className="col-lg-4">
+                  <label htmlFor="subcategory" className="form-label">
+                    Subcategory
+                  </label>
+                  <select
+                    id="subcategory"
+                    className="form-control"
+                    value={formData.subcategory}
+                    onChange={handleChange}
+                    disabled={!formData.category} // Disable if no category is selected
+                  >
+                    <option value="">Choose a subcategory</option>
+                    {subcategories.map((subcategory) => (
+                      <option key={subcategory.id} value={subcategory.id}>
+                        {subcategory.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
                 <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="sku" className="form-label">
