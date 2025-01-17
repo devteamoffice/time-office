@@ -260,7 +260,7 @@ const NavbarN = () => {
                         <li key={category.id}>
                           <a
                             className="dropdown-item"
-                            href={`/store?cat=${category.slug}`}
+                            href={`/store?cate=${category.slug}`}
                           >
                             {category.name}
                           </a>

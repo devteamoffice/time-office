@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import navRoutes from "../../assets/data/navRoutes";
 import { MdDoubleArrow } from "react-icons/md";
-import logo from "../../assets/images/Logo.png";
-
+import logo from "../../assets/images/logo/multi_color.png";
 
 const MainNav = ({ userId }) => {
   return (

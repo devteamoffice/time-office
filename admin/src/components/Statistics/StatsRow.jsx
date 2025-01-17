@@ -11,7 +11,7 @@ const StatsRow = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const productResponse = await axios.get(`${API_URL}/product`);
+        const productResponse = await axios.get(`${API_URL}/product/count`);
         const orderResponse = await axios.get(`${API_URL}/orders/count`);
         const returnResponse = await axios.get(
           `${API_URL}/orders/status/return`
@@ -20,13 +20,15 @@ const StatsRow = () => {
           `${API_URL}/orders/status/cancel`
         );
 
-        console.log("StatsRow Component Mounted");
-        console.log("Product API Response:", productResponse.data);
-        console.log("Order API Response:", orderResponse.data);
-        console.log("Return API Response:", returnResponse.data);
-        console.log("Cancellation API Response:", cancellationResponse.data);
+        console.log("Product Count API Response:", productResponse.data.count);
+        console.log("Order Count API Response:", orderResponse.data);
+        console.log("Return Status API Response:", returnResponse.data);
+        console.log(
+          "Cancellation Status API Response:",
+          cancellationResponse.data
+        );
 
-        setProducts(productResponse.data.length || 0);
+        setProducts(productResponse.data.count || 0);
         setOrders(orderResponse.data.totalOrders || 0);
         setReturns(returnResponse.data.totalReturns || 0);
         setCancellations(cancellationResponse.data.totalCancellations || 0);
@@ -36,12 +38,7 @@ const StatsRow = () => {
     };
 
     fetchStats();
-  }, []); // Make sure the array is empty for a single execution
-
-  console.log("Products:", products);
-  console.log("Orders:", orders);
-  console.log("Returns:", returns);
-  console.log("Cancellations:", cancellations);
+  }, []);
 
   return (
     <div className="row">

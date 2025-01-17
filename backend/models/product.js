@@ -3,7 +3,7 @@ const sequelize = require("../config/database");
 const slugify = require("slugify");
 const { v4: uuidv4 } = require("uuid");
 const crypto = require("crypto");
-
+const CartItem = require("./cartitem");
 const Product = sequelize.define(
   "Product",
   {
@@ -80,5 +80,10 @@ const Product = sequelize.define(
     timestamps: false,
   }
 );
+// In Product model
+Product.hasMany(CartItem, {
+  foreignKey: "productId", // foreign key in CartItem pointing to Product
+  as: "cart_items", // Alias for accessing CartItems from Product
+});
 
 module.exports = Product;

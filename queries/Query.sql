@@ -1,0 +1,11 @@
+ALTER TABLE `cart_items`
+ADD CONSTRAINT `fk_cart_id`
+FOREIGN KEY (`cartId`) REFERENCES `carts` (`id`)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE `cart_items`
+ADD CONSTRAINT `fk_product_id`
+FOREIGN KEY (`productId`) REFERENCES `products` (`id`)
+ON DELETE CASCADE
+ON UPDATE CASCADE;

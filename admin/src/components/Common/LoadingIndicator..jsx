@@ -1,21 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
+import "./loading.css"; // Optional: Add custom styling if needed.
 
-const LoadingIndicator = (props) => {
-  const { inline, backdrop } = props;
+const LoadingIndicator = ({ inline, backdrop }) => {
+  if (inline) {
+    return (
+      <div className="d-flex justify-content-center align-items-center my-2">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
-  return (
-    <div
-      className={`spinner-container${
-        inline ? " position-relative" : " position-fixed overlay"
-      } ${backdrop ? "backdrop" : ""}`}
-    >
-      <div
-        className={`spinner${
-          inline ? " position-relative" : " position-fixed overlay"
-        }`}
-      ></div>
-    </div>
-  );
+  if (backdrop) {
+    return (
+      <div className="loading-backdrop">
+        <div className="spinner-border text-light" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+};
+
+LoadingIndicator.propTypes = {
+  inline: PropTypes.bool,
+  backdrop: PropTypes.bool,
 };
 
 LoadingIndicator.defaultProps = {

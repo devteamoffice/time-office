@@ -110,14 +110,19 @@ const ProductDetails = () => {
               <div className="col-lg-6">
                 <div className="card">
                   <div className="card-header">
-                    <h4 className="card-title"> Product Description</h4>
+                    <h4 className="card-title">Product Description</h4>
                   </div>
                   <div className="card-body">
                     <ul className="d-flex flex-column gap-2 list-unstyled fs-14 text-muted mb-0">
                       <li>
-                        <span className="fw-medium text-dark">
-                          {product?.description || "No description available."}
-                        </span>
+                        <span
+                          className="fw-medium text-dark"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              product?.description ||
+                              "No description available.",
+                          }}
+                        ></span>
                       </li>
                     </ul>
                     <div className="mt-3">

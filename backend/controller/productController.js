@@ -451,7 +451,7 @@ exports.updateProduct = async (req, res) => {
       return res.status(400).json({ error: "Product ID is required." });
     }
 
-    const { categoryId, subcategoryId, slug, images, ...otherFields } =
+    const { categoryId, subcategoryId, slug, images, brand, ...otherFields } =
       req.body;
 
     // If slug is provided, overwrite it
@@ -480,8 +480,8 @@ exports.updateProduct = async (req, res) => {
       ...otherFields,
       categoryId,
       subcategoryId,
-      // Ensure images are stored as a valid JSON array (not as string)
-      images: images ? JSON.stringify(images) : null, // Ensure valid JSON string, allow NULL for images
+      brand: brand || null, // Allow brand to be nullable
+      images: images ? JSON.stringify(images) : null, // Allow images to be nullable and store as JSON
     };
 
     // Remove undefined fields to avoid overwriting with null

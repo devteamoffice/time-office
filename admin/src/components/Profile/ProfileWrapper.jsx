@@ -5,13 +5,7 @@ import { API_URL } from "../../constants";
 import avatar from "../../assets/images/users/avatar-1.jpg";
 
 // Import icons from react-icons
-import {
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaEnvelope,
-  FaUsers,
-} from "react-icons/fa";
-import { BsFillCalendarCheckFill, BsFillPersonFill } from "react-icons/bs";
+import { FaPhoneAlt, FaEnvelope, FaUsers, FaEdit } from "react-icons/fa";
 
 const ProfileWrapper = () => {
   const { id } = useParams(); // Get the 'id' from the URL parameters
@@ -76,48 +70,10 @@ const ProfileWrapper = () => {
                 </p>
               </div>
               <div className="d-flex align-items-center gap-2 my-2 my-lg-0">
-                <a href="#!" className="btn btn-info">
-                  <i className="bx bx-message-dots"></i> Message
+                <a href="/settings" className="btn btn-info">
+                  <FaEdit /> Edit Profile
                 </a>
-                <a href="#!" className="btn btn-outline-primary">
-                  <i className="bx bx-plus"></i> Follow
-                </a>
-                <div className="dropdown">
-                  <a
-                    href="#"
-                    className="dropdown-toggle arrow-none card-drop"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i className="fs-20 align-middle text-muted">...</i>
-                  </a>
-                  <div className="dropdown-menu dropdown-menu-end">
-                    <a href="#!" className="dropdown-item">
-                      Download
-                    </a>
-                    <a href="#!" className="dropdown-item">
-                      Export
-                    </a>
-                    <a href="#!" className="dropdown-item">
-                      Import
-                    </a>
-                  </div>
-                </div>
               </div>
-            </div>
-            <div className="row mt-3 gy-2">
-              <div className="col-lg-2 col-6">
-                <div className="d-flex align-items-center gap-2 border-end">
-                  <BsFillCalendarCheckFill className="fs-28 text-primary" />
-                  <div>
-                    <h5 className="mb-1">
-                      {userProfile.experience || "3+ Years"}
-                    </h5>
-                    <p className="mb-0">Experience</p>
-                  </div>
-                </div>
-              </div>
-              {/* Add other sections as needed */}
             </div>
           </div>
         </div>

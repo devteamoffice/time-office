@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-const Product = require("./product"); // Assuming you have a Product model
+const Product = require("./product"); // Import Product mode
 
 const CartItem = sequelize.define(
   "CartItem",
@@ -22,7 +22,7 @@ const CartItem = sequelize.define(
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: "Products", // Refers to the Product model
+        model: "Product", // Refers to the Product model
         key: "id",
       },
     },
@@ -70,9 +70,5 @@ const CartItem = sequelize.define(
 );
 
 // Define associations
-CartItem.belongsTo(Product, {
-  foreignKey: "productId", // Assumes a CartItem has a `productId` column
-  as: "product", // Alias for the association when eager loading
-});
 
 module.exports = CartItem;

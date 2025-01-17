@@ -10,6 +10,8 @@ import CouponsAdd from "../pages/Coupons/CouponsAdd";
 import CustomerDetails from "../pages/Customers/CustomerDetails";
 import Customers from "../pages/Customers/Customers";
 import Dashboard from "../pages/Dashboard";
+import Error404 from "../pages/Errors/Error404";
+import Maintainance from "../pages/Maintainance";
 import OrderInvoice from "../pages/Order/OrderInvoice";
 import OrderList from "../pages/Order/OrderList";
 import OrderReturns from "../pages/Order/OrderReturns";
@@ -22,6 +24,7 @@ import ReviewAdd from "../pages/Reviews/ReviewAdd";
 import ReviewList from "../pages/Reviews/ReviewList";
 import Roles from "../pages/Roles/Roles";
 import RolesAdd from "../pages/Roles/RolesAdd";
+import AccountSettings from "../pages/Settings/Settings";
 import SubCategoryAdd from "../pages/SubCategory/SubCategoryAdd";
 import SubCategoryEdit from "../pages/SubCategory/SubCategoryEdit";
 import SubCategoryList from "../pages/SubCategory/SubCategoryList";
@@ -64,4 +67,11 @@ export const publicRoutes = [
   { path: "/u/:id", element: Profile, name: "User Profile" },
   { path: "/reviews/list", element: ReviewList, name: "Reviews" },
   { path: "/reviews/add", element: ReviewAdd, name: "Add Reviews" },
+  { path: "/settings", element: AccountSettings, name: "Account Settings" },
+  {
+    path: "/service-maintainance",
+    element: Maintainance,
+    name: "Maintainance",
+  },
+  { path: "/*", element: Error404, name: "404" },
 ];

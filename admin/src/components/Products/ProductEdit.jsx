@@ -79,7 +79,7 @@ function ProductEdit() {
         },
       });
       toast.success("Product updated successfully!");
-      navigate("/product");
+      navigate("/product/list");
     } catch (err) {
       console.error("Failed to update product:", err);
       toast.error("An error occurred while updating the product.");
@@ -255,6 +255,7 @@ function ProductEdit() {
                     rows="7"
                     placeholder="Enter the Item Details"
                     value={description}
+                    dangerouslySetInnerHTML={{ __html: description }}
                     onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>

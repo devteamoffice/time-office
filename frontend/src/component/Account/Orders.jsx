@@ -1,76 +1,42 @@
-import React from "react";
-import AccountNav from "./AccountNav";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import OrderItem from "./OrderItem";
+import { API_URL } from "../../constants";
 
 const Orders = () => {
+  const [orders, setOrders] = useState([]);
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/order/me`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+        const data = response.data;
+        if (Array.isArray(data)) {
+          setOrders(data);
+        } else {
+          console.error("API response is not an array:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
   return (
-    <section class="flat-spacing-11">
-      <div class="container">
-        <div class="row">
-          <AccountNav />
-          <div class="col-lg-9">
-            <div class="my-account-content account-order">
-              <div class="wrap-account-order">
-                <table>
-                  <thead>
-                    <tr>
-                      <th class="fw-6">Order</th>
-                      <th class="fw-6">Date</th>
-                      <th class="fw-6">Status</th>
-                      <th class="fw-6">Total</th>
-                      <th class="fw-6">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="tf-order-item">
-                      <td>#123</td>
-                      <td>August 1, 2024</td>
-                      <td>On hold</td>
-                      <td>$200.0 for 1 items</td>
-                      <td>
-                        <a
-                          href="my-account-orders-details.html"
-                          class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center"
-                        >
-                          <span>View</span>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="tf-order-item">
-                      <td>#345</td>
-                      <td>August 2, 2024</td>
-                      <td>On hold</td>
-                      <td>$300.0 for 1 items</td>
-                      <td>
-                        <a
-                          href="my-account-orders-details.html"
-                          class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center"
-                        >
-                          <span>View</span>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="tf-order-item">
-                      <td>#567</td>
-                      <td>August 3, 2024</td>
-                      <td>On hold</td>
-                      <td>$400.0 for 1 items</td>
-                      <td>
-                        <a
-                          href="my-account-orders-details.html"
-                          class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center"
-                        >
-                          <span>View</span>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className="container-xxl">
+      <div className="row">
+        {orders.map((order) => (
+          <OrderItem key={order.id} order={order} />
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 

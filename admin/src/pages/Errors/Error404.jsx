@@ -1,9 +1,8 @@
 import React from "react";
-import logo_dark from "../assets/images/logo/transparent_white.png";
-import logo_light from "../assets/images/logo/transparent_white.png";
-import maintain from "../assets/images/maintenance-2.png";
-import img from "../assets/images/small/img-10.jpg";
-const Maintainance = () => {
+import logo from "../../assets/images/logo/color.png";
+import error from "../../assets/images/404-error.png";
+import img from "../../assets/images/img-10.jpg";
+const Error404 = () => {
   return (
     <div class="d-flex flex-column h-100 p-3">
       <div class="d-flex flex-column flex-grow-1">
@@ -13,29 +12,19 @@ const Maintainance = () => {
               <div class="col-lg-10">
                 <div class="auth-logo mb-3 text-center">
                   <a href="/" class="logo-dark">
-                    <img src={logo_dark} height="24" alt="logo dark" />
-                  </a>
-
-                  <a href="/" class="logo-light">
-                    <img src={logo_light} height="24" alt="logo light" />
+                    <img src={logo} height="24" alt="logo dark" />
                   </a>
                 </div>
                 <div class="mx-auto text-center">
-                  <img
-                    src={maintain}
-                    alt=""
-                    class="img-fluid my-3"
-                    height="700"
-                    width="700"
-                  />
+                  <img src={error} alt="" class="img-fluid my-3" />
                 </div>
                 <h2 class="fw-bold text-center lh-base">
-                  We are currently performing maintenance
+                  Ooops! The Page You're Looking For Was Not Found
                 </h2>
                 <p class="text-muted text-center mt-1 mb-4">
-                  We're making the system more awesome. We'll be back shortly.
+                  Sorry, we couldn't find the page you were looking for. We
+                  suggest that you return to main sections
                 </p>
-
                 <div class="text-center">
                   <a href="/" class="btn btn-primary">
                     Back To Home
@@ -58,4 +47,4 @@ const Maintainance = () => {
   );
 };
 
-export default Maintainance;
+export default Error404;

@@ -31,12 +31,6 @@ const Cart = sequelize.define(
   }
 );
 
-// Define associations
-Cart.hasMany(CartItem, {
-  foreignKey: "cartId",
-  as: "cart_items", // Use consistent aliasing
-});
-
 CartItem.belongsTo(Cart, {
   foreignKey: "cartId",
   as: "cart", // Use consistent aliasing
@@ -50,6 +44,11 @@ User.hasMany(Cart, {
 Cart.belongsTo(User, {
   foreignKey: "userId",
   as: "user",
+});
+// In Cart model
+Cart.hasMany(CartItem, {
+  foreignKey: "cartId",
+  as: "cart_items", // Alias for accessing CartItems from Cart
 });
 
 module.exports = Cart;

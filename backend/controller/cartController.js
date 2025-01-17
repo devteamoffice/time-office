@@ -23,8 +23,20 @@ exports.addOrder = async (req, res) => {
     // Get the cart associated with the logged-in user
     const cart = await Cart.findOne({
       where: { id: cartId, userId },
-      include: [{ model: Product, through: { attributes: ["quantity"] } }],
-      transaction: t, // Use the transaction here
+      include: [
+        {
+          model: CartItem,
+          as: "cart_items", // Alias for CartItems defined in Cart model
+          include: [
+            {
+              model: Product,
+              as: "product", // Alias for Product defined in CartItem model
+              through: { attributes: ["quantity"] },
+            },
+          ],
+        },
+      ],
+      transaction: t,
     });
 
     if (!cart) {
@@ -289,6 +301,8 @@ exports.getCartItems = async (req, res) => {
         },
       ],
     });
+
+    console.log(cart); // Add logging here
 
     if (!cart) {
       return res.status(404).json({ error: "Cart not found" });
