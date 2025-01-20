@@ -1,74 +1,53 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-const Product = require("./product"); // Import Product mode
+const sequelize = require("../config/database"); // Assuming you have a database configuration file
+const { CART_ITEM_STATUS } = require("../constants");
 
 const CartItem = sequelize.define(
   "CartItem",
   {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-    },
-    cartId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: "Carts", // Refers to the Cart model
-        key: "id",
-      },
-    },
     productId: {
-      type: DataTypes.UUID,
-      allowNull: false,
+      type: DataTypes.INTEGER, // Assuming Product ID is an integer
       references: {
-        model: "Product", // Refers to the Product model
+        model: "Products", // Name of the Product table
         key: "id",
       },
+      allowNull: false,
     },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 1,
     },
     purchasePrice: {
       type: DataTypes.FLOAT,
-      allowNull: true,
       defaultValue: 0,
     },
     totalPrice: {
       type: DataTypes.FLOAT,
-      allowNull: true,
       defaultValue: 0,
     },
     priceWithTax: {
       type: DataTypes.FLOAT,
-      allowNull: true,
       defaultValue: 0,
     },
     totalTax: {
       type: DataTypes.FLOAT,
-      allowNull: true,
       defaultValue: 0,
     },
     status: {
       type: DataTypes.ENUM(
-        "NOT_PROCESSED",
-        "PROCESSING",
-        "SHIPPED",
-        "DELIVERED",
-        "CANCELLED"
+        CART_ITEM_STATUS.Not_processed,
+        CART_ITEM_STATUS.Processing,
+        CART_ITEM_STATUS.Shipped,
+        CART_ITEM_STATUS.Delivered,
+        CART_ITEM_STATUS.Cancelled
       ),
-      allowNull: true,
-      defaultValue: "NOT_PROCESSED",
+      defaultValue: CART_ITEM_STATUS.Not_processed,
     },
   },
   {
-    tableName: "cart_items", // Matches the table name
-    timestamps: false, // Automatically manages `createdAt` and `updatedAt`
+    tableName: "cart_items",
+    timestamps: false, // Disable automatic timestamp fields (createdAt, updatedAt)
   }
 );
-
-// Define associations
 
 module.exports = CartItem;

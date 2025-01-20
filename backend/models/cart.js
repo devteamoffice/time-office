@@ -1,54 +1,31 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-const CartItem = require("./cartitem");
-const User = require("./user");
+const sequelize = require("../config/database"); // Assuming you have a database configuration file
+const CartItem = require("./cartitem"); // Correct import
 
 const Cart = sequelize.define(
   "Cart",
   {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-    },
     userId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       references: {
-        model: User,
+        model: "Users",
         key: "id",
       },
-      allowNull: true,
-    },
-    total: {
-      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
-      defaultValue: 0.0,
     },
   },
   {
     tableName: "carts",
-    timestamps: true, // Enable timestamps so Sequelize can automatically manage `createdAt` and `updatedAt` columns.
+    timestamps: true,
   }
 );
 
-CartItem.belongsTo(Cart, {
-  foreignKey: "cartId",
-  as: "cart", // Use consistent aliasing
-});
-
-User.hasMany(Cart, {
-  foreignKey: "userId",
-  as: "carts",
-});
-
-Cart.belongsTo(User, {
-  foreignKey: "userId",
-  as: "user",
-});
-// In Cart model
+// Associate Cart with CartItems
 Cart.hasMany(CartItem, {
-  foreignKey: "cartId",
-  as: "cart_items", // Alias for accessing CartItems from Cart
+  foreignKey: "cartId", // Foreign key in CartItem that refers to Cart
+  as: "items", // Alias for accessing CartItems from Cart
 });
+
+CartItem.belongsTo(Cart, { foreignKey: "cartId" });
 
 module.exports = Cart;

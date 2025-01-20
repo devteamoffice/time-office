@@ -1,9 +1,9 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-const slugify = require("slugify");
-const { v4: uuidv4 } = require("uuid");
 const crypto = require("crypto");
-const CartItem = require("./cartitem");
+const { v4: uuidv4 } = require("uuid");
+const CartItem = require("./cartitem"); // Correct import
+
 const Product = sequelize.define(
   "Product",
   {
@@ -26,7 +26,7 @@ const Product = sequelize.define(
       allowNull: true,
     },
     slug: {
-      type: DataTypes.STRING(200), // Set to 120 based on the schema change
+      type: DataTypes.STRING(200),
       allowNull: true,
       unique: true,
     },
@@ -80,10 +80,15 @@ const Product = sequelize.define(
     timestamps: false,
   }
 );
-// In Product model
+
+// Associate Product with CartItems
 Product.hasMany(CartItem, {
-  foreignKey: "productId", // foreign key in CartItem pointing to Product
-  as: "cart_items", // Alias for accessing CartItems from Product
+  foreignKey: "productId", // Foreign key in CartItem that refers to Product
+  as: "items", // Alias for accessing CartItems from Product
+});
+CartItem.belongsTo(Product, {
+  foreignKey: "productId",
+  as: "products",
 });
 
 module.exports = Product;

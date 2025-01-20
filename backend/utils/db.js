@@ -1,7 +1,5 @@
-const Permission = require("../models/permission");
 require("dotenv").config();
-const sequelize = require("../config/database");
-const Role = require("../models/roles");
+const sequelize = require("../config/database"); // Assuming you've created the Sequelize instance in config/database.js
 const User = require("../models/user");
 const Address = require("../models/address");
 const Merchant = require("../models/merchant");
@@ -11,28 +9,27 @@ const CartItem = require("../models/cartitem");
 const Order = require("../models/order");
 const Review = require("../models/review");
 const Wishlist = require("../models/wishlist");
-const { Category } = require("../models/category");
-const Subcategory = require("../models/subCategory");
 
 const setupDB = async () => {
   try {
-    // Test MySQL connection using Sequelize
     await sequelize.authenticate();
     console.log("\x1b[32m%s\x1b[0m", "✓ MySQL Connected!");
 
-    // Define associations between models
+    // Set up associations
     User.hasMany(Address, { foreignKey: "userId", as: "addresses" });
     Address.belongsTo(User, { foreignKey: "userId", as: "user" });
 
-    Role.hasMany(User, { foreignKey: "roleId", as: "users" });
-    User.belongsTo(Role, { foreignKey: "roleId", as: "role" });
+    Merchant.hasMany(Product, { foreignKey: "merchantId", as: "products" });
+    Product.belongsTo(Merchant, { foreignKey: "merchantId", as: "merchant" });
 
     User.hasMany(Cart, { foreignKey: "userId", as: "carts" });
     Cart.belongsTo(User, { foreignKey: "userId", as: "user" });
 
     Cart.hasMany(CartItem, { foreignKey: "cartId", as: "items" });
     CartItem.belongsTo(Cart, { foreignKey: "cartId", as: "cart" });
+
     CartItem.belongsTo(Product, { foreignKey: "productId", as: "product" });
+    Product.hasMany(CartItem, { foreignKey: "productId", as: "cartItems" });
 
     User.hasMany(Order, { foreignKey: "userId", as: "orders" });
     Order.belongsTo(User, { foreignKey: "userId", as: "user" });
@@ -40,36 +37,14 @@ const setupDB = async () => {
 
     Product.hasMany(Review, { foreignKey: "productId", as: "reviews" });
     Review.belongsTo(Product, { foreignKey: "productId", as: "product" });
-    User.hasMany(Review, { foreignKey: "userId", as: "userReviews" });
+    User.hasMany(Review, { foreignKey: "userId", as: "reviews" });
     Review.belongsTo(User, { foreignKey: "userId", as: "user" });
 
     User.hasMany(Wishlist, { foreignKey: "userId", as: "wishlists" });
     Wishlist.belongsTo(User, { foreignKey: "userId", as: "user" });
     Wishlist.belongsTo(Product, { foreignKey: "productId", as: "product" });
 
-    Category.hasMany(Subcategory, {
-      foreignKey: "categoryId",
-      as: "subcategories",
-    });
-    Subcategory.belongsTo(Category, {
-      foreignKey: "categoryId",
-      as: "category",
-    });
-
-    Category.hasMany(Product, {
-      foreignKey: "categoryId",
-      as: "categoryProducts",
-    });
-    Product.belongsTo(Category, {
-      foreignKey: "categoryId",
-      as: "productCategory",
-    });
-
-    Subcategory.hasMany(Product, { foreignKey: "subcategoryId" });
-    Product.belongsTo(Subcategory, { foreignKey: "subcategoryId" });
-
-    // Sync models with the database
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ alter: true });
     console.log("\x1b[32m%s\x1b[0m", "✓ Database tables synced!");
   } catch (error) {
     console.log(
@@ -77,7 +52,6 @@ const setupDB = async () => {
       "✗ Unable to connect to the database:",
       error
     );
-    return null;
   }
 };
 

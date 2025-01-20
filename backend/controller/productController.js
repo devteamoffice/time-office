@@ -446,28 +446,24 @@ exports.updateProduct = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    // Validate that the product ID is provided
     if (!productId) {
       return res.status(400).json({ error: "Product ID is required." });
     }
 
-    const { categoryId, subcategoryId, slug, images, brand, ...otherFields } =
-      req.body;
+    const { categoryId, subcategoryId, slug, brand, ...otherFields } = req.body;
+    const files = req.files;
 
-    // If slug is provided, overwrite it
     if (slug) {
       otherFields.slug = slug;
     }
 
-    // Check for duplicate SKU or slug in other products
     if (otherFields.sku || otherFields.slug) {
       const duplicateProduct = await Product.findOne({
         where: {
           [Op.or]: [{ sku: otherFields.sku }, { slug: otherFields.slug }],
-          id: { [Op.ne]: productId }, // Exclude current product
+          id: { [Op.ne]: productId },
         },
       });
-
       if (duplicateProduct) {
         return res.status(400).json({
           error: "SKU or slug is already in use by another product.",
@@ -475,42 +471,47 @@ exports.updateProduct = async (req, res) => {
       }
     }
 
-    // Prepare the updated fields
+    let uploadedImageUrls = [];
+    if (files && files.length > 0) {
+      const sku = otherFields.sku || (await Product.findByPk(productId)).sku;
+      uploadedImageUrls = await uploadImagesToFirebase(sku, files);
+    }
+
     const updateData = {
       ...otherFields,
       categoryId,
       subcategoryId,
-      brand: brand || null, // Allow brand to be nullable
-      images: images ? JSON.stringify(images) : null, // Allow images to be nullable and store as JSON
+      brand: brand || null,
     };
 
-    // Remove undefined fields to avoid overwriting with null
-    Object.keys(updateData).forEach((key) => {
-      if (updateData[key] === undefined) delete updateData[key];
-    });
-
-    // Fetch the product to ensure it exists
     const product = await Product.findByPk(productId);
-
     if (!product) {
       return res.status(404).json({ error: "Product not found." });
     }
 
-    // Update the product
+    if (uploadedImageUrls.length > 0) {
+      const existingImages = product.images ? JSON.parse(product.images) : [];
+      updateData.images = JSON.stringify([
+        ...existingImages,
+        ...uploadedImageUrls,
+      ]);
+    }
+
+    Object.keys(updateData).forEach((key) => {
+      if (updateData[key] === undefined) delete updateData[key];
+    });
+
     const [updatedRows] = await Product.update(updateData, {
       where: { id: productId },
     });
 
-    if (updatedRows === 0) {
+    if (updatedRows === 0 && uploadedImageUrls.length === 0) {
       return res.status(400).json({
         error: "No fields were updated. Ensure changes were made.",
       });
     }
 
-    // Fetch the updated product
     const updatedProduct = await Product.findByPk(productId);
-
-    // Parse the images field back to JSON for consistent response
     if (updatedProduct.images) {
       updatedProduct.images = JSON.parse(updatedProduct.images);
     }
@@ -567,16 +568,26 @@ exports.updateProductActive = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
-    const product = await Product.deleteOne({ _id: req.params.id });
-
+    const productId = req.params.id;  // Ensure that the product ID is extracted correctly
+    if (!productId) {
+      return res.status(400).json({ error: "Product ID is required" });
+    }
+    
+    const product = await Product.findByIdAndDelete(productId);
+    
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    
     res.status(200).json({
       success: true,
-      message: `Product has been deleted successfully!`,
+      message: "Product has been deleted successfully!",
       product,
     });
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
+    res.status(500).json({
+      error: "Internal server error. Please try again later.",
     });
   }
 };
+

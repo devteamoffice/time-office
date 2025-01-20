@@ -3,11 +3,12 @@ import { FaClipboardList } from "react-icons/fa6";
 import { RiTicketLine } from "react-icons/ri";
 import { MdOutlineBikeScooter } from "react-icons/md";
 import { RiCalculatorFill } from "react-icons/ri";
+
 const OrderSummary = ({
-  cartItems, // List of cart items
-  discount, // Discount applied to the order
-  deliveryCharge, // Delivery charge for the order
-  estimatedDelivery, // Estimated delivery date (optional)
+  cartItems = [], // Default to an empty array if cartItems is undefined
+  discount = 0, // Default discount to 0 if undefined
+  deliveryCharge = 0, // Default deliveryCharge to 0 if undefined
+  estimatedDelivery, // Optional field, no default
 }) => {
   // Calculate Sub Total (sum of all item total prices)
   const subTotal = cartItems.reduce(
@@ -99,16 +100,21 @@ const OrderSummary = ({
         </div>
 
         {/* Delivery Info */}
-        <div className="alert alert-warning alert-icon mt-3 mb-0" role="alert">
-          <div className="d-flex align-items-center">
-            <div className="avatar-sm rounded bg-warning d-flex justify-content-center align-items-center fs-22 me-2 flex-shrink-0">
-              <MdOutlineBikeScooter />
-            </div>
-            <div className="flex-grow-1">
-              Estimated Delivery by {estimatedDelivery}
+        {estimatedDelivery && (
+          <div
+            className="alert alert-warning alert-icon mt-3 mb-0"
+            role="alert"
+          >
+            <div className="d-flex align-items-center">
+              <div className="avatar-sm rounded bg-warning d-flex justify-content-center align-items-center fs-22 me-2 flex-shrink-0">
+                <MdOutlineBikeScooter />
+              </div>
+              <div className="flex-grow-1">
+                Estimated Delivery by {estimatedDelivery}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

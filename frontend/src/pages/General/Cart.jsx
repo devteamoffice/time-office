@@ -22,24 +22,43 @@ const Cart = ({ handleRemoveFromCart, handleShopping, handleCheckout }) => {
 
   const fetchCartItems = async () => {
     if (!user?.id) return;
-
     try {
       const response = await axios.get(`${API_URL}/cart/`, {
         headers: { Authorization: `${token}` },
       });
+      console.log(response.data); // Log API response for debugging
 
-      const cart = response.data.cart;
-      setCartItems(cart.cart_items || []);
+      // Extract the first cart object from the array
+      const cart = response.data.carts?.[0];
+      if (!cart || !Array.isArray(cart.items)) {
+        console.error("Cart is undefined or items are not an array.");
+        setCartItems([]); // Set an empty array if the cart is invalid
+        return;
+      }
+
+      const items = cart.items.map((item) => ({
+        ...item,
+        products: {
+          ...item.products,
+          images: Array.isArray(item.products?.images)
+            ? item.products.images
+            : JSON.parse(item.products?.images || "[]"),
+        },
+      }));
+
+      setCartItems(items);
       setCartTotal(cart.total || 0);
-      setCartId(cart.id); // Set cartId from response
+      setCartId(cart.id);
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }
   };
 
   useEffect(() => {
-    fetchCartItems();
-  }, [user]);
+    if (user && token) {
+      fetchCartItems();
+    }
+  }, [user, token]);
 
   const handleContinueShopping = () => {
     navigate("/store");
@@ -76,7 +95,7 @@ const Cart = ({ handleRemoveFromCart, handleShopping, handleCheckout }) => {
                 {cartItems.map((item, index) => (
                   <CartItem
                     key={index}
-                    item={item}
+                    item={{ ...item, product: item.products }} // Map `products` to `product`
                     handleRemoveFromCart={handleRemoveFromCart}
                   />
                 ))}

@@ -1,53 +1,109 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { fetchProduct, updateProduct } from "../../containers/Product/actions";
-import { fetchCategories } from "../../containers/Category/actions";
-import ProductEditCard from "./ProductEditCard";
 import axios from "axios";
 import { API_URL } from "../../constants";
+import Dropzone from "dropzone";
+import "dropzone/dist/dropzone.css";
+import ProductEditCard from "./ProductEditCard";
+
 function ProductEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dropzoneRef = useRef(null);
 
-  const [productName, setProductName] = useState("");
-  const [brand, setBrand] = useState("");
-  const [description, setDescription] = useState("");
-  const [slug, setSlug] = useState("");
-  const [price, setPrice] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [sku, setSKU] = useState("");
-  const [isActive, setIsActive] = useState(false);
+  // Initializing formData state to manage all fields
+  const [formData, setFormData] = useState({
+    name: "",
+    brand: "",
+    description: "",
+    slug: "",
+    price: 0,
+    selectedCategory: "",
+    sku: "",
+    isActive: false,
+    tax: "",
+    images: [], // To store images
+  });
+
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
+
+  // Initialize Dropzone and handle image previews
+  useEffect(() => {
+    if (!dropzoneRef.current) {
+      const dropzone = new Dropzone("#myAwesomeDropzone", {
+        url: "#", // Not used as the images are handled manually
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        init() {
+          // Add event listener for adding files
+          this.on("addedfile", (file) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              setFormData((prevData) => ({
+                ...prevData,
+                images: [
+                  ...prevData.images,
+                  { file, preview: event.target.result },
+                ],
+              }));
+              toast.info(`Image "${file.name}" added.`);
+            };
+            reader.readAsDataURL(file);
+          });
+
+          // Add event listener for removing files
+          this.on("removedfile", (file) => {
+            setFormData((prevData) => ({
+              ...prevData,
+              images: prevData.images.filter((image) => image.file !== file),
+            }));
+            toast.info(`Image "${file.name}" removed.`);
+          });
+        },
+      });
+      dropzoneRef.current = dropzone;
+    }
+
+    return () => {
+      // Cleanup Dropzone instance
+      if (dropzoneRef.current) {
+        dropzoneRef.current.destroy();
+        dropzoneRef.current = null;
+      }
+    };
+  }, []);
 
   // Fetch product and categories
   useEffect(() => {
     const fetchProductAndCategories = async () => {
       try {
-        // Fetch product details
         const productResponse = await axios.get(`${API_URL}/product/${id}`);
         const productData = productResponse.data.product;
 
-        // Fetch categories
         const categoriesResponse = await axios.get(`${API_URL}/category`);
         const categoriesData = categoriesResponse.data.categories;
 
-        // Set state
-        setProductName(productData.name || "");
-        setBrand(productData.brand || "");
-        setDescription(productData.description || "");
-        setIsActive(productData.isActive || false);
-        setPrice(productData.price || 0);
-        setSelectedCategory(productData.category || "");
-        setSKU(productData.sku || "");
-        setSlug(productData.slug || "");
+        setFormData((prevData) => ({
+          ...prevData,
+          name: productData.name || "",
+          brand: productData.brand || "",
+          description: productData.description || "",
+          isActive: productData.isActive || false,
+          price: productData.price || 0,
+          selectedCategory: productData.category || "",
+          sku: productData.sku || "",
+          slug: productData.slug || "",
+          images: Array.isArray(productData.images) ? productData.images : [], // Ensure images is an array
+        }));
+
         setCategories(categoriesData);
       } catch (err) {
         console.error("Failed to fetch product or categories:", err);
         setError("Failed to load data. Please try again.");
-        toast.error("An error occurred while loading data");
+        toast.error("An error occurred while loading data.");
       }
     };
 
@@ -55,34 +111,49 @@ function ProductEdit() {
   }, [id]);
 
   const handleUpdate = async () => {
-    const updatedProduct = {
-      name: productName,
-      brand,
-      isActive,
-      description,
-      price,
-      category: selectedCategory,
-      sku,
-      slug,
-    };
+    if (!Array.isArray(formData.images)) {
+      toast.error("Invalid images data");
+      return;
+    }
+
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append("name", formData.name);
+    formDataToSubmit.append("brand", formData.brand);
+    formDataToSubmit.append("description", formData.description.trim());
+    formDataToSubmit.append("slug", formData.slug);
+    formDataToSubmit.append("price", formData.price);
+    formDataToSubmit.append("category", formData.selectedCategory);
+    formDataToSubmit.append("sku", formData.sku);
+    formDataToSubmit.append("isActive", formData.isActive);
+    formDataToSubmit.append("tax", formData.tax);
+
+    formData.images.forEach((image, index) => {
+      formDataToSubmit.append(`images[${index}]`, image.file, image.file.name);
+    });
 
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("Authentication token is missing!");
+        toast.error("Authentication token is missing!");
         return;
       }
-      await axios.put(`${API_URL}/product/${id}`, updatedProduct, {
-        headers: {
-          Authorization: `${token}`,
-          "Content-Type": "application/json", // Explicitly set content type
-        },
-      });
+
+      const response = await axios.put(
+        `${API_URL}/product/${id}`,
+        formDataToSubmit,
+        {
+          headers: {
+            Authorization: `${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
       toast.success("Product updated successfully!");
       navigate("/product/list");
     } catch (err) {
-      console.error("Failed to update product:", err);
-      toast.error("An error occurred while updating the product.");
+      console.error("Response Error:", err.response?.data || err);
+      toast.error(err.response?.data?.error || "An unexpected error occurred.");
     }
   };
 
@@ -91,139 +162,149 @@ function ProductEdit() {
   }
 
   return (
-    <div class="row">
+    <div className="row">
       <ProductEditCard />
 
-      <div class="col-xl-9 col-lg-8 ">
-        <div class="p-3 bg-light mb-3 rounded">
-          <div class="row justify-content-end g-2">
-            <div class="col-lg-2">
-              <a
-                href="#!"
-                class="btn btn-outline-secondary w-100"
+      <div className="col-xl-9 col-lg-8">
+        <div className="p-3 bg-light mb-3 rounded">
+          <div className="row justify-content-end g-2">
+            <div className="col-lg-2">
+              <button
+                className="btn btn-outline-secondary w-100"
                 onClick={handleUpdate}
               >
                 Edit Product
-              </a>
+              </button>
             </div>
-            <div class="col-lg-2">
-              <a href="#!" class="btn btn-primary w-100">
+            <div className="col-lg-2">
+              <button
+                className="btn btn-primary w-100"
+                onClick={() => navigate("/product/list")}
+              >
                 Cancel
-              </a>
+              </button>
             </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Add Product Photo</h4>
+
+        <div className="card">
+          <div className="card-header">
+            <h4 className="card-title">Add Product Photo</h4>
           </div>
-          <div class="card-body">
+          <div className="card-body">
             <form
-              class="dropzone"
+              className="dropzone"
               id="myAwesomeDropzone"
               data-plugin="dropzone"
               data-previews-container="#file-previews"
               data-upload-preview-template="#uploadPreviewTemplate"
             >
-              <div class="fallback">
+              <div className="fallback">
                 <input name="file" type="file" multiple />
               </div>
-              <div class="dz-message needsclick">
-                <i class="bx bx-cloud-upload fs-48 text-primary"></i>
-                <h3 class="mt-4">
+              <div className="dz-message needsclick">
+                <i className="bx bx-cloud-upload fs-48 text-primary"></i>
+                <h3 className="mt-4">
                   Drop your images here, or{" "}
-                  <span class="text-primary">click to browse</span>
+                  <span className="text-primary">click to browse</span>
                 </h3>
-                <span class="text-muted fs-13">
-                  1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are
+                <span className="text-muted fs-13">
+                  1600 x 1200 (4:3) recommended. PNG, JPG, and GIF files are
                   allowed
                 </span>
               </div>
             </form>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Product Information</h4>
+
+        <div className="card">
+          <div className="card-header">
+            <h4 className="card-title">Product Information</h4>
           </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <form>
-                  <div class="mb-3">
-                    <label htmlFor="product-name" class="form-label">
-                      Product Name
-                    </label>
-                    <input
-                      type="text"
-                      id="product-name"
-                      class="form-control"
-                      placeholder="Items Name"
-                      value={productName}
-                      onChange={(e) => setProductName(e.target.value)}
-                    />
-                  </div>
-                </form>
+          <div className="card-body">
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="product-name" className="form-label">
+                    Product Name
+                  </label>
+                  <input
+                    type="text"
+                    id="product-name"
+                    className="form-control"
+                    placeholder="Items Name"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                  />
+                </div>
               </div>
-              <div class="col-lg-6">
-                <label htmlFor="product-categories" class="form-label">
-                  Product Categories
-                </label>
-                <select
-                  class="form-control"
-                  id="product-categories"
-                  data-choices
-                  data-choices-groups
-                  data-placeholder="Select Categories"
-                  name="choices-single-groups"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                  <option value="">Choose a categories</option>
-                  {categories && categories.length > 0 ? (
-                    categories.map((category) => (
-                      <option key={category.id} value={category.name}>
-                        {category.name}
-                      </option>
-                    ))
-                  ) : (
-                    <option disabled>Loading categories...</option>
-                  )}
-                </select>
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="product-categories" className="form-label">
+                    Product Categories
+                  </label>
+                  <select
+                    className="form-control"
+                    id="product-categories"
+                    value={formData.selectedCategory}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        selectedCategory: e.target.value,
+                      })
+                    }
+                  >
+                    <option value="">Choose a category</option>
+                    {categories.length > 0 ? (
+                      categories.map((category) => (
+                        <option key={category.id} value={category.name}>
+                          {category.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option disabled>Loading categories...</option>
+                    )}
+                  </select>
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-4">
-                <form>
-                  <div class="mb-3">
-                    <label htmlFor="product-brand" class="form-label">
-                      Brand
-                    </label>
-                    <input
-                      type="text"
-                      id="product-brand"
-                      class="form-control"
-                      placeholder="Brand Name"
-                    />
-                  </div>
-                </form>
+
+            <div className="row">
+              <div className="col-lg-4">
+                <div className="mb-3">
+                  <label htmlFor="product-brand" className="form-label">
+                    Brand
+                  </label>
+                  <input
+                    type="text"
+                    id="product-brand"
+                    className="form-control"
+                    placeholder="Brand Name"
+                    value={formData.brand}
+                    onChange={(e) =>
+                      setFormData({ ...formData, brand: e.target.value })
+                    }
+                  />
+                </div>
               </div>
-              <div class="col-lg-4">
-                <form>
-                  <div class="mb-3">
-                    <label htmlFor="product-brand" class="form-label">
-                      SKU
-                    </label>
-                    <input
-                      type="text"
-                      id="product-brand"
-                      class="form-control"
-                      placeholder="SKU"
-                      value={sku}
-                      onChange={(e) => setSKU(e.target.value)}
-                    />
-                  </div>
-                </form>
+              <div className="col-lg-4">
+                <div className="mb-3">
+                  <label htmlFor="sku" className="form-label">
+                    SKU
+                  </label>
+                  <input
+                    type="text"
+                    id="sku"
+                    className="form-control"
+                    placeholder="SKU"
+                    value={formData.sku}
+                    onChange={(e) =>
+                      setFormData({ ...formData, sku: e.target.value })
+                    }
+                  />
+                </div>
               </div>
               <div className="col-lg-4">
                 <div className="mb-3">
@@ -233,8 +314,13 @@ function ProductEdit() {
                   <select
                     className="form-control"
                     id="is-active"
-                    value={isActive ? "true" : "false"}
-                    onChange={(e) => setIsActive(e.target.value === "true")}
+                    value={formData.isActive ? "true" : "false"}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        isActive: e.target.value === "true",
+                      })
+                    }
                   >
                     <option value="true">True</option>
                     <option value="false">False</option>
@@ -243,104 +329,70 @@ function ProductEdit() {
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="mb-3">
-                  <label htmlFor="description" class="form-label">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="description" className="form-label">
                     Description
                   </label>
                   <textarea
-                    class="form-control bg-light-subtle"
+                    className="form-control bg-light-subtle"
                     id="description"
                     rows="7"
                     placeholder="Enter the Item Details"
-                    value={description}
-                    dangerouslySetInnerHTML={{ __html: description }}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={formData.description}
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
                   ></textarea>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="mb-3">
-                  <label htmlFor="slug" class="form-label">
-                    Slug
-                  </label>
-                  <textarea
-                    class="form-control bg-light-subtle"
-                    id="slug"
-                    rows="2"
-                    placeholder="Short description about the product"
-                    value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
-                  ></textarea>
-                </div>
+              <div className="mb-3">
+                <label htmlFor="slug" className="form-label">
+                  Slug
+                </label>
+                <textarea
+                  className="form-control bg-light-subtle"
+                  id="slug"
+                  rows="2"
+                  placeholder="Short description about the product"
+                  value={formData.slug}
+                  onChange={(e) =>
+                    setFormData({ ...formData, slug: e.target.value })
+                  }
+                ></textarea>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Pricing Details</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-4">
-                <form>
-                  <label htmlFor="product-price" class="form-label">
-                    Price
-                  </label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text fs-20">
-                      <i class="bx bx-dollar"></i>
-                    </span>
-                    <input
-                      type="number"
-                      id="product-price"
-                      class="form-control"
-                      placeholder="000"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                    />
-                  </div>
-                </form>
+
+              <div className="mb-3">
+                <label htmlFor="product-price" className="form-label">
+                  Price
+                </label>
+                <input
+                  type="number"
+                  id="product-price"
+                  className="form-control"
+                  placeholder="Price"
+                  value={formData.price}
+                  onChange={(e) =>
+                    setFormData({ ...formData, price: e.target.value })
+                  }
+                />
               </div>
-              <div class="col-lg-4">
-                <form>
-                  <label htmlFor="product-discount" class="form-label">
-                    Discount
-                  </label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text fs-20">
-                      <i class="bx bxs-discount"></i>
-                    </span>
-                    <input
-                      type="number"
-                      id="product-discount"
-                      class="form-control"
-                      placeholder="000"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-4">
-                <form>
-                  <label htmlFor="product-tex" class="form-label">
-                    Tex
-                  </label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text fs-20">
-                      <i class="bx bxs-file-txt"></i>
-                    </span>
-                    <input
-                      type="number"
-                      id="product-tex"
-                      class="form-control"
-                      placeholder="000"
-                    />
-                  </div>
-                </form>
+
+              <div className="mb-3">
+                <label htmlFor="tax" className="form-label">
+                  Tax Rate
+                </label>
+                <input
+                  type="number"
+                  id="tax"
+                  className="form-control"
+                  placeholder="Tax Rate"
+                  value={formData.taxRate}
+                  onChange={(e) =>
+                    setFormData({ ...formData, tax: e.target.value })
+                  }
+                />
               </div>
             </div>
           </div>

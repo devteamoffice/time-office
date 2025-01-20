@@ -9,7 +9,13 @@ const ProductItem = ({ products, currentPage, itemNo }) => {
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`${API_URL}/product/${productId}`);
+      const token = localStorage.getItem("token");
+      await axios.delete(`${API_URL}/product/delete/${productId}`, {
+        headers: {
+          Authorization: `${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
       // Optionally, handle deletion in the parent component
     } catch (error) {
       console.error("Error deleting product:", error);

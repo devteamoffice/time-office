@@ -26,7 +26,7 @@ exports.addOrder = async (req, res) => {
       include: [
         {
           model: CartItem,
-          as: "cart_items", // Alias for CartItems defined in Cart model
+          as: "items", // Alias for CartItems defined in Cart model
           include: [
             {
               model: Product,
@@ -116,7 +116,7 @@ exports.addToCart = async (req, res) => {
       include: [
         {
           model: CartItem,
-          as: "cart_items",
+          as: "items",
           attributes: [
             "productId",
             "quantity",
@@ -285,30 +285,28 @@ exports.getCartItems = async (req, res) => {
   try {
     const userId = req.user.id; // Assuming user is available after authentication
 
-    // Find the user's cart and include the associated cart items and products
-    const cart = await Cart.findOne({
+    // Find all carts for the user, along with their associated cart items and products
+    const carts = await Cart.findAll({
       where: { userId: userId },
       include: [
         {
           model: CartItem,
-          as: "cart_items", // Alias for the association in the Cart model
+          as: "items", // Matches the alias in the Cart model
           include: [
             {
               model: Product,
-              as: "product", // Correct alias for the Product model in the CartItem
+              as: "products", // Matches the alias in the CartItem model
             },
           ],
         },
       ],
     });
 
-    console.log(cart); // Add logging here
-
-    if (!cart) {
-      return res.status(404).json({ error: "Cart not found" });
+    if (carts.length === 0) {
+      return res.status(404).json({ error: "No carts found" });
     }
 
-    res.status(200).json({ cart });
+    res.status(200).json({ carts });
   } catch (error) {
     console.error("Error fetching cart items:", error);
     res.status(500).json({ error: "Error fetching cart items" });
