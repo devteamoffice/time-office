@@ -13,8 +13,10 @@ const razorpay = require("../services/razorpay"); // Import Razorpay configurati
 exports.addOrder = async (req, res) => {
   const t = await db.transaction(); // Start a transaction
   try {
-    const { cartId } = req.body; // Only cartId is used now
-    const userId = req.user ? req.user.id : null;
+    const cartId = req.body.cartId; // Only cartId is used now
+    const userId = req.user.id;
+    console.log("Cart ID:", cartId);
+    console.log("User ID:", userId);
 
     if (!userId) {
       return res.status(400).json({ error: "User is not authenticated." });
@@ -30,23 +32,24 @@ exports.addOrder = async (req, res) => {
           include: [
             {
               model: Product,
-              as: "product", // Alias for Product defined in CartItem model
-              through: { attributes: ["quantity"] },
+              as: "products", // Use the alias 'products' here
             },
           ],
         },
       ],
-      transaction: t,
+      transaction: t, // Transaction included
     });
 
     if (!cart) {
+      console.log("No cart found with the given ID and user ID.");
       return res.status(404).json({ error: "Cart not found." });
     }
 
-    const total = cart.Products.reduce(
-      (acc, product) => acc + product.price * product.CartProduct.quantity,
-      0
-    );
+    // Correct total calculation with cartItem.quantity
+    const total = cart.items.reduce((acc, cartItem) => {
+      const product = cartItem.products; // Access product from the alias 'products'
+      return acc + product.price * cartItem.quantity; // Use cartItem.quantity
+    }, 0);
 
     // Create a Razorpay order
     const razorpayOrder = await razorpay.orders.create({
@@ -74,10 +77,10 @@ exports.addOrder = async (req, res) => {
       await mailgun.sendEmail(user.email, "Order Confirmation", {
         orderNumber,
         total,
-        products: cart.Products.map((product) => ({
-          name: product.name,
-          quantity: product.CartProduct.quantity,
-          price: product.price,
+        products: cart.items.map((cartItem) => ({
+          name: cartItem.products.name, // Access product details from cartItem
+          quantity: cartItem.quantity, // Use quantity from CartItem
+          price: cartItem.products.price,
         })),
       });
     }

@@ -29,23 +29,22 @@ exports.fetchAllAddress = async (req, res) => {
   }
 };
 
-exports.fetchAddress = async (req, res) => {
+exports.fetchAddresses = async (req, res) => {
   try {
-    const addressId = req.params.id;
     const userId = req.user.id; // Assuming `user` is populated from the authentication middleware
 
-    // Find address by both `addressId` and `userId`
-    const address = await Address.findOne({
-      where: { id: addressId, userId: userId },
+    // Find all addresses for the user
+    const addresses = await Address.findAll({
+      where: { userId: userId },
     });
 
-    if (!address) {
+    if (!addresses.length) {
       return res.status(404).json({
-        message: `Cannot find Address with the id: ${addressId} for user with id: ${userId}.`,
+        message: `No addresses found for user with id: ${userId}.`,
       });
     }
 
-    res.status(200).json({ address });
+    res.status(200).json({ addresses });
   } catch (error) {
     console.error(error);
     res.status(400).json({

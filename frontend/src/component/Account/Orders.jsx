@@ -15,7 +15,7 @@ const Orders = () => {
             Authorization: `${token}`,
           },
         });
-        const data = response.data;
+        const data = response.data.order;
         if (Array.isArray(data)) {
           setOrders(data);
         } else {

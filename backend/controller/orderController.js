@@ -199,40 +199,110 @@ exports.fetchOrders = async (req, res) => {
   }
 };
 
-exports.fetchMyOrders = async (req, res) => {
+exports.addOrder = async (req, res) => {
+  const t = await db.transaction(); // Start a transaction
   try {
-    const { page = 1, limit = 10 } = req.query;
-    const user = req.user._id;
-    const query = { user };
+    const cartId = req.body.cartId; // Only cartId is used now
+    const userId = req.user.id;
+    console.log("Cart ID:", cartId);
+    console.log("User ID:", userId);
 
-    const ordersDoc = await Order.find(query)
-      .sort("-created")
-      .populate({
-        path: "cart",
-        populate: {
-          path: "products.product",
-          populate: {
-            path: "brand",
-          },
+    if (!userId) {
+      return res.status(400).json({ error: "User is not authenticated." });
+    }
+
+    // Get the cart associated with the logged-in user
+    const cart = await Cart.findOne({
+      where: { id: cartId, userId },
+      include: [
+        {
+          model: CartItem,
+          as: "items", // Alias for CartItems defined in Cart model
+          include: [
+            {
+              model: Product,
+              as: "products", // Use the alias 'products' here
+            },
+          ],
         },
-      })
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .exec();
+      ],
+      transaction: t, // Transaction included
+    });
 
-    const count = await Order.countDocuments(query);
-    const orders = store.formatOrders(ordersDoc);
+    if (!cart) {
+      console.log("No cart found with the given ID and user ID.");
+      return res.status(404).json({ error: "Cart not found." });
+    }
 
-    res.status(200).json({
-      orders,
-      totalPages: Math.ceil(count / limit),
-      currentPage: Number(page),
-      count,
+    // Correct total calculation with cartItem.quantity
+    const total = cart.items.reduce((acc, cartItem) => {
+      const product = cartItem.products; // Access product from the alias 'products'
+      return acc + product.price * cartItem.quantity; // Use cartItem.quantity
+    }, 0);
+
+    // Create a Razorpay order
+    const razorpayOrder = await razorpay.orders.create({
+      amount: total * 100, // Razorpay expects amount in paise
+      currency: "INR",
+      receipt: `order_${Date.now()}`,
+      payment_capture: 1, // Automatically capture the payment
+    });
+
+    const orderNumber = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const order = await Order.create(
+      {
+        userId,
+        cartId: cart.id,
+        total,
+        orderNumber,
+        razorpayOrderId: razorpayOrder.id,
+      },
+      { transaction: t } // Use the transaction here as well
+    );
+
+    // Clone cart items into order_items
+    const orderItems = cart.items.map((cartItem) => ({
+      orderId: order.id,
+      productId: cartItem.products.id,
+      quantity: cartItem.quantity,
+      price: cartItem.products.price,
+    }));
+
+    await OrderItem.bulkCreate(orderItems, { transaction: t });
+
+    let user = userId ? await User.findByPk(userId, { transaction: t }) : null;
+
+    if (user) {
+      await mailgun.sendEmail(user.email, "Order Confirmation", {
+        orderNumber,
+        total,
+        products: cart.items.map((cartItem) => ({
+          name: cartItem.products.name, // Access product details from cartItem
+          quantity: cartItem.quantity, // Use quantity from CartItem
+          price: cartItem.products.price,
+        })),
+      });
+    }
+
+    // Now, destroy the cart only after cloning the cart items into order_items
+    await cart.destroy({ transaction: t }); // Use the transaction here as well
+    await t.commit(); // Commit the transaction
+
+    return res.status(200).json({
+      success: true,
+      message: "Order placed successfully.",
+      order: {
+        id: order.id,
+        orderNumber,
+        total,
+        razorpayOrderId: razorpayOrder.id, // Include Razorpay Order ID
+        razorpayPaymentUrl: razorpayOrder.short_url, // Razorpay payment link
+      },
     });
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
-    });
+    await t.rollback(); // Rollback the transaction in case of an error
+    console.error("Error placing order:", error);
+    return res.status(500).json({ error: "Could not place the order." });
   }
 };
 

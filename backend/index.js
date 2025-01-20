@@ -44,6 +44,7 @@ app.use(
       "http://localhost:3000",
       "http://localhost:3001",
       "https://teamoffice.in",
+      "https://admin.teamoffice.in",
     ],
     credentials: true,
   })

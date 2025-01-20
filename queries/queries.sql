@@ -1,1 +1,3 @@
-SELECT * FROM cart_items WHERE cartId = '4f71e559-7db8-42d2-92b5-cc54dd901757';
+ALTER TABLE `orders`
+  MODIFY COLUMN `id` CHAR(36) NOT NULL COLLATE 'utf8mb4_general_ci',
+

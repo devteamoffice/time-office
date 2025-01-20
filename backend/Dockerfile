@@ -8,12 +8,12 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --production
 
 # Copy the rest of the server code
 COPY . .
 
-# Expose port 3000 for the server
+# Expose port 3000 for the server (Assuming your app listens on port 3000)
 EXPOSE 3000
 
 # Start the server
