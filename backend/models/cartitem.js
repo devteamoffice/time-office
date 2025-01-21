@@ -5,6 +5,11 @@ const { CART_ITEM_STATUS } = require("../constants");
 const CartItem = sequelize.define(
   "CartItem",
   {
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4, // Auto-generate UUID
+    },
     productId: {
       type: DataTypes.INTEGER, // Assuming Product ID is an integer
       references: {

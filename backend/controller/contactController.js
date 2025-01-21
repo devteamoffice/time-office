@@ -4,10 +4,9 @@ const mailgun = require("../services/mailgun");
 
 exports.addQueries = async (req, res) => {
   try {
-    const name = req.body.name;
-    const email = req.body.email;
-    const message = req.body.message;
+    const { name, email, message } = req.body;
 
+    // Validate required fields
     if (!email) {
       return res
         .status(400)
@@ -15,48 +14,52 @@ exports.addQueries = async (req, res) => {
     }
 
     if (!name) {
-      return res
-        .status(400)
-        .json({ error: "You must enter description & name." });
+      return res.status(400).json({ error: "You must enter a name." });
     }
 
     if (!message) {
       return res.status(400).json({ error: "You must enter a message." });
     }
 
-    const existingContact = await Contact.findOne({ email });
+    // Check if the contact already exists
+    const existingContact = await Contact.findOne({
+      where: { email },
+    });
 
     if (existingContact) {
-      return res
-        .status(400)
-        .json({ error: "A request already existed for same email address" });
+      return res.status(400).json({
+        error: "A request already exists for the same email address.",
+      });
     }
 
-    const contact = new Contact({
+    // Create a new contact record
+    const contact = await Contact.create({
       name,
       email,
       message,
     });
 
-    const contactDoc = await contact.save();
-
+    // Send a confirmation email
     await mailgun.sendEmail(email, "contact");
 
     res.status(200).json({
       success: true,
-      message: `We receved your message, we will reach you on your email address ${email}!`,
-      contact: contactDoc,
+      message: `We received your message. We will reach you at ${email}!`,
+      contact,
     });
   } catch (error) {
-    return res.status(400).json({
+    console.error("Error adding query:", error); // For better debugging
+
+    return res.status(500).json({
       error: "Your request could not be processed. Please try again.",
     });
   }
 };
+
 exports.queryById = async (req, res) => {
   try {
     const { id } = req.params; // Extract the ID from request parameters
-    const contact = await Contact.findById(id); // Find the contact by ID
+    const contact = await Contact.findByPk(id); // Use findByPk for UUID primary key
 
     if (!contact) {
       return res.status(404).json({ error: "Contact not found." });
@@ -69,16 +72,36 @@ exports.queryById = async (req, res) => {
     });
   }
 };
+
 exports.allQueries = async (req, res) => {
   try {
-    const contacts = await Contact.find(); // Retrieve all contacts
-    res.status(200).json({ success: true, contacts });
+    // Get page and limit from query parameters (defaults to 1 and 10 respectively)
+    const { page = 1, limit = 10 } = req.query;
+
+    // Calculate the offset for pagination
+    const offset = (page - 1) * limit;
+
+    // Fetch paginated contacts from the database
+    const { count, rows } = await Contact.findAndCountAll({
+      limit: parseInt(limit),
+      offset: offset,
+    });
+
+    // Send the response with paginated data
+    res.status(200).json({
+      success: true,
+      contacts: rows, // Data for current page
+      totalItems: count, // Total number of contacts in the database
+      totalPages: Math.ceil(count / limit), // Total pages based on count and limit
+      currentPage: parseInt(page), // Current page
+    });
   } catch (error) {
     return res.status(400).json({
       error: "Error retrieving contacts. Please try again.",
     });
   }
 };
+
 exports.deleteQuery = async (req, res) => {
   try {
     const { id } = req.params; // Extract the ID from request parameters

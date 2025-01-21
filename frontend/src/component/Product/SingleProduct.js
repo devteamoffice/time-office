@@ -118,13 +118,13 @@ const SingleProduct = ({ products }) => {
                     type="button"
                     className={`btn ${
                       isInWishlist ? "btn-danger" : "btn-soft-danger"
-                    } avatar-sm d-inline-flex align-items-center justify-content-center fs-20 rounded-circle`}
+                    } avatar-sm d-inline-flex align-items-center justify-content-center fs-24 rounded-circle`}
                     onClick={() => handleWishlistUpdate(product)}
                   >
                     <FaHeart
                       style={{
-                        fontSize: "48px",
-                        color: isInWishlist ? "red" : "gray",
+                        fontSize: "32px",
+                        color: isInWishlist ? "#dc3545" : "#6c757d",
                       }}
                     />
                   </button>

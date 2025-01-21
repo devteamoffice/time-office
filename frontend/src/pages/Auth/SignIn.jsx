@@ -1,17 +1,13 @@
-// SignIn.js
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/images/team_office_logo_13.png";
 import img from "../../assets/images/access-control-solution.jpg";
 import LoadingIndicator from "../../component/Extras/LoadingIndicator";
-import { Alert } from "react-bootstrap";
-import { toast } from "react-toastify";
-import { loginChange, login } from "../../containers/Login/actions";
 import { AuthContext } from "../../context/Socket/AuthContext";
-import { useContext } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Ensure you have this import
 import axios from "axios";
 import { API_URL } from "../../constants";
+
 const SignIn = () => {
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -19,8 +15,6 @@ const SignIn = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-  const [loginError, setLoginError] = useState("");
-  const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext); // Accessing login from AuthContext
 
@@ -41,14 +35,12 @@ const SignIn = () => {
         email: !loginFormData.email ? "Email is required" : "",
         password: !loginFormData.password ? "Password is required" : "",
       });
-      setLoginError("Email and Password are required!");
+      toast.error("Email and Password are required!");
       return;
     }
 
     // Clear any previous errors
     setFormErrors({});
-    setLoginError("");
-    setLoginSuccess(false);
     setIsSubmitting(true);
 
     try {
@@ -57,14 +49,14 @@ const SignIn = () => {
 
       if (data.success) {
         // Successfully logged in
-        setLoginSuccess(true);
         login(data.token); // Call login with the token returned from the server
+        toast.success("Successfully signed in!");
         navigate("/"); // Redirect to dashboard or home
       } else {
-        setLoginError(data.message || "Login failed. Please try again.");
+        toast.error(data.message || "Login failed. Please try again.");
       }
     } catch (error) {
-      setLoginError("An error occurred during login. Please try again.");
+      toast.error("An error occurred during login. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -81,22 +73,10 @@ const SignIn = () => {
                   <h2 className="fw-bold fs-24">Sign In</h2>
 
                   <p className="text-muted mt-1 mb-4">
-                    Enter your email address and password to access the admin
-                    panel.
+                    Enter your credentials to buy our products.
                   </p>
 
-                  {loginError && (
-                    <Alert variant="danger" className="text-center">
-                      {loginError}
-                    </Alert>
-                  )}
-
-                  {loginSuccess && (
-                    <Alert variant="success" className="text-center">
-                      Successfully signed in!
-                    </Alert>
-                  )}
-
+                  {/* Error handling through Toastify */}
                   <div className="mb-5">
                     <form
                       onSubmit={handleSubmit}

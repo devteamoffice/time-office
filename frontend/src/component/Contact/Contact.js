@@ -26,12 +26,12 @@ const Contact = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData); // Add this for debugging
     try {
-      // Send form data to API
-      const response = await axios.post(`${API_URL}/contact`, formData); // Replace with your actual API endpoint
+      const response = await axios.post(`${API_URL}/contact/add`, formData);
       if (response.status === 200) {
         toast.success("Your message has been sent successfully!");
-        setFormData({ name: "", email: "", message: "" }); // Clear form fields
+        setFormData({ name: "", email: "", message: "" });
       }
     } catch (error) {
       toast.error("There was an error sending your message.");

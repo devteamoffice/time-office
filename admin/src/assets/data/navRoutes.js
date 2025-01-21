@@ -19,7 +19,7 @@ import {
 } from "react-icons/fa";
 import { AiOutlineCustomerService } from "react-icons/ai";
 import { RiCoupon2Fill } from "react-icons/ri";
-
+import { AiOutlineContacts } from "react-icons/ai";
 const navRoutes = [
   {
     title: "Admin",
@@ -64,6 +64,11 @@ const navRoutes = [
       { text: "Return", link: "/orders/returns" },
       { text: "Invoice", link: "/orders/invoice" },
     ],
+  },
+  {
+    title: "Contact",
+    icon: <AiOutlineContacts />,
+    submenu: [{ text: "List", link: "/contact/list" }],
   },
   // {
   //   title: "Blogs",

@@ -5,6 +5,7 @@ import Login from "../pages/Auth/Login";
 import CategoryAdd from "../pages/Category/CategoryAdd";
 import CategoryEdit from "../pages/Category/CategoryEdit";
 import CategoryList from "../pages/Category/CategoryList";
+import ContactList from "../pages/Contact/ContactList";
 import Coupons from "../pages/Coupons/Coupons";
 import CouponsAdd from "../pages/Coupons/CouponsAdd";
 import CustomerDetails from "../pages/Customers/CustomerDetails";
@@ -59,6 +60,7 @@ export const publicRoutes = [
   { path: "/attributes/add", element: AttributesAdd, name: "Add Attribute" },
   { path: "/coupons/list", element: Coupons, name: "Coupons List" },
   { path: "/coupons/add", element: CouponsAdd, name: "Add Coupon" },
+  { path: "/contact/list", element: ContactList, name: "Contact List" },
   { path: "/role/list", element: Roles, name: "Roles List" },
   { path: "/role/add", element: RolesAdd, name: "Add Role" },
   { path: "/customer/list", element: Customers, name: "Customer List" },

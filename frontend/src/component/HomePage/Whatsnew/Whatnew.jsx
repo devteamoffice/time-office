@@ -22,28 +22,36 @@ const Whatnew = () => {
             <div className="card_inner">
               <img src={image1} alt="" className="img img-fluid" />
               <p>Pad lock </p>
-              <Link className="link">Pad lock </Link>
+              <Link className="link" to="/store">
+                Pad lock{" "}
+              </Link>
             </div>
           </div>
           <div className="col-lg-3 col-md-4">
             <div className="card_inner">
               <img src={image2} alt="" className="img img-fluid" />
               <p>Push button </p>
-              <Link className="link">Push button </Link>
+              <Link className="link" to="/store">
+                Push button{" "}
+              </Link>
             </div>
           </div>
           <div className="col-lg-3 col-md-4">
             <div className="card_inner">
               <img src={image3} alt="" className="img img-fluid" />
               <p>Smart Cards</p>
-              <Link className="link">Smart Cards</Link>
+              <Link className="link" to="/store">
+                Smart Cards
+              </Link>
             </div>
           </div>
           <div className="col-lg-3 col-md-4">
             <div className="card_inner">
               <img src={image4} alt="" className="img img-fluid" />
               <p>Power Supply</p>
-              <Link className="link">Power Supply</Link>
+              <Link className="link" to="/store">
+                Power Supply
+              </Link>
             </div>
           </div>
 

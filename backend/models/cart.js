@@ -5,18 +5,33 @@ const CartItem = require("./cartitem"); // Correct import
 const Cart = sequelize.define(
   "Cart",
   {
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4, // Auto-generate UUID
+    },
     userId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "Users",
-        key: "id",
-      },
+      type: DataTypes.UUID,
+      allowNull: true,
+    },
+    total: {
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
+      defaultValue: 0.0,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
   },
   {
     tableName: "carts",
-    timestamps: true,
   }
 );
 

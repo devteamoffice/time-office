@@ -7,7 +7,7 @@ const mailgun = require("../services/mailgun");
 const store = require("../utils/store");
 const shiprocket = require("../services/shipRocket"); // Assuming a service for Shiprocket API
 const { ROLES, CART_ITEM_STATUS } = require("../constants");
-
+const OrderItem = require("../models/orderitem");
 // Helper function to generate the custom order number
 const generateOrderNumber = () => {
   const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
@@ -202,23 +202,28 @@ exports.fetchOrders = async (req, res) => {
 exports.fetchMyOrders = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
-    const user = req.user._id;
-    const query = { user };
+    const userId = req.user.id;
 
-    const ordersDoc = await Order.find(query)
-      .sort("-created")
-      .populate({
-        path: "cart",
-        populate: {
-          path: "products.product",
+    const orders = await Order.findAll({
+      where: { userId },
+
+      limit: parseInt(limit),
+      offset: (page - 1) * limit,
+      include: [
+        {
+          model: OrderItem,
+          as: "items", // Match the alias defined in the association
+          include: [
+            {
+              model: Product,
+              as: "orderItems", // Match the alias defined in the association
+            },
+          ],
         },
-      })
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .exec();
+      ],
+    });
 
-    const count = await Order.countDocuments(query);
-    const orders = store.formatOrders(ordersDoc);
+    const count = await Order.count({ where: { userId } });
 
     res.status(200).json({
       orders,
@@ -227,6 +232,7 @@ exports.fetchMyOrders = async (req, res) => {
       count,
     });
   } catch (error) {
+    console.error(error);
     res.status(400).json({
       error: "Your request could not be processed. Please try again.",
     });

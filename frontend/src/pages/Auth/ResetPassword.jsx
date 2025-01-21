@@ -1,77 +1,116 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { API_URL } from "../../constants"; // Ensure you have your API URL constant
+import img from "../../assets/images/img-10.jpg";
+import logo from "../../assets/images/Logo.png";
 const ResetPassword = (props) => {
-  const {
-    resetFormData,
-    formErrors,
-    isToken,
-    resetPasswordChange,
-    resetPassword,
-  } = props;
+  const { resetPassword } = props;
+  const [resetFormData, setResetFormData] = useState({
+    email: "",
+  });
+  const [formErrors, setFormErrors] = useState({});
 
-  const handleSubmit = (event) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setResetFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    resetPassword();
+
+    // Simple validation
+    if (!resetFormData.email) {
+      setFormErrors({ email: "Email is required!" });
+      toast.error("Email is required!");
+      return;
+    }
+
+    setFormErrors({}); // Clear errors
+
+    try {
+      const response = await axios.post(`${API_URL}/auth/reset-password`, {
+        email: resetFormData.email,
+      });
+
+      const data = response.data;
+
+      if (data.success) {
+        toast.success("Password reset instructions sent to your email.");
+        resetPassword(); // Call the passed `resetPassword` function (or handle the redirection here)
+      } else {
+        toast.error(
+          data.message || "Failed to reset password. Please try again."
+        );
+      }
+    } catch (error) {
+      toast.error("An error occurred during password reset. Please try again.");
+    }
   };
 
   return (
-    <div class="d-flex flex-column h-100 p-3">
-      <div class="d-flex flex-column flex-grow-1">
-        <div class="row h-100">
-          <div class="col-xxl-7">
-            <div class="row justify-content-center h-100">
-              <div class="col-lg-6 py-lg-5">
-                <div class="d-flex flex-column h-100 justify-content-center">
-                  <div class="auth-logo mb-4">
-                    <a href="index.html" class="logo-dark">
-                      <img
-                        src="assets/images/logo-dark.png"
-                        height="24"
-                        alt="logo dark"
-                      />
+    <div className="d-flex flex-column h-100 p-3">
+      <div className="d-flex flex-column flex-grow-1">
+        <div className="row h-100">
+          <div className="col-xxl-7">
+            <div className="row justify-content-center h-100">
+              <div className="col-lg-6 py-lg-5">
+                <div className="d-flex flex-column h-100 justify-content-center">
+                  <div className="auth-logo mb-4">
+                    <a href="/" className="logo-dark">
+                      <img src={logo} height="24" alt="logo dark" />
                     </a>
 
-                    <a href="index.html" class="logo-light">
-                      <img
-                        src="assets/images/logo-light.png"
-                        height="24"
-                        alt="logo light"
-                      />
+                    <a href="/" className="logo-light">
+                      <img src={logo} height="24" alt="logo light" />
                     </a>
                   </div>
 
-                  <h2 class="fw-bold fs-24">Reset Password</h2>
+                  <h2 className="fw-bold fs-24">Reset Password</h2>
 
-                  <p class="text-muted mt-1 mb-4">
+                  <p className="text-muted mt-1 mb-4">
                     Enter your email address and we'll send you an email with
                     instructions to reset your password.
                   </p>
 
                   <div>
-                    <form class="authentication-form">
-                      <div class="mb-3">
-                        <label class="form-label" for="example-email">
+                    <form
+                      onSubmit={handleSubmit}
+                      className="authentication-form"
+                    >
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="email">
                           Email
                         </label>
                         <input
                           type="email"
-                          id="example-email"
-                          name="example-email"
-                          class="form-control"
+                          id="email"
+                          name="email"
+                          className="form-control"
                           placeholder="Enter your email"
+                          value={resetFormData.email}
+                          onChange={handleInputChange}
                         />
+                        {formErrors.email && (
+                          <small className="text-danger">
+                            {formErrors.email}
+                          </small>
+                        )}
                       </div>
-                      <div class="mb-1 text-center d-grid">
-                        <button class="btn btn-primary" type="submit">
+                      <div className="mb-1 text-center d-grid">
+                        <button className="btn btn-primary" type="submit">
                           Reset Password
                         </button>
                       </div>
                     </form>
                   </div>
 
-                  <p class="mt-5 text-danger text-center">
-                    Back to
-                    <a href="auth-signin.html" class="text-dark fw-bold ms-1">
+                  <p className="mt-5 text-danger text-center">
+                    Back to{" "}
+                    <a href="/login" className="text-dark fw-bold ms-1">
                       Sign In
                     </a>
                   </p>
@@ -80,14 +119,10 @@ const ResetPassword = (props) => {
             </div>
           </div>
 
-          <div class="col-xxl-5 d-none d-xxl-flex">
-            <div class="card h-100 mb-0 overflow-hidden">
-              <div class="d-flex flex-column h-100">
-                <img
-                  src="assets/images/small/img-10.jpg"
-                  alt=""
-                  class="w-100 h-100"
-                />
+          <div className="col-xxl-5 d-none d-xxl-flex">
+            <div className="card h-100 mb-0 overflow-hidden">
+              <div className="d-flex flex-column h-100">
+                <img src={img} alt="" className="w-100 h-100" />
               </div>
             </div>
           </div>

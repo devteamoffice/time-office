@@ -9,7 +9,7 @@ const CartItem = require("../models/cartitem");
 const Order = require("../models/order");
 const Review = require("../models/review");
 const Wishlist = require("../models/wishlist");
-
+const OrderItem = require("../models/orderitem");
 const setupDB = async () => {
   try {
     await sequelize.authenticate();
@@ -34,6 +34,12 @@ const setupDB = async () => {
     User.hasMany(Order, { foreignKey: "userId", as: "orders" });
     Order.belongsTo(User, { foreignKey: "userId", as: "user" });
     Order.belongsTo(Cart, { foreignKey: "cartId", as: "cart" });
+
+    Order.hasMany(OrderItem, { foreignKey: "orderId", as: "items" }); // Match alias "items"
+    OrderItem.belongsTo(Order, { foreignKey: "orderId", as: "order" }); // Match alias "order" (if needed)
+
+    Product.hasMany(OrderItem, { foreignKey: "productId", as: "orderItems" }); // Alias for reverse relation
+    OrderItem.belongsTo(Product, { foreignKey: "productId", as: "product" }); // Match alias "product"
 
     Product.hasMany(Review, { foreignKey: "productId", as: "reviews" });
     Review.belongsTo(Product, { foreignKey: "productId", as: "product" });

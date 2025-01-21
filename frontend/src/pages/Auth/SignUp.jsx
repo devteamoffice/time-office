@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/Socket/AuthContext";
 import axios from "axios";
 import { API_URL } from "../../constants";
 import img from "../../assets/images/access-control-solution.jpg";
+
 const SignUp = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -57,8 +58,9 @@ const SignUp = () => {
       });
 
       if (response.status === 200) {
-        login();
-        navigate("/");
+        const { userId } = response.data; // Assuming the API returns userId
+        login(); // Call the login function from context
+        navigate(`/account-setup?userId=${userId}`); // Redirect to account setup
         toast.success("Successfully signed up!");
       } else {
         toast.error(response.data.message || "Sign-up failed.");

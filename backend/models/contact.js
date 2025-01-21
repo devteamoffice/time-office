@@ -1,30 +1,30 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database"); // Assuming you have a database configuration file
-const Address = require("./address");
+
 // Contact Model
 const Contact = sequelize.define(
   "Contact",
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Automatically generate a UUIDv4 for each contact
       primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false, // Make name a required field
       trim: true,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false, // Make email a required field
       validate: {
         isEmail: true, // Validate that the email is in the correct format
       },
     },
     message: {
       type: DataTypes.TEXT,
-      allowNull: true,
+      allowNull: false, // Make message a required field
       trim: true,
     },
     updated: {
