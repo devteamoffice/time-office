@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
   MdDarkMode,
@@ -9,8 +9,8 @@ import {
 } from "react-icons/md";
 import avatar from "../../assets/images/users/avatar-1.jpg";
 import { AuthContext } from "../../context/Socket/AuthContext";
-
-const Header = ({ pageName }) => {
+import useDarkMode from "../../utils/useDarkMode";
+const Header = ({ pageName, toggleDarkMode, isDarkMode }) => {
   const { isAuthenticated, login, logout, user } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -61,43 +61,18 @@ const Header = ({ pageName }) => {
                 type="button"
                 className="topbar-button"
                 id="light-dark-mode"
+                onClick={toggleDarkMode}
               >
-                <MdDarkMode className="fs-24 align-middle" />
+                <MdDarkMode
+                  className={`fs-24 align-middle ${
+                    isDarkMode ? "text-warning" : "text-muted"
+                  }`}
+                />
               </button>
             </div>
 
             {isAuthenticated ? (
               <>
-                <div className="dropdown topbar-item">
-                  <button
-                    type="button"
-                    className="topbar-button position-relative"
-                    id="page-header-notifications-dropdown"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <MdCircleNotifications className="fs-24 align-middle" />
-                    <span className="position-absolute topbar-badge fs-10 translate-middle badge bg-danger rounded-pill">
-                      3<span className="visually-hidden">unread messages</span>
-                    </span>
-                  </button>
-                  {/* Notifications Dropdown */}
-                </div>
-
-                <div className="topbar-item d-none d-md-flex">
-                  <button
-                    type="button"
-                    className="topbar-button"
-                    id="theme-settings-btn"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#theme-settings-offcanvas"
-                    aria-controls="theme-settings-offcanvas"
-                  >
-                    <MdSettings className="fs-24 align-middle" />
-                  </button>
-                </div>
-
                 <div className="dropdown topbar-item">
                   <a
                     type="button"
@@ -118,31 +93,13 @@ const Header = ({ pageName }) => {
                   </a>
                   <div className="dropdown-menu dropdown-menu-end">
                     <h6 className="dropdown-header">
-                      Welcome {user?.username || "Guest"}!
+                      Welcome {user.username || "Guest"}!
                     </h6>
 
                     <a className="dropdown-item" href={`/u/${user.id}`}>
                       <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
                       <span className="align-middle">Profile</span>
                     </a>
-                    {/* <a className="dropdown-item" href="apps-chat.html">
-                      <i className="bx bx-message-dots text-muted fs-18 align-middle me-1"></i>
-                      <span className="align-middle">Messages</span>
-                    </a>
-
-                    <a className="dropdown-item" href="pages-pricing.html">
-                      <i className="bx bx-wallet text-muted fs-18 align-middle me-1"></i>
-                      <span className="align-middle">Pricing</span>
-                    </a>
-                    <a className="dropdown-item" href="pages-faqs.html">
-                      <i className="bx bx-help-circle text-muted fs-18 align-middle me-1"></i>
-                      <span className="align-middle">Help</span>
-                    </a>
-                    <a className="dropdown-item" href="auth-lock-screen.html">
-                      <i className="bx bx-lock text-muted fs-18 align-middle me-1"></i>
-                      <span className="align-middle">Lock screen</span>
-                    </a> */}
-
                     <div className="dropdown-divider my-1"></div>
 
                     <a

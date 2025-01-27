@@ -60,7 +60,13 @@ const AccountDetails = () => {
           <div className="mt-4 pt-3">
             <h4 className="mb-1">
               {userData.name}
-              <i className="bx bxs-badge-check text-success align-middle"></i>
+              <i className="bx bxs-badge-check text-success align-middle"></i>{" "}
+              <a
+                href={`/account_setup?${userData.id}`}
+                className="btn btn-soft-dark d-inline-flex align-items-center justify-content-center rounded avatar-sm"
+              >
+                <i className="bx bx-edit-alt fs-18"></i>
+              </a>
             </h4>
             <div className="mt-2">
               <a href="#!" className="link-primary fs-15">
@@ -75,80 +81,6 @@ const AccountDetails = () => {
                 {userData.phoneNumber || "N/A"}
               </p>
             </div>
-          </div>
-        </div>
-        <div className="card-footer border-top gap-1 hstack">
-          <a href="#!" className="btn btn-primary w-100">
-            Send Message
-          </a>
-          <a href="#!" className="btn btn-light w-100">
-            Analytics
-          </a>
-          <a
-            href={`/account_setup?${userData.id}`}
-            className="btn btn-soft-dark d-inline-flex align-items-center justify-content-center rounded avatar-sm"
-          >
-            <i className="bx bx-edit-alt fs-18"></i>
-          </a>
-        </div>
-      </div>
-
-      <div className="card">
-        <div className="card-header d-flex align-items-center justify-content-between">
-          <div>
-            <h4 className="card-title">Customer Details</h4>
-          </div>
-        </div>
-        <div className="card-body py-2">
-          <div className="table-responsive">
-            <table className="table mb-0">
-              <tbody>
-                <tr>
-                  <td className="px-0">
-                    <p className="d-flex mb-0 align-items-center gap-1 fw-semibold text-dark">
-                      Account ID :{" "}
-                    </p>
-                  </td>
-                  <td className="text-dark fw-medium px-0">#AC-278699</td>
-                </tr>
-                <tr>
-                  <td className="px-0">
-                    <p className="d-flex mb-0 align-items-center gap-1 fw-semibold text-dark">
-                      Invoice Email :{" "}
-                    </p>
-                  </td>
-                  <td className="text-dark fw-medium px-0">
-                    michaelaminer@dayrep.com
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-0">
-                    <p className="d-flex mb-0 align-items-center gap-1 fw-semibold text-dark">
-                      Delivery Address :{" "}
-                    </p>
-                  </td>
-                  <td className="text-dark fw-medium px-0">
-                    62, rue des Nations Unies 22000 SAINT-BRIEUC
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-0">
-                    <p className="d-flex mb-0 align-items-center gap-1 fw-semibold text-dark">
-                      Language :{" "}
-                    </p>
-                  </td>
-                  <td className="text-dark fw-medium px-0">English</td>
-                </tr>
-                <tr>
-                  <td className="px-0">
-                    <p className="d-flex mb-0 align-items-center gap-1 fw-semibold text-dark">
-                      Latest Invoice Id :{" "}
-                    </p>
-                  </td>
-                  <td className="text-dark fw-medium px-0">#INV2540</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>

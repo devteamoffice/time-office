@@ -2,20 +2,25 @@ import React, { useState, useEffect } from "react";
 import OrderItem from "../../components/Orders/OrderItem";
 import axios from "axios";
 import { API_URL } from "../../constants";
+
 const RecentOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalOrders, setTotalOrders] = useState(0); // Added state for total orders
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("token"); // Retrieve token from localStorage
-        const response = await axios.get(`${API_URL}/orders`, {
+        const response = await axios.get(`${API_URL}/order`, {
           headers: {
-            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+            Authorization: `${token}`, // Add the token to the Authorization header
           },
         });
         setOrders(response.data.orders); // Adjust based on your API response structure
+        setTotalOrders(
+          response.data.totalOrders || response.data.orders.length
+        ); // Set total orders (based on API structure)
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {
@@ -28,8 +33,8 @@ const RecentOrders = () => {
 
   const handleDelete = async (orderId) => {
     try {
-      const token = localStorage.getItem("TOKEN"); // Retrieve token from localStorage
-      await axios.delete(`${API_URL}/${orderId}`, {
+      const token = localStorage.getItem("token"); // Retrieve token from localStorage
+      await axios.delete(`${API_URL}/order/${orderId}`, {
         headers: {
           Authorization: `${token}`, // Add the token to the Authorization header
         },
@@ -47,24 +52,23 @@ const RecentOrders = () => {
   }
 
   return (
-    <div class="row">
-      <div class="col">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex align-items-center justify-content-between">
-              <h4 class="card-title">Recent Orders</h4>
-
-              <a href="#!" class="btn btn-sm btn-soft-primary">
-                <i class="bx bx-plus me-1"></i>Create Order
+    <div className="row">
+      <div className="col">
+        <div className="card">
+          <div className="card-body">
+            <div className="d-flex align-items-center justify-content-between">
+              <h4 className="card-title">Recent Orders</h4>
+              <a href="#!" className="btn btn-sm btn-soft-primary">
+                <i className="bx bx-plus me-1"></i>Create Order
               </a>
             </div>
           </div>
 
-          <div class="table-responsive table-centered">
-            <table class="table mb-0">
-              <thead class="bg-light bg-opacity-50">
+          <div className="table-responsive table-centered">
+            <table className="table mb-0">
+              <thead className="bg-light bg-opacity-50">
                 <tr>
-                  <th class="ps-3">Order ID.</th>
+                  <th className="ps-3">Order ID</th>
                   <th>Created at</th>
                   <th>Customer</th>
                   <th>Priority</th>
@@ -76,7 +80,6 @@ const RecentOrders = () => {
                   <th>Action</th>
                 </tr>
               </thead>
-
               <tbody>
                 {orders.map((order) => (
                   <OrderItem
@@ -89,43 +92,43 @@ const RecentOrders = () => {
             </table>
           </div>
 
-          <div class="card-footer border-top">
-            <div class="row g-3">
-              <div class="col-sm">
-                <div class="text-muted">
+          <div className="card-footer border-top">
+            <div className="row g-3">
+              <div className="col-sm">
+                <div className="text-muted">
                   Showing
-                  <span class="fw-semibold">5</span>
+                  <span className="fw-semibold"> {orders.length} </span>
                   of
-                  <span class="fw-semibold">90,521</span>
+                  <span className="fw-semibold"> {totalOrders} </span>
                   orders
                 </div>
               </div>
 
-              <div class="col-sm-auto">
-                <ul class="pagination m-0">
-                  <li class="page-item">
-                    <a href="#" class="page-link">
-                      <i class="bx bx-left-arrow-alt"></i>
+              <div className="col-sm-auto">
+                <ul className="pagination m-0">
+                  <li className="page-item">
+                    <a href="#" className="page-link">
+                      <i className="bx bx-left-arrow-alt"></i>
                     </a>
                   </li>
-                  <li class="page-item active">
-                    <a href="#" class="page-link">
+                  <li className="page-item active">
+                    <a href="#" className="page-link">
                       1
                     </a>
                   </li>
-                  <li class="page-item">
-                    <a href="#" class="page-link">
+                  <li className="page-item">
+                    <a href="#" className="page-link">
                       2
                     </a>
                   </li>
-                  <li class="page-item">
-                    <a href="#" class="page-link">
+                  <li className="page-item">
+                    <a href="#" className="page-link">
                       3
                     </a>
                   </li>
-                  <li class="page-item">
-                    <a href="#" class="page-link">
-                      <i class="bx bx-right-arrow-alt"></i>
+                  <li className="page-item">
+                    <a href="#" className="page-link">
+                      <i className="bx bx-right-arrow-alt"></i>
                     </a>
                   </li>
                 </ul>

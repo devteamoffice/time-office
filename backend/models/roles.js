@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-
+const User = require("./user");
 const Role = sequelize.define(
   "Role",
   {
@@ -37,5 +37,7 @@ Role.beforeCreate((role, options) => {
   const priority = role.isAdmin ? 1 : 2; // Admin gets priority 1, user roles start at 2
   role.role_id = `ROLE_${randomChars}#${priority}`;
 });
+User.hasMany(Role, { foreignKey: "user_id", as: "roles" });
+Role.belongsTo(User, { foreignKey: "user_id", as: "user" });
 
 module.exports = Role;

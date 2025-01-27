@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Common/Header";
@@ -11,9 +11,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRoutes } from "./router/Routes";
 import LoadingIndicator from "./components/Common/LoadingIndicator.";
+import useDarkMode from "./utils/useDarkMode";
 function App() {
   const location = useLocation();
   const [loading, setLoading] = useState(false); // Manage loading state
+  const { isDarkMode, toggleDarkMode } = useDarkMode(); // Use the hook for dark mode
 
   // Find the current route's name
   const currentRoute = publicRoutes.find((route) =>
@@ -37,7 +39,11 @@ function App() {
   return (
     <AuthProvider>
       <div className="wrapper">
-        <Header pageName={pageName} />
+        <Header
+          pageName={pageName}
+          toggleDarkMode={toggleDarkMode}
+          isDarkMode={isDarkMode}
+        />
         <MainNav />
         <div className="page-content">
           {/* Display Loading Indicator during transitions */}

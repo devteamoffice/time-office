@@ -38,6 +38,7 @@ const navRoutes = [
       { text: "List", link: "/product/list" },
       { text: "Create", link: "/product/add" },
       { text: "Warehouse", link: "/product/warehouse" },
+      { text: "Edit", link: (id) => `/product/${id}/edit` },
     ],
   },
   {
@@ -46,6 +47,7 @@ const navRoutes = [
     submenu: [
       { text: "List", link: "/category/list" },
       { text: "Create", link: "/category/add" },
+      { text: "Edit", link: (id) => `/category/${id}/edit` },
     ],
   },
   {
@@ -54,6 +56,7 @@ const navRoutes = [
     submenu: [
       { text: "List", link: "/subcategory/list" },
       { text: "Create", link: "/subcategory/add" },
+      { text: "Edit", link: (id) => `/subcategory/${id}/edit` },
     ],
   },
   {
@@ -61,8 +64,24 @@ const navRoutes = [
     icon: <FaShoppingBag />,
     submenu: [
       { text: "List", link: "/orders/list" },
-      { text: "Return", link: "/orders/returns" },
-      { text: "Invoice", link: "/orders/invoice" },
+      { text: "Returns", link: "/orders/returns" },
+      { text: "Invoice", link: "/orders/invoices" },
+    ],
+  },
+  {
+    title: "Attributes",
+    icon: <MdAttribution />,
+    submenu: [
+      { text: "List", link: "/attributes/list" },
+      { text: "Create", link: "/attributes/add" },
+    ],
+  },
+  {
+    title: "Coupons",
+    icon: <RiCoupon2Fill />,
+    submenu: [
+      { text: "List", link: "/coupons/list" },
+      { text: "Add", link: "/coupons/add" },
     ],
   },
   {
@@ -70,23 +89,6 @@ const navRoutes = [
     icon: <AiOutlineContacts />,
     submenu: [{ text: "List", link: "/contact/list" }],
   },
-  // {
-  //   title: "Blogs",
-  //   icon: <FaBlog />,
-  //   submenu: [
-  //     { text: "List", link: "/blogs/list" },
-  //     { text: "Create", link: "/blogs/add" },
-  //   ],
-  // },
-  // {
-  //   title: "Attributes",
-  //   icon: <MdAttribution />,
-  //   submenu: [
-  //     { text: "List", link: "/attributes/list" },
-  //     { text: "Create", link: "/attributes/add" },
-  //   ],
-  // },
-
   {
     title: "Roles",
     icon: <FaUsers />,
@@ -98,14 +100,9 @@ const navRoutes = [
   {
     title: "Customers",
     icon: <AiOutlineCustomerService />,
-    submenu: [{ text: "List", link: "/customer/list" }],
-  },
-  {
-    title: "Coupons",
-    icon: <RiCoupon2Fill />,
     submenu: [
-      { text: "List", link: "/coupons/list" },
-      { text: "Add", link: "/coupons/add" },
+      { text: "List", link: "/customer/list" },
+      { text: "Details", link: (id) => `/customer/${id}` },
     ],
   },
   {
@@ -119,15 +116,15 @@ const navRoutes = [
   {
     title: "Other",
     items: [
-      // {
-      //   text: "Profile",
-      //   icon: <FaUser />,
-      //   link: (id) => `/u/${id}`,
-      // },
       {
         text: "Settings",
         icon: <FaCog />,
         link: "/settings",
+      },
+      {
+        text: "Maintainance",
+        icon: <FaFileInvoice />,
+        link: "/service-maintainance",
       },
     ],
   },

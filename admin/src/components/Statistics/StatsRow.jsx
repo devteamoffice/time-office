@@ -12,12 +12,12 @@ const StatsRow = () => {
     const fetchStats = async () => {
       try {
         const productResponse = await axios.get(`${API_URL}/product/count`);
-        const orderResponse = await axios.get(`${API_URL}/orders/count`);
+        const orderResponse = await axios.get(`${API_URL}/order/count`);
         const returnResponse = await axios.get(
-          `${API_URL}/orders/status/return`
+          `${API_URL}/order/status/return`
         );
         const cancellationResponse = await axios.get(
-          `${API_URL}/orders/status/cancel`
+          `${API_URL}/order/status/cancel`
         );
 
         console.log("Product Count API Response:", productResponse.data.count);

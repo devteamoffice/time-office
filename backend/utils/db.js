@@ -10,6 +10,7 @@ const Order = require("../models/order");
 const Review = require("../models/review");
 const Wishlist = require("../models/wishlist");
 const OrderItem = require("../models/orderitem");
+const Role = require("../models/roles");
 const setupDB = async () => {
   try {
     await sequelize.authenticate();
@@ -35,11 +36,11 @@ const setupDB = async () => {
     Order.belongsTo(User, { foreignKey: "userId", as: "user" });
     Order.belongsTo(Cart, { foreignKey: "cartId", as: "cart" });
 
-    Order.hasMany(OrderItem, { foreignKey: "orderId", as: "items" }); // Match alias "items"
-    OrderItem.belongsTo(Order, { foreignKey: "orderId", as: "order" }); // Match alias "order" (if needed)
+    Order.hasMany(OrderItem, { foreignKey: "orderId", as: "items" });
+    OrderItem.belongsTo(Order, { foreignKey: "orderId", as: "order" });
 
-    Product.hasMany(OrderItem, { foreignKey: "productId", as: "orderItems" }); // Alias for reverse relation
-    OrderItem.belongsTo(Product, { foreignKey: "productId", as: "product" }); // Match alias "product"
+    Product.hasMany(OrderItem, { foreignKey: "productId", as: "orderItems" });
+    OrderItem.belongsTo(Product, { foreignKey: "productId", as: "product" });
 
     Product.hasMany(Review, { foreignKey: "productId", as: "reviews" });
     Review.belongsTo(Product, { foreignKey: "productId", as: "product" });
@@ -49,6 +50,10 @@ const setupDB = async () => {
     User.hasMany(Wishlist, { foreignKey: "userId", as: "wishlists" });
     Wishlist.belongsTo(User, { foreignKey: "userId", as: "user" });
     Wishlist.belongsTo(Product, { foreignKey: "productId", as: "product" });
+
+    // Adding Role-User association
+    User.hasMany(Role, { foreignKey: "user_id", as: "roles" });
+    Role.belongsTo(User, { foreignKey: "user_id", as: "user" });
 
     await sequelize.sync({ alter: true });
     console.log("\x1b[32m%s\x1b[0m", "✓ Database tables synced!");

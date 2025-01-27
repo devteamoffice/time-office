@@ -1,9 +1,10 @@
 const Role = require("../models/roles");
 const { ROLES } = require("../constants/index"); // Ensure ROLES contains valid role names
-
+const User = require("../models/user"); // Assuming User model is imported
 /**
  * Assign a new role to a user.
  */
+
 exports.assignRole = async (req, res) => {
   try {
     const { userId, role_name, username, isAdmin } = req.body;
@@ -13,6 +14,12 @@ exports.assignRole = async (req, res) => {
       return res
         .status(400)
         .json({ message: "Invalid role name. Please use a predefined role." });
+    }
+
+    // Check if the user exists
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
     }
 
     // Check admin privileges of the requester
@@ -25,7 +32,7 @@ exports.assignRole = async (req, res) => {
         .json({ message: "Unauthorized: Admin privileges required." });
     }
 
-    // Assign role
+    // Assign role to the user
     const newRole = await Role.create({
       userId,
       role_name,
@@ -47,9 +54,18 @@ exports.assignRole = async (req, res) => {
 /**
  * Get all roles in the system.
  */
+
 exports.getRoles = async (req, res) => {
   try {
-    const roles = await Role.findAll();
+    const roles = await Role.findAll({
+      // include: {
+      //   model: User,
+      //   as: "user", // Add this line to specify the alias
+      //   attributes: ["id", "username"], // Include user info as needed
+      //   required: false, // Ensure this is a LEFT JOIN to include all roles, even if there's no user associated
+      // },
+      // logging: console.log,
+    });
 
     return res.status(200).json(roles);
   } catch (error) {
@@ -77,11 +93,14 @@ exports.deleteRole = async (req, res) => {
         .json({ message: "Unauthorized: Admin privileges required." });
     }
 
-    // Delete the role
-    const deletedRole = await Role.destroy({ where: { roleId } });
-    if (!deletedRole) {
+    // Check if the role exists
+    const role = await Role.findOne({ where: { id: roleId } });
+    if (!role) {
       return res.status(404).json({ message: "Role not found." });
     }
+
+    // Delete the role
+    await Role.destroy({ where: { id: roleId } });
 
     return res.status(200).json({ message: "Role deleted successfully." });
   } catch (error) {
@@ -118,18 +137,23 @@ exports.updateRole = async (req, res) => {
     }
 
     // Update the role
-    const updatedRole = await Role.update(
+    const [updatedRowCount, updatedRoles] = await Role.update(
       { role_name, isAdmin },
-      { where: { roleId }, returning: true }
+      { where: { id: roleId }, returning: true }
     );
 
-    if (!updatedRole[0]) {
+    if (updatedRowCount === 0) {
       return res.status(404).json({ message: "Role not found." });
     }
 
-    return res
-      .status(200)
-      .json({ message: "Role updated successfully.", data: updatedRole[1][0] });
+    // Include associated user details in the response
+    const updatedRole = updatedRoles[0];
+    const user = await User.findOne({ where: { id: updatedRole.userId } });
+
+    return res.status(200).json({
+      message: "Role updated successfully.",
+      data: { ...updatedRole.toJSON(), user },
+    });
   } catch (error) {
     console.error(error);
     return res
@@ -137,6 +161,7 @@ exports.updateRole = async (req, res) => {
       .json({ message: "Internal Server Error.", error: error.message });
   }
 };
+
 /**
  * Get all users with a specific role.
  */
@@ -151,9 +176,13 @@ exports.getUsersByRole = async (req, res) => {
         .json({ message: "Invalid role name. Please use a predefined role." });
     }
 
-    // Find users with the specified role
+    // Fetch users with the specified role
     const usersWithRole = await Role.findAll({
       where: { role_name },
+      include: {
+        model: User,
+        attributes: ["id", "username", "email"], // Include user info as needed
+      },
     });
 
     if (!usersWithRole.length) {
