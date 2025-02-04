@@ -16,7 +16,15 @@ const checkAuth = require("../utils/auth");
 const slugify = require("slugify"); // Import slugify for generating slugs
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+const admin = require("firebase-admin");
+require("dotenv").config();
 
+// Firebase Admin SDK Initialization (if not already done)
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(require("../teamoffice.json")),
+  });
+}
 /**
  * Filter products by category
  * @param {Object} req - The request object
@@ -311,14 +319,13 @@ exports.listSelect = async (req, res) => {
   }
 };
 
-// Add Product Function
+// Product Controller
 exports.addProduct = async (req, res) => {
   try {
     const {
       sku,
       name,
       description,
-
       price,
       taxable,
       isActive,
@@ -327,41 +334,60 @@ exports.addProduct = async (req, res) => {
       subcategoryId,
     } = req.body;
 
-    // Validate required fields
+    // Check for missing required fields
     if (!sku || !name || !description || !price) {
-      return res.status(400).json({
-        error: "SKU, name, description, and price are required.",
-      });
+      return res
+        .status(400)
+        .json({ error: "SKU, name, description, and price are required." });
     }
 
     // Check for duplicate SKU
-    const foundProduct = await Product.findOne({ where: { sku } });
-    if (foundProduct) {
-      return res.status(400).json({ error: "This SKU is already in use." });
+    const existingProduct = await Product.findOne({ where: { sku } });
+    if (existingProduct) {
+      return res
+        .status(400)
+        .json({ error: "Product with this SKU already exists." });
     }
 
-    // Handle image upload and format the image URLs
+    // Handle product images only if provided
     let images = [];
     if (req.files && req.files.length > 0) {
-      images = await uploadImagesToFirebase(sku, req.files);
+      // Step 1: Check Firebase ID token (only for image upload)
+      const firebaseToken = req.headers["authorization"]?.split(" ")[1]; // Expecting "Bearer <token>"
+
+      if (firebaseToken) {
+        try {
+          const decodedToken = await admin.auth().verifyIdToken(firebaseToken);
+          // If Firebase token is valid, proceed with uploading images to Firebase
+          console.log("Firebase token verified:", decodedToken);
+
+          // Step 2: Upload images to Firebase and get URLs
+          images = await uploadImagesToFirebase(sku, req.files); // Get image URLs from Firebase
+        } catch (error) {
+          console.error("Error verifying Firebase token:", error);
+          return res
+            .status(401)
+            .json({ error: "Unauthorized. Invalid Firebase token." });
+        }
+      } else {
+        return res.status(401).json({ error: "Firebase token is missing." });
+      }
     }
 
-    // Create product object
+    // Step 3: Save product details (No need to verify Firebase token here)
     const product = new Product({
       sku,
       name,
       description,
-
       price,
       taxable: taxable || false,
       isActive: isActive || true,
       brand: brand || null,
-      images: JSON.stringify(images), // Store images as a JSON string
       categoryId: categoryId || null,
       subcategoryId: subcategoryId || null,
+      images: JSON.stringify(images), // Save the image URLs as JSON string in MySQL
     });
 
-    // Save the product to the database
     const savedProduct = await product.save();
 
     res.status(200).json({
@@ -371,9 +397,7 @@ exports.addProduct = async (req, res) => {
     });
   } catch (error) {
     console.error("Error adding product:", error);
-    return res.status(500).json({
-      error: "Your request could not be processed. Please try again.",
-    });
+    res.status(500).json({ error: "Error while adding the product." });
   }
 };
 
@@ -450,43 +474,61 @@ exports.updateProduct = async (req, res) => {
       return res.status(400).json({ error: "Product ID is required." });
     }
 
-    const { categoryId, subcategoryId, slug, brand, ...otherFields } = req.body;
     const files = req.files;
 
-    if (slug) {
-      otherFields.slug = slug;
-    }
-
-    if (otherFields.sku || otherFields.slug) {
-      const duplicateProduct = await Product.findOne({
-        where: {
-          [Op.or]: [{ sku: otherFields.sku }, { slug: otherFields.slug }],
-          id: { [Op.ne]: productId },
-        },
-      });
-      if (duplicateProduct) {
-        return res.status(400).json({
-          error: "SKU or slug is already in use by another product.",
-        });
+    // Ensure the brand exists in the brands table (if provided)
+    if (req.body.brand) {
+      const brandExists = await Brand.findByPk(req.body.brand);
+      if (!brandExists) {
+        return res
+          .status(400)
+          .json({ error: "The specified brand does not exist." });
       }
     }
 
-    let uploadedImageUrls = [];
-    if (files && files.length > 0) {
-      const sku = otherFields.sku || (await Product.findByPk(productId)).sku;
-      uploadedImageUrls = await uploadImagesToFirebase(sku, files);
+    // Ensure the category exists in the categories table (if provided)
+    if (req.body.categoryId) {
+      const categoryExists = await Category.findByPk(req.body.categoryId);
+      if (!categoryExists) {
+        return res
+          .status(400)
+          .json({ error: "The specified category does not exist." });
+      }
     }
-
-    const updateData = {
-      ...otherFields,
-      categoryId,
-      subcategoryId,
-      brand: brand || null,
-    };
 
     const product = await Product.findByPk(productId);
     if (!product) {
       return res.status(404).json({ error: "Product not found." });
+    }
+
+    let updateData = {};
+
+    // Add all fields from req.body dynamically into updateData
+    const allowedFields = [
+      "sku",
+      "name",
+      "slug",
+      "images",
+      "description",
+      "price",
+      "brand",
+      "isActive",
+      "categoryId",
+      "subcategoryId",
+      "created",
+    ];
+
+    allowedFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updateData[field] = req.body[field];
+      }
+    });
+
+    // Handle image uploads if any images are provided
+    let uploadedImageUrls = [];
+    if (req.files && req.files.length > 0) {
+      const sku = req.body.sku || product.sku; // Retrieve SKU if not present in body
+      uploadedImageUrls = await uploadImagesToFirebase(sku, req.files);
     }
 
     if (uploadedImageUrls.length > 0) {
@@ -497,6 +539,7 @@ exports.updateProduct = async (req, res) => {
       ]);
     }
 
+    // Clean out undefined fields from updateData
     Object.keys(updateData).forEach((key) => {
       if (updateData[key] === undefined) delete updateData[key];
     });
@@ -505,10 +548,8 @@ exports.updateProduct = async (req, res) => {
       where: { id: productId },
     });
 
-    if (updatedRows === 0 && uploadedImageUrls.length === 0) {
-      return res.status(400).json({
-        error: "No fields were updated. Ensure changes were made.",
-      });
+    if (updatedRows === 0) {
+      return res.status(400).json({ error: "No fields were updated." });
     }
 
     const updatedProduct = await Product.findByPk(productId);
@@ -525,6 +566,7 @@ exports.updateProduct = async (req, res) => {
     console.error("Error updating product:", error);
     return res.status(500).json({
       error: "An error occurred while updating the product.",
+      details: error.message || error.toString(),
     });
   }
 };
@@ -568,26 +610,29 @@ exports.updateProductActive = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
-    const productId = req.params.id;  // Ensure that the product ID is extracted correctly
+    const productId = req.params.id;
     if (!productId) {
       return res.status(400).json({ error: "Product ID is required" });
     }
-    
-    const product = await Product.findByIdAndDelete(productId);
-    
+
+    const product = await Product.findByPk(productId); // Sequelize method to find by primary key
+
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
-    
+
+    await product.destroy(); // Sequelize method to delete the record
+
     res.status(200).json({
       success: true,
       message: "Product has been deleted successfully!",
       product,
     });
   } catch (error) {
+    console.error("Error deleting product:", error);
     res.status(500).json({
       error: "Internal server error. Please try again later.",
+      details: error.message,
     });
   }
 };
-

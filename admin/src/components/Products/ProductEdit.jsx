@@ -11,7 +11,7 @@ function ProductEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dropzoneRef = useRef(null);
-
+  const token = localStorage.getItem("token");
   // Initializing formData state to manage all fields
   const [formData, setFormData] = useState({
     name: "",
@@ -27,6 +27,7 @@ function ProductEdit() {
   });
 
   const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]); // State to hold brands data
   const [error, setError] = useState(null);
 
   // Initialize Dropzone and handle image previews
@@ -76,15 +77,26 @@ function ProductEdit() {
     };
   }, []);
 
-  // Fetch product and categories
+  // Fetch product, categories, and brands
   useEffect(() => {
-    const fetchProductAndCategories = async () => {
+    const fetchProductAndCategoriesAndBrands = async () => {
       try {
+        // Fetch product data
         const productResponse = await axios.get(`${API_URL}/product/${id}`);
         const productData = productResponse.data.product;
 
+        // Fetch categories data
         const categoriesResponse = await axios.get(`${API_URL}/category`);
         const categoriesData = categoriesResponse.data.categories;
+
+        // Fetch brands data
+        const brandsResponse = await axios.get(`${API_URL}/brand`, {
+          headers: {
+            Authorization: `${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        const brandsData = brandsResponse.data.brands;
 
         setFormData((prevData) => ({
           ...prevData,
@@ -100,14 +112,15 @@ function ProductEdit() {
         }));
 
         setCategories(categoriesData);
+        setBrands(brandsData); // Set the brands in state
       } catch (err) {
-        console.error("Failed to fetch product or categories:", err);
+        console.error("Failed to fetch product, categories, or brands:", err);
         setError("Failed to load data. Please try again.");
         toast.error("An error occurred while loading data.");
       }
     };
 
-    fetchProductAndCategories();
+    fetchProductAndCategoriesAndBrands();
   }, [id]);
 
   const handleUpdate = async () => {
@@ -118,11 +131,11 @@ function ProductEdit() {
 
     const formDataToSubmit = new FormData();
     formDataToSubmit.append("name", formData.name);
-    formDataToSubmit.append("brand", formData.brand);
+    formDataToSubmit.append("brand", formData.brand.id); // Use brand id instead of brand name
     formDataToSubmit.append("description", formData.description.trim());
     formDataToSubmit.append("slug", formData.slug);
     formDataToSubmit.append("price", formData.price);
-    formDataToSubmit.append("category", formData.selectedCategory);
+    formDataToSubmit.append("categoryId", formData.selectedCategory); // Fix categoryId
     formDataToSubmit.append("sku", formData.sku);
     formDataToSubmit.append("isActive", formData.isActive);
     formDataToSubmit.append("tax", formData.tax);
@@ -138,16 +151,12 @@ function ProductEdit() {
         return;
       }
 
-      const response = await axios.put(
-        `${API_URL}/product/${id}`,
-        formDataToSubmit,
-        {
-          headers: {
-            Authorization: `${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.put(`${API_URL}/product/${id}`, formDataToSubmit, {
+        headers: {
+          Authorization: `${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       toast.success("Product updated successfully!");
       navigate("/product/list");
@@ -259,7 +268,7 @@ function ProductEdit() {
                     <option value="">Choose a category</option>
                     {categories.length > 0 ? (
                       categories.map((category) => (
-                        <option key={category.id} value={category.name}>
+                        <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
                       ))
@@ -277,16 +286,28 @@ function ProductEdit() {
                   <label htmlFor="product-brand" className="form-label">
                     Brand
                   </label>
-                  <input
-                    type="text"
-                    id="product-brand"
+                  <select
                     className="form-control"
-                    placeholder="Brand Name"
-                    value={formData.brand}
-                    onChange={(e) =>
-                      setFormData({ ...formData, brand: e.target.value })
-                    }
-                  />
+                    id="product-brand"
+                    value={formData.brand?.id || ""}
+                    onChange={(e) => {
+                      const selectedBrand = brands.find(
+                        (brand) => brand.id === parseInt(e.target.value)
+                      );
+                      setFormData({ ...formData, brand: selectedBrand });
+                    }}
+                  >
+                    <option value="">Choose a brand</option>
+                    {brands.length > 0 ? (
+                      brands.map((brand) => (
+                        <option key={brand.id} value={brand.id}>
+                          {brand.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option disabled>Loading brands...</option>
+                    )}
+                  </select>
                 </div>
               </div>
               <div className="col-lg-4">

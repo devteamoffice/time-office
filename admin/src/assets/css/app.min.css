@@ -5709,9 +5709,12 @@ fieldset:disabled .btn {
 .nav-link.disabled,
 .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
-  pointer-events: none;
-  cursor: default;
+  /* Remove pointer-events and cursor changes */
+  /* pointer-events: none; */
+  /* cursor: default; */
+  opacity: 0.5; /* Optional: Make it look disabled but still clickable */
 }
+
 
 .nav-tabs {
   --bs-nav-tabs-border-width: var(--bs-border-width);

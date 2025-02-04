@@ -38,16 +38,20 @@ const NavbarN = () => {
     loadCategories();
   }, [dispatch]);
 
-  // Fetch cart and wishlist items count from APIs
   useEffect(() => {
     const fetchCartItemsCount = async () => {
       try {
         const response = await axios.get(`${API_URL}/cart`, {
           headers: { Authorization: `${token}` },
-        }); // Replace with your API URL
-        setCartItems(response.data.cartItemsCount); // Adjust according to API response
+        });
+
+        console.log("Cart API Response:", response.data); // Debugging
+
+        const count = response.data?.carts[0]?.items?.length ?? 0; // Safely access items length
+        setCartItems(count);
       } catch (error) {
         console.error("Error fetching cart items:", error);
+        setCartItems(0); // Fallback value
       }
     };
 
@@ -55,10 +59,15 @@ const NavbarN = () => {
       try {
         const response = await axios.get(`${API_URL}/wishlist`, {
           headers: { Authorization: `${token}` },
-        }); // Replace with your API URL
-        setWishlistItems(response.data.wishlistItemsCount); // Adjust according to API response
+        });
+
+        console.log("Wishlist API Response:", response.data.products); // Debugging
+
+        const count = response.data?.products?.length ?? 0; // Safely access wishlist length
+        setWishlistItems(count);
       } catch (error) {
         console.error("Error fetching wishlist items:", error);
+        setWishlistItems(0); // Fallback value
       }
     };
 
@@ -85,7 +94,6 @@ const NavbarN = () => {
         className="container-fluid"
         style={{ maxWidth: "100%", padding: "0", backgroundColor: "white" }}
       >
-        <HeaderTop />
         <hr className="handle_hr" />
         <div className="bottomNav">
           <div className="container d-none d-lg-block py-lg-3">
@@ -208,6 +216,9 @@ const NavbarN = () => {
                         <li className="list-inline-item">
                           <a className="hdr-shopping" href="/cart">
                             <CartIcon cartItems={cartItems} />
+                            {cartItems > 0 && (
+                              <span className="cart-count">{cartItems}</span>
+                            )}
                           </a>
                         </li>
                       </>

@@ -19,9 +19,10 @@ router.post(
   "/add",
   auth,
   role.check(ROLES.Admin, ROLES.Merchant),
-  upload.single("image"),
+  upload.array("images", 10), // Allow up to 10 images
   productController.addProduct
 );
+
 router.get("/filter/isActive", productController.filterByActive);
 // In your routes file
 router.get("/filter/:slug", productController.filterProductsByCategory);
@@ -30,9 +31,11 @@ router.get("/:id", productController.fetchProductById);
 router.put(
   "/:id",
   auth,
-  // role.check(ROLES.Admin, ROLES.Merchant),
+  role.check(ROLES.Admin, ROLES.Merchant),
+  upload.array("images", 10),
   productController.updateProduct
 );
+
 router.put(
   "/:id/active",
   auth,

@@ -77,26 +77,20 @@ const SingleProduct = ({ products }) => {
         return (
           <div key={product.id} className="col-md-6 col-xl-3">
             <div className="card">
-              <div className="card-body bg-light-subtle rounded-bottom">
-                {imageUrl ? (
-                  <img
-                    className="img-fluid"
-                    src={imageUrl}
-                    alt={product.name}
-                  />
-                ) : (
-                  <img
-                    className="img-fluid"
-                    src={placeholder}
-                    alt="Placeholder"
-                  />
-                )}
-              </div>
+              {imageUrl ? (
+                <img className="img-fluid" src={imageUrl} alt={product.name} />
+              ) : (
+                <img
+                  className="img-fluid"
+                  src={placeholder}
+                  alt="Placeholder"
+                />
+              )}
 
-              <div className="card-body item-body bg-light-subtle rounded-bottom">
+              <div className="card-body bg-light-subtle rounded-bottom">
                 <Link
                   to={`/product/${product.id}`}
-                  className="item-link d-flex flex-column h-100"
+                  className="text-dark fw-medium fs-16"
                 >
                   <span className="text-dark fw-medium fs-16">
                     {product.name}

@@ -28,14 +28,15 @@ const Cart = ({ handleRemoveFromCart, handleShopping, handleCheckout }) => {
       });
       console.log(response.data); // Log API response for debugging
 
-      // Extract the first cart object from the array
-      const cart = response.data.carts?.[0];
+      const cart = response.data.carts?.[0]; // Extract the first cart object
       if (!cart || !Array.isArray(cart.items)) {
         console.error("Cart is undefined or items are not an array.");
-        setCartItems([]); // Set an empty array if the cart is invalid
+        setCartItems([]); // Clear cart items if cart structure is invalid
+        setCartId(null); // Reset cartId to null
         return;
       }
 
+      // If cart and items are valid, map the items properly
       const items = cart.items.map((item) => ({
         ...item,
         products: {
@@ -48,7 +49,7 @@ const Cart = ({ handleRemoveFromCart, handleShopping, handleCheckout }) => {
 
       setCartItems(items);
       setCartTotal(cart.total || 0);
-      setCartId(cart.id);
+      setCartId(cart.id || null); // Ensure cartId is properly set
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }

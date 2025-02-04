@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../constants";
+import ProductImageUploader from "./ProductImageUploader";
 
 const ProductAdd = () => {
   const navigate = useNavigate();
@@ -20,12 +21,29 @@ const ProductAdd = () => {
     tax: "",
   });
   const [subcategories, setSubcategories] = useState([]);
-
   const [categories, setCategories] = useState([]);
-  const [images, setImages] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [error, setError] = useState(null);
 
-  // Fetch categories and product details
+  const token = localStorage.getItem("token");
+  console.log(token);
+  useEffect(() => {
+    if (formData.category) {
+      axios
+        .get(`${API_URL}/subcategory?categoryId=${formData.category}`)
+        .then((response) => {
+          console.log(response.data);
+          setSubcategories(response.data || []);
+        })
+        .catch((err) => {
+          console.error("Error fetching subcategories:", err);
+          setError("Failed to fetch subcategories.");
+        });
+    } else {
+      setSubcategories([]); // Reset subcategories when no category is selected
+    }
+  }, [formData.category]);
+
   useEffect(() => {
     // Fetch categories
     axios
@@ -38,7 +56,6 @@ const ProductAdd = () => {
         setError("Failed to fetch categories.");
       });
 
-    // If editing an existing product
     if (productId) {
       axios
         .get(`${API_URL}/product/${productId}`)
@@ -55,7 +72,7 @@ const ProductAdd = () => {
             discount: product.discount || "",
             tax: product.tax || "",
           });
-          setImages(product.images || []);
+          setUploadedImages(product.images || []);
         })
         .catch((err) => {
           console.error("Error fetching product details:", err);
@@ -63,39 +80,45 @@ const ProductAdd = () => {
         });
     }
   }, [productId]);
-  useEffect(() => {
-    if (formData.category) {
-      axios
-        .get(`${API_URL}/subcategory?categoryId=${formData.category.id}`) // Pass category ID as a query parameter
-        .then((response) => {
-          setSubcategories(response.data.subcategories || []);
-        })
-        .catch((err) => {
-          console.error("Error fetching subcategories:", err);
-          setSubcategories([]); // Clear subcategories if there's an error
-        });
-    } else {
-      setSubcategories([]); // Clear subcategories if no category is selected
-    }
-
-    // Reset subcategory field if the category changes
-    setFormData((prevData) => ({ ...prevData, subcategory: "" }));
-  }, [formData.category]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [id]: value }));
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+      ...(id === "category" ? { subcategory: "" } : {}), // Reset subcategory when category changes
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append("categoryId", formData.category);
+    formDataToSubmit.append("subcategoryId", formData.subcategory);
+    // Append form fields
+    Object.keys(formData).forEach((key) => {
+      formDataToSubmit.append(key, formData[key]);
+    });
+
+    // Append image files
+    uploadedImages.forEach((file) => formDataToSubmit.append("images", file));
+
     const token = localStorage.getItem("token");
+    console.log(token);
     const action = productId
-      ? axios.put(`${API_URL}/product/${productId}`, formData, {
-          headers: { Authorization: `${token}` },
+      ? axios.put(`${API_URL}/product/${productId}`, formDataToSubmit, {
+          headers: {
+            Authorization: `${token}`,
+            "Content-Type": "multipart/form-data",
+          },
         })
-      : axios.post(`${API_URL}/product/add`, formData, {
-          headers: { Authorization: `${token}` },
+      : axios.post(`${API_URL}/product/add`, formDataToSubmit, {
+          headers: {
+            Authorization: `${token}`,
+            "Content-Type": "multipart/form-data",
+          },
         });
 
     action
@@ -107,44 +130,18 @@ const ProductAdd = () => {
         setError("Failed to save product.");
       });
   };
+
   return (
     <div className="row">
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {/* Product Card */}
       <div className="col-xl-3 col-lg-4">
         <div className="card">
           <div className="card-body">
-            {images.length > 0 ? (
-              <div className="carousel">
-                {images.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img.url}
-                    alt={`Product Image ${index + 1}`}
-                    className="img-fluid rounded bg-light"
-                  />
-                ))}
-              </div>
-            ) : (
-              <img
-                src="assets/images/product/placeholder.png"
-                alt="Placeholder"
-                className="img-fluid rounded bg-light"
-              />
-            )}
             <div className="mt-3">
               <h4>{formData.name || "Product Name"}</h4>
               <h5 className="text-dark fw-medium mt-3">Price:</h5>
               <h4 className="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
-                <span className="text-muted text-decoration-line-through">
-                  {formData.discount
-                    ? `$${(
-                        formData.price *
-                        (1 + formData.discount / 100)
-                      ).toFixed(2)}`
-                    : ""}
-                </span>{" "}
                 ${formData.price}{" "}
                 {formData.discount && (
                   <small className="text-muted">
@@ -154,7 +151,6 @@ const ProductAdd = () => {
               </h4>
             </div>
           </div>
-
           <div className="card-footer bg-light-subtle">
             <div className="row g-2">
               <div className="col-lg-6">
@@ -162,7 +158,7 @@ const ProductAdd = () => {
                   onClick={handleSubmit}
                   className="btn btn-outline-secondary w-100"
                 >
-                  Create Product
+                  {productId ? "Update Product" : "Create Product"}
                 </button>
               </div>
               <div className="col-lg-6">
@@ -179,35 +175,11 @@ const ProductAdd = () => {
       </div>
 
       <div className="col-xl-9 col-lg-8">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Add Product Photo</h4>
-          </div>
-          <div class="card-body">
-            <form
-              class="dropzone"
-              id="myAwesomeDropzone"
-              data-plugin="dropzone"
-              data-previews-container="#file-previews"
-              data-upload-preview-template="#uploadPreviewTemplate"
-            >
-              <div class="fallback">
-                <input name="file" type="file" multiple />
-              </div>
-              <div class="dz-message needsclick">
-                <i class="bx bx-cloud-upload fs-48 text-primary"></i>
-                <h3 class="mt-4">
-                  Drop your images here, or{" "}
-                  <span class="text-primary">click to browse</span>
-                </h3>
-                <span class="text-muted fs-13">
-                  1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are
-                  allowed
-                </span>
-              </div>
-            </form>
-          </div>
-        </div>
+        <ProductImageUploader
+          existingImages={uploadedImages}
+          onImagesChange={setUploadedImages}
+        />
+
         {/* Product Photo and Form Section */}
         <div className="card">
           <div className="card-header">

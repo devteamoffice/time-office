@@ -6,6 +6,7 @@ import avatar from "../../assets/images/avatar.jpg";
 import { FaFileDownload } from "react-icons/fa";
 import Address from "./Address";
 import { API_URL } from "../../constants";
+import YourOrders from "./YourOrders";
 
 const AccountDetails = () => {
   const [userData, setUserData] = useState(null); // State to hold user data
@@ -85,65 +86,7 @@ const AccountDetails = () => {
         </div>
       </div>
 
-      <div className="card">
-        <div className="card-header border-bottom border-dashed">
-          <div className="d-flex align-items-center gap-2">
-            <div className="d-block">
-              <h4 className="card-title mb-1">Latest Invoice</h4>
-              <p className="mb-0 text-muted">
-                Total 234 file, 2.5GB space used
-              </p>
-            </div>
-            <div className="ms-auto">
-              <a href="#!" className="btn btn-primary btn-sm">
-                View All
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="card-body">
-          {["#INV2540", "#INV0914", "#INV3801", "#INV4782"].map(
-            (invoiceId, index) => (
-              <div
-                className="d-flex p-2 rounded align-items-center gap-2 bg-light-subtle mt-2"
-                key={index}
-              >
-                <div className="avatar bg-primary-subtle d-flex align-items-center justify-content-center rounded-circle">
-                  <FaFileDownload />
-                </div>
-                <div className="d-block">
-                  <a href="#!" className="text-dark fw-medium">
-                    Invoice Id {invoiceId}
-                  </a>
-                  <p className="text-muted mb-0 fs-13">
-                    {new Date().toLocaleDateString()}
-                  </p>
-                </div>
-                <div className="ms-auto text-end">
-                  <div className="dropdown">
-                    <a
-                      href="#"
-                      className="dropdown-toggle arrow-none card-drop p-0"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i className="ti ti-dots-vertical"></i>
-                    </a>
-                    <div className="dropdown-menu dropdown-menu-end">
-                      <a href="javascript:void(0);" className="dropdown-item">
-                        Download
-                      </a>
-                      <a href="javascript:void(0);" className="dropdown-item">
-                        Share
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )
-          )}
-        </div>
-      </div>
+      <YourOrders />
     </div>
   );
 };

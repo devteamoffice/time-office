@@ -50,15 +50,7 @@ exports.fetchStoreBrands = async (req, res) => {
 
 exports.fetchBrands = async (req, res) => {
   try {
-    let brands = null;
-
-    if (req.user.merchant) {
-      brands = await Brand.find({
-        merchant: req.user.merchant,
-      }).populate("merchant", "name");
-    } else {
-      brands = await Brand.find({}).populate("merchant", "name");
-    }
+    const brands = await Brand.findAll();
 
     res.status(200).json({
       brands,

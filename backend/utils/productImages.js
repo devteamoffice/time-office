@@ -1,7 +1,4 @@
-const fs = require("fs");
-const path = require("path");
-const { bucket } = require("./firebaseConfig");
-const Product = require("../models/product"); // Import the Product model
+const { bucket } = require("./firebaseConfig"); // Firebase bucket configuration
 
 const toSlug = (str) => {
   return str
@@ -44,35 +41,34 @@ const uploadImagesToFirebase = async (sku, files) => {
   const imageUrls = [];
   const firebaseFolderPath = `product_images/${toSlug(sku)}`;
 
-  // Ensure the folder exists in Firebase
+  // Create the folder if it doesn't exist
   await createFolderInFirebase(firebaseFolderPath);
 
+  // Upload files to Firebase and get URLs
   for (const file of files) {
-    const fileUploadPath = `${firebaseFolderPath}/${file.originalname}`;
-
-    // Check if the image already exists in Firebase
-    const fileExists = await doesFileExistInFirebase(fileUploadPath);
-
-    if (!fileExists) {
-      await new Promise((resolve, reject) => {
-        file.buffer
-          .pipe(
-            bucket.file(fileUploadPath).createWriteStream({
-              metadata: { contentType: file.mimetype },
-            })
-          )
-          .on("finish", resolve)
-          .on("error", reject);
-      });
-      console.log(`File ${fileUploadPath} uploaded successfully.`);
-    } else {
-      console.log(`File ${fileUploadPath} already exists. Skipping upload.`);
+    if (file.originalname.toLowerCase() === "thumbs.db") {
+      console.log("Skipping Thumbs.db file.");
+      continue; // Skip thumbs.db
     }
 
-    const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${
-      bucket.name
-    }/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
-    imageUrls.push(downloadUrl);
+    const fileUploadPath = `${firebaseFolderPath}/${Date.now()}_${
+      file.originalname
+    }`;
+    const firebaseFile = bucket.file(fileUploadPath);
+
+    try {
+      await firebaseFile.save(file.buffer, {
+        metadata: { contentType: file.mimetype },
+        predefinedAcl: "publicRead", // Make the file publicly accessible
+      });
+
+      const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${
+        bucket.name
+      }/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
+      imageUrls.push(downloadUrl);
+    } catch (error) {
+      console.error(`Error uploading file ${file.originalname}:`, error);
+    }
   }
 
   return imageUrls;

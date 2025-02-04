@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import { Link, useLocation, NavLink } from "react-router-dom";
-import navRoutes from "../../assets/data/navRoutes";
 import logo from "../../assets/images/logo/multi_color.png";
 import { AuthContext } from "../../context/Socket/AuthContext";
 import { publicRoutes } from "../../router/Routes";
 import { getLink, isRouteValid, isSubmenuActive } from "../../utils/navUtils";
-
+import navRoutes from "../../assets/data/navRoutes";
 const MainNav = () => {
   const location = useLocation();
   const { user } = useContext(AuthContext);

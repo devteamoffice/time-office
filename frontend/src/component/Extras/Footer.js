@@ -16,12 +16,12 @@ const Footer = () => {
                     <img src={logo} alt="" />
                   </div>
                   <p className="pt-2">
-                    e-Time Office Softech Pvt. Ltd. is a high tech company
-                    mainly focusing on Biometric Recognition Technology,
-                    Attendance Management Software, Cloud Based Attendance
-                    Solutions, access Control equipments, Power Supply Designing
-                    and Manufacturing, POE(Power on Ethernet)Switches, Hotel
-                    Locks, Biometric Villa Locks.
+                    Team Office Softech Pvt. Ltd. is a high tech company mainly
+                    focusing on Biometric Recognition Technology, Attendance
+                    Management Software, Cloud Based Attendance Solutions,
+                    access Control equipments, Power Supply Designing and
+                    Manufacturing, POE(Power on Ethernet)Switches, Hotel Locks,
+                    Biometric Villa Locks.
                   </p>
                 </div>
                 <div className="footer-2">
@@ -105,20 +105,6 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-4">
-                  <h2>Subscribe For More</h2>
-                  <div className="footer-input">
-                    <input
-                      type="text"
-                      name=""
-                      id=""
-                      placeholder="Enter Your Name"
-                    />
-                  </div>
-
-                  <div className="footer-input">
-                    <input type="text" name="" id="" placeholder="Subsribe" />
-                  </div>
-
                   <div className="copyFooter-right">
                     <p>Follow us: </p>
                     <div className="social-icon-new">
@@ -154,8 +140,8 @@ const Footer = () => {
               <div className="copyFooter-left">
                 <p>
                   All Rights Reserved. Designed and Developed By
-                  <a href="https://pickyvibe.com">
-                    <b> Picky Vibe LLP.</b>
+                  <a href="https://teamoffice.in">
+                    <b> Team Office Softech Private Limited.</b>
                   </a>
                 </p>
               </div>
