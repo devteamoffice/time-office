@@ -140,8 +140,8 @@ function ProductEdit() {
     formDataToSubmit.append("isActive", formData.isActive);
     formDataToSubmit.append("tax", formData.tax);
 
-    formData.images.forEach((image, index) => {
-      formDataToSubmit.append(`images[${index}]`, image.file, image.file.name);
+    formData.images.forEach((image) => {
+      formDataToSubmit.append("images", image.file, image.file.name); // Use "images" instead of "images[index]"
     });
 
     try {
@@ -161,8 +161,19 @@ function ProductEdit() {
       toast.success("Product updated successfully!");
       navigate("/product/list");
     } catch (err) {
-      console.error("Response Error:", err.response?.data || err);
-      toast.error(err.response?.data?.error || "An unexpected error occurred.");
+      // Log the error in more detail for debugging
+      console.error("Error during product update:", err);
+      if (err.response) {
+        // If there's a response from the server
+        console.error("Response Error Data:", err.response.data);
+        toast.error(
+          err.response.data?.error || "An unexpected error occurred."
+        );
+      } else {
+        // If no response (e.g., network error)
+        console.error("Network Error:", err.message || err);
+        toast.error("A network error occurred. Please try again later.");
+      }
     }
   };
 
