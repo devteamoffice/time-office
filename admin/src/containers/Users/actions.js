@@ -16,36 +16,35 @@ export const setUserLoading = (value) => {
   };
 };
 
-export const fetchUsers = (page) => {
-  return async (dispatch, getState) => {
+export const fetchUsers =
+  (page = 1) =>
+  async (dispatch) => {
     try {
       dispatch(setUserLoading(true));
 
       const token = localStorage.getItem("token");
-      console.log(token);
+
       if (!token) {
         throw new Error("Authorization token not found");
       }
 
       const response = await axios.get(`${API_URL}/user`, {
-        params: { page: page ?? 1, limit: 20 },
+        params: { page, limit: 20 },
         headers: {
           Authorization: `${token}`,
         },
       });
 
-      console.log("API Response:", response.data); // Log API response to check structure
-
       const { users, totalPages, currentPage, count } = response.data;
 
       dispatch({
         type: FETCH_USERS,
-        payload: users,
-      });
-
-      dispatch({
-        type: SET_ADVANCED_FILTERS,
-        payload: { totalPages, currentPage, count },
+        payload: {
+          users,
+          totalPages,
+          currentPage,
+          count, // Total customers count
+        },
       });
     } catch (error) {
       handleError(error, dispatch);
@@ -53,7 +52,6 @@ export const fetchUsers = (page) => {
       dispatch(setUserLoading(false));
     }
   };
-};
 
 // Action creator for setting loading state
 

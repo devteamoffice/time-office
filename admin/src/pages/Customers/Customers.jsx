@@ -1,25 +1,45 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Navigation from "../../components/Common/Navigation";
-import Actions from "../../components/Common/Actions";
 import CustomerCard from "../../components/Customers/CustomerCard";
-import CustomerItem from "../../components/Customers/CustomerItem";
 import ListTable from "../../components/Customers/ListTable";
 import { API_URL } from "../../constants";
+
 const Customers = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalCustomers, setTotalCustomers] = useState(0); // Dynamic total customers
-  const itemNo = 10; // Items per page
+  const [totalCustomers, setTotalCustomers] = useState(0);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const itemNo = 10;
+
+  // Replace with actual authentication token
+  const token = localStorage.getItem("token");
 
   // Fetch customers data
   const fetchCustomers = async (page) => {
+    setLoading(true);
+    setError(null);
+
     try {
-      const response = await fetch(
-        `${API_URL}/user?page=${page}&limit=${itemNo}`
-      );
-      const data = await response.json();
-      setTotalCustomers(data.count); // Using 'count' from API response
+      const response = await axios.get(`${API_URL}/user`, {
+        params: { page, limit: itemNo },
+        headers: {
+          Authorization: `${token}`, // Attach token here
+        },
+      });
+
+      if (!Array.isArray(response.data.users)) {
+        throw new Error("Invalid data format");
+      }
+
+      setUsers(response.data.users);
+      setTotalCustomers(response.data.count);
     } catch (error) {
-      console.error("Failed to fetch customers:", error);
+      setError("Failed to fetch customers");
+      console.error("API Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,38 +59,13 @@ const Customers = () => {
         <div className="col-xl-12">
           <div className="card">
             <div className="d-flex card-header justify-content-between align-items-center">
-              <div>
-                <h4 className="card-title">All Customers List</h4>
-              </div>
-              <div className="dropdown">
-                <a
-                  href="#"
-                  className="dropdown-toggle btn btn-sm btn-outline-light rounded"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  This Month
-                </a>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a href="#!" className="dropdown-item">
-                    Download
-                  </a>
-                  <a href="#!" className="dropdown-item">
-                    Export
-                  </a>
-                  <a href="#!" className="dropdown-item">
-                    Import
-                  </a>
-                </div>
-              </div>
+              <h4 className="card-title">All Customers List</h4>
             </div>
-            <div>
-              <div className="table-responsive">
-                <ListTable currentPage={currentPage} itemNo={itemNo} />
-              </div>
+            <div className="table-responsive">
+              <ListTable users={users} loading={loading} error={error} />
             </div>
             <Navigation
-              totalItems={totalCustomers} // Use API's 'count'
+              totalItems={totalCustomers}
               itemNo={itemNo}
               onPageChange={handlePageChange}
             />
