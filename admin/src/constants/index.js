@@ -5,11 +5,11 @@ export const API_URL =
 export const API = "https://time-office.onrender.com/api";
 export const SOCKET_URL =
   window.location.host.indexOf("localhost") >= 0
-    ? "https://time-office.vercel.app"
+    ? "https://teamoffice.in"
     : window.location.host;
 export const APP_URL =
   process.env.NODE_ENV === "production"
-    ? "https://time-office.vercel.app"
+    ? "https://teamoffice.in"
     : "http://localhost:3000";
 export const ROLES = {
   Admin: "ROLE ADMIN",
